@@ -1,0 +1,83 @@
+[
+    {
+        "identification": {
+            "machineType": null,
+            "machineID": 0,
+            "suitableCargoType": [],
+            "suitableAreas": [],
+            "owner": null,
+            "comments": []
+        },
+        "specifications": {
+            "default": {
+                "throughput": {
+                    "onSpot": 2,
+                    "moving": {
+                        "capacity": 1,
+                        "speed": 15
+                    }
+                },
+                "consumption": [
+                    {
+                        "energyType": "petroleum",
+                        "consumptionOnTime": 10
+                    }
+                ],
+                "emissions": null
+            },
+            "empty": {
+                "throughput": {
+                    "onSpot": null,
+                    "moving": {
+                        "capacity": null,
+                        "speed": 30
+                    }
+                },
+                "consumption": [
+                    {
+                        "energyType": "petroleum",
+                        "consumptionOnTime": 5
+                    }
+                ],
+                "emissions": null
+            },
+            "butadiene": {
+                "throughput": {
+                    "onSpot": 5,
+                    "moving": {
+                        "capacity": 3,
+                        "speed": 25
+                    }
+                },
+                "consumption": [
+                    {
+                        "energyType": "petroleum",
+                        "consumptionOnTime": 7
+                    }
+                ],
+                "emissions": 10
+            }
+        },
+        "constraints": {
+            "unavailablePeriods": [
+                {
+                    "startTS": null,
+                    "endTS": null,
+                    "wording": null
+                }
+            ],
+            "workingHours": {
+                "default": {
+                    "startingTime": null,
+                    "endingTime": null
+                },
+                "list": []
+            },
+            "weatherLimits": {
+                "wind": null,
+                "rainfall": null,
+                "temperature": null
+            }
+        }
+    }
+]

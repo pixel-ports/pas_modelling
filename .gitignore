@@ -1,0 +1,5 @@
+__pycache__/
+.vscode/
+activities_queue.json
+PAS.json
+cargoes_queue.json

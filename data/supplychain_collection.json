@@ -1,0 +1,37 @@
+[
+    {
+        "identification":{
+            "name": "defaultSupplychain",
+            "terminal": [""],
+            "operator": [""],
+            "suitableCargoType": [""],
+            "suitableAreas": [""],
+            "priority": -1,
+            "comments": []
+        },
+        "operationsSequence": []
+    },
+    {
+        "identification":{
+            "name": "firstSupplychain",
+            "terminal": [],
+            "operator": [],
+            "suitableCargoType": ["slag"],
+            "suitableAreas": [],
+            "priority": null,
+            "comments": []
+        },
+        "operationsSequence": [
+            {
+                "title": null,
+                "start": {
+                    "type": "fixedDelay",
+                    "value": 120000
+                },
+                "distance": 0,
+                "machinesID": 2,
+                "endType": null
+            }
+        ]
+    }
+]

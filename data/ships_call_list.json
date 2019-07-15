@@ -1,0 +1,71 @@
+[
+    {
+        "ship": {
+            "shipId": 0,
+            "arrivingTime": 1562924315,
+            "berthAllocation": null
+        },
+        "cargo": {
+            "category": "cereal",
+            "type": "slag",
+            "amount": 10,
+            "availabilityTS": 3600
+        },
+        "constraint": {
+            "priority": 0,
+            "departureTime": null,
+            "weather": null,
+            "operator": null
+        },
+        "logs": {
+            "comments": [],
+            "modifications": []
+        }
+    },
+    {
+        "ship": {
+            "shipId": 1,
+            "arrivingTime": 1562924320,
+            "berthAllocation": null
+        },
+        "cargo": {
+            "category": "solidBulk",
+            "type": "slag",
+            "amount": 100,
+            "availabilityTS": 600
+        },
+        "constraint": {
+            "priority": 0,
+            "departureTime": 1563010715,
+            "weather": null,
+            "operator": null
+        },
+        "logs": {
+            "comments": ["Trying the departureTime property.\nAnd the comment one also."],
+            "modifications": []
+        }
+    },
+    {
+        "ship": {
+            "shipId": 2,
+            "arrivingTime": 1562924420,
+            "berthAllocation": null
+        },
+        "cargo": {
+            "category": "solidBulk",
+            "type": "butadiene",
+            "amount": 50,
+            "availabilityTS": null
+        },
+        "constraint": {
+            "priority": 2,
+            "departureTime": null,
+            "weather": null,
+            "operator": null
+        },
+        "logs": {
+            "comments": [],
+            "modifications": []
+        }
+    }
+]
