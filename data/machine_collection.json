@@ -1,9 +1,9 @@
 [
     {
         "identification": {
-            "machineType": null,
+            "machineType": "forklift",
             "machineID": 0,
-            "suitableCargoType": [],
+            "suitableCargoType": ["cereal", "wheat"],
             "suitableAreas": [],
             "owner": null,
             "comments": []
@@ -41,11 +41,27 @@
                 ],
                 "emissions": null
             },
-            "butadiene": {
+            "cereal": {
                 "throughput": {
                     "onSpot": 5,
                     "moving": {
                         "capacity": 3,
+                        "speed": 25
+                    }
+                },
+                "consumption": [
+                    {
+                        "energyType": "petroleum",
+                        "consumptionOnTime": 7
+                    }
+                ],
+                "emissions": 10
+            },
+            "wheat": {
+                "throughput": {
+                    "onSpot": 5,
+                    "moving": {
+                        "capacity": 20,
                         "speed": 25
                     }
                 },
@@ -61,15 +77,80 @@
         "constraints": {
             "unavailablePeriods": [
                 {
-                    "startTS": null,
-                    "endTS": null,
+                    "startTS": 1546522715,
+                    "endTS": 1546609115,
                     "wording": null
                 }
             ],
             "workingHours": {
                 "default": {
-                    "startingTime": null,
-                    "endingTime": null
+                    "startingTime": "0 0 * * *",
+                    "endingTime": "59 23 * * *"
+                },
+                "list": []
+            },
+            "weatherLimits": {
+                "wind": null,
+                "rainfall": null,
+                "temperature": null
+            }
+        }
+    },
+    {
+        "identification": {
+            "machineType": "crane",
+            "machineID": 1,
+            "suitableCargoType": ["corn", "wheat", "rice"],
+            "suitableAreas": [],
+            "owner": null,
+            "comments": []
+        },
+        "specifications": {
+            "default": {
+                "throughput": {
+                    "onSpot": 50,
+                    "moving": {
+                        "capacity": null,
+                        "speed": null
+                    }
+                },
+                "consumption": [
+                    {
+                        "energyType": "petroleum",
+                        "consumptionOnTime": 10
+                    }
+                ],
+                "emissions": null
+            },
+            "empty": {
+                "throughput": {
+                    "onSpot": null,
+                    "moving": {
+                        "capacity": null,
+                        "speed": null
+                    }
+                },
+                "consumption": [
+                    {
+                        "energyType": "petroleum",
+                        "consumptionOnTime": 5
+                    }
+                ],
+                "emissions": null
+            }
+        },
+        "constraints": {
+            "unavailablePeriods": [
+                {
+                    "startTS": 1550410715,
+                    "endTS": 1550497115,
+                    "wording": null
+                }
+            ],
+            "workingHours": {
+                "default": {
+                    "startingTime": "0 8 * * *",
+                    "endingTime": "0 16 * * *"
                 },
                 "list": []
             },

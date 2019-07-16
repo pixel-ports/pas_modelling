@@ -1,5 +1,7 @@
 from typing import Dict, List, Any
 
+from elements.Supplychain import Supplychain
+
 class Cargo:
     
     def __init__(self, data):
@@ -16,23 +18,20 @@ class Cargo:
     def produce_many(cargo_dict_list : List[Dict[str, Any]]) -> List["Cargo"]:
         return [Cargo.produce_one(cargo_dict) for cargo_dict in cargo_dict_list]
 
-    def map_supplychain(self, supplychains):
-        filtered_supplychains = [sc for sc in supplychains if sc.identification["suitableCargoType"] == self.cargo["type"]]
+    def map_supplychain(self, supplychains) -> (Supplychain, str):
+        filtered_supplychains: List[Supplychain] = [sc for sc in supplychains if (self.cargo["type"] in sc.identification["suitableCargoType"])]
+
+        selected_supplychain: Supplychain = None  # Default if no supplychain is matched
+        mapping_type: str = "default"
         
         if len(filtered_supplychains) == 1:
             selected_supplychain = filtered_supplychains[0]
             mapping_type = "direct"
-        elif len(filtered_supplychains) == 0:
-            selected_supplychain = None
-            mapping_type = "default"
-        else:  # More than 1 supplychain can be selected
-            max_priority = max([sc.identification["priority"] for sc in filtered_supplychains])
-            max_priority_chains = [sc for sc in filtered_supplychains if sc.identification["priority"] == max_priority]
+        elif len(filtered_supplychains)>1:
+            max_priority: int = max([sc.identification["priority"] for sc in filtered_supplychains])
+            max_priority_chains: List[Supplychain] = [sc for sc in filtered_supplychains if sc.identification["priority"] == max_priority]
             if len(max_priority_chains) == 1:
                 selected_supplychain = max_priority_chains[0]
                 mapping_type = "priorized"
-            else:
-                selected_supplychain = None
-                mapping_type = "default"
         
         return selected_supplychain, mapping_type

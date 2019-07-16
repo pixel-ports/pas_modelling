@@ -1,13 +1,13 @@
 [
     {
         "ship": {
-            "shipId": 0,
+            "shipID": 0,
             "arrivingTime": 1562924315,
             "berthAllocation": null
         },
         "cargo": {
             "category": "cereal",
-            "type": "slag",
+            "type": "corn",
             "amount": 10,
             "availabilityTS": 3600
         },
@@ -24,13 +24,13 @@
     },
     {
         "ship": {
-            "shipId": 1,
+            "shipID": 1,
             "arrivingTime": 1562924320,
             "berthAllocation": null
         },
         "cargo": {
-            "category": "solidBulk",
-            "type": "slag",
+            "category": "cereal",
+            "type": "wheat",
             "amount": 100,
             "availabilityTS": 600
         },
@@ -47,13 +47,13 @@
     },
     {
         "ship": {
-            "shipId": 2,
+            "shipID": 2,
             "arrivingTime": 1562924420,
             "berthAllocation": null
         },
         "cargo": {
-            "category": "solidBulk",
-            "type": "butadiene",
+            "category": "cereal",
+            "type": "rice",
             "amount": 50,
             "availabilityTS": null
         },

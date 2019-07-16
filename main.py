@@ -4,18 +4,22 @@ from elements.Machine import Machine
 from elements.Supplychain import Supplychain
 from elements.Port import Port
 
+from typing import List, Dict
+
 if __name__ == "__main__":
 
-    with open("ships_call_list.json","r") as f:
-        data = json.loads(f.read())
-    ships = Cargo.produce_many(data)
+    with open("data/ships_call_list.json","r") as f:
+        data: Dict = json.loads(f.read())
+    ships: List[Cargo] = Cargo.produce_many(data)
     
-    with open("supply-chain_collection.json", "r") as f:
-        data = json.loads(f.read())
-    supplychains = Supplychain.produce_many(data)
+    with open("data/supplychain_collection.json", "r") as f:
+        data: Dict = json.loads(f.read())
+    supplychains: List[Supplychain] = Supplychain.produce_many(data)
 
-    with open("machine_collection.json","r") as f:
-        data = json.loads(f.read())
-    machines = Machine.produce_many(data)
+    with open("data/machine_collection.json","r") as f:
+        data: Dict = json.loads(f.read())
+    machines: List[Machine] = Machine.produce_many(data)
 
-port = Port(ships, machines, supplychains)
+port: Port = Port(ships, machines, supplychains)
+port.build_pas()
+port.export_pas("pas.json")

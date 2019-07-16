@@ -2,34 +2,73 @@
     {
         "identification":{
             "name": "defaultSupplychain",
-            "terminal": [""],
-            "operator": [""],
-            "suitableCargoType": [""],
-            "suitableAreas": [""],
-            "priority": -1,
-            "comments": []
-        },
-        "operationsSequence": []
-    },
-    {
-        "identification":{
-            "name": "firstSupplychain",
-            "terminal": [],
-            "operator": [],
-            "suitableCargoType": ["slag"],
+            "terminal": null,
+            "operator": null,
+            "suitableCargoType": [],
             "suitableAreas": [],
-            "priority": null,
+            "priority": -1,
             "comments": []
         },
         "operationsSequence": [
             {
-                "title": null,
-                "start": {
-                    "type": "fixedDelay",
-                    "value": 120000
-                },
+                "name": "raise",
+                "id": 0,
+                "start": null,
                 "distance": 0,
-                "machinesID": 2,
+                "machineID": 1,
+                "endType": null
+            },
+            {
+                "name": "transport",
+                "id": 1,
+                "start": null,
+                "distance": 10,
+                "machineID": 0,
+                "endType": null
+            },
+            {
+                "name": "drop",
+                "id": 2,
+                "start": null,
+                "distance": 0,
+                "machineID": 1,
+                "endType": null
+            }
+        ]
+    },
+    {
+        "identification":{
+            "name": "transportToTheOtherSideOfTheTerminal",
+            "terminal": [""],
+            "operator": [""],
+            "suitableCargoType": ["wheat", "rice"],
+            "suitableAreas": [""],
+            "priority": -1,
+            "comments": []
+        },
+        "operationsSequence": [
+            {
+                "name": "raise",
+                "id": 3,
+                "start": null,
+                "distance": 0,
+                "machineID": 1,
+                "endType": null
+            },
+            {
+                "name": "transport",
+                "id": 4,
+                "start": null,
+                "distance": 30,
+                "machineID": 0,
+                "endType": null
+            },
+            {
+                "name": "drop",
+                "id": 5,
+                "start": null,
+                "distance": 0,
+                "machineID": 1,
                 "endType": null
             }
         ]
