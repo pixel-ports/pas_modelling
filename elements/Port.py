@@ -19,6 +19,8 @@ class Port():
         self.machine_set: Set(Machine) = None
         self.pas: Dict[str, Any] = None
 
+    """Construct the PAS dictionnary
+    """
     def build_pas(self) -> None:
         self.cargoes = self.step_1()
         self.activities = self.step_2()
@@ -28,14 +30,29 @@ class Port():
     def get_machine(self, id: int) -> Machine:
         return next((machine for machine in self.machines if machine.identification["machineID"] == id), None)
 
+    """Assert that there is a default supplychain defined for the port and return it
+    
+    Returns:
+        Supplychain -- The default Supplychain
+    """
     def get_default_supplychain(self) -> Supplychain:
         default_supplychains = [sc for sc in self.supplychains if sc.identification["name"] == "defaultSupplychain"]
         assert len(default_supplychains) <= 1, "There couldn't be more than one default supplychain"
         return default_supplychains[0] if len(default_supplychains)==1 else None
     
+    """Sort cargoes according to their priority
+    
+    Returns:
+        List[Cargo] -- The ordered list of cargoes
+    """
     def step_1(self) -> List[Cargo]:
         return sorted(self.cargoes, key=lambda x: -x.constraint["priority"])
 
+    """Pair cargoes and supplychains
+    
+    Returns:
+        List[Activity] -- The activity list pairing cargoes and supplychains
+    """
     def step_2(self) -> List[Activity]:
         activities: List[Activity] = []
 
@@ -57,6 +74,11 @@ class Port():
             }))
         return activities
 
+    """Build the machines timestamps that are used for the processing of the cargoes for the port
+    
+    Returns:
+        Set[Machine] -- The set of Machines involved
+    """
     def step_3(self) -> Set[Machine]:
         machine_set: Set[Machine] = set()
         for activity in self.activities:
@@ -89,7 +111,12 @@ class Port():
                 machine_set.add(machine)
         return machine_set
 
-    def generate_PAS(self) -> None:
+    """Create the PAS dictionnary
+    
+    Returns:
+        Dict -- The PAS dictionnary
+    """
+    def generate_PAS(self) -> Dict:
         pas: Dict = {
             "metadata": {
                 "pasID": str(uuid.uuid4()),
@@ -115,6 +142,8 @@ class Port():
 
         return pas
 
+    """Save PAS to file
+    """
     def export_pas(self, filepath: str) -> None:
         with open(filepath, "w") as f:
             f.write(json.dumps(self.pas, indent=4))

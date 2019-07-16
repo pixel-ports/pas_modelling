@@ -20,6 +20,6 @@ if __name__ == "__main__":
         data: Dict = json.loads(f.read())
     machines: List[Machine] = Machine.produce_many(data)
 
-port: Port = Port(ships, machines, supplychains)
-port.build_pas()
-port.export_pas("pas.json")
+    port: Port = Port(ships, machines, supplychains)
+    port.build_pas()
+    port.export_pas("pas.json")
