@@ -13,7 +13,10 @@
             {
                 "name": "raise",
                 "id": 0,
-                "start": null,
+                "startOption": {
+                    "type" : "fixedDelay",
+                    "value": 100
+                },
                 "distance": 0,
                 "machineID": 1,
                 "endType": null
@@ -21,7 +24,10 @@
             {
                 "name": "transport",
                 "id": 1,
-                "start": null,
+                "startOption": {
+                    "type": "afterOperation",
+                    "value": 0
+                },
                 "distance": 10,
                 "machineID": 0,
                 "endType": null
@@ -29,7 +35,10 @@
             {
                 "name": "drop",
                 "id": 2,
-                "start": null,
+                "startOption": {
+                    "type": "afterOperation",
+                    "value": 1
+                },
                 "distance": 0,
                 "machineID": 1,
                 "endType": null
@@ -50,7 +59,10 @@
             {
                 "name": "raise",
                 "id": 3,
-                "start": null,
+                "startOption": {
+                    "type": "fixedDelay",
+                    "value": 100
+                },
                 "distance": 0,
                 "machineID": 1,
                 "endType": null
@@ -58,7 +70,11 @@
             {
                 "name": "transport",
                 "id": 4,
-                "start": null,
+                "startOption": {
+                    "type": "afterOperation",
+                    "value": 3
+                },
+                "fixedDelay": 0,
                 "distance": 30,
                 "machineID": 0,
                 "endType": null
@@ -66,7 +82,10 @@
             {
                 "name": "drop",
                 "id": 5,
-                "start": null,
+                "startOption": {
+                    "type": "afterOperation",
+                    "value": 4
+                },
                 "distance": 0,
                 "machineID": 1,
                 "endType": null

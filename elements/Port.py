@@ -84,11 +84,13 @@ class Port():
         for activity in self.activities:
             cargo: Cargo = activity.pair["cargo"]
             startingTS: int = cargo.ship["arrivingTime"]  # TODO Implement setup duration
-            for operation in activity.pair["supplychain"].operationsSequence:
+            supplychain: Supplychain = activity.pair["supplychain"]
+            for operation in supplychain.operationsSequence:
                 machine: Machine = self.get_machine(operation["machineID"])
-                throughput_operation: float = machine.get_throughput(cargo.cargo["type"], operation["distance"])
-                duration_use: int = cargo.cargo["amount"]/throughput_operation
+                operation["throughput"]: float = machine.get_throughput(cargo.cargo["type"], operation["distance"])
+                duration_use: int = cargo.cargo["amount"]/operation["throughput"]
 
+                startingTS = supplychain.adjust_starting_ts(operation, startingTS)
                 endingTS: int = startingTS + duration_use  # TODO Implement other operations specific durations
                 startingTS, endingTS = machine.get_next_available_TS(startingTS, endingTS)
                 machine.add_unavailable_period(startingTS, endingTS)
@@ -97,7 +99,7 @@ class Port():
                 operation["startingTS"] = startingTS
                 operation["endingTS"] = endingTS
 
-                startingTS: int = operation["endingTS"]  # For next loop
+                startingTS = operation["endingTS"]  # For next loop
 
                 machine.add_use(
                     operation["startingTS"],
