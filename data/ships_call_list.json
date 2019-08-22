@@ -1,17 +1,18 @@
 [
     {
-        "ship": {
-            "shipID": 0,
-            "arrivingTime": 1562924315,
-            "berthAllocation": null
-        },
-        "cargo": {
-            "category": "cereal",
-            "type": "corn",
-            "amount": 10,
-            "availabilityTS": 3600
-        },
-        "constraint": {
+        "id": 0,
+        "arrivingTime": 1562924315,
+        "berthAllocation": null,
+        "cargoes": [
+            {
+                "id": 0,
+                "category": "cereal",
+                "type": "corn",
+                "amount": 10,
+                "availabilityTS": 3600
+            }
+        ],
+        "constraints": {
             "priority": 0,
             "departureTime": null,
             "weather": null,
@@ -23,18 +24,19 @@
         }
     },
     {
-        "ship": {
-            "shipID": 1,
-            "arrivingTime": 1562924320,
-            "berthAllocation": null
-        },
-        "cargo": {
-            "category": "cereal",
-            "type": "wheat",
-            "amount": 100,
-            "availabilityTS": 600
-        },
-        "constraint": {
+        "id": 1,
+        "arrivingTime": 1562924320,
+        "berthAllocation": null,
+        "cargoes": [
+            {
+                "id": 1,
+                "category": "cereal",
+                "type": "wheat",
+                "amount": 100,
+                "availabilityTS": 600
+            }
+        ],
+        "constraints": {
             "priority": 0,
             "departureTime": 1563010715,
             "weather": null,
@@ -46,18 +48,19 @@
         }
     },
     {
-        "ship": {
-            "shipID": 2,
-            "arrivingTime": 1562924420,
-            "berthAllocation": null
-        },
-        "cargo": {
-            "category": "cereal",
-            "type": "rice",
-            "amount": 50,
-            "availabilityTS": null
-        },
-        "constraint": {
+        "id": 2,
+        "arrivingTime": 1562924420,
+        "berthAllocation": null,
+        "cargoes": [
+            {
+                "id": 2,
+                "category": "cereal",
+                "type": "rice",
+                "amount": 50,
+                "availabilityTS": null
+            }
+        ],
+        "constraints": {
             "priority": 2,
             "departureTime": null,
             "weather": null,

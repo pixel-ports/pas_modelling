@@ -1,8 +1,8 @@
 [
     {
         "identification": {
-            "machineType": "forklift",
-            "machineID": 0,
+            "type": "forklift",
+            "id": 0,
             "suitableCargoType": ["cereal", "wheat"],
             "suitableAreas": [],
             "owner": null,
@@ -98,8 +98,8 @@
     },
     {
         "identification": {
-            "machineType": "crane",
-            "machineID": 1,
+            "type": "crane",
+            "id": 1,
             "suitableCargoType": ["corn", "wheat", "rice"],
             "suitableAreas": [],
             "owner": null,

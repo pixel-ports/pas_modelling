@@ -7,6 +7,7 @@ from elements.Activity import Activity
 import uuid
 import time
 import json
+import os
 from typing import List, Dict, Set, Any
 
 class Port():
@@ -16,19 +17,50 @@ class Port():
         self.machines: List[Machine] = machines
         self.supplychains: List[Supplychain] = supplychains
         self.activities: List[Activity] = None
-        self.machine_set: Set(Machine) = None
+        self.machines_set: Set(Machine) = None
         self.pas: Dict[str, Any] = None
+
+    def execute_step(self, step: int) -> None:
+        if step == 1:
+            self.cargoes = self.step_1()
+            print("Gonna export cargoes")
+            self.export_to_json([cargo.toJSON() for cargo in self.cargoes], os.getenv("CARGOES_QUEUE"))
+        elif step > 1:
+            with open(os.getenv("CARGOES_QUEUE"),"r") as f:
+                data: Dict = json.loads(f.read())
+            self.cargoes = Cargo.produce_many(data)
+
+        if step == 2:
+            self.activities = self.step_2()
+            print("Gonna export activities")
+            self.export_to_json([activity.toJSON() for activity in self.activities], os.getenv("ACTIVITIES_QUEUE"))
+        elif step > 2:
+            with open(os.getenv("ACTIVITIES_QUEUE"),"r") as f:
+                data: Dict = json.loads(f.read())
+            self.activities = Activity.produce_many(data)
+
+        if step == 3:
+            self.machines_set = self.step_3()
+            self.export_to_json([machine.toJSON() for machine in self.machines_set], os.getenv("MACHINES_SET"))
+        elif step > 3:
+            with open(os.getenv("MACHINES_SET"),"r") as f:
+                data: Dict = json.loads(f.read())
+            self.machines_set = Machine.produce_many(data)
+
+        if step >= 4:
+            self.pas = self.generate_PAS()
+            self.export_to_json(self.pas, os.getenv("PORT_ACTIVITY_SCENARIO"))
 
     """Construct the PAS dictionnary
     """
     def build_pas(self) -> None:
-        self.cargoes = self.step_1()
-        self.activities = self.step_2()
-        self.machine_set = self.step_3()
-        self.pas = self.generate_PAS()
+        self.execute_step(1)
+        self.execute_step(2)
+        self.execute_step(3)
+        self.execute_step(4)
 
     def get_machine(self, id: int) -> Machine:
-        return next((machine for machine in self.machines if machine.identification["machineID"] == id), None)
+        return next((machine for machine in self.machines if machine.identification["id"] == id), None)
 
     """Assert that there is a default supplychain defined for the port and return it
     
@@ -63,8 +95,8 @@ class Port():
 
             activities.append(Activity.produce_one({
                 "pair": {
-                    "cargo": cargo,
-                    "supplychain": selected_supplychain,
+                    "cargoId": cargo.id,
+                    "supplychainId": selected_supplychain,
                     "mappingType": mapping_type
                 },
                 "logs": {
@@ -80,13 +112,13 @@ class Port():
         Set[Machine] -- The set of Machines involved
     """
     def step_3(self) -> Set[Machine]:
-        machine_set: Set[Machine] = set()
+        machines_set: Set[Machine] = set()
         for activity in self.activities:
             cargo: Cargo = activity.pair["cargo"]
             startingTS: int = cargo.ship["arrivingTime"]  # TODO Implement setup duration
             supplychain: Supplychain = activity.pair["supplychain"]
             for operation in supplychain.operationsSequence:
-                machine: Machine = self.get_machine(operation["machineID"])
+                machine: Machine = self.get_machine(operation["machineId"])
                 operation["throughput"]: float = machine.get_throughput(cargo.cargo["type"], operation["distance"])
                 duration_use: int = cargo.cargo["amount"]/operation["throughput"]
 
@@ -110,8 +142,8 @@ class Port():
                     activity.pair["cargo"]
                 )
 
-                machine_set.add(machine)
-        return machine_set
+                machines_set.add(machine)
+        return machines_set
 
     """Create the PAS dictionnary
     
@@ -139,13 +171,15 @@ class Port():
             "timeseries": []
         }
 
-        for machine in self.machine_set:
+        for machine in self.machines_set:
             pas["timeseries"].append(machine.get_timeserie())
 
         return pas
 
-    """Save PAS to file
+    """Save object to file
     """
-    def export_pas(self, filepath: str) -> None:
+    def export_to_json(self, obj, filepath: str) -> None:
+        print(type(obj[0]))
+        print(obj)
         with open(filepath, "w") as f:
-            f.write(json.dumps(self.pas, indent=4))
+            f.write(json.dumps(obj, indent=4))

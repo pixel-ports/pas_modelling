@@ -18,7 +18,7 @@
                     "value": 100
                 },
                 "distance": 0,
-                "machineID": 1,
+                "machineId": 1,
                 "endType": null
             },
             {
@@ -29,7 +29,7 @@
                     "value": 0
                 },
                 "distance": 10,
-                "machineID": 0,
+                "machineId": 0,
                 "endType": null
             },
             {
@@ -40,7 +40,7 @@
                     "value": 1
                 },
                 "distance": 0,
-                "machineID": 1,
+                "machineId": 1,
                 "endType": null
             }
         ]
@@ -64,7 +64,7 @@
                     "value": 100
                 },
                 "distance": 0,
-                "machineID": 1,
+                "machineId": 1,
                 "endType": null
             },
             {
@@ -76,7 +76,7 @@
                 },
                 "fixedDelay": 0,
                 "distance": 30,
-                "machineID": 0,
+                "machineId": 0,
                 "endType": null
             },
             {
@@ -87,7 +87,7 @@
                     "value": 4
                 },
                 "distance": 0,
-                "machineID": 1,
+                "machineId": 1,
                 "endType": null
             }
         ]
