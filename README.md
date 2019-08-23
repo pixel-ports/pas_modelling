@@ -4,13 +4,14 @@ This repository implements the PAS modelling presented in the MTC paper : https:
 
 ## Getting started
 
-Install pipenv globally :
+On linux, run the following commands in order to get started :
 
 ```bash
-sudo pip install pipenv
+sudo pip install pipenv  # installs pipenv globally
+pipenv install  # installs the required dependencies
+git config core.hooksPath .githooks  # defines project git hooks folder
 ```
-
-Update files in `data/` according to your port needs or leave them as they are, then start the process :
+Then update files in `data/` according to your port needs or leave them as they are, then start the process :
 
 ```bash
 pipenv run python main.py
