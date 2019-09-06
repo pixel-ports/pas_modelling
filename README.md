@@ -17,6 +17,15 @@ Then update files in `data/` according to your port needs or leave them as they 
 pipenv run python main.py
 ```
 
+You can add the the option `--step 1` if you want to run only the first step. Available steps are `1`, `2` and `3`.
+
+## Generate fake data for demonstration
+
+```bash
+pipenv run python tools/fake_pas_generation.py
+pipenv run jupyter-notebook tools/demonstration.ipynb
+```
+
 ## Changes from the paper
 
 Here is what needs to be changed :

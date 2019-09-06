@@ -5,12 +5,13 @@ verify_ssl = true
 
 [dev-packages]
 pylint = "*"
-jupyterlab = "*"
 black = "*"
 
 [packages]
 pandas = "*"
 numpy = "*"
+jupyter = "*"
+matplotlib = "*"
 
 [requires]
 python_version = "3.6"
