@@ -1,0 +1,41 @@
+{
+	"MAPPER_Rules":[
+		{
+			"CargoType":[
+				{"CEREAL":
+					["Ble_Vrac", "Mais_Vrac", "Cereales_Mixtes_Vrac"]
+				}
+			],
+			"UnloadingImport_Preferences":[
+				{"q419":["sc_Ble_Imp_2"]},
+				{"q432":["sc_Cereale_SPBL_Import", "sc_Cereale_SPBL_Import_secours"]}
+			],
+			"LoadingExport_Preferences":[
+				{"q432":["sc_Cereale_SPBL_Export"]},
+				{"q411":["sc_Ble_Exp_1"]}
+			]
+		}
+	],
+	"METADATA": {
+		"COMMENTS":[
+			{
+				"TS":1566475200,
+				"Text":"Mon commentaire.",
+				"Autor":"Jean Serien"
+			}
+		],
+		"HISTORY":[
+			{
+				"TS":1566475200,
+				"Author":"Jean Serien",
+				"MODIFICATION":[
+					{
+						"Key":null,
+						"Previous_Value":null
+					}
+				]
+								
+			}
+		]
+	}
+}

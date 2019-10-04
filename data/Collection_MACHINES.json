@@ -1,0 +1,236 @@
+{
+	"PORTIQUE_Centrale_hydraulique":{
+		"IDENTIFICATION":{
+			"MachineType":"Générateur",
+			"Operator_ID":"SPBL",
+			"Picture":"uri",
+			"HS?(SUITABILITY)":{}
+		},
+		"SPECIFICATION":{
+			"Throughput":{},
+			"Speed":{},
+			"CONSUMPTION":{
+				"Electricity":{
+					"Power (kWh)": 18,
+					"Intensity (A)": 26
+				},
+				"Fossil":{}
+			},
+			"EMISSIONS":{}
+		},
+		"USABILITY":{},
+		"METADATA": {
+			"COMMENTS":[],
+			"HISTORY":[]
+		}
+	},
+	"PORTIQUE_Treuil_réel":{
+		"IDENTIFICATION":{
+			"MachineType":"Vertical",
+			"Operator_ID":"SPBL",
+			"Picture":"uri",
+			"HS?(SUITABILITY)":{}
+		},
+		"SPECIFICATION":{
+			"Throughput":{},
+			"Speed":{},
+			"CONSUMPTION":{
+				"Electricity":{
+					"Power (kWh)": 55,
+					"Intensity (A)": 60
+				},
+				"Fossil":{}
+			},
+			"EMISSIONS":{}
+		},
+		"USABILITY":{},
+		"METADATA": {
+			"COMMENTS":[],
+			"HISTORY":[]
+		}
+	},
+	"PORTIQUE_Treuil_télescopique":{
+		"IDENTIFICATION":{
+			"MachineType":"Vertical",
+			"Operator_ID":"SPBL",
+			"Picture":"uri",
+			"HS?(SUITABILITY)":{}
+		},
+		"SPECIFICATION":{
+			"Throughput":{},
+			"Speed":{},
+			"CONSUMPTION":{
+				"Electricity":{
+					"Power (kWh)": 16,
+					"Intensity (A)": 34
+				},
+				"Fossil":{}
+			},
+			"EMISSIONS":{}
+		},
+		"USABILITY":{},
+		"METADATA": {
+			"COMMENTS":[],
+			"HISTORY":[]
+		}
+	},
+	"PORTIQUE_Navette":{
+		"IDENTIFICATION":{
+			"MachineType":"Vertical",
+			"Operator_ID":"SPBL",
+			"Picture":"uri",
+			"HS?(SUITABILITY)":{}
+		},
+		"SPECIFICATION":{
+			"Throughput":{},
+			"Speed":{},
+			"CONSUMPTION":{
+				"Electricity":{
+					"Power (kWh)": 15,
+					"Intensity (A)": 32
+				},
+				"Fossil":{}
+			},
+			"EMISSIONS":{}
+		},
+		"USABILITY":{},
+		"METADATA": {
+			"COMMENTS":[],
+			"HISTORY":[]
+		}
+	},
+	"PORTIQUE_TB_1à2":{
+		"IDENTIFICATION":{
+			"MachineType":"Horizontal",
+			"Operator_ID":"SPBL",
+			"Picture":"uri",
+			"HS?(SUITABILITY)":{}
+		},
+		"SPECIFICATION":{
+			"Throughput":{
+				"Value":1000,
+				"Unit":"t/h"
+			},
+			"Speed":{},
+			"CONSUMPTION":{
+				"Electricity":{
+					"Power (kWh)": 90,
+					"Intensity (A)": 60
+				},
+				"Fossil":{}
+			},
+			"EMISSIONS":{}
+		},
+		"USABILITY":{},
+		"METADATA": {
+			"COMMENTS":[],
+			"HISTORY":[]
+		}
+	},
+	"PORTIQUE_TB_6":{
+		"IDENTIFICATION":{
+			"MachineType":"Horizontal",
+			"Operator_ID":"SPBL",
+			"Picture":"uri",
+			"HS?(SUITABILITY)":{}
+		},
+		"SPECIFICATION":{
+			"Throughput":{},
+			"Speed":{},
+			"CONSUMPTION":{
+				"Electricity":{
+					"Power (kWh)": 160,
+					"Intensity (A)": 290
+				},
+				"Fossil":{}
+			},
+			"EMISSIONS":{}
+		},
+		"USABILITY":{},
+		"METADATA": {
+			"COMMENTS":[],
+			"HISTORY":[]
+		}
+	},
+	"SILO_TB_1à5":{
+		"IDENTIFICATION":{
+			"MachineType":"Horizontal",
+			"Operator_ID":"SPBL",
+			"Picture":"uri",
+			"HS?(SUITABILITY)":{}
+		},
+		"SPECIFICATION":{
+			"Throughput":{},
+			"Speed":{},
+			"CONSUMPTION":{
+				"Electricity":{
+					"Power (kWh)": 142,
+					"Intensity (A)": 281.3
+				},
+				"Fossil":{}
+			},
+			"EMISSIONS":{}
+		},
+		"USABILITY":{},
+		"METADATA": {
+			"COMMENTS":[],
+			"HISTORY":[]
+		}
+	},
+	"SILO_TC_23":{
+		"IDENTIFICATION":{
+			"MachineType":"Horizontal",
+			"Operator_ID":"SPBL",
+			"Picture":"uri",
+			"HS?(SUITABILITY)":{}
+		},
+		"SPECIFICATION":{
+			"Throughput":{
+				"Value":1000,
+				"Unit":"t/h"
+			},
+			"Speed":{},
+			"CONSUMPTION":{
+				"Electricity":{
+					"Power (kWh)": 30,
+					"Intensity (A)": 56
+				},
+				"Fossil":{}
+			},
+			"EMISSIONS":{}
+		},
+		"USABILITY":{},
+		"METADATA": {
+			"COMMENTS":[],
+			"HISTORY":[]
+		}
+	},
+	"SILO_EL_4":{
+		"IDENTIFICATION":{
+			"MachineType":"Vertical",
+			"Operator_ID":"SPBL",
+			"Picture":"uri",
+			"HS?(SUITABILITY)":{}
+		},
+		"SPECIFICATION":{
+			"Throughput":{
+				"Value":1000,
+				"Unit":"t/h"
+			},
+			"Speed":{},
+			"CONSUMPTION":{
+				"Electricity":{
+					"Power (kWh)": 315,
+					"Intensity (A)": 555
+				},
+				"Fossil":{}
+			},
+			"EMISSIONS":{}
+		},
+		"USABILITY":{},
+		"METADATA": {
+			"COMMENTS":[],
+			"HISTORY":[]
+		}
+	}
+}

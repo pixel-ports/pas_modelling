@@ -1,0 +1,34 @@
+{
+	"PRIORITIZER_Rules":[
+		{"Particular_Boat_ID":[]},
+		{"Hasardous":true},
+		{"CargoType":
+			[
+				{"PORTE_CONTENEUR":"Conteneurs"},
+				{"CEREAL": null}
+			]
+		},
+		{"FIFO":true}
+	],
+	"METADATA": {
+		"COMMENTS":[
+			{
+				"TS":1566475200,
+				"Text":"Mon commentaire.",
+				"Autor":"Jean Serien"
+			}
+		],
+		"HISTORY":[
+			{
+				"TS":1566475200,
+				"Author":"Jean Serien",
+				"MODIFICATION":[
+					{
+						"Key":null,
+						"Previous_Value":null
+					}
+				]
+			}
+		]
+	}
+}

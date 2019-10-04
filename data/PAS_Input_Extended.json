@@ -1,0 +1,2265 @@
+	[{
+		"STOPOVER": {
+			"ID": "20190104",
+
+			"ETA_Port": 1566778376,
+			"ETD_Port": 1566816816,
+			"BOAT": {
+				"ID": "IMO_004",
+				"Name": "English"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566778515,
+				"ETD_dock": 1566781413
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 46098
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190105",
+			"ETA_Port": 1566587754,
+			"ETD_Port": 1566590343,
+			"BOAT": {
+				"ID": "IMO_005",
+				"Name": "Bradford"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566587966,
+				"ETD_dock": 1566590124
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 41350
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190106",
+			"ETA_Port": 1566777794,
+			"ETD_Port": 1566779902,
+			"BOAT": {
+				"ID": "IMO_006",
+				"Name": "Pruitt"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566778106,
+				"ETD_dock": 1566779498
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 37261
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190107",
+			"ETA_Port": 1566778869,
+			"ETD_Port": 1566781752,
+			"BOAT": {
+				"ID": "IMO_007",
+				"Name": "Hubbard"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566779015,
+				"ETD_dock": 1566781561
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 15592
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190108",
+			"ETA_Port": 1566587979,
+			"ETD_Port": 1566591055,
+			"BOAT": {
+				"ID": "IMO_008",
+				"Name": "Herman"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566588425,
+				"ETD_dock": 1566590955
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 4366
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190109",
+			"ETA_Port": 1566778337,
+			"ETD_Port": 1566781721,
+			"BOAT": {
+				"ID": "IMO_009",
+				"Name": "Hooper"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566778782,
+				"ETD_dock": 1566780929
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 11148
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190110",
+			"ETA_Port": 1566779773,
+			"ETD_Port": 1566781679,
+			"BOAT": {
+				"ID": "IMO_010",
+				"Name": "Schaefer"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566779967,
+				"ETD_dock": 1566781596
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 6803
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190111",
+			"ETA_Port": 1566588196,
+			"ETD_Port": 1566591126,
+			"BOAT": {
+				"ID": "IMO_011",
+				"Name": "Duncan"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566588498,
+				"ETD_dock": 1566590386
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 27267
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190112",
+			"ETA_Port": 1566778527,
+			"ETD_Port": 1566779955,
+			"BOAT": {
+				"ID": "IMO_012",
+				"Name": "Daniels"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566778865,
+				"ETD_dock": 1566779751
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 47936
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190113",
+			"ETA_Port": 1566780377,
+			"ETD_Port": 1566783538,
+			"BOAT": {
+				"ID": "IMO_013",
+				"Name": "Newman"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566780551,
+				"ETD_dock": 1566782955
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 27834
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190114",
+			"ETA_Port": 1566588314,
+			"ETD_Port": 1566590364,
+			"BOAT": {
+				"ID": "IMO_014",
+				"Name": "Huynh"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566588668,
+				"ETD_dock": 1566589913
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 21196
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190115",
+			"ETA_Port": 1566778684,
+			"ETD_Port": 1566781039,
+			"BOAT": {
+				"ID": "IMO_015",
+				"Name": "Mcconnell"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566778811,
+				"ETD_dock": 1566780454
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 49004
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190116",
+			"ETA_Port": 1566780814,
+			"ETD_Port": 1566783540,
+			"BOAT": {
+				"ID": "IMO_016",
+				"Name": "Mosley"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566781292,
+				"ETD_dock": 1566783221
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 5361
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190117",
+			"ETA_Port": 1566589069,
+			"ETD_Port": 1566590182,
+			"BOAT": {
+				"ID": "IMO_017",
+				"Name": "Randolph"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566589282,
+				"ETD_dock": 1566590083
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 28618
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190118",
+			"ETA_Port": 1566778927,
+			"ETD_Port": 1566780812,
+			"BOAT": {
+				"ID": "IMO_018",
+				"Name": "Larsen"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566779265,
+				"ETD_dock": 1566780581
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 44813
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190119",
+			"ETA_Port": 1566780965,
+			"ETD_Port": 1566784255,
+			"BOAT": {
+				"ID": "IMO_019",
+				"Name": "Cobb"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566781310,
+				"ETD_dock": 1566783513
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 4618
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190120",
+			"ETA_Port": 1566589473,
+			"ETD_Port": 1566591466,
+			"BOAT": {
+				"ID": "IMO_020",
+				"Name": "Owen"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566590038,
+				"ETD_dock": 1566591396
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 13465
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190121",
+			"ETA_Port": 1566779561,
+			"ETD_Port": 1566782145,
+			"BOAT": {
+				"ID": "IMO_021",
+				"Name": "Davies"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566779889,
+				"ETD_dock": 1566781903
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 42007
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190122",
+			"ETA_Port": 1566781907,
+			"ETD_Port": 1566784444,
+			"BOAT": {
+				"ID": "IMO_022",
+				"Name": "Deleon"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566782428,
+				"ETD_dock": 1566784313
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 9359
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190123",
+			"ETA_Port": 1566590317,
+			"ETD_Port": 1566592684,
+			"BOAT": {
+				"ID": "IMO_023",
+				"Name": "Blanchard"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566590736,
+				"ETD_dock": 1566592620
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 12899
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190124",
+			"ETA_Port": 1566780010,
+			"ETD_Port": 1566782643,
+			"BOAT": {
+				"ID": "IMO_024",
+				"Name": "Caldwell"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566780551,
+				"ETD_dock": 1566782460
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 47516
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190125",
+			"ETA_Port": 1566782056,
+			"ETD_Port": 1566785052,
+			"BOAT": {
+				"ID": "IMO_025",
+				"Name": "Perez"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566782337,
+				"ETD_dock": 1566784932
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 2211
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190126",
+			"ETA_Port": 1566590959,
+			"ETD_Port": 1566595270,
+			"BOAT": {
+				"ID": "IMO_026",
+				"Name": "Mills"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566591500,
+				"ETD_dock": 1566594493
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 8793
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190127",
+			"ETA_Port": 1566780943,
+			"ETD_Port": 1566783730,
+			"BOAT": {
+				"ID": "IMO_027",
+				"Name": "Morrison"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566781244,
+				"ETD_dock": 1566783578
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 18362
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190128",
+			"ETA_Port": 1566782665,
+			"ETD_Port": 1566785378,
+			"BOAT": {
+				"ID": "IMO_028",
+				"Name": "Bates"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566782824,
+				"ETD_dock": 1566785119
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 34389
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190129",
+			"ETA_Port": 1566591557,
+			"ETD_Port": 1566594963,
+			"BOAT": {
+				"ID": "IMO_029",
+				"Name": "Hobbs"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566591995,
+				"ETD_dock": 1566594356
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 6532
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190130",
+			"ETA_Port": 1566781664,
+			"ETD_Port": 1566784264,
+			"BOAT": {
+				"ID": "IMO_030",
+				"Name": "Snyder"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566781893,
+				"ETD_dock": 1566783491
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 45119
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190131",
+			"ETA_Port": 1566782960,
+			"ETD_Port": 1566785530,
+			"BOAT": {
+				"ID": "IMO_031",
+				"Name": "Mcdaniel"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566783321,
+				"ETD_dock": 1566784915
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 27962
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190132",
+			"ETA_Port": 1566592196,
+			"ETD_Port": 1566593991,
+			"BOAT": {
+				"ID": "IMO_032",
+				"Name": "Moses"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566592307,
+				"ETD_dock": 1566593628
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 24042
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190133",
+			"ETA_Port": 1566781947,
+			"ETD_Port": 1566785169,
+			"BOAT": {
+				"ID": "IMO_033",
+				"Name": "Leblanc"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566782150,
+				"ETD_dock": 1566784860
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 4111
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190134",
+			"ETA_Port": 1566783513,
+			"ETD_Port": 1566784888,
+			"BOAT": {
+				"ID": "IMO_034",
+				"Name": "Browning"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566783710,
+				"ETD_dock": 1566784655
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 7064
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190135",
+			"ETA_Port": 1566593070,
+			"ETD_Port": 1566595265,
+			"BOAT": {
+				"ID": "IMO_035",
+				"Name": "Mcclain"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566593573,
+				"ETD_dock": 1566594469
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 4956
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190136",
+			"ETA_Port": 1566782589,
+			"ETD_Port": 1566786111,
+			"BOAT": {
+				"ID": "IMO_036",
+				"Name": "Maldonado"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566782812,
+				"ETD_dock": 1566785405
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 44600
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190137",
+			"ETA_Port": 1566784237,
+			"ETD_Port": 1566786035,
+			"BOAT": {
+				"ID": "IMO_037",
+				"Name": "Frey"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566784551,
+				"ETD_dock": 1566785946
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 29521
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190138",
+			"ETA_Port": 1566593225,
+			"ETD_Port": 1566595132,
+			"BOAT": {
+				"ID": "IMO_038",
+				"Name": "Lester"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566593597,
+				"ETD_dock": 1566594504
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 21438
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190139",
+			"ETA_Port": 1566783380,
+			"ETD_Port": 1566785553,
+			"BOAT": {
+				"ID": "IMO_039",
+				"Name": "Hampton"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566783488,
+				"ETD_dock": 1566785047
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 28489
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190140",
+			"ETA_Port": 1566784669,
+			"ETD_Port": 1566787359,
+			"BOAT": {
+				"ID": "IMO_040",
+				"Name": "Coffey"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566785018,
+				"ETD_dock": 1566787275
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 49024
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190141",
+			"ETA_Port": 1566593850,
+			"ETD_Port": 1566596218,
+			"BOAT": {
+				"ID": "IMO_041",
+				"Name": "Mathews"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566594262,
+				"ETD_dock": 1566596066
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 31609
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190142",
+			"ETA_Port": 1566784138,
+			"ETD_Port": 1566787801,
+			"BOAT": {
+				"ID": "IMO_042",
+				"Name": "Hayes"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566784325,
+				"ETD_dock": 1566787152
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 20884
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190143",
+			"ETA_Port": 1566785068,
+			"ETD_Port": 1566788568,
+			"BOAT": {
+				"ID": "IMO_043",
+				"Name": "Jarvis"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566785420,
+				"ETD_dock": 1566787963
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 7346
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190144",
+			"ETA_Port": 1566594178,
+			"ETD_Port": 1566595616,
+			"BOAT": {
+				"ID": "IMO_044",
+				"Name": "Houston"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566594458,
+				"ETD_dock": 1566595521
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 48350
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190145",
+			"ETA_Port": 1566784354,
+			"ETD_Port": 1566787951,
+			"BOAT": {
+				"ID": "IMO_045",
+				"Name": "David"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566784824,
+				"ETD_dock": 1566787471
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 37756
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190146",
+			"ETA_Port": 1566785724,
+			"ETD_Port": 1566788779,
+			"BOAT": {
+				"ID": "IMO_046",
+				"Name": "Burton"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566786064,
+				"ETD_dock": 1566788232
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 21305
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190147",
+			"ETA_Port": 1566594799,
+			"ETD_Port": 1566597421,
+			"BOAT": {
+				"ID": "IMO_047",
+				"Name": "Hebert"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566595087,
+				"ETD_dock": 1566597262
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 19446
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190148",
+			"ETA_Port": 1566784576,
+			"ETD_Port": 1566788356,
+			"BOAT": {
+				"ID": "IMO_048",
+				"Name": "Kelly"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566785033,
+				"ETD_dock": 1566787952
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 9127
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190149",
+			"ETA_Port": 1566786674,
+			"ETD_Port": 1566788579,
+			"BOAT": {
+				"ID": "IMO_049",
+				"Name": "Braun"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566786936,
+				"ETD_dock": 1566788321
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 31721
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190150",
+			"ETA_Port": 1566595323,
+			"ETD_Port": 1566597081,
+			"BOAT": {
+				"ID": "IMO_050",
+				"Name": "Mclean"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566595494,
+				"ETD_dock": 1566596929
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 31344
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190151",
+			"ETA_Port": 1566784907,
+			"ETD_Port": 1566787040,
+			"BOAT": {
+				"ID": "IMO_051",
+				"Name": "Hansen"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566785021,
+				"ETD_dock": 1566786758
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 14080
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190152",
+			"ETA_Port": 1566787492,
+			"ETD_Port": 1566790176,
+			"BOAT": {
+				"ID": "IMO_052",
+				"Name": "Matthews"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566788038,
+				"ETD_dock": 1566789544
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 1214
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190153",
+			"ETA_Port": 1566595783,
+			"ETD_Port": 1566599229,
+			"BOAT": {
+				"ID": "IMO_053",
+				"Name": "Bradshaw"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566596111,
+				"ETD_dock": 1566598935
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 14896
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190154",
+			"ETA_Port": 1566785792,
+			"ETD_Port": 1566787373,
+			"BOAT": {
+				"ID": "IMO_054",
+				"Name": "Osborne"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566786234,
+				"ETD_dock": 1566787306
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 7646
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190155",
+			"ETA_Port": 1566787877,
+			"ETD_Port": 1566791295,
+			"BOAT": {
+				"ID": "IMO_055",
+				"Name": "Sellers"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566788181,
+				"ETD_dock": 1566791045
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 15731
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190156",
+			"ETA_Port": 1566596401,
+			"ETD_Port": 1566599868,
+			"BOAT": {
+				"ID": "IMO_056",
+				"Name": "Norman"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566596886,
+				"ETD_dock": 1566599725
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 15143
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190157",
+			"ETA_Port": 1566786175,
+			"ETD_Port": 1566789609,
+			"BOAT": {
+				"ID": "IMO_057",
+				"Name": "Howe"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566786607,
+				"ETD_dock": 1566789555
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 25562
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190158",
+			"ETA_Port": 1566788137,
+			"ETD_Port": 1566790537,
+			"BOAT": {
+				"ID": "IMO_058",
+				"Name": "Riddle"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566788289,
+				"ETD_dock": 1566790359
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 11771
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190159",
+			"ETA_Port": 1566596965,
+			"ETD_Port": 1566599933,
+			"BOAT": {
+				"ID": "IMO_059",
+				"Name": "Gibson"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566597324,
+				"ETD_dock": 1566599300
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 19659
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190160",
+			"ETA_Port": 1566787045,
+			"ETD_Port": 1566790425,
+			"BOAT": {
+				"ID": "IMO_060",
+				"Name": "Glover"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566787506,
+				"ETD_dock": 1566790218
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 28432
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190161",
+			"ETA_Port": 1566788883,
+			"ETD_Port": 1566792177,
+			"BOAT": {
+				"ID": "IMO_061",
+				"Name": "Hartman"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566789416,
+				"ETD_dock": 1566792063
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 16542
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190162",
+			"ETA_Port": 1566597936,
+			"ETD_Port": 1566600766,
+			"BOAT": {
+				"ID": "IMO_062",
+				"Name": "Cantrell"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566598471,
+				"ETD_dock": 1566600185
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 15477
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190163",
+			"ETA_Port": 1566787363,
+			"ETD_Port": 1566788980,
+			"BOAT": {
+				"ID": "IMO_063",
+				"Name": "Palmer"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566787468,
+				"ETD_dock": 1566788828
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 46863
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190164",
+			"ETA_Port": 1566789216,
+			"ETD_Port": 1566792952,
+			"BOAT": {
+				"ID": "IMO_064",
+				"Name": "Goodman"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566789498,
+				"ETD_dock": 1566792445
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 26946
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190165",
+			"ETA_Port": 1566598798,
+			"ETD_Port": 1566601722,
+			"BOAT": {
+				"ID": "IMO_065",
+				"Name": "Li"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566599201,
+				"ETD_dock": 1566601662
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 33955
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190166",
+			"ETA_Port": 1566788002,
+			"ETD_Port": 1566792023,
+			"BOAT": {
+				"ID": "IMO_066",
+				"Name": "Bowman"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566788446,
+				"ETD_dock": 1566791290
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 48987
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190167",
+			"ETA_Port": 1566790061,
+			"ETD_Port": 1566792212,
+			"BOAT": {
+				"ID": "IMO_067",
+				"Name": "Haynes"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566790424,
+				"ETD_dock": 1566791430
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 45294
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190168",
+			"ETA_Port": 1566599382,
+			"ETD_Port": 1566601460,
+			"BOAT": {
+				"ID": "IMO_068",
+				"Name": "Duarte"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566599800,
+				"ETD_dock": 1566600956
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 10101
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190169",
+			"ETA_Port": 1566788834,
+			"ETD_Port": 1566791595,
+			"BOAT": {
+				"ID": "IMO_069",
+				"Name": "Greene"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566789401,
+				"ETD_dock": 1566791044
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 38342
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190170",
+			"ETA_Port": 1566790628,
+			"ETD_Port": 1566792423,
+			"BOAT": {
+				"ID": "IMO_070",
+				"Name": "Yang"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566791118,
+				"ETD_dock": 1566792175
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 7197
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190171",
+			"ETA_Port": 1566600209,
+			"ETD_Port": 1566603120,
+			"BOAT": {
+				"ID": "IMO_071",
+				"Name": "Hurst"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566600309,
+				"ETD_dock": 1566602807
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 1674
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190172",
+			"ETA_Port": 1566789316,
+			"ETD_Port": 1566791804,
+			"BOAT": {
+				"ID": "IMO_072",
+				"Name": "Orr"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566789441,
+				"ETD_dock": 1566791393
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 24560
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190173",
+			"ETA_Port": 1566791063,
+			"ETD_Port": 1566792707,
+			"BOAT": {
+				"ID": "IMO_073",
+				"Name": "Rivera"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566791179,
+				"ETD_dock": 1566792529
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 34335
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190174",
+			"ETA_Port": 1566601065,
+			"ETD_Port": 1566604124,
+			"BOAT": {
+				"ID": "IMO_074",
+				"Name": "Tanner"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566601603,
+				"ETD_dock": 1566603535
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 17476
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190175",
+			"ETA_Port": 1566790297,
+			"ETD_Port": 1566792545,
+			"BOAT": {
+				"ID": "IMO_075",
+				"Name": "Mcneil"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566790486,
+				"ETD_dock": 1566791945
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 10217
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190176",
+			"ETA_Port": 1566791341,
+			"ETD_Port": 1566793439,
+			"BOAT": {
+				"ID": "IMO_076",
+				"Name": "Rojas"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566791844,
+				"ETD_dock": 1566793120
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 35412
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190177",
+			"ETA_Port": 1566601966,
+			"ETD_Port": 1566605363,
+			"BOAT": {
+				"ID": "IMO_077",
+				"Name": "Donaldson"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566602238,
+				"ETD_dock": 1566604760
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 28660
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190178",
+			"ETA_Port": 1566790713,
+			"ETD_Port": 1566794469,
+			"BOAT": {
+				"ID": "IMO_078",
+				"Name": "Terrell"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566790980,
+				"ETD_dock": 1566793706
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 16836
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190179",
+			"ETA_Port": 1566792130,
+			"ETD_Port": 1566793736,
+			"BOAT": {
+				"ID": "IMO_079",
+				"Name": "Mcpherson"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566792511,
+				"ETD_dock": 1566793452
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 47519
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190180",
+			"ETA_Port": 1566602371,
+			"ETD_Port": 1566603524,
+			"BOAT": {
+				"ID": "IMO_080",
+				"Name": "Wheeler"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Déchargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_1",
+				"ETA_dock": 1566602605,
+				"ETD_dock": 1566603471
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Blé"
+				},
+				"Amount": 44372
+			}
+		}],
+		"METADATA": {}
+	}, {
+		"STOPOVER": {
+			"ID": "20190181",
+			"ETA_Port": 1566791214,
+			"ETD_Port": 1566793083,
+			"BOAT": {
+				"ID": "IMO_081",
+				"Name": "Reeves"
+			}
+		},
+		"HANDLINGS": [{
+			"Agent": "SEAINVEST",
+			"Operator": "SPBL",
+			"Way": "Chargement",
+			"CONSTRAINT": null,
+			"DOCK": {
+				"Area_ID": "Area_2",
+				"ETA_dock": 1566791466,
+				"ETD_dock": 1566792435
+			},
+			"CARGO": {
+				"Dangerous": false,
+				"Type": {
+					"Céréale": "Maïs"
+				},
+				"Amount": 48647
+			}
+		}],
+		"METADATA": {}
+	}
+]
