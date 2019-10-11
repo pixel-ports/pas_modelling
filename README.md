@@ -7,6 +7,7 @@ This repository implements the PAS modelling presented in the MTC paper : https:
 On linux, run the following commands in order to get started :
 
 ```bash
+sudo apt-get install python3 python3-dev
 sudo pip install pipenv  # installs pipenv globally
 pipenv install  # installs the required dependencies
 git config core.hooksPath .githooks  # defines project git hooks folder
@@ -24,6 +25,13 @@ You can add the the option `--step 1` if you want to run only the first step. Av
 ```bash
 pipenv run python tools/fake_pas_generation.py
 pipenv run jupyter-notebook tools/demonstration.ipynb
+```
+
+## Monitor memory usage
+
+```bash
+pipenv run mprof run test.py
+pipenv run mprof plot
 ```
 
 ## Changes from the paper
