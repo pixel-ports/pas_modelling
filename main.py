@@ -1,6 +1,9 @@
 import json
 import argparse
 import os
+import multiprocessing as mp
+import psutil
+import time
 
 from elements.ShipsCallList import ShipsCallList
 from elements.SupplychainsCollection import SupplychainsCollection
@@ -8,6 +11,19 @@ from elements.MachinesCollection import MachinesCollection
 from elements.PortActivityScenario import PortActivityScenario
 
 from typing import List, Dict
+
+def monitor(target, args):
+    worker_process = mp.Process(target=target, args=args)
+    worker_process.start()
+    p = psutil.Process(worker_process.pid)
+
+    cpu_percents = []
+    while worker_process.is_alive():
+        cpu_percents.append(p.cpu_percent())
+        time.sleep(0.1)
+
+    worker_process.join()
+    return cpu_percents
 
 
 def main(steps):
@@ -36,6 +52,11 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Process executable options.")
     parser.add_argument("--step", nargs="?", type=int, help="Step number to execute.")
+    parser.add_argument("--monitor_cpu", type=bool, help="Monitor cpu usage")
     args = parser.parse_args()
 
-    main(args.step)
+    if args.monitor_cpu:
+        cpu_percents = monitor(main, (args.step,))
+        print(cpu_percents)
+    else:
+        main(args.step)
