@@ -27,11 +27,11 @@ pipenv run python tools/fake_pas_generation.py
 pipenv run jupyter-notebook tools/demonstration.ipynb
 ```
 
-## Monitor memory usage
+## Monitor memory/cpu usage
 
 ```bash
-pipenv run mprof run test.py
-pipenv run mprof plot
+pipenv run mprof run test.py && pipenv run mprof plot # RAM
+pipenv run python test/test_monitor_cpu.py  # CPU
 ```
 
 ## Changes from the paper
