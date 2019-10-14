@@ -27,11 +27,12 @@ pipenv run python tools/fake_pas_generation.py
 pipenv run jupyter-notebook tools/demonstration.ipynb
 ```
 
-## Monitor memory/cpu usage
+## Execution statistics for WP8 Product Quality Model
 
 ```bash
 pipenv run mprof run test.py && pipenv run mprof plot # RAM
 pipenv run python test/test_monitor_cpu.py  # CPU
+pipenv run python test/test_simultaneous_requests.py --min_processes 100 --max_processes 1000 --step_processes 100  # Simultaneous Requests
 ```
 
 ## Changes from the paper
