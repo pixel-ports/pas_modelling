@@ -38,7 +38,7 @@ def main(steps):
     step1 = Step1(pas_input)
     handlings = step1.run()
     with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "handlings.json"), "w") as f:
-            f.write(json.dumps(handlings, indent=4, ensure_ascii=False))
+        f.write(json.dumps(handlings, indent=4, ensure_ascii=False))
 
     with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "handlings.json"), "r") as f:
         handlings = json.loads(f.read())
@@ -47,7 +47,7 @@ def main(steps):
     step2 = Step2(handlings, supplychains)
     activities = step2.run()
     with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "activities.json"), "w") as f:
-            f.write(json.dumps(activities, indent=4, ensure_ascii=False))
+        f.write(json.dumps(activities, indent=4, ensure_ascii=False))
 
     with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "activities.json"), "r") as f:
         activities = json.loads(f.read())
@@ -56,7 +56,7 @@ def main(steps):
     step3 = Step3(activities, machines)
     uses = step3.run()
     with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "uses.json"), "w") as f:
-            f.write(json.dumps(uses, indent=4, ensure_ascii=False))
+        f.write(json.dumps(uses, indent=4, ensure_ascii=False))
 
     with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "uses.json"), "r") as f:
         uses = json.loads(f.read())
@@ -65,7 +65,7 @@ def main(steps):
     step3 = Step3(activities, machines)
     uses = step3.run()
     with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "uses.json"), "w") as f:
-            f.write(json.dumps(uses, indent=4, ensure_ascii=False))
+        f.write(json.dumps(uses, indent=4, ensure_ascii=False))
 
 
 if __name__ == "__main__":

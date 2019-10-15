@@ -1,5 +1,4 @@
 class Step4:
-
     def __init__(self):
         pass
 
