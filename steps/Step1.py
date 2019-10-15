@@ -6,26 +6,18 @@ class Step1:
         self.pas_input = pas_input
 
     def run(self):
-
-        ## Sort handlings
-        handlings = []
         for ship in self.pas_input:
             for index, handling in enumerate(ship["HANDLINGS"]):
-                handling["STOPOVER_ETA_Port"] = ship["STOPOVER"]["ETA_Port"]
-                handling["processed"] = {
-                    "shipId": ship["STOPOVER"]["ID"],
-                    "indexInShip": index,
-                }
-                handling["id"] = "%s-%s" % (
-                    handling["processed"]["shipId"],
-                    handling["processed"]["indexInShip"],
-                )
-                handlings.append(copy.deepcopy(handling))
-        handlings = [
-            handling for handling in handlings if handling["CARGO"] is not None
-        ]
-        handlings.sort(key=lambda h: (h["STOPOVER_ETA_Port"], h["DOCK"]["ETA_dock"]))
-        for handling in handlings:
-            del handling["STOPOVER_ETA_Port"]
-
-        return handlings
+                handling["id"] = "%s-%s" % (ship["STOPOVER"]["ID"], index)
+        # Use ETA_Dock on handling if available for priority definition, else use ETA_Port on ship
+        self.pas_input.sort(
+            key=lambda ship: min(
+                [
+                    handling["DOCK"]["ETA_dock"]
+                    if handling["DOCK"]["ETA_dock"] is not None
+                    else ship["STOPOVER"]["ETA_Port"]
+                    for handling in ship["HANDLINGS"]
+                ]
+            )
+        )
+        return self.pas_input

@@ -36,35 +36,36 @@ def main(steps):
     with open(os.getenv("PAS_INPUT"), "r") as f:
         pas_input = json.loads(f.read())
     step1 = Step1(pas_input)
-    handlings = step1.run()
-    with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "handlings.json"), "w") as f:
-        f.write(json.dumps(handlings, indent=4, ensure_ascii=False))
+    pas_input = step1.run()
+    with open(
+        os.path.join(os.getenv("OUTPUT_DIRECTORY"), "step1_output.json"), "w"
+    ) as f:
+        f.write(json.dumps(pas_input, indent=4, ensure_ascii=False))
 
-    with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "handlings.json"), "r") as f:
-        handlings = json.loads(f.read())
+    with open(
+        os.path.join(os.getenv("OUTPUT_DIRECTORY"), "step1_output.json"), "r"
+    ) as f:
+        pas_input = json.loads(f.read())
     with open(os.getenv("SUPPLYCHAINS_COLLECTION"), "r") as f:
         supplychains = json.loads(f.read())
-    step2 = Step2(handlings, supplychains)
-    activities = step2.run()
-    with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "activities.json"), "w") as f:
-        f.write(json.dumps(activities, indent=4, ensure_ascii=False))
+    step2 = Step2(pas_input, supplychains)
+    pas_input = step2.run()
+    with open(
+        os.path.join(os.getenv("OUTPUT_DIRECTORY"), "step2_output.json"), "w"
+    ) as f:
+        f.write(json.dumps(pas_input, indent=4, ensure_ascii=False))
 
-    with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "activities.json"), "r") as f:
-        activities = json.loads(f.read())
+    with open(
+        os.path.join(os.getenv("OUTPUT_DIRECTORY"), "step2_output.json"), "r"
+    ) as f:
+        pas_input = json.loads(f.read())
     with open(os.getenv("MACHINES_COLLECTION"), "r") as f:
         machines = json.loads(f.read())
-    step3 = Step3(activities, machines)
+    step3 = Step3(pas_input, machines)
     uses = step3.run()
-    with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "uses.json"), "w") as f:
-        f.write(json.dumps(uses, indent=4, ensure_ascii=False))
-
-    with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "uses.json"), "r") as f:
-        uses = json.loads(f.read())
-    with open(os.getenv("MACHINES_COLLECTION"), "r") as f:
-        machines = json.loads(f.read())
-    step3 = Step3(activities, machines)
-    uses = step3.run()
-    with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "uses.json"), "w") as f:
+    with open(
+        os.path.join(os.getenv("OUTPUT_DIRECTORY"), "step3_output.json"), "w"
+    ) as f:
         f.write(json.dumps(uses, indent=4, ensure_ascii=False))
 
 

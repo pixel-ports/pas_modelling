@@ -2,8 +2,8 @@ import copy
 
 
 class Step2:
-    def __init__(self, handlings, supplychains):
-        self.handlings = handlings
+    def __init__(self, pas_input, supplychains):
+        self.pas_input = pas_input
         self.supplychains = supplychains
 
     def run(self):
@@ -11,21 +11,20 @@ class Step2:
             supplychain["id"] = id
             for id_op, operation in supplychain["OPERATIONS_SEQUENCE"].items():
                 operation["id"] = "%s-%s" % (id, id_op)  # For later use in Step3
-        activities = []
-        for handling in self.handlings:
-            selected_supplychain, mapping_type = self.select_supplychain(handling)
-            if selected_supplychain is not None:
-                activities.append(
-                    {
-                        "pair": {
-                            "handling": copy.deepcopy(handling),
-                            "supplychain": copy.deepcopy(selected_supplychain),
-                            "mappingType": mapping_type,
-                        },
-                        "logs": {"comments": [], "modifications": []},
-                    }
-                )
-        return activities
+        for ship in self.pas_input:
+            for handling in ship["HANDLINGS"]:
+                if handling["CARGO"] is None:
+                    handling["supplychain"] = None
+                else:
+                    selected_supplychain, mapping_type = self.select_supplychain(
+                        handling
+                    )
+                    if selected_supplychain is None:
+                        handling["supplychain"] = None
+                    else:
+                        handling["supplychain"] = copy.deepcopy(selected_supplychain)
+                        handling["supplychain"]["mappingType"] = mapping_type
+        return self.pas_input
 
     def get_default_supplychain(self):
         return (
