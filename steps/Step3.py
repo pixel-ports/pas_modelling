@@ -3,8 +3,8 @@ import numpy as np
 
 
 class Step3:
-    def __init__(self, pas_input, machines):
-        self.pas_input = pas_input
+    def __init__(self, pas, machines):
+        self.pas = pas
         self.machines = machines
         self.uses = []
 
@@ -12,7 +12,7 @@ class Step3:
         for id, machine in self.machines.items():
             machine["id"] = id
 
-        for ship in self.pas_input:
+        for ship in self.pas:
             for handling in ship["HANDLINGS"]:
                 dockingTS = handling["DOCK"]["ETA_dock"]
                 supplychain = handling["supplychain"]
@@ -147,7 +147,7 @@ class Step3:
                                         "operation": copy.deepcopy(operation),
                                     }
                                 )
-        return self.pas_input
+        return self.pas
 
     def get_use(self, handlingId, supplychainId, operationId):
         uses = [

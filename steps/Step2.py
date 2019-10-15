@@ -2,8 +2,8 @@ import copy
 
 
 class Step2:
-    def __init__(self, pas_input, supplychains):
-        self.pas_input = pas_input
+    def __init__(self, pas, supplychains):
+        self.pas = pas
         self.supplychains = supplychains
 
     def run(self):
@@ -11,7 +11,7 @@ class Step2:
             supplychain["id"] = id
             for id_op, operation in supplychain["OPERATIONS_SEQUENCE"].items():
                 operation["id"] = "%s-%s" % (id, id_op)  # For later use in Step3
-        for ship in self.pas_input:
+        for ship in self.pas:
             for handling in ship["HANDLINGS"]:
                 if handling["CARGO"] is None:
                     handling["supplychain"] = None
@@ -24,7 +24,7 @@ class Step2:
                     else:
                         handling["supplychain"] = copy.deepcopy(selected_supplychain)
                         handling["supplychain"]["mappingType"] = mapping_type
-        return self.pas_input
+        return self.pas
 
     def get_default_supplychain(self):
         return (
