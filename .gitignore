@@ -8,3 +8,5 @@ cargoes_queue.json
 .ipynb_checkpoints
 */.ipynb_checkpoints/*
 *.dat
+test.txt
+output/

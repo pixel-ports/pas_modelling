@@ -5,7 +5,7 @@
 			"Operator ID": "SPBL",
 			"HS?(SUITABILITY)":{
 				"Cargo_Type":{
-					"Cereal":["Blé", "Maïs"]
+					"Céréale":["Blé", "Maïs"]
 				},
 				"Aera_ID":{
 					"Departure":["Silo_SPBL"],
@@ -14,7 +14,7 @@
 				"HandlingWay":["Loading"]
 			}
 		},
-		"OPERATIONS SEQUENCE":{
+		"OPERATIONS_SEQUENCE":{
 			"op_1":{
 				"Label": "Allumage Centrale hydraulique",
 				"Type": "Initialisation",

@@ -160,7 +160,10 @@
 			"HS?(SUITABILITY)":{}
 		},
 		"SPECIFICATION":{
-			"Throughput":{},
+			"Throughput":{
+				"Value":1000,
+				"Unit":"t/h"
+			},
 			"Speed":{},
 			"CONSUMPTION":{
 				"Electricity":{

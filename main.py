@@ -4,11 +4,11 @@ import os
 import multiprocessing as mp
 import psutil
 import time
+import shutil
 
-from elements.ShipsCallList import ShipsCallList
-from elements.SupplychainsCollection import SupplychainsCollection
-from elements.MachinesCollection import MachinesCollection
-from elements.PortActivityScenario import PortActivityScenario
+from steps.Step1 import Step1
+from steps.Step2 import Step2
+from steps.Step3 import Step3
 
 from typing import List, Dict
 
@@ -28,25 +28,44 @@ def monitor(target, args):
 
 
 def main(steps):
-    with open(os.getenv("SHIPS_CALL_LIST"), "r") as f:
-        list: List = json.loads(f.read())
-    ships_call_list: ShipsCallList = ShipsCallList(list)
 
+    if os.path.isdir(os.getenv("OUTPUT_DIRECTORY")):
+        shutil.rmtree(os.getenv("OUTPUT_DIRECTORY"))
+    os.mkdir(os.getenv("OUTPUT_DIRECTORY"))
+
+    with open(os.getenv("PAS_INPUT"), "r") as f:
+        pas_input = json.loads(f.read())
+    step1 = Step1(pas_input)
+    handlings = step1.run()
+    with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "handlings.json"), "w") as f:
+            f.write(json.dumps(handlings, indent=4, ensure_ascii=False))
+
+    with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "handlings.json"), "r") as f:
+        handlings = json.loads(f.read())
     with open(os.getenv("SUPPLYCHAINS_COLLECTION"), "r") as f:
-        list: List = json.loads(f.read())
-    supplychains_collection: SupplychainsCollection = SupplychainsCollection(list)
+        supplychains = json.loads(f.read())
+    step2 = Step2(handlings, supplychains)
+    activities = step2.run()
+    with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "activities.json"), "w") as f:
+            f.write(json.dumps(activities, indent=4, ensure_ascii=False))
 
+    with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "activities.json"), "r") as f:
+        activities = json.loads(f.read())
     with open(os.getenv("MACHINES_COLLECTION"), "r") as f:
-        list: List = json.loads(f.read())
-    machines_collection: MachinesCollection = MachinesCollection(list)
+        machines = json.loads(f.read())
+    step3 = Step3(activities, machines)
+    uses = step3.run()
+    with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "uses.json"), "w") as f:
+            f.write(json.dumps(uses, indent=4, ensure_ascii=False))
 
-    port_activity_scenario: PortActivityScenario = PortActivityScenario(
-        ships_call_list, machines_collection, supplychains_collection
-    )
-    if args.step is not None:
-        port_activity_scenario.execute_step(args.step)
-    else:
-        port_activity_scenario.execute_all_steps()
+    with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "uses.json"), "r") as f:
+        uses = json.loads(f.read())
+    with open(os.getenv("MACHINES_COLLECTION"), "r") as f:
+        machines = json.loads(f.read())
+    step3 = Step3(activities, machines)
+    uses = step3.run()
+    with open(os.path.join(os.getenv("OUTPUT_DIRECTORY"), "uses.json"), "w") as f:
+            f.write(json.dumps(uses, indent=4, ensure_ascii=False))
 
 
 if __name__ == "__main__":

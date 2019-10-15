@@ -60,3 +60,6 @@ Here is what needs to be changed :
 Here is what has already been changed :
   - SetupTime is not set as a property but is part of the "FixedDelay" for an operation.
   - FixedDelay can receive a negative value
+
+Notes:
+  - If no supplychain is selected, then it won't be filled in the PAS
