@@ -7,12 +7,14 @@ from subprocess import Popen
 
 INTERVAL_SECONDS = 0.1
 
+
 def monitor(command):
     begin_time = time.time()
     worker_process = Popen(command.split(" "))
     while worker_process.poll() is None:
         time.sleep(INTERVAL_SECONDS)
     return time.time() - begin_time
+
 
 def parallel_works(nb_processes, command):
     works = [dask.delayed(work)() for i in range(nb_processes)]

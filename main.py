@@ -90,7 +90,9 @@ def main(steps):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="Process executable options.")
-    parser.add_argument("--steps", nargs="+", type=int, help="Steps numbers to execute.")
+    parser.add_argument(
+        "--steps", nargs="+", type=int, help="Steps numbers to execute."
+    )
     parser.add_argument("--monitor_cpu", type=bool, help="Monitor cpu usage")
     args = parser.parse_args()
 

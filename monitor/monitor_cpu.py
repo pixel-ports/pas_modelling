@@ -20,6 +20,7 @@ def monitor(command):
 
     return np.array(cpu_percents)
 
+
 def main(command):
     cpu_percents = monitor(command)
     times = np.array(
@@ -50,11 +51,7 @@ def main(command):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Process executable options.")
-    parser.add_argument(
-        "command",
-        type=str,
-        help="Command to monitor",
-    )
+    parser.add_argument("command", type=str, help="Command to monitor")
     args = parser.parse_args()
-    
+
     main(args.command)
