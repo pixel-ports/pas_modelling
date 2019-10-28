@@ -9,4 +9,7 @@ cargoes_queue.json
 */.ipynb_checkpoints/*
 *.dat
 test.txt
-output/
+inputs/
+outputs/
+callgrind.out.*
+massif.out.*

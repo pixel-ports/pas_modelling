@@ -2,7 +2,27 @@
 
 This repository implements the PAS modelling presented in the MTC paper : https://www.dropbox.com/s/6z2e854bxz9jtur/MTC2019_SIMON_LACALLE.pdf?dl=0.
 
+## Production
+
 ## Getting started
+
+You'll need docker to run the PAS docker image : https://docs.docker.com/install/linux/docker-ce/ubuntu/
+
+One run of the PAS start the container, takes inputs from the `inputs` folder, outputs results files to the `outputs` folder and exits.  
+For the run, you'll have to mount your `inputs` and `outputs` folders, and specify in-container filepaths in the `.env` file. You can also leave everything as default and run a demo with the following commands :
+
+```bash
+docker build -t pas .
+mkdir inputs outputs
+cp data_models/*.json inputs/
+docker run --env-file .env -v $(pwd)/inputs:/pas/inputs -v $(pwd)/outputs:/pas/outputs pas python3 main.py --steps 1 2 3 4
+```
+
+This builds the docker image, create `inputs`/`outputs` folders and fill `inputs` with the default data_models. It then runs the complete PAS, outputs results to the `outputs` folder and exits.
+
+## Development
+
+### Getting started
 
 On linux, run the following commands in order to get started :
 
@@ -15,51 +35,29 @@ git config core.hooksPath .githooks  # defines project git hooks folder
 Then update files in `data/` according to your port needs or leave them as they are, then start the process :
 
 ```bash
-pipenv run python main.py
+pipenv run python main.py --steps 1 2 3 4
 ```
 
-You can add the the option `--step 1` if you want to run only the first step. Available steps are `1`, `2` and `3`.
-
-## Generate fake data for demonstration
+### Generate fake data for demonstration purpose
 
 ```bash
 pipenv run python tools/fake_pas_generation.py
 pipenv run jupyter-notebook tools/demonstration.ipynb
 ```
 
-## Execution statistics for WP8 Product Quality Model
+### Statistics for WP8 Product Quality Model
 
 ```bash
-pipenv run mprof run test.py && pipenv run mprof plot # RAM
-pipenv run python test/test_monitor_cpu.py  # CPU
-pipenv run python test/test_simultaneous_requests.py --min_processes 100 --max_processes 1000 --step_processes 100  # Simultaneous Requests
+# Set steps to monitor
+export PAS_STEPS="4"  # "1 2 3" for T4.1 or "4" for T4.2
+
+# Monitoring RAM
+pipenv run valgrind --tool=massif --time-unit=ms python main.py --steps $PAS_STEPS
+pipenv run python monitor/massif_analyser.py $(ls -1 -v ./massif.out.* | tail -n 1)
+
+# Monitoring CPU
+pipenv run python monitor/monitor_cpu.py "python main.py --steps $PAS_STEPS"
+
+# Monitoring simultaneous requests performance
+pipenv run python test/test_simultaneous_requests.py --min_processes 100 --max_processes 1000 --step_processes 100  # TODO : Broken
 ```
-
-## Changes from the paper
-
-Here is what needs to be changed :
-  - Change cargo property of cargo element, because it is redondant.
-  - Add an id to the operations and check that those ids are unique
-  - Check that ids are unique everywhere
-  - Check that cargo category and type are coherent
-  - Add the possibility to distribute work between concurrent operations/machines
-  - Implement check rules that will be given by Erwan
-  - Add throughput to manage multi-machine (but re-think about it with Erwan)
-  - Integrate edition
-  - Try an "automate" system
-  - Add Area datamodel
-  - Split code by steps
-  - Create and document a Docker image
-
-  - Remove all `.list` for a cleaner thing
-  - Use Singleton Pattern
-  - Unit Tests
-  - Add black with auto-commit
-  - Add a Machine type beneath MachineCollection for all sub-operations ? And do the same with all other types ?
-
-Here is what has already been changed :
-  - SetupTime is not set as a property but is part of the "FixedDelay" for an operation.
-  - FixedDelay can receive a negative value
-
-Notes:
-  - If no supplychain is selected, then it won't be filled in the PAS
