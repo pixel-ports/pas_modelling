@@ -48,6 +48,9 @@ pipenv run jupyter-notebook tools/demonstration.ipynb
 ### Statistics for WP8 Product Quality Model
 
 ```bash
+# Reinit output
+rm -rf outputs/ && mkdir outputs
+
 # Set steps to monitor
 export PAS_STEPS="4"  # "1 2 3" for T4.1 or "4" for T4.2
 
