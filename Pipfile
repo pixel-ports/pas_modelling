@@ -17,6 +17,8 @@ matplotlib = "*"
 psutil = "*"
 dask = {extras = ["complete"],version = "*"}
 anytree = "*"
+flask = "*"
+flask-restful = "*"
 
 [requires]
 python_version = "3.6"

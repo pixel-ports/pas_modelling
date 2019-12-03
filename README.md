@@ -13,9 +13,10 @@ For the run, you'll have to mount your `inputs` and `outputs` folders, and speci
 
 ```bash
 docker build -t pas .
+rm -rf inputs outputs
 mkdir inputs outputs
 cp data_models/*.json inputs/
-docker run --env-file .env -v $(pwd)/inputs:/pas/inputs -v $(pwd)/outputs:/pas/outputs pas python3 main.py --steps 1 2 3 4
+docker run --env-file .env -v $(pwd):/pas pas python3 main.py --steps 1 2 3 4
 ```
 
 This builds the docker image, create `inputs`/`outputs` folders and fill `inputs` with the default data_models. It then runs the complete PAS, outputs results to the `outputs` folder and exits.
@@ -48,6 +49,9 @@ pipenv run jupyter-notebook tools/demonstration.ipynb
 ### Statistics for WP8 Product Quality Model
 
 ```bash
+# Reinit output
+rm -rf outputs/ && mkdir outputs
+
 # Set steps to monitor
 export PAS_STEPS="4"  # "1 2 3" for T4.1 or "4" for T4.2
 
