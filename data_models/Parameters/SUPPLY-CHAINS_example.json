@@ -1,0 +1,196 @@
+[
+	{
+		"ID":"SC_1",
+		"label":"Cereale_SPBL_Export",
+		"comments":["Se décompose en trois blocs : initialisation (du portique et temps mort tapis), acheminement et ajustement du portique."],
+		"constraints":{
+			"cargoes_types":{
+				"segment":["cereal"],
+				"type":["*"]
+			},
+			"direction":["loading"],
+			"areas_types":{
+				"departure":["Silo_SPBL"],
+				"arrival":["419", "432"]
+			},
+			"shift_ID":"typical"
+		},
+		"steps":[
+			{
+				"ID":"step_1",
+				"label":"Allumage de la centrale hydraulique",
+				"comments":["Premier allumage"],
+				"type":"Initialization",
+				"<<examples":["Initialization", "Processing", "Support", "<<Discontinuous"],
+				"scheduling":{
+					"start":{
+						"type":"delay",
+						"<<enum":["delay", "with_any", "with_all", "after_any", "after_all", "<<before", "<<while"],
+						"value":0,
+						"<<comment":"For 'delay': the number of hours (number). For others than 'delay': all the steps's ID to which the condition relates (array)."
+					},
+					"duration":{
+						"type":"delay",
+						"<<enum":["cargo_amount", "delay", "before", "after_all", "after_any"],
+						"value":[60,"min"],
+						"<<comment":"For 'cargo_amount': the amount and unit (can be tons or percent). For others than 'cargo_amount': see start>value's comment."
+					}
+				},
+				"work":{
+					"machines":["machine_1"],
+					"<<comment":"It is possible to list several machines, as long as they are working in parallel (since theirs throughput will be summed). For machines not working in parallel but in series, use separate steps.",
+					"type":"parallel",
+					"distance":"on_spot",
+					"<<comment":"'on_spot' for static machines use, number of kilometers for moving machine (impacting throughput calculation)"
+				}
+			},
+			{
+				"ID":"step_2",
+				"label":"Mise en position du treuil réel",
+				"comments":[""],
+				"type":"Initialization",
+				"scheduling":{
+					"start":{
+						"type":"with_any",
+						"value":["step_1"]
+					},
+					"duration":{
+						"type":"delay",
+						"value":[10,"min"]
+					}
+				},
+				"work":{
+					"machines":["machine_2"],
+					"type":"parallel",
+					"distance":"on_spot"
+				}
+			},
+			{
+				"ID":"step_3",
+				"label":"Initialisation TB Portique (1 à 2)",
+				"comments":["Correspond au temps que met le premier grain pour parcourir le tapis."],
+				"type":"Initialization",
+				"scheduling":{
+					"start":{
+						"type":"with_any",
+						"value":["step_1"]
+					},
+					"duration":{
+						"type":"delay",
+						"value":[20,"min"]
+					}
+				},
+				"work":{
+					"machines":["machine_4"],
+					"type":"parallel",
+					"distance":"on_spot"
+				}
+			},
+			{
+				"ID":"step_4",
+				"label":"Service TB Portique (1 à 2)",
+				"comments":["Acheminement du grain depuis le silo jusqu'au bateau."],
+				"type":"Processing",
+				"scheduling":{
+					"start":{
+						"type":"after_all",
+						"value":["step_2", "step_3"]
+					},
+					"duration":{
+						"type":"cargo_amount",
+						"value":[100,"%"]
+					}
+				},
+				"work":{
+					"machines":["machine_4"],
+					"type":"parallel",
+					"distance":"on_spot"
+				}
+			},
+			{
+				"ID":"step_5",
+				"label":"Service TB Portique (6)",
+				"comments":[""],
+				"type":"Processing",
+				"scheduling":{
+					"start":{
+						"type":"after_all",
+						"value":["step_2", "step_3"]
+					},
+					"duration":{
+						"type":"cargo_amount",
+						"value":[100,"%"]
+					}
+				},
+				"work":{
+					"machines":["machine_5"],
+					"type":"parallel",
+					"distance":"on_spot"
+				}
+			},
+			{
+				"ID":"step_6",
+				"label":"Service TB Silo (1 à 5)",
+				"comments":[""],
+				"type":"Processing",
+				"scheduling":{
+					"start":{
+						"type":"after_all",
+						"value":["step_2", "step_3"]
+					},
+					"duration":{
+						"type":"cargo_amount",
+						"value":[100,"%"]
+					}
+				},
+				"work":{
+					"machines":["machine_6"],
+					"type":"parallel",
+					"distance":"on_spot"
+				}
+			},
+			{
+				"ID":"step_7",
+				"label":"Service EL Silo (4)",
+				"comments":[""],
+				"type":"",
+				"scheduling":{
+					"start":{
+						"type":"after_all",
+						"value":["step_2", "step_3"]
+					},
+					"duration":{
+						"type":"cargo_amount",
+						"value":[100,"%"]
+					}
+				},
+				"work":{
+					"machines":["machine_7"],
+					"type":"parallel",
+					"distance":"on_spot"
+				}
+			},
+			{
+				"ID":"step_8",
+				"label":"Ajustement portique",
+				"comments":[""],
+				"type":"Discontinuous",
+				"scheduling":{
+					"start":{
+						"type":"delay",
+						"value":[4,"hours"]
+					},
+					"duration":{
+						"type":"delay",
+						"value":[1,"hours"]
+					}
+				},
+				"work":{
+					"machines":["machine_1", "machine_2", "machine_3"],
+					"type":"parallel",
+					"distance":"on_spot"
+				}
+			}
+		]
+	}
+]

@@ -1,0 +1,20 @@
+{
+	"cargoes":[{}],
+	"shifts":[
+		{
+			"ID":"typical",
+			"value":[
+				{"Monday":["8>12", "14>17"]},
+				{"Tuesday":["8>12", "14>17"]},
+				{"Wednesday":["8>12", "14>17"]},
+				{"Thursday":["8>12", "14>17"]},
+				{"Friday":["8>12", "14>17"]},
+				{"Saturday":[]},
+				{"Sunday":[]}
+			]
+		}
+	],
+	"priority":{},
+	"assignment":{},
+	"validity":{},
+}

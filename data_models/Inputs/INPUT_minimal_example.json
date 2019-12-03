@@ -1,0 +1,18 @@
+[
+	{
+		"handlings": [
+			{
+				"type": "cargo",
+				"dock": {
+					"ID": "dock_432",
+					"ETA": "2018-11-13T20:20:39+00:00"
+				},
+				"content": {
+					"direction": "unloading",
+					"type": "corn",
+					"amount": 4560
+				}
+			}
+		]
+	}
+]
