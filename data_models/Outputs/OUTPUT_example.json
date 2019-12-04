@@ -1,0 +1,149 @@
+{
+	"parameters": {
+		"resources": {
+			"areas": [
+				{}
+			],
+			"machines": [
+				{}
+			],
+			"others": [
+				{}
+			],
+			"supply_chains": [
+				{}
+			]
+		},
+		"habits/convention/custom/practices/":{
+
+		}
+
+	},
+	"port_activity_scenario": [
+		{
+			"terminal": "Bassens",
+			"total":{
+				"scheduling":{
+					"start":"2018-11-13T20:00:00+00:00",
+					"end":"2018-11-13T20:00:00+00:00",
+					"duration":42
+				},
+				"energy_consumptions":{
+					"electricity_(kWh)": 42,
+					"fossil fuel": {
+						"diesel_(L)": 42,
+						"petrol_(L)": 42
+					}
+				},
+				"pollutants_emission":{
+					"PM": {
+						"<2,5":42,
+						"<10":42
+					},
+					"PAH": {
+						"nap":42,
+						"phe":42
+					},
+					"BTEX": {
+						"benz": 42,
+						"tol": 42
+					}
+				}
+			},
+			"boats":[
+				{
+					"ID": "IMO1234567",
+					"type": "cargo >500 tjb",
+					"capacity": 15000,
+					"label": "Boat's labelling (eg. name)",
+					"stopovers": [
+						{
+							"ID": "20190465",
+							"status": "achieved",
+							"port": {
+								"ETA": "2018-11-13T20:00:00+00:00",
+								"ETD": "2018-11-14T14:00:00+00:00"
+							},
+							"total":{
+								"scheduling":{
+									"start":"2018-11-13T20:00:00+00:00",
+									"end":"2018-11-13T20:00:00+00:00",
+									"duration":42
+								},
+								"energy_consumptions": {
+									"electricity_(kWh)": 42,
+									"fossil fuel": {
+										"diesel_(L)": 42,
+										"petrol_(L)": 42
+									}
+								},
+								"pollutants_emission":{
+									"PM": {
+										"<2,5":42,
+										"<10":42
+									},
+									"PAH": {
+										"nap":42,
+										"phe":42
+									},
+									"BTEX": {
+										"benz": 42,
+										"tol": 42
+									}
+								}
+							},
+							"handlings": [
+								{
+									"type": "cargo",
+									"dangerous": false,
+									"agent": "Cargo's agent's name",
+									"operator": "Cargo's operator's name",
+									"dock": {
+										"ID": "dock_432",
+										"ETA": "2018-11-14T15:00:00+00:00",
+										"ETD": "2018-11-16T07::00:00+00:00"
+									},
+									"content": {
+										"direction": "unloading",
+										"segment_type": "cereal",
+										"type": "corn",
+										"amount": 4560,
+										"label": "Cargo's labelling (eg. short description)"
+									},
+									"total":{
+										"scheduling":{
+											"start":"2018-11-13T20:00:00+00:00",
+											"end":"2018-11-13T20:00:00+00:00",
+											"duration":42
+										},
+										"energy_consumptions": {
+											"electricity_(kWh)": 42,
+											"fossil fuel": {
+												"diesel_(L)": 42,
+												"petrol_(L)": 42
+											}
+										},
+										"pollutants_emission":{
+											"PM": {
+												"<2,5":42,
+												"<10":42
+											},
+											"PAH": {
+												"nap":42,
+												"phe":42
+											},
+											"BTEX": {
+												"benz": 42,
+												"tol": 42
+											}
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			]	
+		}
+	]
+}
