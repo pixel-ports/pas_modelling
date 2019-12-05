@@ -1,0 +1,40 @@
+"total":{
+	"scheduling":{
+		"start":"2018-11-13T20:00:00+00:00",
+		"end":"2018-11-13T20:00:00+00:00",
+		"duration <<pas valable pr tous les levels":42
+	},
+	"cargo <<pas valable pr tous les levels":[
+		{
+			"ID":"E.mais toto",
+			"number":42,
+			"amount":42
+		},
+		{
+			"ID":"E.mais toto",
+			"number":42,
+			"amount":42
+		}	
+	],
+	"energy_consumptions":{
+		"electricity_(kWh)": 42,
+		"fossil fuel": {
+			"diesel_(L)": 42,
+			"petrol_(L)": 42
+		}
+	},
+	"pollutants_emission":{
+		"PM": {
+			"<2,5":42,
+			"<10":42
+		},
+		"PAH": {
+			"nap":42,
+			"phe":42
+		},
+		"BTEX": {
+			"benz": 42,
+			"tol": 42
+		}
+	}
+},

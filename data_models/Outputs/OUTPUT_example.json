@@ -98,6 +98,7 @@
 									"dangerous": false,
 									"agent": "Cargo's agent's name",
 									"operator": "Cargo's operator's name",
+									"piority_ranking":42,
 									"dock": {
 										"ID": "dock_432",
 										"ETA": "2018-11-14T15:00:00+00:00",
@@ -137,7 +138,46 @@
 												"tol": 42
 											}
 										}
-									}
+									},
+									"supply_chain_ID":"SC_1",
+									"activities":[
+										{
+											"ID":"activity_1 <<unique pr tout le PAS",
+											"step_id":"step_1 <<référence du parent",
+											"scheduling":{
+												"start":"2018-11-13T20:00:00+00:00",
+												"end":"2018-11-13T20:00:00+00:00",
+												"duration":42
+											},
+											"resources":[
+												{
+													"ressource_ID":"machine_1",
+													"energy_consumptions": {
+														"electricity_(kWh)": 42,
+														"fossil fuel": {
+															"diesel_(L)": 42,
+															"petrol_(L)": 42
+														}
+													},
+													"pollutants_emission":{
+														"PM": {
+															"<2,5":42,
+															"<10":42
+														},
+														"PAH": {
+															"nap":42,
+															"phe":42
+														},
+														"BTEX": {
+															"benz": 42,
+															"tol": 42
+														}
+													}
+												}
+											]
+										}
+									]
+
 								}
 							]
 						}
