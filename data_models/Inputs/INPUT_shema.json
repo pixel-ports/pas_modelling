@@ -136,7 +136,7 @@
 								"passenger",
 								"container"
 							],
-							"examples": [
+							"default": [
 								"cargo"
 							]
 						},
@@ -177,7 +177,7 @@
 								"ID": {
 									"$id": "#/items/properties/handlings/items/properties/dock/properties/ID",
 									"type": "string",
-									"description": "Dock's ID, among : listed in port's Areas.json parameters file.",
+									"description": "Dock's ID, among : listed in port's ressources/areas parameters file.",
 									"examples": [
 										"dock_432"
 									]
