@@ -1,41 +1,34 @@
-Blocs de quantification :
-	"scheduling":{
-		<< Tous sauf ressources
+"total":{
+	"cargoes_handled":[
+		{
+			"ID":"cargo_type_1",
+			"count":442,
+			"amount":42886
+		},
+		{
+			"ID":"cargo_type_2",
+			"count":72,
+			"amount":755442
+		}	
+	],
+	"timespan":{
 		"start":"2018-11-13T20:00:00+00:00",
 		"end":"2018-11-13T20:00:00+00:00",
 		"duration":42
 	},
-	"handled_cargo":[
-		{
-			"cargo_type":"E.mais toto",
-			"number":42,
-			"amount":42
-		},
-		{
-			"ID":"E.mais toto",
-			"number":42,
-			"amount":42
-		}	
-	],
-	"energy_consumptions":{
+	"energy_consumed":{
 		"electricity_(kWh)": 42,
 		"fossil fuel": {
 			"diesel_(L)": 42,
 			"petrol_(L)": 42
 		}
 	},
-	"pollutants_emission":{
-		"PM": {
-			"<2,5":42,
-			"<10":42
-		},
-		"PAH": {
-			"nap":42,
-			"phe":42
-		},
-		"BTEX": {
-			"benz": 42,
-			"tol": 42
-		}
+	"pollutants_emitted":{
+		"SOx":42,
+		"PM":42,
+		"NOx":42,
+		"GHG":42,
+		"VOC":42,
+		"CO":42
 	}
 },

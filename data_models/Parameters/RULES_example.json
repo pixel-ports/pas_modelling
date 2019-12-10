@@ -1,5 +1,15 @@
 {
-	"cargoes":[{}],
+	"cargoes":[
+		{
+			"ID":"unknow",
+			"segment":"unknow",
+			"unit": "Tons",
+			"typical_amount_range": [500, 10000],
+			"default_dock": ["412", "234"],
+			"default_supply-chain"
+			},
+		}
+	],
 	"shiftworks":[
 		{
 			"ID":"typical",
