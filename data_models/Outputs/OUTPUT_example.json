@@ -11,12 +11,12 @@
 	"port_activity_scenario": [
 		{
 			"terminal": "Bassens",
-			"boats":[
+			"ships":[
 				{
 					"ID": "IMO1234567",
 					"type": "cargo >500 tjb",
 					"capacity": 15000,
-					"label": "Boat's labelling (eg. name)",
+					"label": "Ship's labelling (eg. name)",
 					"stopovers": [
 						{
 							"ID": "20190465",
