@@ -34,7 +34,7 @@
           "properties": {
             "ID": {
               "type": "string",
-              "description": "The ship's ID, can be IMO or other.",
+              "description": "The ship's unique identifier, can be IMO or other.",
               "$comment": "If we choose to impose IMO, we can adapt the pattern.",
               "examples": [
                 "IMO1234567"
@@ -131,6 +131,10 @@
                         "contents"
                       ],
                       "properties": {
+                        "ID":{
+                          "type": "string",
+                          "description": "The handling's unique identifier."
+                        },
                         "nature": {
                           "type": "string",
                           "description": "The handling's nature (categorial), among: cargo, passenger, container.",
@@ -175,7 +179,7 @@
                           "properties": {
                             "ID": {
                               "type": "string",
-                              "description": "The dock's ID, among : listed in port's parameters file.",
+                              "description": "The dock's unique identifier, among : listed in port's parameters file.",
                               "examples": [
                                 "dock_432"
                               ]

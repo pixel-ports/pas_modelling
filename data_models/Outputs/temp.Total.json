@@ -23,12 +23,12 @@
 			"petrol_(L)": 42
 		}
 	},
-	"pollutants_emitted":{
-		"SOx":42,
-		"PM":42,
-		"NOx":42,
-		"GHG":42,
-		"VOC":42,
-		"CO":42
-	}
+	"pollutants_emitted":[
+		{"SOx":42},
+		{"PM":42},
+		{"NOx":42},
+		{"GHG":42},
+		{"VOC":42},
+		{"CO":42}
+	]
 },
