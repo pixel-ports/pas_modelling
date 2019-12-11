@@ -15,7 +15,7 @@ For the run, you'll have to mount your `inputs` and `outputs` folders, and speci
 docker build -t pas .
 rm -rf inputs outputs
 mkdir inputs outputs
-cp data_models/*.json inputs/
+cp data_models/inputs/*.json inputs/
 docker run --env-file .env -v $(pwd):/pas pas python3 main.py --steps 1 2 3 4
 ```
 
