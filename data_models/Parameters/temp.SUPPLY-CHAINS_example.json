@@ -4,7 +4,7 @@
 		"label":"Cereale_SPBL_Export",
 		"comment":"Se décompose en trois blocs : initialisation (du portique et temps mort tapis), acheminement et ajustement du portique.",
 		"compatibility":{
-			"cargoes_category":["E.Mais Vrac"],
+			"cargoes_category":["E.Corn"],
 			"directions_nature":["loading"],
 			"areas_ID":["419", "432", "Silo_SPBL"],
 			"shiftworks_ID":["typical"]
