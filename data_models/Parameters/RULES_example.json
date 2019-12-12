@@ -1,13 +1,20 @@
 {
-	"cargoes":[
+	"cargoes_categories":[
 		{
-			"ID":"unknow",
-			"segment":"unknow",
+			"ID":"E.Corn",
+			"segment":"cereal",
 			"unit": "Tons",
 			"typical_amount_range": [500, 10000],
-			"default_dock": ["412", "234"],
-			"default_supply-chain"
-			},
+			"<<comment":"Les champs ci dessous (qui servent au mapping) pourraient être split ailleurs",
+			"assignation_preference":[
+				{
+					"priority":1,
+					"direction": "loading",
+					"dock_ID": "area_42",
+					"supply_chain_ID":"SC_42"
+
+				}
+			],
 		}
 	],
 	"shiftworks":[
