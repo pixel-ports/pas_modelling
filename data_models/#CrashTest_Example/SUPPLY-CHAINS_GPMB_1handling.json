@@ -1,0 +1,36 @@
+[
+	{
+		"ID":"SC_1",
+		"label":"SC name",
+		"comment":"SC comment.",
+		"compatibility":{
+			"cargoes_category":["E.MAIS%20VRAC"],
+			"directions_nature":["unloading"],
+			"areas_ID":["449"],
+			"shiftworks_ID":["typical"]
+		},
+		"steps_list":[
+			{
+				"ID":"step_1",
+				"label":"SC pour mïs vrac",
+				"comment":"SC virtuelle à une seulle étape",
+				"category":"MonoEtape",
+				"scheduling":{
+					"start":{
+						"nature":"delay",
+						"value":0
+					},
+					"duration":{
+						"nature":"cargo_%",
+						"value":100
+					}
+				},
+				"work":{
+					"machines":["machine_1"],
+					"nature":"parallel",
+					"distance":"on_spot"
+				}
+			}
+		]
+	}
+]
