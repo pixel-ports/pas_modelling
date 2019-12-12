@@ -1,268 +1,265 @@
 {
-	"definitions": {},
-	"$schema": "http://json-schema.org/draft-07/schema#",
-	"type": "array",
-	"title": "Handling Requests",
-	"items": {
-		"$id": "#/items",
-		"type": "object",
-		"title": "Stopover",
-		"description": "Regroup useful data for PAS modelling about a ship's journey in a port.",
-		"required": [
-			"handlings"
-		],
-		"properties": {
-			"stopover_ID": {
-				"$id": "#/items/properties/stopover_ID",
-				"type": "string",
-				"description": "Unique identifier for the stopover (sometime call journey's id).",
-				"examples": [
-					"20190465"
-				]
-			},
-			"status": {
-				"$id": "#/items/properties/status",
-				"type": "string",
-				"description": "The stopover status (categorial), among : expected, ongoing, achieved, canceled, other.",
-				"enum": [
-					"expected",
-					"ongoing",
-					"achieved",
-					"canceled",
-					"other"
-				],
-				"examples": [
-					"achieved"
-				]
-			},
-			"port": {
-				"$id": "#/items/properties/port",
-				"type": "object",
-				"required": [],
-				"properties": {
-					"ETA": {
-						"$id": "#/items/properties/port/properties/ETA",
-						"type": "string",
-						"format": "date-time",
-						"description": "Estimated time of arrival into port jurisdiction.",
-						"examples": [
-							"2018-11-13T20:20:39+00:00"
-						]
-					},
-					"ETD": {
-						"$id": "#/items/properties/port/properties/ETD",
-						"type": "string",
-						"format": "date-time",
-						"description": "Estimated time of departure from port jurisdiction.",
-						"examples": [
-							"2018-11-13T20:20:39+00:00"
-						]
-					},
-					"terminal": {
-						"$id": "#/items/properties/port/properties/terminal",
-						"type": "string",
-						"description": "The stopover's terminal target",
-						"$comment": "Currently, this does not support a stopover involving more than 1 terminal.",
-						"examples": [
-							"Bassens"
-						]
-					}
-				}
-			},
-			"boat": {
-				"$id": "#/items/properties/boat",
-				"type": "object",
-				"description": "Informations about the ship involved.",
-				"required": [],
-				"properties": {
-					"ID": {
-						"$id": "#/items/properties/boat/properties/ID",
-						"type": "string",
-						"description": "The boat's ID, can be IMO or other.",
-						"$comment": "If we choose to impose IMO, we can adapt the pattern.",
-						"examples": [
-							"IMO1234567"
-						]
-					},
-					"type": {
-						"$id": "#/items/properties/boat/properties/type",
-						"type": "string",
-						"description": "Boat's categorical value for grouping.",
-						"examples": [
-							"cargo >500 tjb"
-						]
-					},
-					"capacity": {
-						"$id": "#/items/properties/boat/properties/capacity",
-						"type": "integer",
-						"description": "Boat's maximal load value",
-						"$comment": "Used for unit test, and could turn out to be required for container management.",
-						"examples": [
-							15000
-						]
-					},
-					"label": {
-						"$id": "#/items/properties/boat/properties/label",
-						"type": "string",
-						"description": "Can be use for boat's name.",
-						"$comment": "Should we also propose a Comment field?",
-						"examples": [
-							"Boat's label (eg.name)"
-						]
-					}
-				}
-			},
-			"handlings": {
-				"$id": "#/items/properties/handlings",
-				"type": "array",
-				"description": "List all handlings requested for the parent stopover.",
-				"items": {
-					"$id": "#/items/properties/handlings/items",
-					"type": "object",
-					"description": "Stopover's handling requests.",
-					"required": [
-						"type",
-						"dock",
-						"content"
-					],
-					"properties": {
-						"type": {
-							"$id": "#/items/properties/handlings/items/properties/type",
-							"type": "string",
-							"description": "The handling's type (categorial), among: cargo, passenger, container.",
-							"$comment": "The handling's type is a key parameter and thus drive the required properties of Content.",
-							"enum": [
-								"cargo",
-								"passenger",
-								"container"
-							],
-							"examples": [
-								"cargo"
-							]
-						},
-						"dangerous": {
-							"$id": "#/items/properties/handlings/items/properties/dangerous",
-							"type": "boolean",
-							"description": "Element considered as dangerous are onboard.",
-							"default": false,
-							"examples": [
-								false
-							]
-						},
-						"agent": {
-							"$id": "#/items/properties/handlings/items/properties/agent",
-							"type": "string",
-							"description": "Entity that requests the handling, used for grouping.",
-							"examples": [
-								"Cargo's agent's name"
-							]
-						},
-						"operator": {
-							"$id": "#/items/properties/handlings/items/properties/operator",
-							"type": "string",
-							"description": "Entity that makes the handling, used for grouping.",
-							"examples": [
-								"Cargo's operator's name"
-							]
-						},
-						"dock": {
-							"$id": "#/items/properties/handlings/items/properties/dock",
-							"type": "object",
-							"description": "Handling's dock.",
-							"required": [
-								"ID",
-								"ETA"
-							],
-							"properties": {
-								"ID": {
-									"$id": "#/items/properties/handlings/items/properties/dock/properties/ID",
-									"type": "string",
-									"description": "Dock's ID, among : listed in port's Areas.json parameters file.",
-									"examples": [
-										"dock_432"
-									]
-								},
-								"ETA": {
-									"$id": "#/items/properties/handlings/items/properties/dock/properties/ETA",
-									"type": "string",
-									"format": "date-time",
-									"description": "Estimated time of arrival at dock.",
-									"examples": [
-										"2018-11-13T20:20:39+00:00"
-									]
-								},
-								"ETD": {
-									"$id": "#/items/properties/handlings/items/properties/dock/properties/ETD",
-									"type": "string",
-									"format": "date-time",
-									"description": "Estimated time of departure from dock.",
-									"examples": [
-										"2018-11-13T20:20:39+00:00"
-									]
-								}
-							}
-						},
-						"content": {
-							"$id": "#/items/properties/handlings/items/properties/content",
-							"type": "object",
-							"description": "Required properties differt according to the handling's type.",
-							"$comment": "This current version only support an handling's type of Cargo.",
-							"required": [
-								"direction",
-								"type",
-								"amount"
-							],
-							"properties": {
-								"direction": {
-									"$id": "#/items/properties/handlings/items/properties/content/properties/direction",
-									"type": "string",
-									"description": "Handling's direction (categorial), among : loading, unloading, other.",
-									"enum": [
-										"loading",
-										"unloading",
-										"other"
-									],
-									"examples": [
-										"loading"
-									]
-								},
-								"segment_type": {
-									"$id": "#/items/properties/handlings/items/properties/content/properties/segment_type",
-									"type": "string",
-									"description": "Cargo's segment-type (categorial), among : listed in port's Cargos.json parameters file. Used for coherency checking and grouping.",
-									"examples": [
-										"cereal"
-									]
-								},
-								"type": {
-									"$id": "#/items/properties/handlings/items/properties/content/properties/type",
-									"type": "string",
-									"description": "Cargo's type (categorial), among : listed in port's Cargos.json parameters file.",
-									"examples": [
-										"corn"
-									]
-								},
-								"amount": {
-									"$id": "#/items/properties/handlings/items/properties/content/properties/amount",
-									"type": "integer",
-									"description": "The quantity of cargo to load or unload. Unit are inferred from cargo's type (through Cargos.json parameters file).",
-									"examples": [
-										4560
-									]
-								},
-								"label": {
-									"$id": "#/items/properties/handlings/items/properties/content/properties/label",
-									"type": "string",
-									"description": "Open text field for cargo's labelling as a short description.",
-									"examples": [
-										"Cargo's labelling (eg. short description)"
-									]
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}		
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+
+  "$id": "#terminals_list",
+  "type": "array",
+  "description": "List of considered terminals and subsequent data.",
+  "items":{
+    "$id": "#terminal_item",
+    "type":"object",
+    "description": "A terminal description.",
+    "required": [
+      "ships_list"
+    ],
+    "properties": {
+      "terminal":{
+        "type": "string",
+        "description": "The terminal identifier (for grouping in data analysis context).",
+        "examples": [
+                "Bassens"
+        ]
+      },
+      "ships_list": {
+        "$id": "#ships_list",
+        "type": "array",
+        "description": "List of considered ships and subsequent data.",
+        "items": {
+          "$id": "#ship_item",
+          "type": "object",
+          "description": "A ship description.",
+          "required": [
+            "stopovers_list"
+          ],
+          "properties": {
+            "ID": {
+              "type": "string",
+              "description": "The ship's unique identifier, can be IMO or other.",
+              "$comment": "If we choose to impose IMO, we can adapt the pattern.",
+              "examples": [
+                "IMO1234567"
+              ]
+            },
+            "category": {
+              "type": "string",
+              "description": "The ship's Category (for grouping in data analysis context).",
+              "examples": [
+                "cargo >500 tjb"
+              ]
+            },
+            "capacity": {
+              "type": "integer",
+              "description": "The ship's maximal load value.",
+              "examples": [
+                15000
+              ]
+            },
+            "label": {
+              "type": "string",
+              "description": "Free labelling, can be use for boat's name or comments.",
+              "examples": [
+                "Ship's labelling (eg. name)"
+              ]
+            },
+            "stopovers_list": {
+              "$id": "stopovers_array",
+              "type": "array",
+              "description": "List of considered stopovers and subsequent data.",
+              "items": {
+                "$id": "#stopover_item",
+                "type": "object",
+                "description": "A Stopover description.",
+                "required": [
+                  "handlings_list"
+                ],
+                "properties": {
+                  "ID": {
+                    "type": "string",
+                    "description": "The Stopover's unique identifier (sometime called journey's id).",
+                    "default": "",
+                    "examples": [
+                      "20190465"
+                    ],
+                    "pattern": "^(.*)$"
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "The Stopover status (categorial), among : expected, ongoing, achieved, canceled, other.",
+                    "enum": [
+                      "expected",
+                      "ongoing",
+                      "achieved",
+                      "canceled",
+                      "other"
+                    ],
+                    "examples": [
+                      "achieved"
+                    ]
+                  },
+                  "port_gate": {
+                    "type": "object",
+                    "description": "Ship's timespan inside port's jurisdiction.",
+                    "required": [],
+                    "properties": {
+                      "ETA": {
+                        "type": "string",
+                        "description": "Estimated time of arrival into port jurisdiction.",
+                        "examples": [
+                          "2018-11-13T20:00:00+00:00"
+                        ]
+                      },
+                      "ETD": {
+                        "type": "string",
+                        "description": "Estimated time of departure from port jurisdiction.",
+                        "examples": [
+                          "2018-11-14T14:00:00+00:00"
+                        ]
+                      }
+                    }
+                  },
+                  "handlings_list": {
+                    "$id": "#handlings_array",
+                    "type": "array",
+                    "description": "List of considered handlings and subsequent data.",
+                    "items": {
+                      "$id": "#handling_item",
+                      "type": "object",
+                      "description": "An handling description",
+                      "required": [
+                        "nature",
+                        "dock",
+                        "contents"
+                      ],
+                      "properties": {
+                        "ID":{
+                          "type": "string",
+                          "description": "The handling's unique identifier."
+                        },
+                        "nature": {
+                          "type": "string",
+                          "description": "The handling's nature (categorial), among: cargo, passenger, container.",
+                          "$comment": "This is a key parameter that drive the required properties of Content. Curently, PAS modelling only supports 'Cargo'.",
+                          "enum": [
+                            "cargo",
+                            "passenger",
+                            "container"
+                          ],
+                          "examples": [
+                            "cargo"
+                          ]
+                        },
+                        "dangerous": {
+                          "type": "boolean",
+                          "description": "Element considered as dangerous are onboard.",
+                          "examples": [
+                            false
+                          ]
+                        },
+                        "agent": {
+                          "type": "string",
+                          "description": "The Agent requesting the handling (for grouping in data analysis context).",
+                          "examples": [
+                            "Cargo's agent's name"
+                          ]
+                        },
+                        "operator": {
+                          "type": "string",
+                          "description": "The Operator doing the handling (for grouping in data analysis context).",
+                          "examples": [
+                            "Cargo's operator's name"
+                          ]
+                        },
+                        "dock": {
+                          "type": "object",
+                          "description": "Information about the concerned docking.",
+                          "required": [
+                            "ID",
+                            "ETA"
+                          ],
+                          "properties": {
+                            "ID": {
+                              "type": "string",
+                              "description": "The dock's unique identifier, among : listed in port's parameters file.",
+                              "examples": [
+                                "dock_432"
+                              ]
+                            },
+                            "ETA": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Estimated time of arrival at dock.",
+                              "examples": [
+                                "2018-11-16T07::00:00+00:00"
+                              ]
+                            },
+                            "ETD": {
+                              "type": "string",
+                              "format": "date-time",
+                              "description": "Estimated time of departure from dock.",
+                              "examples": [
+                                "2018-11-16T07::00:00+00:00"
+                              ]
+                            }
+                          }
+                        },
+                        "contents": {
+                          "$id": "#contents=cargo",
+                          "type": "object",
+                          "description": "Required properties differt according to the handling's type, here for 'cargo'.",
+                          "$comment": "This current version only support an handling's type of Cargo.",
+                          "required": [
+                            "direction",
+                            "category",
+                            "amount"
+                          ],
+                          "properties": {
+                            "direction": {
+                              "type": "string",
+                              "description": "Handling's direction (categorial), among : loading, unloading, other.",
+                              "enum": [
+                                "loading",
+                                "unloading",
+                                "other"
+                              ],
+                              "default": "other",
+                              "examples": [
+                                "unloading"
+                              ]
+                            },
+                            "category": {
+                              "type": "string",
+                              "description": "Cargo's type (categorial), among : listed in port's parameters file.",
+                              "default": "unknown",
+                              "examples": [
+                                "corn"
+                              ]
+                            },
+                            "amount": {
+                              "type": "integer",
+                              "description": "The quantity of cargo to load or unload. Unit is inferred from cargo's category (through port's parameters file).",
+                              "default": 0,
+                              "examples": [
+                                4560
+                              ]
+                            },
+                            "label": {
+                              "type": "string",
+                              "description": "Open text field for cargo's labelling as a short description.",
+                              "examples": [
+                                "Cargo's labelling (eg. short description)"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

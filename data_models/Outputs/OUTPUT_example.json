@@ -1,0 +1,83 @@
+{
+	"parameters": {
+		"resources": {
+			"comments":"See ressources.json"
+		},
+		"conventions":{
+			"comments":"See conventions.json"
+		}
+
+	},
+	"port_activity_scenario": [
+		{
+			"terminal": "Bassens",
+			"ships":[
+				{
+					"ID": "IMO1234567",
+					"type": "cargo >500 tjb",
+					"capacity": 15000,
+					"label": "Ship's labelling (eg. name)",
+					"stopovers": [
+						{
+							"ID": "20190465",
+							"status": "achieved",
+							"port_gate": {
+								"ETA": "2018-11-13T20:00:00+00:00",
+								"ETD": "2018-11-14T14:00:00+00:00"
+							},
+							"handlings": [
+								{
+									"ID": "handling_1",
+									"type": "cargo",
+									"dangerous": false,
+									"agent": "Cargo's agent's name",
+									"operator": "Cargo's operator's name",									
+									"dock": {
+										"ID": "dock_432",
+										"ETA": "2018-11-14T15:00:00+00:00",
+										"ETD": "2018-11-16T07::00:00+00:00"
+									},
+									"content": {
+										"direction": "unloading",
+										"segment_type": "cereal",
+										"type": "corn",
+										"amount": 4560,
+										"label": "Cargo's labelling (eg. short description)"
+									},									
+									"piority_ranking":42,
+									"supply_chain_ID":"SC_1",
+									"activities":[
+										{
+											"ID":"activity_1 <<unique pr tout le PAS",
+											"step_id":"step_1 <<référence du parent",
+											"timespan_scheduled":{
+												"start":"2018-11-13T20:00:00+00:00",
+												"end":"2018-11-13T20:00:00+00:00",
+												"duration":42
+											},
+											"resources":[
+												{
+													"ressource_ID":"machine_1",
+													"energy_consumed": {
+														"electricity_(kWh)": 42,
+														"fossil fuel": {
+															"diesel_(L)": 42,
+															"petrol_(L)": 42
+														}
+													},
+													"pollutants_emited":[
+														{"Pol_1": 42}
+													]
+												}
+											]
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			]	
+		}
+	]
+}
