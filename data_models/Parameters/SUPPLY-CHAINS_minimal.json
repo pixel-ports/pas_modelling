@@ -1,0 +1,27 @@
+[
+	{
+		"ID":"SC_1",
+		"compatibility":{
+		},
+		"steps_list":[
+			{
+				"ID":"step_1",
+				"scheduling":{
+					"start":{
+						"nature":"delay",
+						"value":0
+					},
+					"duration":{
+						"nature":"after_any",
+						"value":["step_3", "step_4"]
+					}
+				},
+				"work":{
+					"machines":["machine_1"],
+					"nature":"parallel",
+					"distance":"on_spot"
+				}
+			}
+		]
+	}
+]

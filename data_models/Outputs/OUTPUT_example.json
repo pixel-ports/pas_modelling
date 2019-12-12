@@ -1,17 +1,6 @@
 {
-	"parameters": {
-		"resources": {
-			"comments":"See ressources.json"
-		},
-		"process":{
-
-		},
-		"conventions":{
-			"comments":"See conventions.json"
-		}
-
-	},
-	"port_activities_scenario": [
+	"parameters": {},
+	"port_activity_scenario": [
 		{
 			"terminal":"terminal_007",
 			"ships_list": [
@@ -23,7 +12,7 @@
 					"stopovers_list": [
 						{
 							"ID": "stopover_007",
-							"status": "achieved",
+							"nature": "achieved",
 							"port_gate": {
 								"ETA": "2018-11-13T20:00:00+00:00",
 								"ETD": "2018-11-14T14:00:00+00:00"

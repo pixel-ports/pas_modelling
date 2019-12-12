@@ -16,7 +16,7 @@
 			"label":"Virtual machine for accounting reefers consumption",
 			"type":"",
 			"group":"",
-			"owner":"",
+			"owner":""
 		},
 		{
 			"ID":"machine_1",

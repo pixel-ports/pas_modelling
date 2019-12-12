@@ -1,464 +1,272 @@
 {
   "definitions": {},
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "",
+
+  "$id": "supply_chains_list",
   "type": "array",
-  "description": "Supply-chain collection",
+  "description": "The collection of Supply-chain description.",
   "items": {
     "$id": "#/items",
     "type": "object",
-    "description": "A supply-chain description",
+    "description": "A supply-chain description.",
     "required": [
       "ID",
-      "label",
-      "steps"
+      "steps_list"
     ],
     "properties": {
       "ID": {
         "$id": "#/items/properties/ID",
         "type": "string",
-        "description": "The supply-chain ID.",
-        "default": "",
+        "description": "Unique identifier.",
         "examples": [
           "SC_1"
-        ],
-        "pattern": "^(.*)$"
+        ]
       },
       "label": {
         "$id": "#/items/properties/label",
         "type": "string",
-        "description": "The supply-chain labelling.",
-        "default": "",
+        "description": "Free text for labelling (eg. name).",
         "examples": [
-          "Cereale_SPBL_Export"
-        ],
-        "pattern": "^(.*)$"
+          "My SC name"
+        ]
       },
-      "comments": {
-        "$id": "#/items/properties/comments",
-        "type": "array",
-        "description": "The comments about the supply-chain.",
-        "items": {
-          "$id": "#/items/properties/comments/items",
-          "type": "string",
-          "description": "The Items Schema",
-          "default": "",
-          "examples": [
-            "Se décompose en trois blocs : initialisation (du portique et temps mort tapis), acheminement et ajustement du portique."
-          ],
-          "pattern": "^(.*)$"
-        }
+      "comment": {
+        "$id": "#/items/properties/comment",
+        "type": "string",
+        "description": "Free text for comment",
+        "examples": [
+          "Some SC comment"
+        ]
       },
-      "constraints": {
-        "$id": "#/items/properties/constraints",
+      "compatibility": {
+        "$id": "#/items/properties/compatibility",
         "type": "object",
-        "description": "The Constraints Schema",
+        "description": "Informations about suitable handling context.",
         "required": [
-          "cargoes_types",
-          "direction",
-          "areas_types",
-          "shift_ID"
         ],
         "properties": {
-          "cargoes_types": {
-            "$id": "#/items/properties/constraints/properties/cargoes_types",
-            "type": "object",
-            "description": "The Cargoes_types Schema",
-            "required": [
-              "segment",
-              "type"
-            ],
-            "properties": {
-              "segment": {
-                "$id": "#/items/properties/constraints/properties/cargoes_types/properties/segment",
-                "type": "array",
-                "description": "The Segment Schema",
-                "items": {
-                  "$id": "#/items/properties/constraints/properties/cargoes_types/properties/segment/items",
-                  "type": "string",
-                  "description": "The Items Schema",
-                  "default": "",
-                  "examples": [
-                    "cereal"
-                  ],
-                  "pattern": "^(.*)$"
-                }
-              },
-              "type": {
-                "$id": "#/items/properties/constraints/properties/cargoes_types/properties/type",
-                "type": "array",
-                "description": "The Type Schema",
-                "items": {
-                  "$id": "#/items/properties/constraints/properties/cargoes_types/properties/type/items",
-                  "type": "string",
-                  "description": "The Items Schema",
-                  "default": "",
-                  "examples": [
-                    "*"
-                  ],
-                  "pattern": "^(.*)$"
-                }
-              }
+          "cargoes_category": {
+            "$id": "#/items/properties/compatibility/properties/cargoes_category",
+            "type": "array",
+            "description": "List of compatible handlings' cargoes-categories.",
+            "items": {
+              "$id": "#/items/properties/compatibility/properties/cargoes_category/items",
+              "type": "string",
+              "description": "Valid cargo-category's ID.",
+              "examples": [
+                "E.Mais Vrac"
+              ]
             }
           },
-          "direction": {
-            "$id": "#/items/properties/constraints/properties/direction",
+          "directions_nature": {
+            "$id": "#/items/properties/compatibility/properties/directions_nature",
             "type": "array",
-            "description": "The Direction Schema",
+            "description": "List compatible handlings' directions.",
             "items": {
-              "$id": "#/items/properties/constraints/properties/direction/items",
+              "$id": "#/items/properties/compatibility/properties/directions_nature/items",
               "type": "string",
-              "description": "The Items Schema",
-              "default": "",
+              "description": "A direction.",
+              "enum": ["loading", "unloading", "other"],
               "examples": [
                 "loading"
-              ],
-              "pattern": "^(.*)$"
+              ]
             }
           },
-          "areas_types": {
-            "$id": "#/items/properties/constraints/properties/areas_types",
-            "type": "object",
-            "description": "The Areas_types Schema",
-            "required": [
-              "departure",
-              "arrival"
-            ],
-            "properties": {
-              "departure": {
-                "$id": "#/items/properties/constraints/properties/areas_types/properties/departure",
-                "type": "array",
-                "description": "The Departure Schema",
-                "items": {
-                  "$id": "#/items/properties/constraints/properties/areas_types/properties/departure/items",
-                  "type": "string",
-                  "description": "The Items Schema",
-                  "default": "",
-                  "examples": [
-                    "Silo_SPBL"
-                  ],
-                  "pattern": "^(.*)$"
-                }
-              },
-              "arrival": {
-                "$id": "#/items/properties/constraints/properties/areas_types/properties/arrival",
-                "type": "array",
-                "description": "The Arrival Schema",
-                "items": {
-                  "$id": "#/items/properties/constraints/properties/areas_types/properties/arrival/items",
-                  "type": "string",
-                  "description": "The Items Schema",
-                  "default": "",
-                  "examples": [
-                    "419",
-                    "432"
-                  ],
-                  "pattern": "^(.*)$"
-                }
-              }
+          "areas_ID": {
+            "$id": "#/items/properties/compatibility/properties/areas_ID",
+            "type": "array",
+            "description": "List compatible handlings' areas.",
+            "items": {
+              "$id": "#/items/properties/compatibility/properties/areas_ID/items",
+              "type": "string",
+              "description": "Valid area's ID.",
+              "examples": [
+                "419",
+                "432",
+                "Silo_SPBL"
+              ]
             }
           },
-          "shift_ID": {
-            "$id": "#/items/properties/constraints/properties/shift_ID",
-            "type": "string",
-            "description": "The Shift_id Schema",
-            "default": "",
-            "examples": [
-              "typical"
-            ],
-            "pattern": "^(.*)$"
+          "shiftworks_ID": {
+            "$id": "#/items/properties/compatibility/properties/shiftworks_ID",
+            "type": "array",
+            "description": "List compatible handlings' working hours.",
+            "items": {
+              "$id": "#/items/properties/compatibility/properties/shiftworks_ID/items",
+              "type": "string",
+              "description": "Valid shiftwork's ID.",
+              "examples": [
+                "typical"
+              ]
+            }
           }
         }
       },
-      "steps": {
-        "$id": "#/items/properties/steps",
+      "steps_list": {
+        "$id": "#/items/properties/steps_list",
         "type": "array",
-        "description": "The Steps Schema",
+        "description": "List all steps.",
         "items": {
-          "$id": "#/items/properties/steps/items",
+          "$id": "#/items/properties/steps_list/items",
           "type": "object",
-          "description": "The Items Schema",
+          "description": "A step description.",
           "required": [
             "ID",
             "label",
-            "comments",
-            "type",
-            "<<examples",
             "scheduling",
             "work"
           ],
           "properties": {
             "ID": {
-              "$id": "#/items/properties/steps/items/properties/ID",
+              "$id": "#/items/properties/steps_list/items/properties/ID",
               "type": "string",
-              "description": "The Id Schema",
-              "default": "",
+              "description": "Step's unique identifier (in this SC).",
               "examples": [
                 "step_1"
-              ],
-              "pattern": "^(.*)$"
+              ]
             },
             "label": {
-              "$id": "#/items/properties/steps/items/properties/label",
+              "$id": "#/items/properties/steps_list/items/properties/label",
               "type": "string",
-              "description": "The Label Schema",
-              "default": "",
+              "description": "Step name.",
               "examples": [
                 "Allumage de la centrale hydraulique"
-              ],
-              "pattern": "^(.*)$"
+              ]
             },
-            "comments": {
-              "$id": "#/items/properties/steps/items/properties/comments",
-              "type": "array",
-              "description": "The Comments Schema",
-              "items": {
-                "$id": "#/items/properties/steps/items/properties/comments/items",
-                "type": "string",
-                "description": "The Items Schema",
-                "default": "",
-                "examples": [
-                  "Premier allumage"
-                ],
-                "pattern": "^(.*)$"
-              }
-            },
-            "type": {
-              "$id": "#/items/properties/steps/items/properties/type",
+            "comment": {
+              "$id": "#/items/properties/steps_list/items/properties/comment",
               "type": "string",
-              "description": "The Type Schema",
-              "default": "",
+              "description": "Step comment.",
               "examples": [
-                "Initialization"
-              ],
-              "pattern": "^(.*)$"
+                "Premier allumage"
+              ]
             },
-            "<<examples": {
-              "$id": "#/items/properties/steps/items/properties/<<examples",
-              "type": "array",
-              "description": "The <<examples Schema",
-              "items": {
-                "$id": "#/items/properties/steps/items/properties/<<examples/items",
-                "type": "string",
-                "description": "The Items Schema",
-                "default": "",
-                "examples": [
-                  "Initialization",
-                  "Processing",
-                  "Support",
-                  "<<Discontinuous"
-                ],
-                "pattern": "^(.*)$"
-              }
+            "category": {
+              "$id": "#/items/properties/steps_list/items/properties/category",
+              "type": "string",
+              "description": "Step category (for grouping).",
+              "examples": [
+                "Initialization", "Processing", "Support", "Discontinuous"
+              ]
             },
             "scheduling": {
-              "$id": "#/items/properties/steps/items/properties/scheduling",
+              "$id": "#/items/properties/steps_list/items/properties/scheduling",
               "type": "object",
-              "description": "The Scheduling Schema",
+              "description": "Methode for timespan attribution.",
               "required": [
                 "start",
                 "duration"
               ],
               "properties": {
                 "start": {
-                  "$id": "#/items/properties/steps/items/properties/scheduling/properties/start",
+                  "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/start",
                   "type": "object",
-                  "description": "The Start Schema",
+                  "description": "How to determine begining.",
                   "required": [
-                    "type",
-                    "<<enum",
-                    "value",
-                    "<<comment"
+                    "nature",
+                    "value"
                   ],
                   "properties": {
-                    "type": {
-                      "$id": "#/items/properties/steps/items/properties/scheduling/properties/start/properties/type",
+                    "nature": {
+                      "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/start/properties/nature",
                       "type": "string",
-                      "description": "The Type Schema",
-                      "default": "",
-                      "examples": [
-                        "delay"
+                      "description": "If 'delay' is used: start X min after initial start possibility (X=0 for ASAP). For others than 'delay': all the steps's ID to which the condition relates (array).",
+                      "enum": [
+                        "delay", "with_any", "with_all", "after_any", "after_all"
                       ],
-                      "pattern": "^(.*)$"
-                    },
-                    "<<enum": {
-                      "$id": "#/items/properties/steps/items/properties/scheduling/properties/start/properties/<<enum",
-                      "type": "array",
-                      "description": "The <<enum Schema",
-                      "items": {
-                        "$id": "#/items/properties/steps/items/properties/scheduling/properties/start/properties/<<enum/items",
-                        "type": "string",
-                        "description": "The Items Schema",
-                        "default": "",
-                        "examples": [
-                          "delay",
-                          "with_any",
-                          "with_all",
-                          "after_any",
-                          "after_all",
-                          "<<before",
-                          "<<while"
-                        ],
-                        "pattern": "^(.*)$"
-                      }
+                      "examples":["delay"]
                     },
                     "value": {
-                      "$id": "#/items/properties/steps/items/properties/scheduling/properties/start/properties/value",
+                      "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/start/properties/value",
                       "type": "integer",
-                      "description": "The Value Schema",
-                      "default": 0,
+                      "$comment":"This part of the json schema is not working, expected tyme should depend of Nature's value",
+                      "description": "For 'delay', should be a nomber of hours. For orthers, should be an array of Steps' IDs.",
                       "examples": [
                         0
                       ]
-                    },
-                    "<<comment": {
-                      "$id": "#/items/properties/steps/items/properties/scheduling/properties/start/properties/<<comment",
-                      "type": "string",
-                      "description": "The <<comment Schema",
-                      "default": "",
-                      "examples": [
-                        "For 'delay': the number of hours (number). For others than 'delay': all the steps's ID to which the condition relates (array)."
-                      ],
-                      "pattern": "^(.*)$"
                     }
                   }
                 },
                 "duration": {
-                  "$id": "#/items/properties/steps/items/properties/scheduling/properties/duration",
+                  "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/duration",
                   "type": "object",
-                  "description": "The Duration Schema",
+                  "description": "How to determine duration/ending.",
+                  "$comment": "Depending of the situation, it may sometime be clearer to call it End",
                   "required": [
-                    "type",
-                    "<<enum",
-                    "value",
-                    "<<comment"
+                    "nature",
+                    "value"
                   ],
                   "properties": {
-                    "type": {
-                      "$id": "#/items/properties/steps/items/properties/scheduling/properties/duration/properties/type",
+                    "nature": {
+                      "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/duration/properties/nature",
                       "type": "string",
-                      "description": "The Type Schema",
-                      "default": "",
-                      "examples": [
-                        "delay"
+                      "description": "For 'cargo_'X, the cargo's quantity that have to be handled before ending step (express as tons or percent). For others, see 'start' description.",
+                      "enum": [
+                        "delay", "cargo_tons", "cargo_%", "before_any", "before_all", "after_any", "after_all"
                       ],
-                      "pattern": "^(.*)$"
-                    },
-                    "<<enum": {
-                      "$id": "#/items/properties/steps/items/properties/scheduling/properties/duration/properties/<<enum",
-                      "type": "array",
-                      "description": "The <<enum Schema",
-                      "items": {
-                        "$id": "#/items/properties/steps/items/properties/scheduling/properties/duration/properties/<<enum/items",
-                        "type": "string",
-                        "description": "The Items Schema",
-                        "default": "",
-                        "examples": [
-                          "cargo_amount",
-                          "delay",
-                          "before",
-                          "after_all",
-                          "after_any"
-                        ],
-                        "pattern": "^(.*)$"
-                      }
+                      "examples": [
+                        "after_any"
+                      ]
                     },
                     "value": {
-                      "$id": "#/items/properties/steps/items/properties/scheduling/properties/duration/properties/value",
+                      "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/duration/properties/value",
                       "type": "array",
-                      "description": "The Value Schema",
+                      "description": "cargo_tons: nomber of tons, cargo_%: cargo's amount percent (<=100). For orthers, should be an array of Steps' IDs.",
+                      "$comment":"This part of the json schema is not working, expected type should depend of Nature's value",
                       "items": {
-                        "$id": "#/items/properties/steps/items/properties/scheduling/properties/duration/properties/value/items",
-                        "type": "integer",
-                        "description": "The Items Schema",
-                        "default": 0,
+                        "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/duration/properties/value/items",
+                        "type": "string",
                         "examples": [
-                          60,
-                          "min"
+                          "step_3",
+                          "step_4"
                         ]
                       }
-                    },
-                    "<<comment": {
-                      "$id": "#/items/properties/steps/items/properties/scheduling/properties/duration/properties/<<comment",
-                      "type": "string",
-                      "description": "The <<comment Schema",
-                      "default": "",
-                      "examples": [
-                        "For 'cargo_amount': the amount and unit (can be tons or percent). For others than 'cargo_amount': see start>value's comment."
-                      ],
-                      "pattern": "^(.*)$"
                     }
                   }
                 }
               }
             },
             "work": {
-              "$id": "#/items/properties/steps/items/properties/work",
+              "$id": "#/items/properties/steps_list/items/properties/work",
               "type": "object",
-              "description": "The Work Schema",
+              "description": "An explanation about the purpose of this instance.",
               "required": [
                 "machines",
-                "<<comment",
-                "type",
-                "distance",
-                "<<comment2"
+                "nature",
               ],
               "properties": {
                 "machines": {
-                  "$id": "#/items/properties/steps/items/properties/work/properties/machines",
+                  "$id": "#/items/properties/steps_list/items/properties/work/properties/machines",
                   "type": "array",
-                  "description": "The Machines Schema",
+                  "description": "List all machines involved in this step, that is to say that start and end together (if not, should be on different steps).",
                   "items": {
-                    "$id": "#/items/properties/steps/items/properties/work/properties/machines/items",
+                    "$id": "#/items/properties/steps_list/items/properties/work/properties/machines/items",
                     "type": "string",
-                    "description": "The Items Schema",
-                    "default": "",
+                    "description": "Machine's ID.",
                     "examples": [
                       "machine_1"
-                    ],
-                    "pattern": "^(.*)$"
+                    ]
                   }
                 },
-                "<<comment": {
-                  "$id": "#/items/properties/steps/items/properties/work/properties/<<comment",
+                "nature": {
+                  "$id": "#/items/properties/steps_list/items/properties/work/properties/nature",
                   "type": "string",
-                  "description": "The <<comment Schema",
-                  "default": "",
+                  "description": "parallel: the machines' work done are not interdependant (machines' throughput add up for step progress). Sequential: the machines' work done are interdependant (the machine with the minimal throughput limite the step progress).",
                   "examples": [
-                    "It is possible to list several machines, as long as they are working in parallel (since theirs throughput will be summed). For machines not working in parallel but in series, use separate steps."
+                    "parallel", "sequential"
                   ],
-                  "pattern": "^(.*)$"
-                },
-                "type": {
-                  "$id": "#/items/properties/steps/items/properties/work/properties/type",
-                  "type": "string",
-                  "description": "The Type Schema",
-                  "default": "",
-                  "enum": ["parallel", "sequential"],
                   "examples": [
-                    "parallel"
-                  ],
-                  "pattern": "^(.*)$"
+                    "parallel'"
+                  ]
                 },
                 "distance": {
-                  "$id": "#/items/properties/steps/items/properties/work/properties/distance",
+                  "$id": "#/items/properties/steps_list/items/properties/work/properties/distance",
                   "type": "string",
-                  "description": "The Distance Schema",
-                  "default": "",
+                  "$comment":"This part of the json schema is not working, expected type should depend of Nature.",
+                  "description": "'on_spot' for static machines use, number of m for moving machine (impacting throughput calculation).",
                   "examples": [
                     "on_spot"
-                  ],
-                  "pattern": "^(.*)$"
-                },
-                "<<comment2": {
-                  "$id": "#/items/properties/steps/items/properties/work/properties/<<comment2",
-                  "type": "string",
-                  "description": "The <<comment2 Schema",
-                  "default": "",
-                  "examples": [
-                    "'on_spot' for static machines use, number of kilometers for moving machine (impacting throughput calculation)"
-                  ],
-                  "pattern": "^(.*)$"
+                  ]
                 }
               }
             }

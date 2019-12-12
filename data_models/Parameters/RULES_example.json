@@ -1,16 +1,15 @@
 {
 	"cargoes_categories":[
 		{
-			"ID":"E.Corn",
+			"ID":"E.MAIS%20VRAC",
 			"segment":"cereal",
 			"unit": "Tons",
 			"typical_amount_range": [500, 10000],
-			"<<comment":"Les champs ci dessous (qui servent au mapping) pourraient être split ailleurs",
 			"assignation_preference":[
 				{
 					"priority":1,
-					"direction": "loading",
-					"dock_ID": "area_42",
+					"direction": "unloading",
+					"dock_ID": "449",
 					"supply_chain_ID":"SC_1"
 
 				}
