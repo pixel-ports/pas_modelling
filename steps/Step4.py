@@ -4,8 +4,8 @@ class Step4:
         self.machines = machines
 
     def run(self):
-        for ship in self.pas:
-            for handling in ship["HANDLINGS"]:
+        for stopover in self.pas:
+            for handling in stopover["handlings"]:
                 if handling["supplychain"] is not None:
                     for operation in handling["supplychain"][
                         "OPERATIONS_SEQUENCE"
