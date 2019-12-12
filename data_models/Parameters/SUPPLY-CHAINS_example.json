@@ -41,7 +41,7 @@
 					"machines":["machine_1 <<Every listed machines start and stop together. If not, use separate step"],
 					"nature":"parallel",
 					"<<enum":["parallel", "sequential"],
-					"distance":"on_spot <<'on_spot' for static machines use, number of kilometers for moving machine (impacting throughput calculation)",
+					"distance":"on_spot <<'on_spot' for static machines use, number of kilometers for moving machine (impacting throughput calculation)"
 				}
 			},
 			{

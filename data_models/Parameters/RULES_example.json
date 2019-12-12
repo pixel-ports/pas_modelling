@@ -14,7 +14,7 @@
 					"supply_chain_ID":"SC_1"
 
 				}
-			],
+			]
 		}
 	],
 	"shiftworks":[
@@ -33,5 +33,5 @@
 	],
 	"priority":{},
 	"assignment":{},
-	"validity":{},
+	"validity":{}
 }
