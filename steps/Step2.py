@@ -5,13 +5,14 @@ class Step2:
     """ Affect a supplychain to each handling
     """
 
-    def __init__(self, pas, supplychains):
+    def __init__(self, pas, rules, supplychains):
         self.pas = pas
+        self.rules = rules
         self.supplychains = supplychains
 
     def __set_ids_for_steps(self):
         for supplychain in self.supplychains:
-            for step in supplychain["steps"]:
+            for step in supplychain["steps_list"]:
                 step["full_id"] = "%s-%s" % (
                     supplychain["ID"],
                     step["ID"],
@@ -33,12 +34,11 @@ class Step2:
             assert (
                 handling["nature"] == "cargo"
             ), "Handling types other than 'cargo' are not yet implemented"
-            selected_supplychain, mapping_type = self.select_supplychain(handling)
+            selected_supplychain= self.select_supplychain(handling)
             if selected_supplychain is None:
                 handling["supplychain"] = None
             else:
-                handling["supplychain_id"] = selected_supplychain["ID"]
-                handling["supplychain"]["mappingType"] = mapping_type
+                handling["supply_chain_ID"] = selected_supplychain["ID"]
         return self.pas
 
     def get_default_supplychain(self):
@@ -48,28 +48,20 @@ class Step2:
 
     def select_supplychain(self, handling):
         filtered_supplychains = [
-            sc for sc in self.supplychains if is_matching(handling, sc)
+            sc for sc in self.supplychains if self.is_matching(handling, sc)
         ]
 
         selected_supplychain = None  #  Default if no supplychain is matched
-        mapping_type: str = "default"
 
         if len(filtered_supplychains) == 0:
             selected_supplychain = self.get_default_supplychain()
-            mapping_type = "default"
         elif len(filtered_supplychains) == 1:
             selected_supplychain = filtered_supplychains[0]
-            mapping_type = "direct"
 
         # TODO Select prioritized supplychain when prioritize rule will be defined
-        return selected_supplychain, mapping_type
+        return selected_supplychain
 
 
-def is_matching(handling, supplychain):
-    handling_type = handling["contents"]["type"]
-    return handling["contents"]["category"] in supplychain["constraints"]["cargoes_types"][
-        "segment"
-    ] and (
-        handling_type in supplychain["constraints"]["cargoes_types"]["type"]
-        or supplychain["constraints"]["cargoes_types"]["type"] == "*"
-    )
+    def is_matching(self, handling, supplychain):
+        filetered_supplychains_ids = [assignation["supply_chain_ID"] for category in self.rules["cargoes_categories"] if category["ID"]==handling["contents"]["category"] for assignation in category["assignation_preference"]]  # TODO : There may be multiple assignations to choose from
+        return supplychain["ID"] in filetered_supplychains_ids

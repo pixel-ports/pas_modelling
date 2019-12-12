@@ -48,9 +48,11 @@ def main(steps, output_dir):
         print("--- Step 2 ---")
         with open(os.path.join(output_dir, "step1_output.json"), "r") as f:
             pas = json.loads(f.read())
+        with open(os.getenv("RULES"), "r") as f:
+            rules = json.loads(f.read())
         with open(os.getenv("SUPPLYCHAINS_COLLECTION"), "r") as f:
             supplychains = json.loads(f.read())
-        step2 = Step2(pas, supplychains)
+        step2 = Step2(pas, rules, supplychains)
         pas = step2.run()
         with open(os.path.join(output_dir, "step2_output.json"), "w") as f:
             f.write(json.dumps(pas, indent=4, ensure_ascii=False))
