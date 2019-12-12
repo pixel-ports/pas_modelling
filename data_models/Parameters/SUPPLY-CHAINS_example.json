@@ -2,7 +2,7 @@
 	{
 		"ID":"SC_1",
 		"label":"Cereale_SPBL_Export",
-		"comments":["Se décompose en trois blocs : initialisation (du portique et temps mort tapis), acheminement et ajustement du portique."],
+		"comment":"Se décompose en trois blocs : initialisation (du portique et temps mort tapis), acheminement et ajustement du portique.",
 		"constraints":{
 			"cargoes_types":{
 				"segment":["cereal"],
@@ -11,15 +11,16 @@
 			"direction":["loading"],
 			"areas_types":{
 				"departure":["Silo_SPBL"],
-				"arrival":["419", "432"]
+				"arrival":["419", "432"],
+				"others":[""]
 			},
 			"shift_ID":"typical"
 		},
-		"steps":[
+		"steps_list":[
 			{
 				"ID":"step_1",
 				"label":"Allumage de la centrale hydraulique",
-				"comments":["Premier allumage"],
+				"comment":"Premier allumage",
 				"type":"Initialization",
 				"<<examples":["Initialization", "Processing", "Support", "<<Discontinuous"],
 				"scheduling":{
@@ -37,11 +38,10 @@
 					}
 				},
 				"work":{
-					"machines":["machine_1"],
-					"<<comment":"It is possible to list several machines, as long as they are working in parallel (since theirs throughput will be summed). For machines not working in parallel but in series, use separate steps.",
-					"type":"parallel",
-					"distance":"on_spot",
-					"<<comment":"'on_spot' for static machines use, number of kilometers for moving machine (impacting throughput calculation)"
+					"machines":["machine_1 <<Every listed machines start and stop together. If not, use separate step"],
+					"nature":"parallel",
+					"<<enum":["parallel", "sequential"],
+					"distance":"on_spot <<'on_spot' for static machines use, number of kilometers for moving machine (impacting throughput calculation)",
 				}
 			},
 			{

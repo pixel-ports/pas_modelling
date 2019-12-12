@@ -434,6 +434,7 @@
                   "type": "string",
                   "description": "The Type Schema",
                   "default": "",
+                  "enum": ["parallel", "sequential"],
                   "examples": [
                     "parallel"
                   ],

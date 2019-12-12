@@ -3,61 +3,64 @@
 		"resources": {
 			"comments":"See ressources.json"
 		},
+		"process":{
+
+		},
 		"conventions":{
 			"comments":"See conventions.json"
 		}
 
 	},
-	"port_activity_scenario": [
+	"port_activities_scenario": [
 		{
-			"terminal": "Bassens",
-			"ships":[
+			"terminal":"terminal_007",
+			"ships_list": [
 				{
-					"ID": "IMO1234567",
-					"type": "cargo >500 tjb",
-					"capacity": 15000,
+					"ID": "ship_007",
+					"category": "cargo >500 tjb",
+					"capacity": 42,
 					"label": "Ship's labelling (eg. name)",
-					"stopovers": [
+					"stopovers_list": [
 						{
-							"ID": "20190465",
+							"ID": "stopover_007",
 							"status": "achieved",
 							"port_gate": {
 								"ETA": "2018-11-13T20:00:00+00:00",
 								"ETD": "2018-11-14T14:00:00+00:00"
 							},
-							"handlings": [
+							"handlings_list": [
 								{
-									"ID": "handling_1",
-									"type": "cargo",
+									"ID": "handling_007",
+									"nature": "cargo",
 									"dangerous": false,
 									"agent": "Cargo's agent's name",
-									"operator": "Cargo's operator's name",									
+									"operator": "Cargo's operator's name",
 									"dock": {
-										"ID": "dock_432",
+										"ID": "dock_007",
 										"ETA": "2018-11-14T15:00:00+00:00",
-										"ETD": "2018-11-16T07::00:00+00:00"
+										"ETD": "2018-11-16T07:00:00+00:00"
 									},
-									"content": {
+									"contents": {
 										"direction": "unloading",
-										"segment_type": "cereal",
-										"type": "corn",
-										"amount": 4560,
+										"category": "corn",
+										"amount": 42,
 										"label": "Cargo's labelling (eg. short description)"
-									},									
+									},
 									"piority_ranking":42,
 									"supply_chain_ID":"SC_1",
-									"activities":[
+									"activities_list":[
 										{
-											"ID":"activity_1 <<unique pr tout le PAS",
-											"step_id":"step_1 <<référence du parent",
+											"ID":"activity_007 <<unique pr tout le PAS",
+											"step_ID":"step_007 <<référence du parent",
 											"timespan_scheduled":{
 												"start":"2018-11-13T20:00:00+00:00",
 												"end":"2018-11-13T20:00:00+00:00",
 												"duration":42
 											},
-											"resources":[
+											"ressources_accounts_list":[
 												{
-													"ressource_ID":"machine_1",
+													"ressource_ID":"machine_007",
+													"amount_handled":42,
 													"energy_consumed": {
 														"electricity_(kWh)": 42,
 														"fossil fuel": {
@@ -65,8 +68,13 @@
 															"petrol_(L)": 42
 														}
 													},
-													"pollutants_emited":[
-														{"Pol_1": 42}
+													"pollutants_emitted":[
+														{"SOx":42},
+														{"PM":42},
+														{"NOx":42},
+														{"GHG":42},
+														{"VOC":42},
+														{"CO":42}
 													]
 												}
 											]
@@ -77,7 +85,7 @@
 						}
 					]
 				}
-			]	
+			]
 		}
 	]
 }

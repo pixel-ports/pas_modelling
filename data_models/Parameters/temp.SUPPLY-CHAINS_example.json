@@ -1,0 +1,36 @@
+[
+	{
+		"ID":"SC_1",
+		"label":"Cereale_SPBL_Export",
+		"comment":"Se décompose en trois blocs : initialisation (du portique et temps mort tapis), acheminement et ajustement du portique.",
+		"compatibility":{
+			"cargoes_category":["E.Corn"],
+			"directions_nature":["loading"],
+			"areas_ID":["419", "432", "Silo_SPBL"],
+			"shiftworks_ID":["typical"]
+		},
+		"steps_list":[
+			{
+				"ID":"step_1",
+				"label":"Allumage de la centrale hydraulique",
+				"comment":"Premier allumage",
+				"category":"Initialization '<<examples':['Initialization', 'Processing', 'Support', '<<Discontinuous'],",
+				"scheduling":{
+					"start":{
+						"nature":"delay '<<enum':['delay', 'with_any', 'with_all', 'after_any', 'after_all'], <<comment':'For 'delay': the number of hours (number). For others than 'delay': all the steps's ID to which the condition relates (array).'",
+						"value":0
+					},
+					"duration":{
+						"nature":"whith_any <<enum':['delay', 'cargo_tons', 'cargo_%', 'with_any', 'with_all', 'after_any', 'after_all'] <<For 'cargo_amount': the amount and unit (can be tons or percent). For others than 'cargo_amount': see start>value's comment.",
+						"value":["step_3", "step_4"]
+					}
+				},
+				"work":{
+					"machines":["machine_1 <<Every listed machines start and stop together. If not, use separate step"],
+					"nature":"parallel'<<enum':['parallel', 'sequential'],",
+					"distance":"on_spot <<'on_spot' for static machines use, number of m for moving machine (impacting throughput calculation)"
+				}
+			}
+		]
+	}
+]
