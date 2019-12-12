@@ -9,24 +9,36 @@ class Step2:
         self.pas = pas
         self.supplychains = supplychains
 
-    def run(self):
+    def __set_ids_for_steps(self):
         for supplychain in self.supplychains:
             for step in supplychain["steps"]:
                 step["full_id"] = "%s-%s" % (
                     supplychain["ID"],
                     step["ID"],
                 )  # For later use in Step3
-        for stopover in self.pas:
-            for handling in stopover["handlings"]:
-                assert (
-                    handling["type"] == "cargo"
-                ), "Handling types other than 'cargo' are not yet implemented"
-                selected_supplychain, mapping_type = self.select_supplychain(handling)
-                if selected_supplychain is None:
-                    handling["supplychain"] = None
-                else:
-                    handling["supplychain_id"] = selected_supplychain["ID"]
-                    handling["supplychain"]["mappingType"] = mapping_type
+
+    def __get_sorted_handlings(self):
+        """
+        Precondition : handlings have been sorted in Step1 earlier
+        """
+        handlings = [handling for terminal in self.pas for ship in terminal["ships_list"] for stopover in ship["stopovers_list"] for handling in stopover["handlings_list"]]
+        handlings.sort(
+            key=lambda handling: handling["number_in_queue"]
+        )
+        return handlings
+
+    def run(self):
+        self.__set_ids_for_steps()
+        for handling in self.__get_sorted_handlings():
+            assert (
+                handling["nature"] == "cargo"
+            ), "Handling types other than 'cargo' are not yet implemented"
+            selected_supplychain, mapping_type = self.select_supplychain(handling)
+            if selected_supplychain is None:
+                handling["supplychain"] = None
+            else:
+                handling["supplychain_id"] = selected_supplychain["ID"]
+                handling["supplychain"]["mappingType"] = mapping_type
         return self.pas
 
     def get_default_supplychain(self):
@@ -54,9 +66,8 @@ class Step2:
 
 
 def is_matching(handling, supplychain):
-    handling_segment_type = handling["content"]["segment_type"]
-    handling_type = handling["content"]["type"]
-    return handling_segment_type in supplychain["constraints"]["cargoes_types"][
+    handling_type = handling["contents"]["type"]
+    return handling["contents"]["category"] in supplychain["constraints"]["cargoes_types"][
         "segment"
     ] and (
         handling_type in supplychain["constraints"]["cargoes_types"]["type"]

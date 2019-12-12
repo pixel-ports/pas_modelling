@@ -106,8 +106,8 @@ class Step3:
                                     ), "Not yet implemented : Duration unit is not min"
                                     ending_datetime = (
                                         starting_datetime
-                                        + step["scheduling"]["duration"]["value"][0]
-                                        * 60  # TODO : Check that we can do that with datetimes
+                                        + datetime.timedelta(0, step["scheduling"]["duration"]["value"][0]
+                                        * 60)  # TODO : Check that we can do that with datetimes
                                     )
                                 elif (
                                     step["scheduling"]["duration"]["type"]
@@ -143,15 +143,15 @@ class Step3:
                                                 for machine in filtered_machines
                                             ]
                                         )
-                                    duration_use_hour = (
+                                    duration_use_minutes = (
                                         handling["content"]["amount"]
                                         * step["scheduling"]["duration"]["value"][0]
                                         / 100  # Suppose that duration value is in percents
                                         * 1.0
                                         / throughput
-                                    )  # t/hours  # TODO : To check that it is the correct unit
+                                    )  # t/minutes  # TODO : To check that it is the correct unit
                                     ending_datetime = (
-                                        starting_datetime + duration_use_hour * 60 * 60
+                                        starting_datetime + datetime.timedelta(0, duration_use_minutes * 60)
                                     )
                                 else:
                                     filtered_ids = [
@@ -227,7 +227,7 @@ class Step3:
                                     )
         return self.pas
 
-    def get_use(self, handlingId, supplychainId, operationId):
+    def get_use(self, handlingId: int, supplychainId: int, operationId: int):
         uses = [
             use
             for use in self.uses
@@ -237,7 +237,7 @@ class Step3:
         assert len(uses) == 1, "Undefined uses or multiples use of the same id"
         return uses[0]
 
-    def get_overlapping_TS(self, machine, start, end) -> (str, str):
+    def get_overlapping_TS(self, machine: dict, start: datetime, end: datetime) -> (datetime, datetime):
         machine_uses = [
             use for use in self.uses if machine["id"] == use["machine"]["id"]
         ]
@@ -250,10 +250,10 @@ class Step3:
                 return use["start"], use["end"]
         return None, None
 
-    def is_available(self, machine, start, end) -> bool:
+    def is_available(self, machine: dict, start: datetime, end: datetime) -> bool:
         return self.get_overlapping_TS(machine, start, end) == (None, None)
 
-    def get_next_available_TS(self, machine, start, end) -> (str, str):
+    def get_next_available_TS(self, machine: dict, start: datetime, end: datetime) -> (datetime, datetime):
         while True:
             if self.is_available(machine, start, end):
                 return start, end

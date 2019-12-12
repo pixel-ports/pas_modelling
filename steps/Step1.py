@@ -9,18 +9,10 @@ class Step1:
         self.pas = pas
 
     def run(self):
-        for stopover in self.pas:
-            for index, handling in enumerate(stopover["handlings"]):
-                handling["id"] = "%s-%s" % (stopover["stopover_ID"], index)
-        # Use ETA_Dock on handling if available for priority definition, else use ETA_Port on ship
-        self.pas.sort(
-            key=lambda stopover: min(
-                [
-                    handling["dock"]["ETA"]
-                    if handling["dock"]["ETA"] is not None
-                    else stopover["port"]["ETA"]
-                    for handling in stopover["handlings"]
-                ]
-            )
+        handlings = [handling for terminal in self.pas for ship in terminal["ships_list"] for stopover in ship["stopovers_list"] for handling in stopover["handlings_list"]]
+        handlings.sort(
+            key=lambda handling: handling["dock"]["ETA"]
         )
+        for index, handling in enumerate(handlings):
+            handling["number_in_queue"] = index
         return self.pas
