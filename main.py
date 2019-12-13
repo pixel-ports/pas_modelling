@@ -50,7 +50,7 @@ def main(steps, output_dir):
             pas = json.loads(f.read())
         with open(os.getenv("RULES"), "r") as f:
             rules = json.loads(f.read())
-        with open(os.getenv("SUPPLYCHAINS_COLLECTION"), "r") as f:
+        with open(os.getenv("SUPPLY-CHAINS"), "r") as f:
             supplychains = json.loads(f.read())
         step2 = Step2(pas, rules, supplychains)
         pas = step2.run()
@@ -61,9 +61,9 @@ def main(steps, output_dir):
         print("--- Step 3 ---")
         with open(os.path.join(output_dir, "step2_output.json"), "r") as f:
             pas = json.loads(f.read())
-        with open(os.getenv("SUPPLYCHAINS_COLLECTION"), "r") as f:
+        with open(os.getenv("SUPPLY-CHAINS"), "r") as f:
             supplychains = json.loads(f.read())
-        with open(os.getenv("RESSOURCES_COLLECTION"), "r") as f:
+        with open(os.getenv("RESSOURCES"), "r") as f:
             ressources = json.loads(f.read())
         step3 = Step3(pas, supplychains, ressources)
         pas = step3.run()
@@ -74,7 +74,7 @@ def main(steps, output_dir):
         print("--- Step 4 ---")
         with open(os.path.join(output_dir, "step3_output.json"), "r") as f:
             pas = json.loads(f.read())
-        with open(os.getenv("RESSOURCES_COLLECTION"), "r") as f:
+        with open(os.getenv("RESSOURCES"), "r") as f:
             ressources = json.loads(f.read())
         step4 = Step4(pas, ressources)
         pas = step4.run()

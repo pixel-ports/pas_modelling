@@ -45,11 +45,6 @@ class Step2:
                 handling["supply_chain_ID"] = selected_supplychain["ID"]
         return self.pas
 
-    def get_default_supplychain(self):
-        return (
-            None
-        )  # TODO Set default supplychain in the collection and define a way to select it. It will certainly be the ID of the supplychain defined in the RULE_MAPPER.
-
     def select_supplychain(self, handling):
         filtered_supplychains = [
             sc for sc in self.supplychains if self.is_matching(handling, sc)
@@ -57,12 +52,11 @@ class Step2:
 
         selected_supplychain = None  #  Default if no supplychain is matched
 
-        if len(filtered_supplychains) == 0:
-            selected_supplychain = self.get_default_supplychain()
-        elif len(filtered_supplychains) == 1:
+        if len(filtered_supplychains) == 1:
             selected_supplychain = filtered_supplychains[0]
+        else:
+            raise ValueError("There should one, and only one, matching supplychain")
 
-        # TODO Select prioritized supplychain when prioritize rule will be defined
         return selected_supplychain
 
     def is_matching(self, handling, supplychain):

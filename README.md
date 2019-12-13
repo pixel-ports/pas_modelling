@@ -18,6 +18,14 @@ docker run --env-file .env -v $(pwd):/pas pas python3 main.py --steps 1 2 3 4
 
 This builds the docker image, create `inputs`/`outputs` folders and fill `inputs` with the default data_models. It then runs the complete PAS, outputs results to the `outputs` folder and exits.
 
+## Retrieve data from the IH (Information Hub)
+
+The exprimed context, in french : "Nous souhaiterions tester le PAS modelling sur les données (historique d'un mois des données réelles de GPMB) remontées puis stockées sur PIXEL."
+
+```bash
+curl -o data_IH_brutes.json -H "X-Auth-Token: b82e89e873834116fdd57cea3a0caebd676409d7" -H "Fiware-Service: PIXEL" -H "Fiware-ServicePath: /FRBOD" --insecure "https://dal.pixel-ports.eu/orion/v2/entities?q=departure_dock==2018-01-01T00:00:00.00Z..2018-12-31T23:59:59.59Z"
+```
+
 ## Statistics for WP8 Product Quality Model
 
 ```bash
