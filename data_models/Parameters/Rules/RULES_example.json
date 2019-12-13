@@ -1,7 +1,7 @@
 {
 	"cargoes_categories":[
 		{
-			"ID":"E.MAIS%20VRAC",
+			"ID":"E.Corn",
 			"segment":"cereal",
 			"unit": "Tons",
 			"typical_amount_range": [500, 10000],

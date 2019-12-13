@@ -25,15 +25,15 @@
 				"<<examples":["Initialization", "Processing", "Support", "<<Discontinuous"],
 				"scheduling":{
 					"start":{
-						"type":"delay",
+						"nature":"delay",
 						"<<enum":["delay", "with_any", "with_all", "after_any", "after_all", "<<before", "<<while"],
 						"value":0,
 						"<<comment":"For 'delay': the number of hours (number). For others than 'delay': all the steps's ID to which the condition relates (array)."
 					},
 					"duration":{
-						"type":"delay",
+						"nature":"delay",
 						"<<enum":["cargo_amount", "delay", "before", "after_all", "after_any"],
-						"value":[60,"min"],
+						"value":60,
 						"<<comment":"For 'cargo_amount': the amount and unit (can be tons or percent). For others than 'cargo_amount': see start>value's comment."
 					}
 				},
@@ -51,12 +51,12 @@
 				"type":"Initialization",
 				"scheduling":{
 					"start":{
-						"type":"with_any",
+						"nature":"with_any",
 						"value":["step_1"]
 					},
 					"duration":{
-						"type":"delay",
-						"value":[10,"min"]
+						"nature":"delay",
+						"value":10
 					}
 				},
 				"work":{
@@ -72,17 +72,17 @@
 				"type":"Initialization",
 				"scheduling":{
 					"start":{
-						"type":"with_any",
+						"nature":"with_any",
 						"value":["step_1"]
 					},
 					"duration":{
-						"type":"delay",
-						"value":[20,"min"]
+						"nature":"delay",
+						"value":20
 					}
 				},
 				"work":{
 					"machines":["machine_4"],
-					"type":"parallel",
+					"nature":"parallel",
 					"distance":"on_spot"
 				}
 			},
@@ -93,17 +93,17 @@
 				"type":"Processing",
 				"scheduling":{
 					"start":{
-						"type":"after_all",
+						"nature":"after_all",
 						"value":["step_2", "step_3"]
 					},
 					"duration":{
-						"type":"cargo_amount",
-						"value":[100,"%"]
+						"nature":"cargo_%",
+						"value":100
 					}
 				},
 				"work":{
 					"machines":["machine_4"],
-					"type":"parallel",
+					"nature":"parallel",
 					"distance":"on_spot"
 				}
 			},
@@ -114,17 +114,17 @@
 				"type":"Processing",
 				"scheduling":{
 					"start":{
-						"type":"after_all",
+						"nature":"after_all",
 						"value":["step_2", "step_3"]
 					},
 					"duration":{
-						"type":"cargo_amount",
-						"value":[100,"%"]
+						"nature":"cargo_%",
+						"value":100
 					}
 				},
 				"work":{
 					"machines":["machine_5"],
-					"type":"parallel",
+					"nature":"parallel",
 					"distance":"on_spot"
 				}
 			},
@@ -135,17 +135,17 @@
 				"type":"Processing",
 				"scheduling":{
 					"start":{
-						"type":"after_all",
+						"nature":"after_all",
 						"value":["step_2", "step_3"]
 					},
 					"duration":{
-						"type":"cargo_amount",
-						"value":[100,"%"]
+						"nature":"cargo_%",
+						"value":100
 					}
 				},
 				"work":{
 					"machines":["machine_6"],
-					"type":"parallel",
+					"nature":"parallel",
 					"distance":"on_spot"
 				}
 			},
@@ -156,17 +156,17 @@
 				"type":"",
 				"scheduling":{
 					"start":{
-						"type":"after_all",
+						"nature":"after_all",
 						"value":["step_2", "step_3"]
 					},
 					"duration":{
-						"type":"cargo_amount",
-						"value":[100,"%"]
+						"nature":"cargo_%",
+						"value":100
 					}
 				},
 				"work":{
 					"machines":["machine_7"],
-					"type":"parallel",
+					"nature":"parallel",
 					"distance":"on_spot"
 				}
 			},
@@ -177,17 +177,17 @@
 				"type":"Discontinuous",
 				"scheduling":{
 					"start":{
-						"type":"delay",
-						"value":[4,"hours"]
+						"nature":"delay",
+						"value": 240
 					},
 					"duration":{
-						"type":"delay",
-						"value":[1,"hours"]
+						"nature":"delay",
+						"value": 60
 					}
 				},
 				"work":{
 					"machines":["machine_1", "machine_2", "machine_3"],
-					"type":"parallel",
+					"nature":"parallel",
 					"distance":"on_spot"
 				}
 			}

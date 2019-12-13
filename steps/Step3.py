@@ -1,6 +1,7 @@
 import copy
 import numpy as np
 import datetime
+import warnings
 
 
 class Step3:
@@ -26,58 +27,55 @@ class Step3:
         handlings.sort(key=lambda handling: handling["ID"])
         return handlings
 
-    def __find_minimal_starting_datetime(self, step, docking_datetime, ids_processed, activities):
+    def __find_minimal_starting_datetime(
+        self, step, docking_datetime, ids_processed, activities
+    ):
         if step["scheduling"]["start"]["nature"] == "delay":
-            starting_datetime = (
-                docking_datetime
-                + datetime.timedelta(
-                    0, 60 * step["scheduling"]["start"]["value"]
-                )
+            starting_datetime = docking_datetime + datetime.timedelta(
+                0, 60 * step["scheduling"]["start"]["value"]
             )
             step_processed = True
         else:
             filtered_ids = [
-                id
-                for id in ids_processed
-                if id in step["scheduling"]["start"]["value"]
+                id for id in ids_processed if id in step["scheduling"]["start"]["value"]
             ]
             filtered_activities = [
-                activity
-                for activity in activities
-                if activity["ID"] in filtered_ids
+                activity for activity in activities if activity["step_ID"] in filtered_ids
             ]
             if len(filtered_activities) > 0:
                 if step["scheduling"]["start"]["nature"] == "with_any":
                     starting_datetime = min(
                         [
-                            datetime.datetime.fromisoformat(activity["timespan_scheduled"]["start"])
+                            datetime.datetime.fromisoformat(
+                                activity["timespan_scheduled"]["start"]
+                            )
                             for activity in filtered_activities
                         ]
                     )  # TODO : does min works with datetime ?
-                elif (
-                    step["scheduling"]["start"]["nature"] == "after_any"
-                ):
+                elif step["scheduling"]["start"]["nature"] == "after_any":
                     starting_datetime = min(
                         [
-                            datetime.datetime.fromisoformat(activity["timespan_scheduled"]["end"])
+                            datetime.datetime.fromisoformat(
+                                activity["timespan_scheduled"]["end"]
+                            )
                             for activity in filtered_activities
                         ]
                     )  # TODO : does min works with datetime ?
-                elif (
-                    step["scheduling"]["start"]["nature"] == "with_all"
-                ):
+                elif step["scheduling"]["start"]["nature"] == "with_all":
                     starting_datetime = max(
                         [
-                            datetime.datetime.fromisoformat(activity["timespan_scheduled"]["start"])
+                            datetime.datetime.fromisoformat(
+                                activity["timespan_scheduled"]["start"]
+                            )
                             for activity in filtered_activities
                         ]
                     )  # TODO : does min works with datetime ?
-                elif (
-                    step["scheduling"]["start"]["nature"] == "after_all"
-                ):
+                elif step["scheduling"]["start"]["nature"] == "after_all":
                     starting_datetime = max(
                         [
-                            datetime.datetime.fromisoformat(activity["timespan_scheduled"]["end"])
+                            datetime.datetime.fromisoformat(
+                                activity["timespan_scheduled"]["end"]
+                            )
                             for activity in filtered_activities
                         ]
                     )  # TODO : does min works with datetime ?
@@ -91,62 +89,37 @@ class Step3:
                 step_processed = False
         return starting_datetime if step_processed else None
 
-    def __find_minimal_ending_datetime(self, handling, step, starting_datetime, ids_processed, activities):
+    def __find_minimal_ending_datetime(
+        self, handling, step, starting_datetime, ids_processed, activities
+    ):
         filtered_machines = self.__get_machines_for_step(step)
         if step["scheduling"]["duration"]["nature"] == "delay":
-            assert (
-                step["scheduling"]["duration"]["value"][1]
-                == "min"
-            ), "Not yet implemented : Duration unit is not min"
-            ending_datetime = (
-                starting_datetime
-                + datetime.timedelta(
-                    0,
-                    step["scheduling"]["duration"]["value"][0]
-                    * 60,
-                )  # TODO : Check that we can do that with datetimes
-            )
-        elif step["scheduling"]["duration"]["nature"] in [
-            "cargo_%",
-            "cargo_tons",
-        ]:
+            ending_datetime = starting_datetime + datetime.timedelta(
+                minutes=step["scheduling"]["duration"]["value"]
+            )  # TODO : Check that we can do that with datetimes
+        elif step["scheduling"]["duration"]["nature"] in ["cargo_%", "cargo_tons"]:
             # TODO : write here
             assert (
                 len(
                     set(
-                        [
-                            machine["throughput"]["Unit"]
-                            for machine in filtered_machines
-                        ]
+                        [machine["throughput"]["Unit"] for machine in filtered_machines]
                     )
                 )
                 == 1
             ), "Cannot use parallel/serie machines if they don't have the same throughput Unit."
-            assert (
-                filtered_machines[0]["throughput"]["Unit"]
-                == "t/h"
-            ), (
+            assert filtered_machines[0]["throughput"]["Unit"] == "t/h", (
                 "Machine throughput should be expressed per hour, but is %s"
                 % next(filtered_machines)["throughput"]["Unit"]
             )
             if step["work"]["nature"] == "parallel":
                 throughput = sum(
-                    [
-                        machine["throughput"]["Value"]
-                        for machine in filtered_machines
-                    ]
+                    [machine["throughput"]["Value"] for machine in filtered_machines]
                 )
             elif step["work"]["nature"] == "serie":
                 throughput = min(
-                    [
-                        machine["throughput"]["Value"]
-                        for machine in filtered_machines
-                    ]
+                    [machine["throughput"]["Value"] for machine in filtered_machines]
                 )
-            if (
-                step["scheduling"]["duration"]["nature"]
-                == "cargo_%"
-            ):
+            if step["scheduling"]["duration"]["nature"] == "cargo_%":
                 duration_use_hours = (
                     handling["contents"]["amount"]
                     * step["scheduling"]["duration"]["value"]
@@ -159,19 +132,14 @@ class Step3:
                     min(
                         [
                             handling["content"]["amount"],
-                            step["scheduling"]["duration"][
-                                "value"
-                            ],
+                            step["scheduling"]["duration"]["value"],
                         ]
                     )
                     * 1.0
                     / throughput
                 )  # t/hour
-            ending_datetime = (
-                starting_datetime
-                + datetime.timedelta(
-                    0, duration_use_hours * 60 * 60
-                )
+            ending_datetime = starting_datetime + datetime.timedelta(
+                0, duration_use_hours * 60 * 60
             )
         else:
             filtered_ids = [
@@ -180,37 +148,32 @@ class Step3:
                 if id in step["scheduling"]["duration"]["value"]
             ]
             filtered_activities = [
-                activity
-                for activity in activities
-                if activity["ID"] in filtered_ids
+                activity for activity in activities if activity["ID"] in filtered_ids
             ]
-            if (
-                step["scheduling"]["duration"]["nature"]
-                == "before"
-            ):
+            if step["scheduling"]["duration"]["nature"] == "before":
                 ending_datetime = min(
                     [
-                        datetime.datetime.fromisoformat(activity["timespan_scheduled"]["start"])
+                        datetime.datetime.fromisoformat(
+                            activity["timespan_scheduled"]["start"]
+                        )
                         for activity in filtered_activities
                     ]
                 )
-            elif (
-                step["scheduling"]["duration"]["nature"]
-                == "after_any"
-            ):
+            elif step["scheduling"]["duration"]["nature"] == "after_any":
                 ending_datetime = min(
                     [
-                        datetime.datetime.fromisoformat(activity["timespan_scheduled"]["end"])
+                        datetime.datetime.fromisoformat(
+                            activity["timespan_scheduled"]["end"]
+                        )
                         for activity in filtered_activities
                     ]
                 )
-            elif (
-                step["scheduling"]["duration"]["nature"]
-                == "after_all"
-            ):
+            elif step["scheduling"]["duration"]["nature"] == "after_all":
                 ending_datetime = max(
                     [
-                        datetime.datetime.fromisoformat(activity["timespan_scheduled"]["end"])
+                        datetime.datetime.fromisoformat(
+                            activity["timespan_scheduled"]["end"]
+                        )
                         for activity in filtered_activities
                     ]
                 )
@@ -243,45 +206,70 @@ class Step3:
                 if supplychain is not None:
                     steps = supplychain["steps_list"]
                     activities = []
-                    ids_to_process = [step["ID"] for step in steps]
                     ids_processed = []
-                    while len(ids_to_process) > 0:
-                        for id in ids_to_process:
-                            step = next(step for step in steps if step["ID"] == id)
-                            filtered_machines = self.__get_machines_for_step(step)
-                            starting_datetime = self.__find_minimal_starting_datetime(step, docking_datetime, ids_processed, activities)
-                            if starting_datetime is not None:
-                                ending_datetime = self.__find_minimal_ending_datetime(handling, step, starting_datetime, ids_processed, activities)         
-                                ids_to_process.remove(id)
-                                ids_processed.append(id)
-                                starting_datetime, ending_datetime = self.get_next_available_TS_multiple_machines(
-                                    filtered_machines,
-                                    starting_datetime,
-                                    ending_datetime
+                    old_ids_processed = None
+                    while len(ids_processed) < len(steps):
+                        if ids_processed == old_ids_processed:
+                            raise ValueError("No progression on ids_processed %s, making an infinite while loop. It may be that the supplychain is incorrectly configured and has no solution." % str(ids_processed))
+                        old_ids_processed = copy.deepcopy(ids_processed)
+                        for step in steps:
+                            if step["ID"] not in ids_processed:
+                                filtered_machines = self.__get_machines_for_step(step)
+                                starting_datetime = self.__find_minimal_starting_datetime(
+                                    step, docking_datetime, ids_processed, activities
                                 )
-                                activity = {
-                                    "ID": activity_next_free_id,
-                                    "step_ID": step["ID"],
-                                    "timespan_scheduled": {
-                                        "start": starting_datetime.isoformat(),
-                                        "end": ending_datetime.isoformat(),
-                                        "duration": (ending_datetime - starting_datetime).total_seconds()/60
-                                    },
-                                    "ressources_accounts_list": [{
-                                        "ressource_ID": machine["ID"]
-                                    } for machine in filtered_machines]
-                                }
-                                activity_next_free_id += 1
-                                activities.append(activity)
-
-                                for machine in filtered_machines:  # Usefull to check for machine availability
-                                    self.uses.append(
-                                        {
-                                            "start": starting_datetime,
-                                            "end": ending_datetime,
-                                            "machine": copy.deepcopy(machine)
-                                        }
+                                if starting_datetime is not None:
+                                    ending_datetime = self.__find_minimal_ending_datetime(
+                                        handling,
+                                        step,
+                                        starting_datetime,
+                                        ids_processed,
+                                        activities,
                                     )
+                                    ids_processed.append(step["ID"])
+                                    if len(filtered_machines) > 0:
+                                        starting_datetime, ending_datetime = self.get_next_available_TS_multiple_machines(
+                                            filtered_machines,
+                                            starting_datetime,
+                                            ending_datetime,
+                                        )
+                                    else:
+                                        warnings.warn(
+                                            "No machine are defined for step %s in supplychain %s"
+                                            % (str(step["ID"]), str(supplychain["ID"])),
+                                            UserWarning
+                                        )
+                                    activity = {
+                                        "ID": activity_next_free_id,
+                                        "step_ID": step["ID"],
+                                        "timespan_scheduled": {
+                                            "start": starting_datetime.isoformat(),
+                                            "end": ending_datetime.isoformat(),
+                                            "duration": (
+                                                ending_datetime - starting_datetime
+                                            ).total_seconds()
+                                            / 60,
+                                        },
+                                        "ressources_accounts_list": [
+                                            {"ressource_ID": machine["ID"]}
+                                            for machine in filtered_machines
+                                        ],
+                                    }
+                                    activity_next_free_id += 1
+                                    activities.append(activity)
+
+                                    for (
+                                        machine
+                                    ) in (
+                                        filtered_machines
+                                    ):  # Usefull to check for machine availability
+                                        self.uses.append(
+                                            {
+                                                "start": starting_datetime,
+                                                "end": ending_datetime,
+                                                "machine": copy.deepcopy(machine),
+                                            }
+                                        )
                 handling["activities_list"] = activities
         return self.pas
 
@@ -299,7 +287,7 @@ class Step3:
         self, machine: dict, start: datetime, end: datetime
     ) -> (datetime, datetime):
         machine_uses = [
-            use for use in self.uses if machine["id"] == use["machine"]["id"]
+            use for use in self.uses if machine["ID"] == use["machine"]["ID"]
         ]
         for use in machine_uses:
             if (
@@ -334,7 +322,10 @@ class Step3:
         """  # TODO : Manage the case when no combination can be found (and prevent an infinite while loop)
         duration = end - start
         while True:
-            starts = [self.get_next_available_TS(machine, start, end)[0] for machine in machines]
+            starts = [
+                self.get_next_available_TS(machine, start, end)[0]
+                for machine in machines
+            ]
             if len(set(starts)) == 1:
                 start = starts[0]
                 return start, start + duration

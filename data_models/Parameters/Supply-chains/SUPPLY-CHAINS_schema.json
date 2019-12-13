@@ -211,7 +211,7 @@
                     "value": {
                       "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/duration/properties/value",
                       "type": "array",
-                      "description": "cargo_tons: nomber of tons, cargo_%: cargo's amount percent (<=100). For orthers, should be an array of Steps' IDs.",
+                      "description": "delay: minutes, cargo_tons: nomber of tons, cargo_%: cargo's amount percent (<=100). For orthers, should be an array of Steps' IDs.",
                       "$comment":"This part of the json schema is not working, expected type should depend of Nature's value",
                       "items": {
                         "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/duration/properties/value/items",
@@ -232,7 +232,7 @@
               "description": "An explanation about the purpose of this instance.",
               "required": [
                 "machines",
-                "nature",
+                "nature"
               ],
               "properties": {
                 "machines": {

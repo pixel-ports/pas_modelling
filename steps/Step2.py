@@ -55,7 +55,10 @@ class Step2:
         if len(filtered_supplychains) == 1:
             selected_supplychain = filtered_supplychains[0]
         else:
-            raise ValueError("There should one, and only one, matching supplychain")
+            raise ValueError(
+                "There should one, and only one, matching supplychain but there are %d matchs."
+                % len(filtered_supplychains)
+            )
 
         return selected_supplychain
 
