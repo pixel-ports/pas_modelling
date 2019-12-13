@@ -22,10 +22,14 @@ class Step2:
         """
         Precondition : handlings have been sorted in Step1 earlier
         """
-        handlings = [handling for terminal in self.pas for ship in terminal["ships_list"] for stopover in ship["stopovers_list"] for handling in stopover["handlings_list"]]
-        handlings.sort(
-            key=lambda handling: handling["number_in_queue"]
-        )
+        handlings = [
+            handling
+            for terminal in self.pas
+            for ship in terminal["ships_list"]
+            for stopover in ship["stopovers_list"]
+            for handling in stopover["handlings_list"]
+        ]
+        handlings.sort(key=lambda handling: handling["ID"])
         return handlings
 
     def run(self):
@@ -34,7 +38,7 @@ class Step2:
             assert (
                 handling["nature"] == "cargo"
             ), "Handling types other than 'cargo' are not yet implemented"
-            selected_supplychain= self.select_supplychain(handling)
+            selected_supplychain = self.select_supplychain(handling)
             if selected_supplychain is None:
                 handling["supplychain"] = None
             else:
@@ -61,7 +65,11 @@ class Step2:
         # TODO Select prioritized supplychain when prioritize rule will be defined
         return selected_supplychain
 
-
     def is_matching(self, handling, supplychain):
-        filetered_supplychains_ids = [assignation["supply_chain_ID"] for category in self.rules["cargoes_categories"] if category["ID"]==handling["contents"]["category"] for assignation in category["assignation_preference"]]  # TODO : There may be multiple assignations to choose from
+        filetered_supplychains_ids = [
+            assignation["supply_chain_ID"]
+            for category in self.rules["cargoes_categories"]
+            if category["ID"] == handling["contents"]["category"]
+            for assignation in category["assignation_preference"]
+        ]  # TODO : There may be multiple assignations to choose from
         return supplychain["ID"] in filetered_supplychains_ids

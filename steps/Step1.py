@@ -9,10 +9,14 @@ class Step1:
         self.pas = pas
 
     def run(self):
-        handlings = [handling for terminal in self.pas for ship in terminal["ships_list"] for stopover in ship["stopovers_list"] for handling in stopover["handlings_list"]]
-        handlings.sort(
-            key=lambda handling: handling["dock"]["ETA"]
-        )
+        handlings = [
+            handling
+            for terminal in self.pas
+            for ship in terminal["ships_list"]
+            for stopover in ship["stopovers_list"]
+            for handling in stopover["handlings_list"]
+        ]
+        handlings.sort(key=lambda handling: handling["dock"]["ETA"])
         for index, handling in enumerate(handlings):
-            handling["number_in_queue"] = index
+            handling["ID"] = index
         return self.pas
