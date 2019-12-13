@@ -413,7 +413,7 @@
                                       "duration": {
                                         "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/timespan_scheduled/properties/duration",
                                         "type": "integer",
-                                        "description": "The Duration Schema",
+                                        "description": "In minutes",
                                         "default": 0,
                                         "examples": [
                                           42

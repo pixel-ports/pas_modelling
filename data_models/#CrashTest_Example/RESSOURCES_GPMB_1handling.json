@@ -20,12 +20,13 @@
 				"Value":1000,
 				"Unit":"t/h"
 			},
-			"consumption":{
-				"electricity":{
-					"power_(kWh)":841,
-					"intensity_(A)":555
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 841,
+					"unit": "kWh"
 				}
-			}
+			]
 		}
 	],
 	"others":[

@@ -1,31 +1,24 @@
 class Step4:
-    def __init__(self, pas, machines):
+    def __init__(self, pas, resources):
         self.pas = pas
-        self.machines = machines
+        self.resources = resources
 
     def run(self):
-        for stopover in self.pas:
-            for handling in stopover["handlings"]:
-                if handling["supplychain"] is not None:
-                    for operation in handling["supplychain"][
-                        "OPERATIONS_SEQUENCE"
-                    ].values():
-                        duration_hour = (
-                            operation["endTS"] - operation["startTS"]
-                        ) / 60.0
-                        machine_consumption = self.machines[
-                            operation["CALCULATION"]["Machine_ID"]
-                        ]["SPECIFICATION"]["CONSUMPTION"]
-                        assert (
-                            len(machine_consumption["Electricity"].keys()) > 0
-                        ), "Not yet implemented : An other energy type than electricity for machine"
-                        operation["consumption"] = {
-                            "electricityUnit": "kWh",
-                            "electricity": machine_consumption["Electricity"][
-                                "Power (kWh)"
-                            ]
-                            * duration_hour
-                            if len(machine_consumption["Electricity"].keys()) > 0
-                            else 0,
-                        }
+        for terminal in self.pas:
+            for ship in terminal["ships_list"]:
+                for stopover in ship["stopovers_list"]:
+                    for handling in stopover["handlings_list"]:
+                        for activity in handling["activities_list"]:
+                            for ressource in activity["ressources_accounts_list"]:
+                                machine = next(machine for machine in self.resources["machines"] if machine["ID"]==ressource["ressource_ID"])
+                                energy_consumed = []
+                                for consumption in machine["consumptions"]:
+                                    assert consumption["nature"] == "electricity", "At this time, only the electricity consumption has been implemented, but found consumption nature to be %s" % consumption["nature"]
+                                    assert consumption["unit"]=="kWh", "Unknown consumption unit : %s" % consumption["unit"]
+                                    energy_consumed.append({
+                                        "nature": consumption["nature"],
+                                        "unit": "kW",
+                                        "value": consumption["value"] * activity["timespan_scheduled"]["duration"]/60
+                                    })
+                                ressource["energy_consumed"] = energy_consumed
         return self.pas

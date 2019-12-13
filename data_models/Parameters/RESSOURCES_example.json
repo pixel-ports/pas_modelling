@@ -26,12 +26,13 @@
 			"owner":"",
 			"shift_ID":"typical",
 			"throughput":{},
-			"consumption":{
-				"electricity":{
-					"power_(kWh)":18,
-					"intensity_(A)":26
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 18,
+					"unit": "kWh"
 				}
-			}
+			]
 		},
 		{
 			"ID":"machine_2",
@@ -41,12 +42,13 @@
 			"owner":"",
 			"shift_ID":"typical",
 			"throughput":{},
-			"consumption":{
-				"electricity":{
-					"power_(kWh)":16,
-					"intensity_(A)":34
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 16,
+					"unit": "kWh"
 				}
-			}
+			]
 		},
 		{
 			"ID":"machine_3",
@@ -59,12 +61,13 @@
 				"Value":1000,
 				"Unit":"t/h"
 			},
-			"consumption":{
-				"electricity":{
-					"power_(kWh)":15,
-					"intensity_(A)":32
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 15,
+					"unit": "kWh"
 				}
-			}
+			]
 		},
 		{
 			"ID":"machine_4",
@@ -77,12 +80,13 @@
 				"Value":1000,
 				"Unit":"t/h"
 			},
-			"consumption":{
-				"electricity":{
-					"power_(kWh)":90,
-					"intensity_(A)":60
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 90,
+					"unit": "kWh"
 				}
-			}
+			]
 		},
 		{
 			"ID":"machine_5",
@@ -95,12 +99,13 @@
 				"Value":1000,
 				"Unit":"t/h"
 			},
-			"consumption":{
-				"electricity":{
-					"power_(kWh)":160,
-					"intensity_(A)":290
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 160,
+					"unit": "kWh"
 				}
-			}
+			]
 		},
 		{
 			"ID":"machine_6",
@@ -113,12 +118,13 @@
 				"Value":1000,
 				"Unit":"t/h"
 			},
-			"consumption":{
-				"electricity":{
-					"power_(kWh)":30,
-					"intensity_(A)":56
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 30,
+					"unit": "kWh"
 				}
-			}
+			]
 		},
 		{
 			"ID":"machine_7",
@@ -131,12 +137,13 @@
 				"Value":1000,
 				"Unit":"t/h"
 			},
-			"consumption":{
-				"electricity":{
-					"power_(kWh)":315,
-					"intensity_(A)":555
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 315,
+					"unit": "kWh"
 				}
-			}
+			]
 		}
 	],
 	"others":[{}]
