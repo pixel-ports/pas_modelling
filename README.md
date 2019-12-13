@@ -6,17 +6,14 @@ This repository implements the PAS modelling presented in the MTC paper : https:
 
 You'll need docker to run the PAS docker image : https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
-One run of the PAS start the container, takes inputs from the `inputs` folder, outputs results files to the `outputs` folder and exits.  
-For the run, you'll have to mount your `inputs` and `outputs` folders, and specify in-container filepaths in the `.env` file. You can also leave everything as default and run a demo with the following commands :
+One run of the PAS start the container, load input files specified in the ``.env` file, outputs results files to the `outputs` folder and exits.  
+It runs with the following commands :
 
 ```bash
 docker build -t pas .
-sudo rm -rf inputs outputs
-mkdir outputs
+sudo rm -rf outputs && mkdir outputs
 docker run --env-file .env -v $(pwd):/pas pas python3 main.py --steps 1 2 3 4
 ```
-
-This builds the docker image, create `inputs`/`outputs` folders and fill `inputs` with the default data_models. It then runs the complete PAS, outputs results to the `outputs` folder and exits.
 
 ## Retrieve data from the IH (Information Hub)
 
