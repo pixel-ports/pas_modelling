@@ -4,28 +4,35 @@ import datetime
 
 
 class Step3:
-    def __init__(self, pas, supplychains, machines):
+    def __init__(self, pas, supplychains, resources):
         self.pas = pas
         self.supplychains = supplychains
-        self.machines = machines
+        self.resources = resources
         self.uses = []
 
-    def run(self):
-        for id, machine in self.machines.items():
-            machine["id"] = id
+    def __get_sorted_handlings(self):  # TODO : This function is also defined in Step2, so we should merge it
+        """
+        Precondition : handlings have been sorted in Step1 earlier
+        """
+        handlings = [handling for terminal in self.pas for ship in terminal["ships_list"] for stopover in ship["stopovers_list"] for handling in stopover["handlings_list"]]
+        handlings.sort(
+            key=lambda handling: handling["number_in_queue"]
+        )
+        return handlings
 
+    def run(self):
         for stopover in self.pas:
-            for handling in stopover["handlings"]:
+            for handling in self.__get_sorted_handlings():
                 docking_datetime = datetime.datetime.fromisoformat(
                     handling["dock"]["ETA"]
                 )
                 supplychain = next(
                     sc
                     for sc in self.supplychains
-                    if sc["ID"] == handling["supplychain_id"]
+                    if sc["ID"] == handling["supply_chain_ID"]
                 )  # Raise a StopIteration if no matching element is found : https://stackoverflow.com/a/2364277/6463920
                 if supplychain is not None:
-                    steps = supplychain["steps"]
+                    steps = supplychain["steps_list"]
                     activities = []
                     ids_to_process = [step["ID"] for step in steps]
                     ids_processed = []
@@ -34,7 +41,7 @@ class Step3:
                             step = next(step for step in steps if step["ID"] == id)
                             step_processed = False
 
-                            if step["scheduling"]["start"]["type"] == "delay":
+                            if step["scheduling"]["start"]["nature"] == "delay":
                                 starting_datetime = (
                                     docking_datetime
                                     + datetime.timedelta(
@@ -54,28 +61,28 @@ class Step3:
                                     if activity["ID"] in filtered_ids
                                 ]
 
-                                if step["scheduling"]["start"]["type"] == "with_any":
+                                if step["scheduling"]["start"]["nature"] == "with_any":
                                     starting_datetime = min(
                                         [
                                             activity["timespan_scheduled"]["start"]
                                             for activity in filtered_activities
                                         ]
                                     )  # TODO : does min works with datetime ?
-                                elif step["scheduling"]["start"]["type"] == "after_any":
+                                elif step["scheduling"]["start"]["nature"] == "after_any":
                                     starting_datetime = min(
                                         [
                                             activity["timespan_scheduled"]["end"]
                                             for activity in filtered_activities
                                         ]
                                     )  # TODO : does min works with datetime ?
-                                elif step["scheduling"]["start"]["type"] == "with_all":
+                                elif step["scheduling"]["start"]["nature"] == "with_all":
                                     starting_datetime = max(
                                         [
                                             activity["timespan_scheduled"]["start"]
                                             for activity in filtered_activities
                                         ]
                                     )  # TODO : does min works with datetime ?
-                                elif step["scheduling"]["start"]["type"] == "after_all":
+                                elif step["scheduling"]["start"]["nature"] == "after_all":
                                     starting_datetime = max(
                                         [
                                             activity["timespan_scheduled"]["end"]
@@ -84,8 +91,8 @@ class Step3:
                                     )  # TODO : does min works with datetime ?
                                 else:
                                     raise ValueError(
-                                        'step["scheduling"]["start"]["type"] contains an unknown value : %s'
-                                        % step["scheduling"]["start"]["type"]
+                                        'step["scheduling"]["start"]["nature"] contains an unknown value : %s'
+                                        % step["scheduling"]["start"]["nature"]
                                     )
 
                                 step_processed = (
@@ -99,7 +106,7 @@ class Step3:
                                     in machine["ID"]
                                     in step["scheduling"]["work"]["machines"]
                                 ]
-                                if step["scheduling"]["duration"]["type"] == "delay":
+                                if step["scheduling"]["duration"]["nature"] == "delay":
                                     assert (
                                         step["scheduling"]["duration"]["value"][1]
                                         == "min"
@@ -110,7 +117,7 @@ class Step3:
                                         * 60)  # TODO : Check that we can do that with datetimes
                                     )
                                 elif (
-                                    step["scheduling"]["duration"]["type"]
+                                    step["scheduling"]["duration"]["nature"]
                                     == "cargo_amount"
                                 ):
                                     assert (
@@ -129,14 +136,14 @@ class Step3:
                                         )
                                         == 1
                                     ), "Cannot use parallel/serie machines if they don't have the same throughput Unit."
-                                    if step["work"]["type"] == "parallel":
+                                    if step["work"]["nature"] == "parallel":
                                         throughput = sum(
                                             [
                                                 machine["throughput"]["Value"]
                                                 for machine in filtered_machines
                                             ]
                                         )
-                                    elif step["work"]["type"] == "serie":
+                                    elif step["work"]["nature"] == "serie":
                                         throughput = min(
                                             [
                                                 machine["throughput"]["Value"]
@@ -165,7 +172,7 @@ class Step3:
                                         if activity["ID"] in filtered_ids
                                     ]
                                     if (
-                                        step["scheduling"]["duration"]["type"]
+                                        step["scheduling"]["duration"]["nature"]
                                         == "before"
                                     ):
                                         ending_datetime = min(
@@ -175,7 +182,7 @@ class Step3:
                                             ]
                                         )
                                     elif (
-                                        step["scheduling"]["duration"]["type"]
+                                        step["scheduling"]["duration"]["nature"]
                                         == "after_any"
                                     ):
                                         ending_datetime = min(
@@ -185,7 +192,7 @@ class Step3:
                                             ]
                                         )
                                     elif (
-                                        step["scheduling"]["duration"]["type"]
+                                        step["scheduling"]["duration"]["nature"]
                                         == "after_all"
                                     ):
                                         ending_datetime = max(

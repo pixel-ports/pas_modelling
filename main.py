@@ -63,9 +63,9 @@ def main(steps, output_dir):
             pas = json.loads(f.read())
         with open(os.getenv("SUPPLYCHAINS_COLLECTION"), "r") as f:
             supplychains = json.loads(f.read())
-        with open(os.getenv("MACHINES_COLLECTION"), "r") as f:
-            machines = json.loads(f.read())
-        step3 = Step3(pas, supplychains, machines)
+        with open(os.getenv("RESSOURCES_COLLECTION"), "r") as f:
+            ressources = json.loads(f.read())
+        step3 = Step3(pas, supplychains, ressources)
         pas = step3.run()
         with open(os.path.join(output_dir, "step3_output.json"), "w") as f:
             f.write(json.dumps(pas, indent=4, ensure_ascii=False))
@@ -74,9 +74,9 @@ def main(steps, output_dir):
         print("--- Step 4 ---")
         with open(os.path.join(output_dir, "step3_output.json"), "r") as f:
             pas = json.loads(f.read())
-        with open(os.getenv("MACHINES_COLLECTION"), "r") as f:
-            machines = json.loads(f.read())
-        step4 = Step4(pas, machines)
+        with open(os.getenv("RESSOURCES_COLLECTION"), "r") as f:
+            ressources = json.loads(f.read())
+        step4 = Step4(pas, ressources)
         pas = step4.run()
         with open(os.path.join(output_dir, "step4_output.json"), "w") as f:
             f.write(json.dumps(pas, indent=4, ensure_ascii=False))
