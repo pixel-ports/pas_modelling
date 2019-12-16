@@ -30,8 +30,8 @@ curl -o data_IH_brutes.json -H "X-Auth-Token: b82e89e873834116fdd57cea3a0caebd67
 And then, to convert the downloaded data into input_data for the PAS modelling :
 ```bash
 docker build -t pas .
-sudo rm -rf outputs && mkdir outputs  # Even if we put it in the `outputs` folder, we are generating the `input` for the PAS_modelling
-docker run -v $(pwd):/pas pas python3 ./tools/gpmb_ships_call_list_converter/converter.py --input_filepath tools/gpmb_ships_call_list_converter/data_IH_brutes.json --output_filepath ./outputs/INPUT_GPMB_generated_from_ships_call_list.json
+sudo rm -rf inputs && mkdir inputs  # we are going to generate the `input` for the PAS_modelling
+docker run -v $(pwd):/pas pas python3 ./tools/gpmb_ships_call_list_converter/converter.py --input_filepath tools/gpmb_ships_call_list_converter/data_IH_brutes.json --output_filepath ./inputs/INPUT_GPMB_generated_from_ships_call_list.json
 ```
 
 <!--  
