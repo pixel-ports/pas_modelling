@@ -1,0 +1,278 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+
+  "$id": "supply_chains_list",
+  "type": "array",
+  "description": "The collection of Supply-chain description.",
+  "items": {
+    "$id": "#/items",
+    "type": "object",
+    "description": "A supply-chain description.",
+    "required": [
+      "ID",
+      "steps_list"
+    ],
+    "properties": {
+      "ID": {
+        "$id": "#/items/properties/ID",
+        "type": "string",
+        "description": "Unique identifier.",
+        "examples": [
+          "SC_1"
+        ]
+      },
+      "label": {
+        "$id": "#/items/properties/label",
+        "type": "string",
+        "description": "Free text for labelling (eg. name).",
+        "examples": [
+          "My SC name"
+        ]
+      },
+      "comment": {
+        "$id": "#/items/properties/comment",
+        "type": "string",
+        "description": "Free text for comment",
+        "examples": [
+          "Some SC comment"
+        ]
+      },
+      "compatibility": {
+        "$id": "#/items/properties/compatibility",
+        "type": "object",
+        "description": "Informations about suitable handling context.",
+        "required": [
+        ],
+        "properties": {
+          "cargoes_category": {
+            "$id": "#/items/properties/compatibility/properties/cargoes_category",
+            "type": "array",
+            "description": "List of compatible handlings' cargoes-categories.",
+            "items": {
+              "$id": "#/items/properties/compatibility/properties/cargoes_category/items",
+              "type": "string",
+              "description": "Valid cargo-category's ID.",
+              "examples": [
+                "E.Mais Vrac"
+              ]
+            }
+          },
+          "directions_nature": {
+            "$id": "#/items/properties/compatibility/properties/directions_nature",
+            "type": "array",
+            "description": "List compatible handlings' directions.",
+            "items": {
+              "$id": "#/items/properties/compatibility/properties/directions_nature/items",
+              "type": "string",
+              "description": "A direction.",
+              "enum": ["loading", "unloading", "other"],
+              "examples": [
+                "loading"
+              ]
+            }
+          },
+          "areas_ID": {
+            "$id": "#/items/properties/compatibility/properties/areas_ID",
+            "type": "array",
+            "description": "List compatible handlings' areas.",
+            "items": {
+              "$id": "#/items/properties/compatibility/properties/areas_ID/items",
+              "type": "string",
+              "description": "Valid area's ID.",
+              "examples": [
+                "419",
+                "432",
+                "Silo_SPBL"
+              ]
+            }
+          },
+          "shiftworks_ID": {
+            "$id": "#/items/properties/compatibility/properties/shiftworks_ID",
+            "type": "array",
+            "description": "List compatible handlings' working hours.",
+            "items": {
+              "$id": "#/items/properties/compatibility/properties/shiftworks_ID/items",
+              "type": "string",
+              "description": "Valid shiftwork's ID.",
+              "examples": [
+                "typical"
+              ]
+            }
+          }
+        }
+      },
+      "steps_list": {
+        "$id": "#/items/properties/steps_list",
+        "type": "array",
+        "description": "List all steps.",
+        "items": {
+          "$id": "#/items/properties/steps_list/items",
+          "type": "object",
+          "description": "A step description.",
+          "required": [
+            "ID",
+            "label",
+            "scheduling",
+            "work"
+          ],
+          "properties": {
+            "ID": {
+              "$id": "#/items/properties/steps_list/items/properties/ID",
+              "type": "string",
+              "description": "Step's unique identifier (in this SC).",
+              "examples": [
+                "step_1"
+              ]
+            },
+            "label": {
+              "$id": "#/items/properties/steps_list/items/properties/label",
+              "type": "string",
+              "description": "Step name.",
+              "examples": [
+                "Allumage de la centrale hydraulique"
+              ]
+            },
+            "comment": {
+              "$id": "#/items/properties/steps_list/items/properties/comment",
+              "type": "string",
+              "description": "Step comment.",
+              "examples": [
+                "Premier allumage"
+              ]
+            },
+            "category": {
+              "$id": "#/items/properties/steps_list/items/properties/category",
+              "type": "string",
+              "description": "Step category (for grouping).",
+              "examples": [
+                "Initialization", "Processing", "Support", "Discontinuous"
+              ]
+            },
+            "scheduling": {
+              "$id": "#/items/properties/steps_list/items/properties/scheduling",
+              "type": "object",
+              "description": "Methode for timespan attribution.",
+              "required": [
+                "start",
+                "duration"
+              ],
+              "properties": {
+                "start": {
+                  "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/start",
+                  "type": "object",
+                  "description": "How to determine begining.",
+                  "required": [
+                    "nature",
+                    "value"
+                  ],
+                  "properties": {
+                    "nature": {
+                      "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/start/properties/nature",
+                      "type": "string",
+                      "description": "If 'delay' is used: start X min after initial start possibility (X=0 for ASAP). For others than 'delay': all the steps's ID to which the condition relates (array).",
+                      "enum": [
+                        "delay", "with_any", "with_all", "after_any", "after_all"
+                      ],
+                      "examples":["delay"]
+                    },
+                    "value": {
+                      "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/start/properties/value",
+                      "type": "integer",
+                      "$comment":"This part of the json schema is not working, expected tyme should depend of Nature's value",
+                      "description": "For 'delay', should be a nomber of hours. For orthers, should be an array of Steps' IDs.",
+                      "examples": [
+                        0
+                      ]
+                    }
+                  }
+                },
+                "duration": {
+                  "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/duration",
+                  "type": "object",
+                  "description": "How to determine duration/ending.",
+                  "$comment": "Depending of the situation, it may sometime be clearer to call it End",
+                  "required": [
+                    "nature",
+                    "value"
+                  ],
+                  "properties": {
+                    "nature": {
+                      "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/duration/properties/nature",
+                      "type": "string",
+                      "description": "For 'cargo_'X, the cargo's quantity that have to be handled before ending step (express as tons or percent). For others, see 'start' description.",
+                      "enum": [
+                        "delay", "cargo_tons", "cargo_%", "before_any", "before_all", "after_any", "after_all"
+                      ],
+                      "examples": [
+                        "after_any"
+                      ]
+                    },
+                    "value": {
+                      "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/duration/properties/value",
+                      "type": "array",
+                      "description": "delay: minutes, cargo_tons: nomber of tons, cargo_%: cargo's amount percent (<=100). For orthers, should be an array of Steps' IDs.",
+                      "$comment":"This part of the json schema is not working, expected type should depend of Nature's value",
+                      "items": {
+                        "$id": "#/items/properties/steps_list/items/properties/scheduling/properties/duration/properties/value/items",
+                        "type": "string",
+                        "examples": [
+                          "step_3",
+                          "step_4"
+                        ]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "work": {
+              "$id": "#/items/properties/steps_list/items/properties/work",
+              "type": "object",
+              "description": "An explanation about the purpose of this instance.",
+              "required": [
+                "machines",
+                "nature"
+              ],
+              "properties": {
+                "machines": {
+                  "$id": "#/items/properties/steps_list/items/properties/work/properties/machines",
+                  "type": "array",
+                  "description": "List all machines involved in this step, that is to say that start and end together (if not, should be on different steps).",
+                  "items": {
+                    "$id": "#/items/properties/steps_list/items/properties/work/properties/machines/items",
+                    "type": "string",
+                    "description": "Machine's ID.",
+                    "examples": [
+                      "machine_1"
+                    ]
+                  }
+                },
+                "nature": {
+                  "$id": "#/items/properties/steps_list/items/properties/work/properties/nature",
+                  "type": "string",
+                  "description": "parallel: the machines' work done are not interdependant (machines' throughput add up for step progress). Sequential: the machines' work done are interdependant (the machine with the minimal throughput limite the step progress).",
+                  "examples": [
+                    "parallel", "sequential"
+                  ],
+                  "examples": [
+                    "parallel'"
+                  ]
+                },
+                "distance": {
+                  "$id": "#/items/properties/steps_list/items/properties/work/properties/distance",
+                  "type": "string",
+                  "$comment":"This part of the json schema is not working, expected type should depend of Nature.",
+                  "description": "'on_spot' for static machines use, number of m for moving machine (impacting throughput calculation).",
+                  "examples": [
+                    "on_spot"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

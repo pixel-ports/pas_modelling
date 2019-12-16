@@ -3,51 +3,40 @@
 
 This repository implements the PAS modelling presented in the MTC paper : https://www.dropbox.com/s/6z2e854bxz9jtur/MTC2019_SIMON_LACALLE.pdf?dl=0.
 
-## Production
+![Cross Modelling](./tools/resources/cross_modelling.png "PIXEL cross modelling")
 
-## Getting started
+## Run the model
 
 You'll need docker to run the PAS docker image : https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
-One run of the PAS start the container, takes inputs from the `inputs` folder, outputs results files to the `outputs` folder and exits.  
-For the run, you'll have to mount your `inputs` and `outputs` folders, and specify in-container filepaths in the `.env` file. You can also leave everything as default and run a demo with the following commands :
+One run of the PAS start the container, load input files specified in the `.env` file, outputs results files to the `outputs` folder and exits.  
+It runs with the following commands :
 
 ```bash
 docker build -t pas .
-rm -rf inputs outputs
-mkdir inputs outputs
-cp data_models/inputs/*.json inputs/
+sudo rm -rf outputs && mkdir outputs
 docker run --env-file .env -v $(pwd):/pas pas python3 main.py --steps 1 2 3 4
 ```
 
-This builds the docker image, create `inputs`/`outputs` folders and fill `inputs` with the default data_models. It then runs the complete PAS, outputs results to the `outputs` folder and exits.
+## Manage data coming from the Information Hub (IH)
 
-## Development
+The exprimed context, in french : "Nous souhaiterions tester le PAS modelling sur les données (historique d'un mois des données réelles de GPMB) remontées puis stockées sur PIXEL."
 
-### Getting started
-
-On linux, run the following commands in order to get started :
+In order to retrieve data from GPMB API :
 
 ```bash
-sudo apt-get install python3 python3-dev
-sudo pip install pipenv  # installs pipenv globally
-pipenv install  # installs the required dependencies
-git config core.hooksPath .githooks  # defines project git hooks folder
+curl -o data_IH_brutes.json -H "X-Auth-Token: b82e89e873834116fdd57cea3a0caebd676409d7" -H "Fiware-Service: PIXEL" -H "Fiware-ServicePath: /FRBOD" --insecure "https://dal.pixel-ports.eu/orion/v2/entities?q=departure_dock==2018-01-01T00:00:00.00Z..2018-12-31T23:59:59.59Z"
 ```
-Then update files in `data/` according to your port needs or leave them as they are, then start the process :
 
+And then, to convert the downloaded data into input_data for the PAS modelling :
 ```bash
-pipenv run python main.py --steps 1 2 3 4
+docker build -t pas .
+sudo rm -rf outputs && mkdir outputs  # Even if we put it in the `outputs` folder, we are generating the `input` for the PAS_modelling
+docker run -v $(pwd):/pas pas python3 ./tools/gpmb_ships_call_list_converter/converter.py --input_filepath tools/gpmb_ships_call_list_converter/data_IH_brutes.json --output_filepath ./outputs/INPUT_GPMB_generated_from_ships_call_list.json
 ```
 
-### Generate fake data for demonstration purpose
-
-```bash
-pipenv run python tools/fake_pas_generation.py
-pipenv run jupyter-notebook tools/demonstration.ipynb
-```
-
-### Statistics for WP8 Product Quality Model
+<!--  
+## Statistics for WP8 Product Quality Model - This has to be adapted to the docker usage
 
 ```bash
 # Reinit output
@@ -66,3 +55,4 @@ pipenv run python monitor/monitor_cpu.py "python main.py --steps $PAS_STEPS"
 # Monitoring simultaneous requests performance
 pipenv run python test/test_simultaneous_requests.py --min_processes 100 --max_processes 1000 --step_processes 100  # TODO : Broken
 ```
+-->

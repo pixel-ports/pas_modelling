@@ -1,0 +1,150 @@
+{
+	"areas":[
+		{
+			"ID":"PaQ_419",
+			"label":"",
+			"type":"dock",
+			"<<examples":["docks", "silo", "warehouses", "office", "gates", "other"],
+			"owner":"",
+			"terminal":"",
+			"<<comment":"Les areas peuvent avoir des consommations fixes (ou un nombre d'item, comme lampes et containers ?), sans lien avec un handling"
+		}
+	],
+	"machines":[
+		{
+			"ID":"Reefer Plug",
+			"label":"Virtual machine for accounting reefers consumption",
+			"type":"",
+			"group":"",
+			"owner":""
+		},
+		{
+			"ID":"machine_1",
+			"label":"PORTIQUE_Centrale_hydraulique",
+			"type":"Generator",
+			"group":["PORTIQUE"],
+			"owner":"",
+			"shift_ID":"typical",
+			"throughput":{},
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 18,
+					"unit": "kWh"
+				}
+			]
+		},
+		{
+			"ID":"machine_2",
+			"label":"PORTIQUE_Treuil_télescopique",
+			"type":"Vertical",
+			"group":["PORTIQUE"],
+			"owner":"",
+			"shift_ID":"typical",
+			"throughput":{},
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 16,
+					"unit": "kWh"
+				}
+			]
+		},
+		{
+			"ID":"machine_3",
+			"label":"PORTIQUE_Navette",
+			"type":"Vertical",
+			"group":["PORTIQUE"],
+			"owner":"",
+			"shift_ID":"typical",
+			"throughput":{
+				"Value":1000,
+				"Unit":"t/h"
+			},
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 15,
+					"unit": "kWh"
+				}
+			]
+		},
+		{
+			"ID":"machine_4",
+			"label":"PORTIQUE_TB_1à2",
+			"type":"Horizontal",
+			"group":["PORTIQUE"],
+			"owner":"",
+			"shift_ID":"typical",
+			"throughput":{
+				"Value":1000,
+				"Unit":"t/h"
+			},
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 90,
+					"unit": "kWh"
+				}
+			]
+		},
+		{
+			"ID":"machine_5",
+			"label":"PORTIQUE_TB_6",
+			"type":"Horizontal",
+			"group":["PORTIQUE"],
+			"owner":"",
+			"shift_ID":"typical",
+			"throughput":{
+				"Value":1000,
+				"Unit":"t/h"
+			},
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 160,
+					"unit": "kWh"
+				}
+			]
+		},
+		{
+			"ID":"machine_6",
+			"label":"SILO_TB_1à5",
+			"type":"Horizontal",
+			"group":["SILO"],
+			"owner":"",
+			"shift_ID":"typical",
+			"throughput":{
+				"Value":1000,
+				"Unit":"t/h"
+			},
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 30,
+					"unit": "kWh"
+				}
+			]
+		},
+		{
+			"ID":"machine_7",
+			"label":"SILO_EL_4",
+			"type":"Vertical",
+			"group":["SILO"],
+			"owner":"",
+			"shift_ID":"typical",
+			"throughput":{
+				"Value":1000,
+				"Unit":"t/h"
+			},
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 315,
+					"unit": "kWh"
+				}
+			]
+		}
+	],
+	"others":[{}]
+}

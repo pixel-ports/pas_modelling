@@ -1,191 +1,333 @@
 import copy
 import numpy as np
+import datetime
+import warnings
 
 
 class Step3:
-    def __init__(self, pas, machines):
+    def __init__(self, pas, supplychains, resources):
         self.pas = pas
-        self.machines = machines
+        self.supplychains = supplychains
+        self.resources = resources
         self.uses = []
 
+    def __get_sorted_handlings(
+        self
+    ):  # TODO : This function is also defined in Step2, so we should merge it
+        """
+        Precondition : handlings have been sorted in Step1 earlier
+        """
+        handlings = [
+            handling
+            for terminal in self.pas
+            for ship in terminal["ships_list"]
+            for stopover in ship["stopovers_list"]
+            for handling in stopover["handlings_list"]
+        ]
+        handlings.sort(key=lambda handling: handling["ID"])
+        return handlings
+
+    def __find_minimal_starting_datetime(
+        self, step, docking_datetime, ids_processed, activities
+    ):
+        if step["scheduling"]["start"]["nature"] == "delay":
+            starting_datetime = docking_datetime + datetime.timedelta(
+                0, 60 * step["scheduling"]["start"]["value"]
+            )
+            step_processed = True
+        else:
+            filtered_ids = [
+                id for id in ids_processed if id in step["scheduling"]["start"]["value"]
+            ]
+            filtered_activities = [
+                activity for activity in activities if activity["step_ID"] in filtered_ids
+            ]
+            if len(filtered_activities) > 0:
+                if step["scheduling"]["start"]["nature"] == "with_any":
+                    starting_datetime = min(
+                        [
+                            datetime.datetime.fromisoformat(
+                                activity["timespan_scheduled"]["start"]
+                            )
+                            for activity in filtered_activities
+                        ]
+                    )  # TODO : does min works with datetime ?
+                elif step["scheduling"]["start"]["nature"] == "after_any":
+                    starting_datetime = min(
+                        [
+                            datetime.datetime.fromisoformat(
+                                activity["timespan_scheduled"]["end"]
+                            )
+                            for activity in filtered_activities
+                        ]
+                    )  # TODO : does min works with datetime ?
+                elif step["scheduling"]["start"]["nature"] == "with_all":
+                    starting_datetime = max(
+                        [
+                            datetime.datetime.fromisoformat(
+                                activity["timespan_scheduled"]["start"]
+                            )
+                            for activity in filtered_activities
+                        ]
+                    )  # TODO : does min works with datetime ?
+                elif step["scheduling"]["start"]["nature"] == "after_all":
+                    starting_datetime = max(
+                        [
+                            datetime.datetime.fromisoformat(
+                                activity["timespan_scheduled"]["end"]
+                            )
+                            for activity in filtered_activities
+                        ]
+                    )  # TODO : does min works with datetime ?
+                else:
+                    raise ValueError(
+                        'step["scheduling"]["start"]["nature"] contains an unknown value : %s'
+                        % step["scheduling"]["start"]["nature"]
+                    )
+                step_processed = True  # TODO : Add this as an activity instead ?
+            else:
+                step_processed = False
+        return starting_datetime if step_processed else None
+
+    def __find_minimal_ending_datetime(
+        self, handling, step, starting_datetime, ids_processed, activities
+    ):
+        filtered_machines = self.__get_machines_for_step(step)
+        if step["scheduling"]["duration"]["nature"] == "delay":
+            ending_datetime = starting_datetime + datetime.timedelta(
+                minutes=step["scheduling"]["duration"]["value"]
+            )  # TODO : Check that we can do that with datetimes
+        elif step["scheduling"]["duration"]["nature"] in ["cargo_%", "cargo_tons"]:
+            # TODO : write here
+            assert (
+                len(
+                    set(
+                        [machine["throughput"]["Unit"] for machine in filtered_machines]
+                    )
+                )
+                == 1
+            ), "Cannot use parallel/serie machines if they don't have the same throughput Unit."
+            assert filtered_machines[0]["throughput"]["Unit"] == "t/h", (
+                "Machine throughput should be expressed per hour, but is %s"
+                % next(filtered_machines)["throughput"]["Unit"]
+            )
+            if step["work"]["nature"] == "parallel":
+                throughput = sum(
+                    [machine["throughput"]["Value"] for machine in filtered_machines]
+                )
+            elif step["work"]["nature"] == "serie":
+                throughput = min(
+                    [machine["throughput"]["Value"] for machine in filtered_machines]
+                )
+            if step["scheduling"]["duration"]["nature"] == "cargo_%":
+                duration_use_hours = (
+                    handling["contents"]["amount"]
+                    * step["scheduling"]["duration"]["value"]
+                    / 100  # Suppose that duration value is in percents
+                    * 1.0
+                    / throughput
+                )  # t/hour
+            else:  # cargo_tons
+                duration_use_hours = (
+                    min(
+                        [
+                            handling["content"]["amount"],
+                            step["scheduling"]["duration"]["value"],
+                        ]
+                    )
+                    * 1.0
+                    / throughput
+                )  # t/hour
+            ending_datetime = starting_datetime + datetime.timedelta(
+                0, duration_use_hours * 60 * 60
+            )
+        else:
+            filtered_ids = [
+                id
+                for id in ids_processed
+                if id in step["scheduling"]["duration"]["value"]
+            ]
+            filtered_activities = [
+                activity for activity in activities if activity["ID"] in filtered_ids
+            ]
+            if step["scheduling"]["duration"]["nature"] == "before":
+                ending_datetime = min(
+                    [
+                        datetime.datetime.fromisoformat(
+                            activity["timespan_scheduled"]["start"]
+                        )
+                        for activity in filtered_activities
+                    ]
+                )
+            elif step["scheduling"]["duration"]["nature"] == "after_any":
+                ending_datetime = min(
+                    [
+                        datetime.datetime.fromisoformat(
+                            activity["timespan_scheduled"]["end"]
+                        )
+                        for activity in filtered_activities
+                    ]
+                )
+            elif step["scheduling"]["duration"]["nature"] == "after_all":
+                ending_datetime = max(
+                    [
+                        datetime.datetime.fromisoformat(
+                            activity["timespan_scheduled"]["end"]
+                        )
+                        for activity in filtered_activities
+                    ]
+                )
+            else:
+                raise ValueError(
+                    'step["scheduling"]["duration"]["nature"] contains an unknown value : %s'
+                    % step["scheduling"]["duration"]["nature"]
+                )
+        return ending_datetime
+
+    def __get_machines_for_step(self, step):
+        return [
+            machine
+            for machine in self.resources["machines"]
+            if machine["ID"] in step["work"]["machines"]
+        ]
+
     def run(self):
-        for id, machine in self.machines.items():
-            machine["id"] = id
-
-        for ship in self.pas:
-            for handling in ship["HANDLINGS"]:
-                dockingTS = handling["DOCK"]["ETA_dock"]
-                supplychain = handling["supplychain"]
+        activity_next_free_id = 0
+        for stopover in self.pas:
+            for handling in self.__get_sorted_handlings():
+                docking_datetime = datetime.datetime.fromisoformat(
+                    handling["dock"]["ETA"]
+                )
+                supplychain = next(
+                    sc
+                    for sc in self.supplychains
+                    if sc["ID"] == handling["supply_chain_ID"]
+                )  # Raise a StopIteration if no matching element is found : https://stackoverflow.com/a/2364277/6463920
                 if supplychain is not None:
-                    operations = supplychain["OPERATIONS_SEQUENCE"]
-                    ids_to_process = list(operations.keys())
+                    steps = supplychain["steps_list"]
+                    activities = []
                     ids_processed = []
-                    while len(ids_to_process) > 0:
-                        for id in ids_to_process:
-                            operation = supplychain["OPERATIONS_SEQUENCE"][id]
-                            machine = self.machines[
-                                operation["CALCULATION"]["Machine_ID"]
-                            ]
-                            operation_processed = False
-
-                            if operation["CALCULATION"]["Start_Type"] == "ASAP":
-                                startingTS = dockingTS
-                                operation_processed = True
-                            elif isinstance(
-                                operation["CALCULATION"]["Start_Type"], dict
-                            ):
-                                assert (
-                                    "Case_0"
-                                    in operation["CALCULATION"]["Start_Type"].keys()
-                                ), "Problem with StartType keys"
-                                conditions = operation["CALCULATION"]["Start_Type"][
-                                    "Case_0"
-                                ]
-                                assert np.all(
-                                    [
-                                        list(condition.keys())[0] in ["After", "With"]
-                                        for condition in conditions
-                                    ]
-                                ), "Not yet implemented : other keys than After/With"
-                                conditions_ids = [
-                                    list(condition.values())[0]
-                                    for condition in conditions
-                                ]
-                                if np.all(
-                                    [id in ids_processed for id in conditions_ids]
-                                ):
-                                    candidates_startingTS = []
-                                    for condition in conditions:
-                                        assert (
-                                            len(condition.keys()) == 1
-                                        ), "There can't be more than one condition there"
-                                        lookupTS = (
-                                            "endTS"
-                                            if list(condition.keys())[0] == "After"
-                                            else "startTS"
-                                        )
-                                        use = self.get_use(
-                                            handling["id"],
-                                            supplychain["id"],
-                                            list(condition.values())[0],
-                                        )
-                                        startingTS = max(
-                                            [use[lookupTS] for id in conditions_ids]
-                                        )
-                                        candidates_startingTS.append(startingTS)
-                                    startingTS = max(candidates_startingTS)
-                                    operation_processed = True
-
-                            if operation_processed:
-                                if (
-                                    list(
-                                        operation["CALCULATION"]["Duration_Type"].keys()
-                                    )[0]
-                                    == "Fixe"
-                                ):
-                                    assert (
-                                        operation["CALCULATION"]["Duration_Type"][
-                                            "Fixe"
-                                        ]["Unit"]
-                                        == "min"
-                                    ), "Not yet implemented : Duration unit is not min"
-                                    endingTS = (
-                                        startingTS
-                                        + operation["CALCULATION"]["Duration_Type"][
-                                            "Fixe"
-                                        ]["Value"]
-                                        * 60
-                                    )
-                                elif (
-                                    list(
-                                        operation["CALCULATION"]["Duration_Type"].keys()
-                                    )[0]
-                                    == "Amount"
-                                ):
-                                    assert (
-                                        operation["CALCULATION"]["Duration_Type"][
-                                            "Amount"
-                                        ]["Unit"]
-                                        == "%"
-                                    )
-                                    assert (
-                                        "Value"
-                                        in machine["SPECIFICATION"]["Throughput"].keys()
-                                    ), (
-                                        "Machine %s is referenced by Amount in Supplychain %s but contains no throughput value."
-                                        % (machine["id"], supplychain["id"])
-                                    )
-                                    throughput = machine["SPECIFICATION"]["Throughput"][
-                                        "Value"
-                                    ]
-                                    duration_use_hour = (
-                                        operation["CALCULATION"]["Duration_Type"][
-                                            "Amount"
-                                        ]["Value"]
-                                        * 1.0
-                                        / throughput
-                                    )  # t/hours
-                                    endingTS = startingTS + duration_use_hour * 60 * 60
-                                else:
-                                    assert False, "Unknown duration type"
-
-                                ids_to_process.remove(id)
-                                ids_processed.append(id)
-                                startingTS, endingTS = self.get_next_available_TS(
-                                    machine, startingTS, endingTS
+                    old_ids_processed = None
+                    while len(ids_processed) < len(steps):
+                        if ids_processed == old_ids_processed:
+                            raise ValueError("No progression on ids_processed %s, making an infinite while loop. It may be that the supplychain is incorrectly configured and has no solution." % str(ids_processed))
+                        old_ids_processed = copy.deepcopy(ids_processed)
+                        for step in steps:
+                            if step["ID"] not in ids_processed:
+                                filtered_machines = self.__get_machines_for_step(step)
+                                starting_datetime = self.__find_minimal_starting_datetime(
+                                    step, docking_datetime, ids_processed, activities
                                 )
-                                operation["startTS"] = startingTS
-                                operation["endTS"] = endingTS
-
-                                self.uses.append(
-                                    {
-                                        "startTS": startingTS,
-                                        "endTS": endingTS,
-                                        "machine": copy.deepcopy(machine),
-                                        "handling": copy.deepcopy(handling),
-                                        "supplychain": copy.deepcopy(supplychain),
-                                        "operation": copy.deepcopy(operation),
+                                if starting_datetime is not None:
+                                    ending_datetime = self.__find_minimal_ending_datetime(
+                                        handling,
+                                        step,
+                                        starting_datetime,
+                                        ids_processed,
+                                        activities,
+                                    )
+                                    ids_processed.append(step["ID"])
+                                    if len(filtered_machines) > 0:
+                                        starting_datetime, ending_datetime = self.get_next_available_TS_multiple_machines(
+                                            filtered_machines,
+                                            starting_datetime,
+                                            ending_datetime,
+                                        )
+                                    else:
+                                        warnings.warn(
+                                            "No machine are defined for step %s in supplychain %s"
+                                            % (str(step["ID"]), str(supplychain["ID"])),
+                                            UserWarning
+                                        )
+                                    activity = {
+                                        "ID": activity_next_free_id,
+                                        "step_ID": step["ID"],
+                                        "timespan_scheduled": {
+                                            "start": starting_datetime.isoformat(),
+                                            "end": ending_datetime.isoformat(),
+                                            "duration": (
+                                                ending_datetime - starting_datetime
+                                            ).total_seconds()
+                                            / 60,
+                                        },
+                                        "ressources_accounts_list": [
+                                            {"ressource_ID": machine["ID"]}
+                                            for machine in filtered_machines
+                                        ],
                                     }
-                                )
+                                    activity_next_free_id += 1
+                                    activities.append(activity)
+
+                                    for (
+                                        machine
+                                    ) in (
+                                        filtered_machines
+                                    ):  # Usefull to check for machine availability
+                                        self.uses.append(
+                                            {
+                                                "start": starting_datetime,
+                                                "end": ending_datetime,
+                                                "machine": copy.deepcopy(machine),
+                                            }
+                                        )
+                handling["activities_list"] = activities
         return self.pas
 
-    def get_use(self, handlingId, supplychainId, operationId):
+    def get_use(self, handlingId: int, supplychainId: int, operationId: int):
         uses = [
             use
             for use in self.uses
             if use["handling"]["id"] == handlingId
-            and use["operation"]["id"] == "%s-%s" % (supplychainId, operationId)
+            and use["activity"]["id"] == "%s-%s" % (supplychainId, operationId)
         ]
-        # print([use["handling"]["id"] for use in self.uses])
-        # print([use["operation"]["id"] for use in self.uses])
-        # print(handlingId)
-        # print(operationId)
-        # print(self.uses)
         assert len(uses) == 1, "Undefined uses or multiples use of the same id"
         return uses[0]
 
-    def get_overlapping_TS(self, machine, startTS: int, endTS: int) -> (int, int):
+    def get_overlapping_TS(
+        self, machine: dict, start: datetime, end: datetime
+    ) -> (datetime, datetime):
         machine_uses = [
-            use for use in self.uses if machine["id"] == use["machine"]["id"]
+            use for use in self.uses if machine["ID"] == use["machine"]["ID"]
         ]
         for use in machine_uses:
             if (
-                use["startTS"] < startTS < use["endTS"]
-                or use["startTS"] < endTS < use["endTS"]
-                or (startTS < use["startTS"] and use["endTS"] < endTS)
+                use["start"] < start < use["end"]
+                or use["start"] < end < use["end"]
+                or (start < use["start"] and use["end"] < end)
             ):
-                return use["startTS"], use["endTS"]
+                return use["start"], use["end"]
         return None, None
 
-    def is_available(self, machine, startTS: int, endTS: int) -> bool:
-        return self.get_overlapping_TS(machine, startTS, endTS) == (None, None)
+    def is_available(self, machine: dict, start: datetime, end: datetime) -> bool:
+        return self.get_overlapping_TS(machine, start, end) == (None, None)
 
-    def get_next_available_TS(self, machine, startTS: int, endTS: int) -> (int, int):
+    def get_next_available_TS(
+        self, machine: dict, start: datetime, end: datetime
+    ) -> (datetime, datetime):
+        """ Return the next available timespan for one machine
+        """
         while True:
-            if self.is_available(machine, startTS, endTS):
-                return startTS, endTS
+            if self.is_available(machine, start, end):
+                return start, end
             else:
-                _, o_endTS = self.get_overlapping_TS(machine, startTS, endTS)
-                delta: int = endTS - startTS
-                startTS: int = o_endTS
-                endTS: int = startTS + delta
+                _, o_end = self.get_overlapping_TS(machine, start, end)
+                delta: int = end - start
+                start: int = o_end
+                end: int = start + delta
+
+    def get_next_available_TS_multiple_machines(
+        self, machines: list, start: datetime, end: datetime
+    ) -> (datetime, datetime):
+        """ Return the next available common timespan for multiple machines. It does not matter if the machines are running in parrallel or serie because we book the global timespan for all the machines.
+        """  # TODO : Manage the case when no combination can be found (and prevent an infinite while loop)
+        duration = end - start
+        while True:
+            starts = [
+                self.get_next_available_TS(machine, start, end)[0]
+                for machine in machines
+            ]
+            if len(set(starts)) == 1:
+                start = starts[0]
+                return start, start + duration
+            else:
+                start = max(starts)

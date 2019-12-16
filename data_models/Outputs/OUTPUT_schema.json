@@ -1,0 +1,540 @@
+{
+  "definitions": {},
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://example.com/root.json",
+  "type": "object",
+  "description": "Final PAS modelling output: PAS builder (step 1 to 3) --> Energy consumption --> Pollutants emission",
+  "required": [
+    "parameters",
+    "port_activity_scenario"
+  ],
+  "properties": {
+    "parameters": {
+      "$id": "#/properties/parameters",
+      "type": "object",
+      "description": "The parameters used for PAS modelling",
+      "required": [
+        "resources",
+        "convention"
+      ],
+      "properties": {
+        "resources": {
+          "$id": "#/properties/parameters/properties/resources",
+          "type": "object",
+          "description": "The collection of low abstraction level entities ('physical objects') descriptions used for this PAS modelling. See 'ressources_schema.json' for fine description."
+        },
+        "conventions": {
+          "$id": "#/properties/parameters/properties/conventions",
+          "type": "object",
+          "description": "The collection of hight abstraction level entities ('non-physical objects') descriptions used for this PAS modelling. See 'conventions_schema.json' for fine description."
+        }
+      }
+    },
+    "port_activity_scenario": {
+      "$id": "#/properties/port_activity_scenario",
+      "type": "array",
+      "description": "The PAS modelling's main output.",
+      "items": {
+        "$id": "#/properties/port_activity_scenario/items",
+        "type": "object",
+        "description": "The Items Schema",
+        "required": [
+          "boats"
+        ],
+        "properties": {
+          "terminal": {
+            "$id": "#/properties/port_activity_scenario/items/properties/terminal",
+            "type": "string",
+            "description": "The Terminal generating the sub-activities",
+            "default": "",
+            "examples": [
+              "Bassens"
+            ],
+            "pattern": "^(.*)$"
+          },
+          "boats": {
+            "$id": "#/properties/port_activity_scenario/items/properties/boats",
+            "type": "array",
+            "description": "The list of Boats generating the sub-activities",
+            "items": {
+              "$id": "#/properties/port_activity_scenario/items/properties/boats/items",
+              "type": "object",
+              "description": "A Boat record",
+              "required": [
+                "stopovers"
+              ],
+              "properties": {
+                "ID": {
+                  "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/ID",
+                  "type": "string",
+                  "description": "The Boat's ID",
+                  "default": "",
+                  "examples": [
+                    "IMO1234567"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "type": {
+                  "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/type",
+                  "type": "string",
+                  "description": "The Boat's Type (kind of ship)",
+                  "default": "",
+                  "examples": [
+                    "cargo >500 tjb"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "capacity": {
+                  "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/capacity",
+                  "type": "integer",
+                  "description": "The Boat's Capacity (maximal amount of cargo that can be load, in tons)",
+                  "default": 0,
+                  "examples": [
+                    15000
+                  ]
+                },
+                "label": {
+                  "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/label",
+                  "type": "string",
+                  "description": "The Boat's Label (eg. name)",
+                  "default": "",
+                  "examples": [
+                    "Boat's labelling (eg. name)"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "stopovers": {
+                  "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers",
+                  "type": "array",
+                  "description": "The list of Stopovers generating the sub-activities",
+                  "items": {
+                    "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items",
+                    "type": "object",
+                    "description": "A Stopover record",
+                    "required": [
+                      "handlings"
+                    ],
+                    "properties": {
+                      "ID": {
+                        "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/ID",
+                        "type": "string",
+                        "description": "Unique identifier for the stopover (sometime call journey's id).",
+                        "default": "",
+                        "examples": [
+                          "20190465"
+                        ],
+                        "pattern": "^(.*)$"
+                      },
+                      "status": {
+                        "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/status",
+                        "type": "string",
+                        "description": "The stopover status (categorial), among : expected, ongoing, achieved, canceled, other.",
+                        "enum": [
+                          "expected",
+                          "ongoing",
+                          "achieved",
+                          "canceled",
+                          "other"
+                        ],
+                        "pattern": "^(.*)$"
+                      },
+                      "port": {
+                        "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/port",
+                        "type": "object",
+                        "description": "The Port's juridiction entrance and exit timestamp",
+                        "required": [],
+                        "properties": {
+                          "ETA": {
+                            "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/port/properties/ETA",
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Estimated time of arrival into port jurisdiction.",
+                            "examples": [
+                              "2018-11-13T20:20:39+00:00"
+                            ]
+                          },
+                          "ETD": {
+                            "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/port/properties/ETD",
+                            "type": "string",
+                            "format": "date-time",
+                            "description": "Estimated time of departure from port jurisdiction.",
+                            "examples": [
+                              "2018-11-13T20:20:39+00:00"
+                            ]
+                          }
+                        }
+                      },
+                      "handlings": {
+                        "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings",
+                        "type": "array",
+                        "description": "List all handlings requested for the parent stopover.",
+                        "items": {
+                          "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items",
+                          "type": "object",
+                          "description": "Stopover's handling requests.",
+                          "required": [
+                            "type",
+                            "dock",
+                            "content",
+                            "ID",
+                            "piority_ranking",
+                            "supply_chain_ID",
+                            "activities"
+                          ],
+                          "properties": {
+                            "type": {
+                              "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/type",
+                              "type": "string",
+                              "description": "The handling's type (categorial), among: cargo, passenger, container.",
+                              "$comment": "The handling's type is a key parameter and thus drive the required properties of Content.",
+                              "enum": [
+                                "cargo",
+                                "passenger",
+                                "container"
+                              ]
+                            },
+                            "dangerous": {
+                              "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/dangerous",
+                              "type": "boolean",
+                              "description": "Element considered as dangerous are onboard.",
+                              "examples": [
+                                false
+                              ]
+                            },
+                            "agent": {
+                              "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/agent",
+                              "type": "string",
+                              "description": "Entity that requests the handling, used for grouping.",
+                              "examples": [
+                                "Cargo's agent's name"
+                              ],
+                              "pattern": "^(.*)$"
+                            },
+                            "operator": {
+                              "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/operator",
+                              "type": "string",
+                              "description": "Entity that makes the handling, used for grouping.",
+                              "examples": [
+                                "Cargo's operator's name"
+                              ],
+                              "pattern": "^(.*)$"
+                            },
+                            "dock": {
+                              "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/dock",
+                              "type": "object",
+                              "description": "Handling's dock.",
+                              "required": [
+                                "ID",
+                                "ETA",
+                                "ETD"
+                              ],
+                              "properties": {
+                                "ID": {
+                                  "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/dock/properties/ID",
+                                  "type": "string",
+                                  "description": "Dock's ID, among : listed in port's ressources>areas parameters file.",
+                                  "default": "",
+                                  "examples": [
+                                    "dock_432"
+                                  ],
+                                  "pattern": "^(.*)$"
+                                },
+                                "ETA": {
+                                  "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/dock/properties/ETA",
+                                  "type": "string",
+                                  "format": "date-time",
+                                  "description": "Estimated time of arrival at dock.",
+                                  "examples": [
+                                    "2018-11-13T20:20:39+00:00"
+                                  ]
+                                },
+                                "ETD": {
+                                  "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/dock/properties/ETD",
+                                  "type": "string",
+                                  "format": "date-time",
+                                  "description": "Estimated time of departure from dock.",
+                                  "examples": [
+                                    "2018-11-13T20:20:39+00:00"
+                                  ]
+                                }
+                              }
+                            },
+                            "content": {
+                              "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/content",
+                              "type": "object",
+                              "description": "Required properties differt according to the handling's type.",
+                              "$comment": "This current version only support an handling's type of Cargo.",
+                              "required": [
+                                "direction",
+                                "type",
+                                "amount"
+                              ],
+                              "properties": {
+                                "direction": {
+                                "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/content/properties/direction",
+                                "type": "string",
+                                "description": "Handling's direction (categorial), among : loading, unloading, other.",
+                                "enum": [
+                                  "loading",
+                                  "unloading",
+                                  "other"
+                                ],
+                                "examples": [
+                                  "loading"
+                                ]
+                              },
+                              "segment_type": {
+                                "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/content/properties/segment_type",
+                                "type": "string",
+                                "description": "Cargo's segment-type (categorial), among : listed in port's Cargos.json parameters file. Used for coherency checking and grouping.",
+                                "examples": [
+                                  "cereal"
+                                ]
+                              },
+                              "type": {
+                                "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/content/properties/type",
+                                "type": "string",
+                                "description": "Cargo's type (categorial), among : listed in port's Cargos.json parameters file.",
+                                "examples": [
+                                  "corn"
+                                ]
+                              },
+                              "amount": {
+                                "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/content/properties/amount",
+                                "type": "integer",
+                                "description": "The quantity of cargo to load or unload. Unit are inferred from cargo's type (through Cargos.json parameters file).",
+                                "examples": [
+                                  4560
+                                ]
+                              },
+                              "label": {
+                                "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/content/properties/label",
+                                "type": "string",
+                                "description": "Open text field for cargo's labelling as a short description.",
+                                "examples": [
+                                  "Cargo's labelling (eg. short description)"
+                                ]
+                              }
+                            },
+                            "ID": {
+                              "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/content/properties/ID",
+                              "type": "string",
+                              "description": "The Id Schema",
+                              "default": "",
+                              "examples": [
+                                "handling_1"
+                              ],
+                              "pattern": "^(.*)$"
+                            },
+                            "piority_ranking": {
+                              "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/piority_ranking",
+                              "type": "integer",
+                              "description": "The Piority_ranking Schema",
+                              "default": 0,
+                              "examples": [
+                                42
+                              ]
+                            },
+                            "supply_chain_ID": {
+                              "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/supply_chain_ID",
+                              "type": "string",
+                              "description": "The Supply_chain_id Schema",
+                              "default": "",
+                              "examples": [
+                                "SC_1"
+                              ],
+                              "pattern": "^(.*)$"
+                            },
+                            "activities": {
+                              "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities",
+                              "type": "array",
+                              "description": "The Activities Schema",
+                              "items": {
+                                "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items",
+                                "type": "object",
+                                "description": "The Items Schema",
+                                "required": [
+                                  "ID",
+                                  "step_id",
+                                  "timespan_scheduled",
+                                  "resources"
+                                ],
+                                "properties": {
+                                  "ID": {
+                                    "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/ID",
+                                    "type": "string",
+                                    "description": "The Id Schema",
+                                    "default": "",
+                                    "examples": [
+                                      "activity_1 <<unique pr tout le PAS"
+                                    ],
+                                    "pattern": "^(.*)$"
+                                  },
+                                  "step_id": {
+                                    "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/step_id",
+                                    "type": "string",
+                                    "description": "The Step_id Schema",
+                                    "default": "",
+                                    "examples": [
+                                      "step_1 <<référence du parent"
+                                    ],
+                                    "pattern": "^(.*)$"
+                                  },
+                                  "timespan_scheduled": {
+                                    "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/timespan_scheduled",
+                                    "type": "object",
+                                    "description": "The Timespan_scheduled Schema",
+                                    "required": [
+                                      "start",
+                                      "end",
+                                      "duration"
+                                    ],
+                                    "properties": {
+                                      "start": {
+                                        "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/timespan_scheduled/properties/start",
+                                        "type": "string",
+                                        "description": "The Start Schema",
+                                        "default": "",
+                                        "examples": [
+                                          "2018-11-13T20:00:00+00:00"
+                                        ],
+                                        "pattern": "^(.*)$"
+                                      },
+                                      "end": {
+                                        "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/timespan_scheduled/properties/end",
+                                        "type": "string",
+                                        "description": "The End Schema",
+                                        "default": "",
+                                        "examples": [
+                                          "2018-11-13T20:00:00+00:00"
+                                        ],
+                                        "pattern": "^(.*)$"
+                                      },
+                                      "duration": {
+                                        "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/timespan_scheduled/properties/duration",
+                                        "type": "integer",
+                                        "description": "In minutes",
+                                        "default": 0,
+                                        "examples": [
+                                          42
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "resources": {
+                                    "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/resources",
+                                    "type": "array",
+                                    "description": "The Resources Schema",
+                                    "items": {
+                                      "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/resources/items",
+                                      "type": "object",
+                                      "description": "The Items Schema",
+                                      "required": [
+                                        "ressource_ID",
+                                        "energy_consumed",
+                                        "pollutants_emited"
+                                      ],
+                                      "properties": {
+                                        "ressource_ID": {
+                                          "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/resources/items/properties/ressource_ID",
+                                          "type": "string",
+                                          "description": "The Ressource_id Schema",
+                                          "default": "",
+                                          "examples": [
+                                            "machine_1"
+                                          ],
+                                          "pattern": "^(.*)$"
+                                        },
+                                        "energy_consumed": {
+                                          "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/resources/items/properties/energy_consumed",
+                                          "type": "object",
+                                          "description": "The Energy_consumed Schema",
+                                          "required": [
+                                            "electricity_(kWh)",
+                                            "fossil fuel"
+                                          ],
+                                          "properties": {
+                                            "electricity_(kWh)": {
+                                              "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/resources/items/properties/energy_consumed/properties/electricity_(kWh)",
+                                              "type": "integer",
+                                              "description": "The Electricity_(kwh) Schema",
+                                              "default": 0,
+                                              "examples": [
+                                                42
+                                              ]
+                                            },
+                                            "fossil fuel": {
+                                              "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/resources/items/properties/energy_consumed/properties/fossil fuel",
+                                              "type": "object",
+                                              "description": "The Fossil fuel Schema",
+                                              "required": [
+                                                "diesel_(L)",
+                                                "petrol_(L)"
+                                              ],
+                                              "properties": {
+                                                "diesel_(L)": {
+                                                  "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/resources/items/properties/energy_consumed/properties/fossil fuel/properties/diesel_(L)",
+                                                  "type": "integer",
+                                                  "description": "The Diesel_(l) Schema",
+                                                  "default": 0,
+                                                  "examples": [
+                                                    42
+                                                  ]
+                                                },
+                                                "petrol_(L)": {
+                                                  "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/resources/items/properties/energy_consumed/properties/fossil fuel/properties/petrol_(L)",
+                                                  "type": "integer",
+                                                  "description": "The Petrol_(l) Schema",
+                                                  "default": 0,
+                                                  "examples": [
+                                                    42
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "pollutants_emited": {
+                                          "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/resources/items/properties/pollutants_emited",
+                                          "type": "array",
+                                          "description": "The Pollutants_emited Schema",
+                                          "items": {
+                                            "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/resources/items/properties/pollutants_emited/items",
+                                            "type": "object",
+                                            "description": "The Items Schema",
+                                            "required": [
+                                              "Pol_1"
+                                            ],
+                                            "properties": {
+                                              "Pol_1": {
+                                                "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/resources/items/properties/pollutants_emited/items/properties/Pol_1",
+                                                "type": "integer",
+                                                "description": "The Pol_1 Schema",
+                                                "default": 0,
+                                                "examples": [
+                                                  42
+                                                ]
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

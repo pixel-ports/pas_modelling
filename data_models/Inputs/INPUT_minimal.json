@@ -1,0 +1,24 @@
+{
+	"ships": [
+		{
+			"stopovers": [
+				{
+					"handlings": [
+						{
+							"nature": "cargo",
+							"dock": {
+								"ID": "dock_432",
+								"ETA": "2018-11-14T15:00:00+00:00"
+							},
+							"contents": {
+								"direction": "unloading",
+								"category": "corn",
+								"amount": 4560
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

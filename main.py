@@ -48,9 +48,11 @@ def main(steps, output_dir):
         print("--- Step 2 ---")
         with open(os.path.join(output_dir, "step1_output.json"), "r") as f:
             pas = json.loads(f.read())
-        with open(os.getenv("SUPPLYCHAINS_COLLECTION"), "r") as f:
+        with open(os.getenv("RULES"), "r") as f:
+            rules = json.loads(f.read())
+        with open(os.getenv("SUPPLY-CHAINS"), "r") as f:
             supplychains = json.loads(f.read())
-        step2 = Step2(pas, supplychains)
+        step2 = Step2(pas, rules, supplychains)
         pas = step2.run()
         with open(os.path.join(output_dir, "step2_output.json"), "w") as f:
             f.write(json.dumps(pas, indent=4, ensure_ascii=False))
@@ -59,9 +61,11 @@ def main(steps, output_dir):
         print("--- Step 3 ---")
         with open(os.path.join(output_dir, "step2_output.json"), "r") as f:
             pas = json.loads(f.read())
-        with open(os.getenv("MACHINES_COLLECTION"), "r") as f:
-            machines = json.loads(f.read())
-        step3 = Step3(pas, machines)
+        with open(os.getenv("SUPPLY-CHAINS"), "r") as f:
+            supplychains = json.loads(f.read())
+        with open(os.getenv("RESSOURCES"), "r") as f:
+            ressources = json.loads(f.read())
+        step3 = Step3(pas, supplychains, ressources)
         pas = step3.run()
         with open(os.path.join(output_dir, "step3_output.json"), "w") as f:
             f.write(json.dumps(pas, indent=4, ensure_ascii=False))
@@ -70,9 +74,9 @@ def main(steps, output_dir):
         print("--- Step 4 ---")
         with open(os.path.join(output_dir, "step3_output.json"), "r") as f:
             pas = json.loads(f.read())
-        with open(os.getenv("MACHINES_COLLECTION"), "r") as f:
-            machines = json.loads(f.read())
-        step4 = Step4(pas, machines)
+        with open(os.getenv("RESSOURCES"), "r") as f:
+            ressources = json.loads(f.read())
+        step4 = Step4(pas, ressources)
         pas = step4.run()
         with open(os.path.join(output_dir, "step4_output.json"), "w") as f:
             f.write(json.dumps(pas, indent=4, ensure_ascii=False))

@@ -2,66 +2,71 @@ import copy
 
 
 class Step2:
-    def __init__(self, pas, supplychains):
+    """ Affect a supplychain to each handling
+    """
+
+    def __init__(self, pas, rules, supplychains):
         self.pas = pas
+        self.rules = rules
         self.supplychains = supplychains
 
+    def __set_ids_for_steps(self):
+        for supplychain in self.supplychains:
+            for step in supplychain["steps_list"]:
+                step["full_id"] = "%s-%s" % (
+                    supplychain["ID"],
+                    step["ID"],
+                )  # For later use in Step3
+
+    def __get_sorted_handlings(self):
+        """
+        Precondition : handlings have been sorted in Step1 earlier
+        """
+        handlings = [
+            handling
+            for terminal in self.pas
+            for ship in terminal["ships_list"]
+            for stopover in ship["stopovers_list"]
+            for handling in stopover["handlings_list"]
+        ]
+        handlings.sort(key=lambda handling: handling["ID"])
+        return handlings
+
     def run(self):
-        for id, supplychain in self.supplychains.items():
-            supplychain["id"] = id
-            for id_op, operation in supplychain["OPERATIONS_SEQUENCE"].items():
-                operation["id"] = "%s-%s" % (id, id_op)  # For later use in Step3
-        for ship in self.pas:
-            for handling in ship["HANDLINGS"]:
-                if handling["CARGO"] is None:
-                    handling["supplychain"] = None
-                else:
-                    selected_supplychain, mapping_type = self.select_supplychain(
-                        handling
-                    )
-                    if selected_supplychain is None:
-                        handling["supplychain"] = None
-                    else:
-                        handling["supplychain"] = copy.deepcopy(selected_supplychain)
-                        handling["supplychain"]["mappingType"] = mapping_type
+        self.__set_ids_for_steps()
+        for handling in self.__get_sorted_handlings():
+            assert (
+                handling["nature"] == "cargo"
+            ), "Handling types other than 'cargo' are not yet implemented"
+            selected_supplychain = self.select_supplychain(handling)
+            if selected_supplychain is None:
+                handling["supplychain"] = None
+            else:
+                handling["supply_chain_ID"] = selected_supplychain["ID"]
         return self.pas
 
-    def get_default_supplychain(self):
-        return (
-            None
-        )  # TODO Set default supplychain in the collection and define a way to select it. It will certainly be the ID of the supplychain defined in the RULE_MAPPER.
-
     def select_supplychain(self, handling):
-        for id, sc in self.supplychains.items():
-            sc["id"] = id
         filtered_supplychains = [
-            sc for _, sc in self.supplychains.items() if is_matching(handling, sc)
+            sc for sc in self.supplychains if self.is_matching(handling, sc)
         ]
 
         selected_supplychain = None  #  Default if no supplychain is matched
-        mapping_type: str = "default"
 
-        if len(filtered_supplychains) == 0:
-            selected_supplychain = self.get_default_supplychain()
-            mapping_type = "default"
-        elif len(filtered_supplychains) == 1:
+        if len(filtered_supplychains) == 1:
             selected_supplychain = filtered_supplychains[0]
-            mapping_type = "direct"
+        else:
+            raise ValueError(
+                "There should one, and only one, matching supplychain but there are %d matchs."
+                % len(filtered_supplychains)
+            )
 
-        # TODO Select prioritized supplychain when prioritize rule will be defined
-        return selected_supplychain, mapping_type
+        return selected_supplychain
 
-
-def is_matching(handling, supplychain):
-    assert (
-        len(handling["CARGO"]["Type"].keys()) == 1
-    ), "Handling cargo has more than one type"
-    handling_type = list(handling["CARGO"]["Type"].keys())[0]
-    return (
-        handling_type
-        in supplychain["IDENTIFICATION"]["HS?(SUITABILITY)"]["Cargo_Type"].keys()
-        and handling["CARGO"]["Type"][handling_type]
-        in supplychain["IDENTIFICATION"]["HS?(SUITABILITY)"]["Cargo_Type"][
-            handling_type
-        ]
-    )
+    def is_matching(self, handling, supplychain):
+        filetered_supplychains_ids = [
+            assignation["supply_chain_ID"]
+            for category in self.rules["cargoes_categories"]
+            if category["ID"] == handling["contents"]["category"]
+            for assignation in category["assignation_preference"]
+        ]  # TODO : There may be multiple assignations to choose from
+        return supplychain["ID"] in filetered_supplychains_ids
