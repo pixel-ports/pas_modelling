@@ -1,5 +1,6 @@
 import json
 import argparse
+import datetime
 
 def main(input_filepath, output_filepath):
     with open(input_filepath) as json_file:
@@ -32,9 +33,9 @@ def main(input_filepath, output_filepath):
                             "dangerous": call["%s_dangerous" % direction]["value"],
                             "agent": call["%s_agent" % direction]["value"],
                             "dock": {
-                                "ID": call["%s_berth" % direction]["value"],  # TODO : berth <==> dock ?
-                                "ETA": call["arrival_dock"]["value"],  # TODO : Check that datetime format is correct and in accordance to project's main
-                                "ETD": call["departure_dock"]["value"]
+                                "ID": call["%s_berth" % direction]["value"],
+                                "ETA": datetime.datetime.strptime(call["arrival_dock"]["value"], "%Y-%m-%dT%H:%M:%S.%fZ").isoformat(),
+                                "ETD": datetime.datetime.strptime(call["departure_dock"]["value"], "%Y-%m-%dT%H:%M:%S.%fZ").isoformat()
                             },
                             "contents": {
                                 "direction": direction,
