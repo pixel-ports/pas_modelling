@@ -1,5 +1,9 @@
 import copy
+import logging
+import json
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
+logger = logging.getLogger("pas-modelling")
 
 class Step2:
     """ Affect a supplychain to each handling
@@ -40,7 +44,7 @@ class Step2:
             ), "Handling types other than 'cargo' are not yet implemented"
             selected_supplychain = self.select_supplychain(handling)
             if selected_supplychain is None:
-                handling["supplychain"] = None
+                handling["supply_chain_ID"] = None
             else:
                 handling["supply_chain_ID"] = selected_supplychain["ID"]
         return self.pas
@@ -49,17 +53,14 @@ class Step2:
         filtered_supplychains = [
             sc for sc in self.supplychains if self.is_matching(handling, sc)
         ]
-
-        selected_supplychain = None  #  Default if no supplychain is matched
-
         if len(filtered_supplychains) == 1:
             selected_supplychain = filtered_supplychains[0]
         else:
-            raise ValueError(
-                "There should one, and only one, matching supplychain but there are %d matchs."
-                % len(filtered_supplychains)
+            logger.warning(
+                "There should be one, and only one, matching supplychain but there are %d matchs for handling %s"
+                % (len(filtered_supplychains), json.dumps(handling))
             )
-
+            selected_supplychain = None  #  Default if no supplychain is matched
         return selected_supplychain
 
     def is_matching(self, handling, supplychain):

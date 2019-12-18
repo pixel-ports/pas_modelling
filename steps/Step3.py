@@ -1,8 +1,10 @@
 import copy
 import numpy as np
 import datetime
-import warnings
+import logging
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
+logger = logging.getLogger("pas-modelling")
 
 class Step3:
     def __init__(self, pas, supplychains, resources):
@@ -193,84 +195,82 @@ class Step3:
 
     def run(self):
         activity_next_free_id = 0
-        for stopover in self.pas:
-            for handling in self.__get_sorted_handlings():
-                docking_datetime = datetime.datetime.fromisoformat(
-                    handling["dock"]["ETA"]
-                )
-                supplychain = next(
-                    sc
-                    for sc in self.supplychains
-                    if sc["ID"] == handling["supply_chain_ID"]
-                )  # Raise a StopIteration if no matching element is found : https://stackoverflow.com/a/2364277/6463920
-                if supplychain is not None:
-                    steps = supplychain["steps_list"]
-                    activities = []
-                    ids_processed = []
-                    old_ids_processed = None
-                    while len(ids_processed) < len(steps):
-                        if ids_processed == old_ids_processed:
-                            raise ValueError("No progression on ids_processed %s, making an infinite while loop. It may be that the supplychain is incorrectly configured and has no solution." % str(ids_processed))
-                        old_ids_processed = copy.deepcopy(ids_processed)
-                        for step in steps:
-                            if step["ID"] not in ids_processed:
-                                filtered_machines = self.__get_machines_for_step(step)
-                                starting_datetime = self.__find_minimal_starting_datetime(
-                                    step, docking_datetime, ids_processed, activities
+        for handling in self.__get_sorted_handlings():
+            handling["activities_list"] = []
+            if handling["supply_chain_ID"] is None:
+                continue
+            docking_datetime = datetime.datetime.fromisoformat(
+                handling["dock"]["ETA"]
+            )
+            supplychain = next(
+                sc
+                for sc in self.supplychains
+                if sc["ID"] == handling["supply_chain_ID"]
+            )  # Raise a StopIteration if no matching element is found : https://stackoverflow.com/a/2364277/6463920
+            steps = supplychain["steps_list"]
+            ids_processed = []
+            old_ids_processed = None
+            while len(ids_processed) < len(steps):
+                if ids_processed == old_ids_processed:
+                    raise ValueError("No progression on ids_processed %s, making an infinite while loop. It may be that the supplychain is incorrectly configured and has no solution." % str(ids_processed))
+                old_ids_processed = copy.deepcopy(ids_processed)
+                for step in steps:
+                    if step["ID"] not in ids_processed:
+                        filtered_machines = self.__get_machines_for_step(step)
+                        starting_datetime = self.__find_minimal_starting_datetime(
+                            step, docking_datetime, ids_processed, handling["activities_list"]
+                        )
+                        if starting_datetime is not None:
+                            ending_datetime = self.__find_minimal_ending_datetime(
+                                handling,
+                                step,
+                                starting_datetime,
+                                ids_processed,
+                                handling["activities_list"],
+                            )
+                            ids_processed.append(step["ID"])
+                            if len(filtered_machines) > 0:
+                                starting_datetime, ending_datetime = self.get_next_available_TS_multiple_machines(
+                                    filtered_machines,
+                                    starting_datetime,
+                                    ending_datetime,
                                 )
-                                if starting_datetime is not None:
-                                    ending_datetime = self.__find_minimal_ending_datetime(
-                                        handling,
-                                        step,
-                                        starting_datetime,
-                                        ids_processed,
-                                        activities,
-                                    )
-                                    ids_processed.append(step["ID"])
-                                    if len(filtered_machines) > 0:
-                                        starting_datetime, ending_datetime = self.get_next_available_TS_multiple_machines(
-                                            filtered_machines,
-                                            starting_datetime,
-                                            ending_datetime,
-                                        )
-                                    else:
-                                        warnings.warn(
-                                            "No machine are defined for step %s in supplychain %s"
-                                            % (str(step["ID"]), str(supplychain["ID"])),
-                                            UserWarning
-                                        )
-                                    activity = {
-                                        "ID": activity_next_free_id,
-                                        "step_ID": step["ID"],
-                                        "timespan_scheduled": {
-                                            "start": starting_datetime.isoformat(),
-                                            "end": ending_datetime.isoformat(),
-                                            "duration": (
-                                                ending_datetime - starting_datetime
-                                            ).total_seconds()
-                                            / 60,
-                                        },
-                                        "ressources_accounts_list": [
-                                            {"ressource_ID": machine["ID"]}
-                                            for machine in filtered_machines
-                                        ],
-                                    }
-                                    activity_next_free_id += 1
-                                    activities.append(activity)
+                            else:
+                                logger.warning(
+                                    "No machine are defined for step %s in supplychain %s"
+                                    % (str(step["ID"]), str(supplychain["ID"]))
+                                )
+                            activity = {
+                                "ID": activity_next_free_id,
+                                "step_ID": step["ID"],
+                                "timespan_scheduled": {
+                                    "start": starting_datetime.isoformat(),
+                                    "end": ending_datetime.isoformat(),
+                                    "duration": (
+                                        ending_datetime - starting_datetime
+                                    ).total_seconds()
+                                    / 60,
+                                },
+                                "ressources_accounts_list": [
+                                    {"ressource_ID": machine["ID"]}
+                                    for machine in filtered_machines
+                                ],
+                            }
+                            activity_next_free_id += 1
+                            handling["activities_list"].append(activity)
 
-                                    for (
-                                        machine
-                                    ) in (
-                                        filtered_machines
-                                    ):  # Usefull to check for machine availability
-                                        self.uses.append(
-                                            {
-                                                "start": starting_datetime,
-                                                "end": ending_datetime,
-                                                "machine": copy.deepcopy(machine),
-                                            }
-                                        )
-                handling["activities_list"] = activities
+                            for (
+                                machine
+                            ) in (
+                                filtered_machines
+                            ):  # Usefull to check for machine availability
+                                self.uses.append(
+                                    {
+                                        "start": starting_datetime,
+                                        "end": ending_datetime,
+                                        "machine": copy.deepcopy(machine),
+                                    }
+                                )
         return self.pas
 
     def get_use(self, handlingId: int, supplychainId: int, operationId: int):

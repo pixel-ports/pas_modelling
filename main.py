@@ -8,6 +8,7 @@ import shutil
 from flask import Flask, request
 from flask_restful import Resource, Api
 import random
+import logging
 
 from steps.Step1 import Step1
 from steps.Step2 import Step2
@@ -16,6 +17,8 @@ from steps.Step4 import Step4
 
 from typing import List, Dict
 
+logging.basicConfig(level=logging.INFO, format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
+logger = logging.getLogger("pas-modelling")
 
 def monitor(steps, output_dir):
     class PAS(Resource):
@@ -36,7 +39,7 @@ def monitor(steps, output_dir):
 def main(steps, output_dir):
 
     if 1 in steps:
-        print("--- Step 1 ---")
+        logger.info("--- Step 1 ---")
         with open(os.getenv("PAS_INPUT"), "r") as f:
             pas = json.loads(f.read())
         step1 = Step1(pas)
@@ -45,7 +48,7 @@ def main(steps, output_dir):
             f.write(json.dumps(pas, indent=4, ensure_ascii=False))
 
     if 2 in steps:
-        print("--- Step 2 ---")
+        logger.info("--- Step 2 ---")
         with open(os.path.join(output_dir, "step1_output.json"), "r") as f:
             pas = json.loads(f.read())
         with open(os.getenv("RULES"), "r") as f:
@@ -58,7 +61,7 @@ def main(steps, output_dir):
             f.write(json.dumps(pas, indent=4, ensure_ascii=False))
 
     if 3 in steps:
-        print("--- Step 3 ---")
+        logger.info("--- Step 3 ---")
         with open(os.path.join(output_dir, "step2_output.json"), "r") as f:
             pas = json.loads(f.read())
         with open(os.getenv("SUPPLY-CHAINS"), "r") as f:
@@ -71,7 +74,7 @@ def main(steps, output_dir):
             f.write(json.dumps(pas, indent=4, ensure_ascii=False))
 
     if 4 in steps:
-        print("--- Step 4 ---")
+        logger.info("--- Step 4 ---")
         with open(os.path.join(output_dir, "step3_output.json"), "r") as f:
             pas = json.loads(f.read())
         with open(os.getenv("RESSOURCES"), "r") as f:
