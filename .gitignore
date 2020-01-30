@@ -13,3 +13,4 @@ test.txt
 /outputs/
 callgrind.out.*
 massif.out.*
+output.json

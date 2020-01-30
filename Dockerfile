@@ -11,14 +11,9 @@ RUN ./configure
 RUN make -j $(nproc) && make install
 WORKDIR /
 
-RUN python3.8 -m pip install pipenv
+COPY . /pas_modelling
+WORKDIR /pas_modelling
+RUN python3.8 -m pip install .
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
-
-WORKDIR /tmp
-COPY ./Pipfile /tmp
-COPY ./Pipfile.lock /tmp
-RUN pipenv install --deploy --system  # Installs dependencies to the system without virtualenv
-
-WORKDIR /pas

@@ -1,112 +1,66 @@
 import json
 import argparse
 import os
-import multiprocessing as mp
-import psutil
-import time
-import shutil
-from flask import Flask, request
-from flask_restful import Resource, Api
-import random
 import logging
 
-from steps.Step1 import Step1
-from steps.Step2 import Step2
-from steps.Step3 import Step3
-from steps.Step4 import Step4
-
-from typing import List, Dict
+from pas import pas
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
 logger = logging.getLogger("pas-modelling")
 
-def monitor(steps, output_dir):
-    class PAS(Resource):
-        def get(self):
-            subdir = os.path.join(
-                output_dir, "%s-%032x" % (str(time.time()), random.getrandbits(128))
-            )
-            os.mkdir(subdir)
-            main(steps, subdir)
-            shutil.rmtree(subdir)
 
-    app = Flask(__name__)
-    api = Api(app)
-    api.add_resource(PAS, "/pas")
-    app.run(port="5002")
-
-
-def main(steps, output_dir):
-
-    if 1 in steps:
-        logger.info("--- Step 1 ---")
-        with open(os.getenv("PAS_INPUT"), "r") as f:
-            pas = json.loads(f.read())
-        step1 = Step1(pas)
-        pas = step1.run()
-        with open(os.path.join(output_dir, "step1_output.json"), "w") as f:
-            f.write(json.dumps(pas, indent=4, ensure_ascii=False))
-
-    if 2 in steps:
-        logger.info("--- Step 2 ---")
-        with open(os.path.join(output_dir, "step1_output.json"), "r") as f:
-            pas = json.loads(f.read())
-        with open(os.getenv("RULES"), "r") as f:
+def main(steps, cargo_handling_requests_path, rules_path, supplychains_path, resources_path, output_path):
+    if cargo_handling_requests_path is not None:
+        with open(cargo_handling_requests_path, "r") as f:
+            cargo_handling_requests = json.loads(f.read())
+    if rules_path is not None:
+        with open(rules_path, "r") as f:
             rules = json.loads(f.read())
-        with open(os.getenv("SUPPLY-CHAINS"), "r") as f:
+    if supplychains_path is not None:
+        with open(supplychains_path, "r") as f:
             supplychains = json.loads(f.read())
-        step2 = Step2(pas, rules, supplychains)
-        pas = step2.run()
-        with open(os.path.join(output_dir, "step2_output.json"), "w") as f:
-            f.write(json.dumps(pas, indent=4, ensure_ascii=False))
-
-    if 3 in steps:
-        logger.info("--- Step 3 ---")
-        with open(os.path.join(output_dir, "step2_output.json"), "r") as f:
-            pas = json.loads(f.read())
-        with open(os.getenv("SUPPLY-CHAINS"), "r") as f:
-            supplychains = json.loads(f.read())
-        with open(os.getenv("RESSOURCES"), "r") as f:
-            ressources = json.loads(f.read())
-        step3 = Step3(pas, supplychains, ressources)
-        pas = step3.run()
-        with open(os.path.join(output_dir, "step3_output.json"), "w") as f:
-            f.write(json.dumps(pas, indent=4, ensure_ascii=False))
-
-    if 4 in steps:
-        logger.info("--- Step 4 ---")
-        with open(os.path.join(output_dir, "step3_output.json"), "r") as f:
-            pas = json.loads(f.read())
-        with open(os.getenv("RESSOURCES"), "r") as f:
-            ressources = json.loads(f.read())
-        step4 = Step4(pas, ressources)
-        pas = step4.run()
-        with open(os.path.join(output_dir, "step4_output.json"), "w") as f:
-            f.write(json.dumps(pas, indent=4, ensure_ascii=False))
+    if resources_path is not None:
+        with open(resources_path, "r") as f:
+            resources = json.loads(f.read())
+    pas_output = pas.run(steps, cargo_handling_requests, rules, supplychains, resources)
+    with open(output_path, "w") as f:
+        f.write(json.dumps(pas_output, indent=4, ensure_ascii=False))
 
 
 if __name__ == "__main__":
-
     parser = argparse.ArgumentParser(description="Process executable options.")
     parser.add_argument(
         "--steps", nargs="+", type=int, help="Steps numbers to execute."
     )
     parser.add_argument(
-        "--output_dir",
+        "--cargo_handling_requests",
+        type=str,
+        help="Path to the cargo_handling_requests file"
+    )
+    parser.add_argument(
+        "--rules",
+        type=str,
+        help="Path to the rules file"
+    )
+    parser.add_argument(
+        "--supplychains",
+        type=str,
+        help="Path to the supplychains file"
+    )
+    parser.add_argument(
+        "--resources",
+        type=str,
+        help="Path to the resources file"
+    )
+    parser.add_argument(
+        "--output",
         type=str,
         default="./outputs",
-        help="Directory that will be created/overwritten to store output",
+        help="Path of the file that will be created to store output",
     )
     parser.add_argument(
         "--monitor", default=False, action="store_true", help="Start monitoring server"
     )
     args = parser.parse_args()
 
-    if os.path.isdir(args.output_dir):
-        shutil.rmtree(args.output_dir)
-    os.mkdir(args.output_dir)
-
-    if args.monitor:
-        monitor(args.steps, args.output_dir)
-    else:
-        main(args.steps, args.output_dir)
+    main(args.steps, args.cargo_handling_requests, args.rules, args.supplychains, args.resources, args.output)

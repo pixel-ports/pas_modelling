@@ -21,7 +21,7 @@
         "resources": {
           "$id": "#/properties/parameters/properties/resources",
           "type": "object",
-          "description": "The collection of low abstraction level entities ('physical objects') descriptions used for this PAS modelling. See 'ressources_schema.json' for fine description."
+          "description": "The collection of low abstraction level entities ('physical objects') descriptions used for this PAS modelling. See 'resources_schema.json' for fine description."
         },
         "conventions": {
           "$id": "#/properties/parameters/properties/conventions",
@@ -232,7 +232,7 @@
                                 "ID": {
                                   "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/dock/properties/ID",
                                   "type": "string",
-                                  "description": "Dock's ID, among : listed in port's ressources>areas parameters file.",
+                                  "description": "Dock's ID, among : listed in port's resources>areas parameters file.",
                                   "default": "",
                                   "examples": [
                                     "dock_432"
@@ -430,15 +430,15 @@
                                       "type": "object",
                                       "description": "The Items Schema",
                                       "required": [
-                                        "ressource_ID",
+                                        "resource_ID",
                                         "energy_consumed",
                                         "pollutants_emited"
                                       ],
                                       "properties": {
-                                        "ressource_ID": {
-                                          "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/resources/items/properties/ressource_ID",
+                                        "resource_ID": {
+                                          "$id": "#/properties/port_activity_scenario/items/properties/boats/items/properties/stopovers/items/properties/handlings/items/properties/activities/items/properties/resources/items/properties/resource_ID",
                                           "type": "string",
-                                          "description": "The Ressource_id Schema",
+                                          "description": "The Resource_id Schema",
                                           "default": "",
                                           "examples": [
                                             "machine_1"

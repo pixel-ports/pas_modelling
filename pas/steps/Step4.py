@@ -9,11 +9,11 @@ class Step4:
                 for stopover in ship["stopovers_list"]:
                     for handling in stopover["handlings_list"]:
                         for activity in handling["activities_list"]:
-                            for ressource in activity["ressources_accounts_list"]:
+                            for resource in activity["resources_accounts_list"]:
                                 machine = next(
                                     machine
                                     for machine in self.resources["machines"]
-                                    if machine["ID"] == ressource["ressource_ID"]
+                                    if machine["ID"] == resource["resource_ID"]
                                 )
                                 energy_consumed = []
                                 for consumption in machine["consumptions"]:
@@ -34,5 +34,5 @@ class Step4:
                                             / 60,
                                         }
                                     )
-                                ressource["energy_consumed"] = energy_consumed
+                                resource["energy_consumed"] = energy_consumed
         return self.pas

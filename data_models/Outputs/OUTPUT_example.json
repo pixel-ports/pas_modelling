@@ -46,9 +46,9 @@
 												"end":"2018-11-13T20:00:00+00:00",
 												"duration":42
 											},
-											"ressources_accounts_list":[
+											"resources_accounts_list":[
 												{
-													"ressource_ID":"machine_007",
+													"resource_ID":"machine_007",
 													"amount_handled":42,
 													"energy_consumed": {
 														"electricity_(kWh)": 42,

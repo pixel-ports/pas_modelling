@@ -30,7 +30,7 @@ The parameters of the model are information necessary for its execution, but hav
 Collections refer to entities that have the lowest level of abstraction in port activity modelling context. That is to say, entities that can be approximated as physical objects.
 Collections refer to entities that have the highest level of abstraction in port activity modelling context. That is to say, entities that can be approximated as process habits.
 
-- Ressources
+- Resources
 	- Ajouter un level pr terminal ?
 - Areas
 	- examples":["docks", "silo", "warehouses", "office", "gates", "other"]

@@ -251,8 +251,8 @@ class Step3:
                                     ).total_seconds()
                                     / 60,
                                 },
-                                "ressources_accounts_list": [
-                                    {"ressource_ID": machine["ID"]}
+                                "resources_accounts_list": [
+                                    {"resource_ID": machine["ID"]}
                                     for machine in filtered_machines
                                 ],
                             }
