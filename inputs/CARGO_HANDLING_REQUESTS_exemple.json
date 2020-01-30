@@ -1,15 +1,15 @@
 [
 	{
-		"terminal":"Bassens",
+		"terminal":"Terminal1",
 		"ships_list": [
 			{
-				"ID": "IMO1234567",
+				"ID": "Boat1",
 				"category": "cargo >500 tjb",
 				"capacity": 15000,
 				"label": "Ship's labelling (eg. name)",
 				"stopovers_list": [
 					{
-						"ID": "20190465",
+						"ID": "Stopover1",
 						"status": "achieved",
 						"port_gate": {
 							"ETA": "2018-11-13T20:00:00+00:00",
@@ -17,19 +17,19 @@
 						},
 						"handlings_list": [
 							{
-								"ID": "handling_007",
+								"ID": "Handling1",
 								"nature": "cargo",
 								"dangerous": false,
 								"agent": "Cargo's agent's name",
 								"operator": "Cargo's operator's name",
 								"dock": {
-									"ID": "dock_432",
+									"ID": "Dock1",
 									"ETA": "2018-11-14T15:00:00+00:00",
 									"ETD": "2018-11-16T07:00:00+00:00"
 								},
 								"contents": {
 									"direction": "unloading",
-									"category": "E.Corn",
+									"category": "CargoCat1",
 									"amount": 4560,
 									"label": "Cargo's labelling (eg. short description)"
 								}

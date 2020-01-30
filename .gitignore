@@ -1,15 +1,7 @@
 __pycache__/
+*.pyc
 .vscode/
-activities_queue.json
-PAS.json
-pas.json
-port_activity_scenario.json
-cargoes_queue.json
-.ipynb_checkpoints
 */.ipynb_checkpoints/*
 *.dat
-test.txt
-/inputs/
-/outputs/
 callgrind.out.*
 massif.out.*
