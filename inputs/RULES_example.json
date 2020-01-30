@@ -1,16 +1,16 @@
 {
 	"cargoes_categories":[
 		{
-			"ID":"E.MAIS%20VRAC",
-			"segment":"cereal",
+			"ID":"CargoCat1",
+			"segment":"Segment1",
 			"unit": "Tons",
 			"typical_amount_range": [500, 10000],
 			"assignation_preference":[
 				{
 					"priority":1,
 					"direction": "unloading",
-					"dock_ID": "449",
-					"supply_chain_ID":"SC_1"
+					"dock_ID": "Dock_1",
+					"supply_chain_ID":"SC1"
 
 				}
 			]
