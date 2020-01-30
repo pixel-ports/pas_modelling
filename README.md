@@ -37,10 +37,10 @@ cd pas_modelling
 mkdir outputs
 python3.8 main.py \
     --steps 1 2 3 4 \
-    --cargo_handling_requests=./data_models/Inputs/INPUT_GPMB_1handling.json \
-    --rules=./data_models/Parameters/Rules/RULES_GPMB_1handling.json \
-    --supplychains=./data_models/Parameters/Supply-chains/SUPPLY-CHAINS_GPMB_1handling.json \
-    --resources=./data_models/Parameters/Resources/RESOURCES_GPMB_1handling.json \
+    --cargo_handling_requests=./inputs/CARGO_HANDLING_REQUESTS_example.json \
+    --rules=./inputs/RULES_example.json \
+    --supplychains=./inputs/SUPPLY-CHAINS_example.json \
+    --resources=./inputs/RESOURCES_example.json \
     --output=./outputs/output.json
 
 ```
@@ -56,10 +56,10 @@ mkdir outputs
 docker run -w /pas_modelling -v $(pwd)/outputs:/pas_modelling/outputs pas \
     python3.8 main.py \
     --steps 1 2 3 4 \
-    --cargo_handling_requests=./data_models/Inputs/INPUT_GPMB_1handling.json \
-    --rules=./data_models/Parameters/Rules/RULES_GPMB_1handling.json \
-    --supplychains=./data_models/Parameters/Supply-chains/SUPPLY-CHAINS_GPMB_1handling.json \
-    --resources=./data_models/Parameters/Resources/RESOURCES_GPMB_1handling.json \
+    --cargo_handling_requests=./inputs/CARGO_HANDLING_REQUESTS_example.json \
+    --rules=./inputs/RULES_example.json \
+    --supplychains=./inputs/SUPPLY-CHAINS_example.json \
+    --resources=./inputs/RESOURCES_example.json \
     --output=./outputs/output.json
 
 ```
