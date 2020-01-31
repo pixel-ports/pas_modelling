@@ -1,0 +1,13 @@
+python3 main.py --steps 1 2 3 4 \
+    --cargo_handling_requests=./inputs/simple_examples/CARGOES_HANDLING_REQUESTS.json \
+    --rules=./inputs/simple_examples/RULES.json \
+    --supplychains=./inputs/simple_examples/SUPPLY-CHAINS.json \
+    --resources=./inputs/simple_examples/RESOURCES.json \
+    --output=./outputs/output.json
+
+python3 main.py --steps 1 2 3 4 \
+    --cargo_handling_requests=./inputs/demoCHR2018/CARGOES_HANDLING_REQUESTS.json \
+    --rules=./inputs/demoCHR2018/RULES.json \
+    --supplychains=./inputs/demoCHR2018/SUPPLY-CHAINS.json \
+    --resources=./inputs/demoCHR2018/RESOURCES.json \
+    --output=./outputs/output.json

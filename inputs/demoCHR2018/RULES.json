@@ -1,0 +1,334 @@
+{
+	"cargoes_categories": [
+	  {
+		"ID": "unknown",
+		"segment": "Unknown",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  500,
+		  7500
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "loading",
+			"dock_ID": 432,
+			"supply_chain_ID": "SC_unknown"
+		  }
+		]
+	  },
+	  {
+		"ID": "E.CONTENEURS",
+		"segment": "P.C.",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  500,
+		  7500
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "loading",
+			"dock_ID": 432,
+			"supply_chain_ID": "SC_E.CONTENEURS"
+		  }
+		]
+	  },
+	  {
+		"ID": "E.FERRAIL.REFONT.",
+		"segment": "SOL.V",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  1000,
+		  30000
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "loading",
+			"dock_ID": 414,
+			"supply_chain_ID": "SC_E.FERRAIL.REFONT."
+		  }
+		]
+	  },
+	  {
+		"ID": "E.HUILE%20TOURNESOL",
+		"segment": "LIQ.V",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  1000,
+		  30000
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "loading",
+			"dock_ID": 436,
+			"supply_chain_ID": "SC_E.HUILE%20TOURNESOL"
+		  }
+		]
+	  },
+	  {
+		"ID": "E.HUILES%20MIXTES",
+		"segment": "LIQ.V",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  1000,
+		  30000
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "loading",
+			"dock_ID": 436,
+			"supply_chain_ID": "SC_E.HUILES%20MIXTES"
+		  }
+		]
+	  },
+	  {
+		"ID": "E.MAIS%20VRAC",
+		"segment": "CEREAL",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  1000,
+		  40000
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "loading",
+			"dock_ID": "449, 417",
+			"supply_chain_ID": "SC_E.MAIS%20VRAC"
+		  }
+		]
+	  },
+	  {
+		"ID": "I.BOIS%20SCIES%20DU%20NORD",
+		"segment": "AUTRES",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  500,
+		  10000
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "unloading",
+			"dock_ID": "417, 413, 415",
+			"supply_chain_ID": "SC_I.BOIS%20SCIES%20DU%20NORD"
+		  }
+		]
+	  },
+	  {
+		"ID": "I.BUTADIENE",
+		"segment": "GAZ.L",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  1000,
+		  10000
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "unloading",
+			"dock_ID": 436,
+			"supply_chain_ID": "SC_I.BUTADIENE"
+		  }
+		]
+	  },
+	  {
+		"ID": "I.CHARBON",
+		"segment": "SOL.V",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  5000,
+		  50000
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "unloading",
+			"dock_ID": "435, 434",
+			"supply_chain_ID": "SC_I.CHARBON"
+		  }
+		]
+	  },
+	  {
+		"ID": "I.CLINKER",
+		"segment": "SOL.V",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  1000,
+		  30000
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "unloading",
+			"dock_ID": "416, 431",
+			"supply_chain_ID": "SC_I.CLINKER"
+		  }
+		]
+	  },
+	  {
+		"ID": "I.CONTENEURS",
+		"segment": "P.C.",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  500,
+		  7500
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "unloading",
+			"dock_ID": 432,
+			"supply_chain_ID": "SC_I.CONTENEURS"
+		  }
+		]
+	  },
+	  {
+		"ID": "I.EMHV%20-%20EMAG%20-%20FAME",
+		"segment": "LIQ.V",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  1000,
+		  30000
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "unloading",
+			"dock_ID": 436,
+			"supply_chain_ID": "SC_I.EMHV%20-%20EMAG%20-%20FAME"
+		  }
+		]
+	  },
+	  {
+		"ID": "I.METHANOL",
+		"segment": "LIQ.V",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  1000,
+		  20000
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "unloading",
+			"dock_ID": 436,
+			"supply_chain_ID": "SC_I.METHANOL"
+		  }
+		]
+	  },
+	  {
+		"ID": "I.TALL-OIL",
+		"segment": "LIQ.V",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  1000,
+		  10000
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "unloading",
+			"dock_ID": 436,
+			"supply_chain_ID": "SC_I.TALL-OIL"
+		  }
+		]
+	  },
+	  {
+		"ID": "I.TOURNESOL%20VRAC",
+		"segment": "SOL.V",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  1000,
+		  50000
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "unloading",
+			"dock_ID": "431, 433, 434",
+			"supply_chain_ID": "SC_I.TOURNESOL%20VRAC"
+		  }
+		]
+	  },
+	  {
+		"ID": "I.UREE%20VRAC",
+		"segment": "SOL.V",
+		"unit": "Tons",
+		"typical_amount_range": [
+		  1000,
+		  30000
+		],
+		"assignation_preference": [
+		  {
+			"priority": 1,
+			"direction": "unloading",
+			"dock_ID": 433,
+			"supply_chain_ID": "SC_I.UREE%20VRAC"
+		  }
+		]
+	  }
+	],
+	"shiftworks": [
+	  {
+		"ID": "typical",
+		"value": [
+		  {
+			"Monday": [
+			  "8>12",
+			  "14>17"
+			]
+		  },
+		  {
+			"Tuesday": [
+			  "8>12",
+			  "14>17"
+			]
+		  },
+		  {
+			"Wednesday": [
+			  "8>12",
+			  "14>17"
+			]
+		  },
+		  {
+			"Thursday": [
+			  "8>12",
+			  "14>17"
+			]
+		  },
+		  {
+			"Friday": [
+			  "8>12",
+			  "14>17"
+			]
+		  },
+		  {
+			"Saturday": []
+		  },
+		  {
+			"Sunday": []
+		  }
+		]
+	  }
+	],
+	"priority": [
+	  {
+		"hasardous": true
+	  },
+	  {
+		"cargoes_categories": [
+		  "I.CONTENEURS",
+		  "E.CONTENEURS"
+		]
+	  },
+	  {
+		"FIFO": true
+	  }
+	],
+	"validity": {}
+  }
