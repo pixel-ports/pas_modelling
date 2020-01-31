@@ -5,7 +5,5 @@ __pycache__/
 *.dat
 callgrind.out.*
 massif.out.*
-<<<<<<< HEAD
 output.json
-=======
->>>>>>> a1406ec7b9f16d5c6f2cfacc194205aa18c35fae
+/outputs

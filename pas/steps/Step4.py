@@ -17,18 +17,9 @@ class Step4:
                                 )
                                 energy_consumed = []
                                 for consumption in machine["consumptions"]:
-                                    assert consumption["nature"] == "electricity", (
-                                        "At this time, only the electricity consumption has been implemented, but found consumption nature to be %s"
-                                        % consumption["nature"]
-                                    )
-                                    assert consumption["unit"] == "kWh", (
-                                        "Unknown consumption unit : %s"
-                                        % consumption["unit"]
-                                    )
                                     energy_consumed.append(
                                         {
                                             "nature": consumption["nature"],
-                                            "unit": "kW",
                                             "value": consumption["value"]
                                             * activity["timespan_scheduled"]["duration"]
                                             / 60,
