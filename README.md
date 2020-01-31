@@ -35,12 +35,14 @@ pas_output = pas.run(
 # From a terminal
 cd pas_modelling
 mkdir outputs
+export INPUT_FOLDER=./inputs/simple_examples
+# export INPUT_FOLDER=./inputs/demoCHR2018  # Another possible list of files
 python3.8 main.py \
     --steps 1 2 3 4 \
-    --cargo_handling_requests=./inputs/CARGO_HANDLING_REQUESTS_example.json \
-    --rules=./inputs/RULES_example.json \
-    --supplychains=./inputs/SUPPLY-CHAINS_example.json \
-    --resources=./inputs/RESOURCES_example.json \
+    --cargo_handling_requests=$INPUT_FOLDER/CARGOES_HANDLING_REQUESTS.json \
+    --rules=$INPUT_FOLDER/RULES.json \
+    --supplychains=$INPUT_FOLDER/SUPPLY-CHAINS.json \
+    --resources=$INPUT_FOLDER/RESOURCES.json \
     --output=./outputs/output.json
 
 ```
@@ -53,13 +55,14 @@ You'll need docker to build the docker image and run the container : https://doc
 # In a terminal
 docker build -t pas .
 mkdir outputs
-docker run -w /pas_modelling -v $(pwd)/outputs:/pas_modelling/outputs pas \
-    python3.8 main.py \
+export INPUT_FOLDER=./inputs/simple_examples
+# export INPUT_FOLDER=./inputs/demoCHR2018  # Another possible list of files
+python3.8 main.py \
     --steps 1 2 3 4 \
-    --cargo_handling_requests=./inputs/CARGO_HANDLING_REQUESTS_example.json \
-    --rules=./inputs/RULES_example.json \
-    --supplychains=./inputs/SUPPLY-CHAINS_example.json \
-    --resources=./inputs/RESOURCES_example.json \
+    --cargo_handling_requests=$INPUT_FOLDER/CARGOES_HANDLING_REQUESTS.json \
+    --rules=$INPUT_FOLDER/RULES.json \
+    --supplychains=$INPUT_FOLDER/SUPPLY-CHAINS.json \
+    --resources=$INPUT_FOLDER/RESOURCES.json \
     --output=./outputs/output.json
 
 ```
