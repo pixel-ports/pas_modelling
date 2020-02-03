@@ -1,0 +1,393 @@
+[
+    {
+        "terminal": "default",
+        "ships_list": [
+            {
+                "ID": 9571545,
+                "label": "MUNTGRACHT",
+                "stopovers_list": [
+                    {
+                        "ID": 20180001,
+                        "handlings_list": [
+                            {
+                                "nature": "cargo",
+                                "dangerous": false,
+                                "agent": "SEAINVEST",
+                                "dock": {
+                                    "ID": 435,
+                                    "ETA": "2018-01-01T18:50:00",
+                                    "ETD": "2018-01-07T21:15:00"
+                                },
+                                "contents": {
+                                    "segment": "SOL.V",
+                                    "direction": "unloading",
+                                    "category": "I.CHARBON",
+                                    "amount": 10094
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "ID": 9803429,
+                "label": "TANAB",
+                "stopovers_list": [
+                    {
+                        "ID": 20180002,
+                        "handlings_list": [
+                            {
+                                "nature": "cargo",
+                                "dangerous": false,
+                                "agent": "SEAINVEST",
+                                "dock": {
+                                    "ID": 436,
+                                    "ETA": "2018-01-02T18:30:00",
+                                    "ETD": "2018-01-03T19:20:00"
+                                },
+                                "contents": {
+                                    "segment": "LIQ.V",
+                                    "direction": "unloading",
+                                    "category": "I.EMHV%20-%20EMAG%20-%20FAME",
+                                    "amount": 2500
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "ID": 9534298,
+                "label": "JOHANN",
+                "stopovers_list": [
+                    {
+                        "ID": 20180003,
+                        "handlings_list": [
+                            {
+                                "nature": "cargo",
+                                "dangerous": false,
+                                "agent": "SEAINVEST",
+                                "dock": {
+                                    "ID": 416,
+                                    "ETA": "2018-01-02T18:50:00",
+                                    "ETD": "2018-01-08T21:40:00"
+                                },
+                                "contents": {
+                                    "segment": "SOL.V",
+                                    "direction": "unloading",
+                                    "category": "I.CLINKER",
+                                    "amount": 5703
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "ID": 9377092,
+                "label": "LEENI",
+                "stopovers_list": [
+                    {
+                        "ID": 20180004,
+                        "handlings_list": [
+                            {
+                                "nature": "cargo",
+                                "dangerous": false,
+                                "agent": "SEAINVEST",
+                                "dock": {
+                                    "ID": 436,
+                                    "ETA": "2018-01-03T19:30:00",
+                                    "ETD": "2018-01-04T21:25:00"
+                                },
+                                "contents": {
+                                    "segment": "LIQ.V",
+                                    "direction": "loading",
+                                    "category": "E.HUILE%20TOURNESOL",
+                                    "amount": 2424
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "ID": 9699854,
+                "label": "DESERT%20RANGER",
+                "stopovers_list": [
+                    {
+                        "ID": 20180006,
+                        "handlings_list": []
+                    }
+                ]
+            },
+            {
+                "ID": 9291729,
+                "label": "FEED%20ROGALAND",
+                "stopovers_list": [
+                    {
+                        "ID": 20180011,
+                        "handlings_list": []
+                    },
+                    {
+                        "ID": 20180041,
+                        "handlings_list": []
+                    }
+                ]
+            },
+            {
+                "ID": 9301990,
+                "label": "ALDEBARAN",
+                "stopovers_list": [
+                    {
+                        "ID": 20180012,
+                        "handlings_list": []
+                    }
+                ]
+            },
+            {
+                "ID": 9192375,
+                "label": "LAGUNA%20D",
+                "stopovers_list": [
+                    {
+                        "ID": 20180014,
+                        "handlings_list": []
+                    }
+                ]
+            },
+            {
+                "ID": 9031428,
+                "label": "LANDY",
+                "stopovers_list": [
+                    {
+                        "ID": 20180015,
+                        "handlings_list": []
+                    }
+                ]
+            },
+            {
+                "ID": 9388388,
+                "label": "LIBERTAS-H",
+                "stopovers_list": [
+                    {
+                        "ID": 20180017,
+                        "handlings_list": [
+                            {
+                                "nature": "cargo",
+                                "dangerous": false,
+                                "agent": "MSC",
+                                "dock": {
+                                    "ID": 432,
+                                    "ETA": "2018-01-10T13:00:00",
+                                    "ETD": "2018-01-11T12:50:00"
+                                },
+                                "contents": {
+                                    "segment": "P.C.",
+                                    "direction": "loading",
+                                    "category": "E.CONTENEURS",
+                                    "amount": 1217
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "ID": 20180030,
+                        "handlings_list": [
+                            {
+                                "nature": "cargo",
+                                "dangerous": false,
+                                "agent": "MSC",
+                                "dock": {
+                                    "ID": 432,
+                                    "ETA": "2018-01-20T06:10:00",
+                                    "ETD": "2018-01-20T21:20:00"
+                                },
+                                "contents": {
+                                    "segment": "P.C.",
+                                    "direction": "unloading",
+                                    "category": "I.CONTENEURS",
+                                    "amount": 3064
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "ID": 9354040,
+                "label": "LALINDE",
+                "stopovers_list": [
+                    {
+                        "ID": 20180018,
+                        "handlings_list": []
+                    }
+                ]
+            },
+            {
+                "ID": 9141364,
+                "label": "VITALITY",
+                "stopovers_list": [
+                    {
+                        "ID": 20180019,
+                        "handlings_list": [
+                            {
+                                "nature": "cargo",
+                                "dangerous": false,
+                                "agent": "SEAINVEST",
+                                "dock": {
+                                    "ID": 449,
+                                    "ETA": "2018-01-11T15:20:00",
+                                    "ETD": "2018-01-12T15:00:00"
+                                },
+                                "contents": {
+                                    "segment": "CEREAL",
+                                    "direction": "loading",
+                                    "category": "E.MAIS%20VRAC",
+                                    "amount": 3810
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "ID": 9242558,
+                "label": "LAURA%20ANN",
+                "stopovers_list": [
+                    {
+                        "ID": 20180022,
+                        "handlings_list": [
+                            {
+                                "nature": "cargo",
+                                "dangerous": false,
+                                "agent": "CGM",
+                                "dock": {
+                                    "ID": 432,
+                                    "ETA": "2018-01-13T03:45:00",
+                                    "ETD": "2018-01-14T01:40:00"
+                                },
+                                "contents": {
+                                    "segment": "P.C.",
+                                    "direction": "loading",
+                                    "category": "E.CONTENEURS",
+                                    "amount": 3123
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "ID": 20180036,
+                        "handlings_list": [
+                            {
+                                "nature": "cargo",
+                                "dangerous": false,
+                                "agent": "CGM",
+                                "dock": {
+                                    "ID": 432,
+                                    "ETA": "2018-01-22T21:00:00",
+                                    "ETD": "2018-01-24T12:55:00"
+                                },
+                                "contents": {
+                                    "segment": "P.C.",
+                                    "direction": "loading",
+                                    "category": "E.CONTENEURS",
+                                    "amount": 3541
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "ID": 9558581,
+                "label": "MUHARREM%20DADAYLI",
+                "stopovers_list": [
+                    {
+                        "ID": 20180023,
+                        "handlings_list": [
+                            {
+                                "nature": "cargo",
+                                "dangerous": false,
+                                "agent": "SEAINVEST",
+                                "dock": {
+                                    "ID": 433,
+                                    "ETA": "2018-01-14T17:35:00",
+                                    "ETD": "2018-01-16T20:10:00"
+                                },
+                                "contents": {
+                                    "segment": "SOL.V",
+                                    "direction": "unloading",
+                                    "category": "I.UREE%20VRAC",
+                                    "amount": 6316
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "ID": 9655016,
+                "label": "BRISOTE",
+                "stopovers_list": [
+                    {
+                        "ID": 20180029,
+                        "handlings_list": [
+                            {
+                                "nature": "cargo",
+                                "dangerous": false,
+                                "agent": "HUMANN",
+                                "dock": {
+                                    "ID": 436,
+                                    "ETA": "2018-01-19T18:45:00",
+                                    "ETD": "2018-01-20T08:15:00"
+                                },
+                                "contents": {
+                                    "segment": "GAZ.L",
+                                    "direction": "unloading",
+                                    "category": "I.BUTADIENE",
+                                    "amount": 1500
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "ID": 9367530,
+                "label": "CHEMWAY%20LARA",
+                "stopovers_list": [
+                    {
+                        "ID": 20180033,
+                        "handlings_list": [
+                            {
+                                "nature": "cargo",
+                                "dangerous": false,
+                                "agent": "SEAINVEST",
+                                "dock": {
+                                    "ID": 436,
+                                    "ETA": "2018-01-21T08:40:00",
+                                    "ETD": "2018-01-22T20:50:00"
+                                },
+                                "contents": {
+                                    "segment": "LIQ.V",
+                                    "direction": "unloading",
+                                    "category": "I.METHANOL",
+                                    "amount": 6017
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "ID": 9427976,
+                "label": "FMT%20GUMULDUR",
+                "stopovers_list": [
+                    {
+                        "ID": 20180038,
+                        "handlings_list": []
+                    }
+                ]
+            }
+        ]
+    }
+]

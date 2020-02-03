@@ -41,7 +41,7 @@ python3.8 main.py \
     --steps 1 2 3 4 \
     --cargo_handling_requests=$INPUT_FOLDER/CARGOES_HANDLING_REQUESTS.json \
     --rules=$INPUT_FOLDER/RULES.json \
-    --supplychains=$INPUT_FOLDER/SUPPLY-CHAINS.json \
+    --supplychains=$INPUT_FOLDER/SUPPLYCHAINS.json \
     --resources=$INPUT_FOLDER/RESOURCES.json \
     --output=./outputs/output.json
 
