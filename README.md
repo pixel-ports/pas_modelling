@@ -57,7 +57,8 @@ docker build -t pas .
 mkdir outputs
 export INPUT_FOLDER=./inputs/simple_examples
 # export INPUT_FOLDER=./inputs/demoCHR2018  # Another possible list of files
-python3.8 main.py \
+docker run -w /pas_modelling -v $(pwd)/inputs:/pas_modelling/inputs -v $(pwd)/outputs:/pas_modelling/outputs pas \
+    python3.8 main.py \
     --steps 1 2 3 4 \
     --cargo_handling_requests=$INPUT_FOLDER/CARGOES_HANDLING_REQUESTS.json \
     --rules=$INPUT_FOLDER/RULES.json \
