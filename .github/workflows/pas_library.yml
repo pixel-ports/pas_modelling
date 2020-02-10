@@ -1,4 +1,4 @@
-name: Python application
+name: PAS Library
 
 on: [push]
 
@@ -21,6 +21,16 @@ jobs:
       run: |
         mkdir outputs
         export INPUT_FOLDER=./inputs/simple_examples
+        python3.8 main.py \
+            --steps 1 2 3 4 \
+            --cargo_handling_requests=$INPUT_FOLDER/CARGOES_HANDLING_REQUESTS.json \
+            --rules=$INPUT_FOLDER/RULES.json \
+            --supplychains=$INPUT_FOLDER/SUPPLY-CHAINS.json \
+            --resources=$INPUT_FOLDER/RESOURCES.json \
+            --output=./outputs/output.json
+    - name: Test with demoCHR2018
+      run: |
+        export INPUT_FOLDER=./inputs/demoCHR2018
         python3.8 main.py \
             --steps 1 2 3 4 \
             --cargo_handling_requests=$INPUT_FOLDER/CARGOES_HANDLING_REQUESTS.json \
