@@ -1,6 +1,6 @@
 # PIXEL Port Activity Scenario Modelling
 
-![Python application](https://github.com/pixel-ports/pas_modelling/workflows/Python%20application/badge.svg)
+![PAS Library](https://github.com/pixel-ports/pas_modelling/workflows/PAS%20Library/badge.svg)
 
 This repository implements the PAS modelling presented in the MTC paper : https://www.dropbox.com/s/6z2e854bxz9jtur/MTC2019_SIMON_LACALLE.pdf?dl=0.
 
