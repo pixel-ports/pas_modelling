@@ -4,7 +4,7 @@
 
 This repository implements the PAS modelling presented in the MTC paper : https://www.dropbox.com/s/6z2e854bxz9jtur/MTC2019_SIMON_LACALLE.pdf?dl=0.
 
-![Cross Modelling](./tools/resources/cross_modelling.png "PIXEL cross modelling")
+![Cross Modelling](./documentation/illustrations/cross_modelling.png "PIXEL cross modelling")
 
 You can use this repository either as an **application** by building a docker image with the provided `Dockerfile` or as a **library** through a pip installation. Installation and utilization methods are provided below.
 
@@ -43,7 +43,7 @@ python3.8 main.py \
     --steps 1 2 3 4 \
     --cargo_handling_requests=$INPUT_FOLDER/CARGOES_HANDLING_REQUESTS.json \
     --rules=$INPUT_FOLDER/RULES.json \
-    --supplychains=$INPUT_FOLDER/SUPPLY-CHAINS.json \
+    --supplychains=$INPUT_FOLDER/SUPPLYCHAINS.json \
     --resources=$INPUT_FOLDER/RESOURCES.json \
     --output=./outputs/output.json
 
