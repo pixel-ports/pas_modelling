@@ -1,0 +1,132 @@
+{
+	"$id": "handling_item",
+	"type": "object",
+	"description": "An handling description",
+	"required": [
+		"nature",
+		"dock",
+		"contents"
+	],
+	"properties": {
+		"ID": {
+			"type": "string",
+			"description": "The handling's unique identifier."
+		},
+		"nature": {
+			"type": "string",
+			"description": "The handling's nature (categorial), among: cargo, passenger, container.",
+			"$comment": "This is a key parameter that drive the required properties of Content. Curently, PAS modelling only supports 'Cargo'.",
+			"enum": [
+				"cargo",
+				"passenger",
+				"container"
+			],
+			"examples": [
+				"cargo"
+			]
+		},
+		"dangerous": {
+			"type": "boolean",
+			"description": "Element considered as dangerous are onboard.",
+			"examples": [
+				"false"
+			]
+		},
+		"agent": {
+			"type": "string",
+			"description": "The Agent requesting the handling (for grouping in data analysis context).",
+			"examples": [
+				"Cargo's agent's name"
+			]
+		},
+		"operator": {
+			"type": "string",
+			"description": "The Operator doing the handling (for grouping in data analysis context).",
+			"examples": [
+				"Cargo's operator's name"
+			]
+		},
+		"dock": {
+			"type": "object",
+			"description": "Information about the concerned docking.",
+			"required": [
+				"ID",
+				"ETA"
+			],
+			"properties": {
+				"ID": {
+					"type": "string",
+					"description": "The dock's unique identifier, among : listed in port's parameters file.",
+					"examples": [
+						"dock_432"
+					]
+				},
+				"ETA": {
+					"type": "string",
+					"format": "date-time",
+					"description": "Estimated time of arrival at dock.",
+					"examples": [
+						"2018-11-16T07::00:00+00:00"
+					]
+				},
+				"ETD": {
+					"type": "string",
+					"format": "date-time",
+					"description": "Estimated time of departure from dock.",
+					"examples": [
+						"2018-11-16T07::00:00+00:00"
+					]
+				}
+			}
+		},
+		"contents": {
+			"$id": "contents=cargo",
+			"type": "object",
+			"description": "Required properties differt according to the handling's type, here for 'cargo'.",
+			"$comment": "This current version only support an handling's type of Cargo.",
+			"required": [
+				"direction",
+				"category",
+				"amount"
+			],
+			"properties": {
+				"direction": {
+					"type": "string",
+					"description": "Handling's direction (categorial), among : loading, unloading, other.",
+					"enum": [
+						"loading",
+						"unloading",
+						"other"
+					],
+					"default": "other",
+					"examples": [
+						"unloading"
+					]
+				},
+				"category": {
+					"type": "string",
+					"description": "Cargo's type (categorial), among : listed in port's parameters file.",
+					"default": "unknown",
+					"examples": [
+						"corn"
+					]
+				},
+				"amount": {
+					"type": "integer",
+					"description": "The quantity of cargo to load or unload. Unit is inferred from cargo's category (through port's parameters file).",
+					"default": 0,
+					"examples": [
+						4560
+					]
+				},
+				"label": {
+					"type": "string",
+					"description": "Open text field for cargo's labelling as a short description.",
+					"examples": [
+						"Cargo's labelling (eg. short description)"
+					]
+				}
+			}
+		}
+	}
+}
