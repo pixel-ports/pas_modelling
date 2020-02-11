@@ -1,0 +1,979 @@
+{
+    "cargoes_categories": [
+        {
+            "ID": "E.BLE VRAC",
+            "segment": "CEREAL",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "449"
+                    ],
+                    "supply_chain_ID": "loading_CEREAL"
+                }
+            ]
+        },
+        {
+            "ID": "E.CER.+OLEAG. MIXTES",
+            "segment": "CEREAL",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "417",
+                        "449"
+                    ],
+                    "supply_chain_ID": "loading_CEREAL"
+                }
+            ]
+        },
+        {
+            "ID": "E.CEREALES MIXTES VRAC",
+            "segment": "CEREAL",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "449",
+                        "417"
+                    ],
+                    "supply_chain_ID": "loading_CEREAL"
+                }
+            ]
+        },
+        {
+            "ID": "E.COLIS LOURDS",
+            "segment": "AUTRES",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "413",
+                        "417"
+                    ],
+                    "supply_chain_ID": "loading_AUTRES"
+                }
+            ]
+        },
+        {
+            "ID": "E.COLZA VRAC",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "449"
+                    ],
+                    "supply_chain_ID": "loading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "E.CONTENEURS",
+            "segment": "P.C.",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "432",
+                        "433"
+                    ],
+                    "supply_chain_ID": "loading_P.C."
+                }
+            ]
+        },
+        {
+            "ID": "E.EMHV - EMAG - FAME ",
+            "segment": "LIQ.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "436"
+                    ],
+                    "supply_chain_ID": "loading_LIQ.V"
+                }
+            ]
+        },
+        {
+            "ID": "E.FERRAIL.REFONT.",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "414"
+                    ],
+                    "supply_chain_ID": "loading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "E.GRAINES SOJA",
+            "segment": "CEREAL",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "449"
+                    ],
+                    "supply_chain_ID": "loading_CEREAL"
+                }
+            ]
+        },
+        {
+            "ID": "E.HUILE COLZA",
+            "segment": "LIQ.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "436"
+                    ],
+                    "supply_chain_ID": "loading_LIQ.V"
+                }
+            ]
+        },
+        {
+            "ID": "E.HUILE TOURNESOL",
+            "segment": "LIQ.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "436"
+                    ],
+                    "supply_chain_ID": "loading_LIQ.V"
+                }
+            ]
+        },
+        {
+            "ID": "E.HUILES MIXTES",
+            "segment": "LIQ.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "436"
+                    ],
+                    "supply_chain_ID": "loading_LIQ.V"
+                }
+            ]
+        },
+        {
+            "ID": "E.MAIS VRAC",
+            "segment": "CEREAL",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "449",
+                        "417"
+                    ],
+                    "supply_chain_ID": "loading_CEREAL"
+                }
+            ]
+        },
+        {
+            "ID": "E.MINER.NON FERR.AUTRES",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "413"
+                    ],
+                    "supply_chain_ID": "loading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "E.PNEUS BROYES",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "413",
+                        "417",
+                        "414"
+                    ],
+                    "supply_chain_ID": "loading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "E.PROD.CHIM.LIQ. AUTRES",
+            "segment": "LIQ.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "436"
+                    ],
+                    "supply_chain_ID": "loading_LIQ.V"
+                }
+            ]
+        },
+        {
+            "ID": "E.SORGHO VRAC",
+            "segment": "CEREAL",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "449"
+                    ],
+                    "supply_chain_ID": "loading_CEREAL"
+                }
+            ]
+        },
+        {
+            "ID": "E.TALC",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "431"
+                    ],
+                    "supply_chain_ID": "loading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "E.TERRE REFRACT.",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "413"
+                    ],
+                    "supply_chain_ID": "loading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "E.TRTX COLZA",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "417",
+                        "413"
+                    ],
+                    "supply_chain_ID": "loading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "E.TRTX TOURNESOL",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "loading",
+                    "dock_ID": [
+                        "417",
+                        "434"
+                    ],
+                    "supply_chain_ID": "loading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.BOIS SCIES DU NORD",
+            "segment": "AUTRES",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "417",
+                        "415",
+                        "416"
+                    ],
+                    "supply_chain_ID": "unloading_AUTRES"
+                }
+            ]
+        },
+        {
+            "ID": "I.BOIS+COPEAUX MIXTES",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "413"
+                    ],
+                    "supply_chain_ID": "unloading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.BUTADIENE",
+            "segment": "GAZ.L",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "436"
+                    ],
+                    "supply_chain_ID": "unloading_GAZ.L"
+                }
+            ]
+        },
+        {
+            "ID": "I.CHARBON",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "435"
+                    ],
+                    "supply_chain_ID": "unloading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.CIMENT",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "413"
+                    ],
+                    "supply_chain_ID": "unloading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.CLINKER",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "416",
+                        "431",
+                        "415"
+                    ],
+                    "supply_chain_ID": "unloading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.COLIS LOURDS",
+            "segment": "AUTRES",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "413"
+                    ],
+                    "supply_chain_ID": "unloading_AUTRES"
+                }
+            ]
+        },
+        {
+            "ID": "I.COLZA VRAC",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "434"
+                    ],
+                    "supply_chain_ID": "unloading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.CONTENEURS",
+            "segment": "P.C.",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "432",
+                        "433"
+                    ],
+                    "supply_chain_ID": "unloading_P.C."
+                }
+            ]
+        },
+        {
+            "ID": "I.EMHV - EMAG - FAME",
+            "segment": "LIQ.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "436"
+                    ],
+                    "supply_chain_ID": "unloading_LIQ.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.ENGR.LIQUIDES",
+            "segment": "LIQ.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "436"
+                    ],
+                    "supply_chain_ID": "unloading_LIQ.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.ENGR.MANUF.VRAC",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "433"
+                    ],
+                    "supply_chain_ID": "unloading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.HUILE COLZA",
+            "segment": "LIQ.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "436"
+                    ],
+                    "supply_chain_ID": "unloading_LIQ.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.HUILE SOJA",
+            "segment": "LIQ.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "436"
+                    ],
+                    "supply_chain_ID": "unloading_LIQ.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.HUILE TOURNESOL",
+            "segment": "LIQ.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "436"
+                    ],
+                    "supply_chain_ID": "unloading_LIQ.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.HUILES MIXTES",
+            "segment": "LIQ.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "436"
+                    ],
+                    "supply_chain_ID": "unloading_LIQ.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.KAOLIN",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "413"
+                    ],
+                    "supply_chain_ID": "unloading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.LAITIERS",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "435"
+                    ],
+                    "supply_chain_ID": "unloading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.MELASSES",
+            "segment": "LIQ.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "416"
+                    ],
+                    "supply_chain_ID": "unloading_LIQ.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.METHANOL",
+            "segment": "LIQ.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "436"
+                    ],
+                    "supply_chain_ID": "unloading_LIQ.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.MINERAUX AUTRES",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "434"
+                    ],
+                    "supply_chain_ID": "unloading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.POTASSE VRAC",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "433"
+                    ],
+                    "supply_chain_ID": "unloading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.SEL",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "433"
+                    ],
+                    "supply_chain_ID": "unloading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.TALL-OIL",
+            "segment": "LIQ.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "436"
+                    ],
+                    "supply_chain_ID": "unloading_LIQ.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.TOURBE",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "413"
+                    ],
+                    "supply_chain_ID": "unloading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.TOURNESOL VRAC",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "413",
+                        "434",
+                        "435"
+                    ],
+                    "supply_chain_ID": "unloading_SOL.V"
+                }
+            ]
+        },
+        {
+            "ID": "I.UREE VRAC",
+            "segment": "SOL.V",
+            "unit": "Tons",
+            "typical_amount_range": [
+                500,
+                10000
+            ],
+            "assignation_preference": [
+                {
+                    "priority": 1,
+                    "direction": "unloading",
+                    "dock_ID": [
+                        "433",
+                        "415"
+                    ],
+                    "supply_chain_ID": "unloading_SOL.V"
+                }
+            ]
+        }
+    ],
+    "shiftworks": [
+        {
+            "ID": "typical",
+            "value": [
+                {
+                    "Monday": [
+                        "8>12",
+                        "14>17"
+                    ]
+                },
+                {
+                    "Tuesday": [
+                        "8>12",
+                        "14>17"
+                    ]
+                },
+                {
+                    "Wednesday": [
+                        "8>12",
+                        "14>17"
+                    ]
+                },
+                {
+                    "Thursday": [
+                        "8>12",
+                        "14>17"
+                    ]
+                },
+                {
+                    "Friday": [
+                        "8>12",
+                        "14>17"
+                    ]
+                },
+                {
+                    "Saturday": []
+                },
+                {
+                    "Sunday": []
+                }
+            ]
+        }
+    ],
+    "priority": {},
+    "assignment": {},
+    "validity": {}
+}
