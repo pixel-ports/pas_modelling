@@ -1,0 +1,35 @@
+[
+    {
+        "ID": "SC1",
+        "label": "SC_unknown's name",
+        "comment": "SC_unknown's comment",
+        "shiftworks_ID": [
+                "typical"
+            ],
+        "steps_list": [
+            {
+                "ID": "Step1",
+                "label": "step_1's name",
+                "comment": "step_1's comment",
+                "category": "Initialization",
+                "scheduling": {
+                    "start": {
+                        "nature": "delay",
+                        "value": 0
+                    },
+                    "duration": {
+                        "nature": "cargo_%",
+                        "value": 100
+                    }
+                },
+                "work": {
+                    "machines": [
+                        "Machine1"
+                    ],
+                    "nature": "parallel",
+                    "distance": "on_spot"
+                }
+            }
+        ]
+    }
+]

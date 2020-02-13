@@ -1,0 +1,36 @@
+{
+	"cargoes_categories":[
+		{
+			"ID":"CargoCat1",
+			"segment":"Segment1",
+			"unit": "Tons",
+			"typical_amount_range": [500, 10000],
+			"assignation_preference":[
+				{
+					"priority":1,
+					"direction": "unloading",
+					"dock_ID": ["Dock1"],
+					"supply_chain_ID":"SC1_tt"
+
+				}
+			]
+		}
+	],
+	"shiftworks":[
+		{
+			"ID":"typical",
+			"value":[
+				{"Monday":["8>12", "14>17"]},
+				{"Tuesday":["8>12", "14>17"]},
+				{"Wednesday":["8>12", "14>17"]},
+				{"Thursday":["8>12", "14>17"]},
+				{"Friday":["8>12", "14>17"]},
+				{"Saturday":[]},
+				{"Sunday":[]}
+			]
+		}
+	],
+	"priority":{},
+	"assignment":{},
+	"validity":{}
+}
