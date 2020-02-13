@@ -28,7 +28,7 @@ import sys
 # PRESET JSON NAME
 jsonNames_list = [
 #    "CARGOES_HANDLING_REQUESTS",
- #   "RULES",
+#    "RULES",
     "SUPPLYCHAINS",
 #    "RESOURCES"
 ]
