@@ -16,7 +16,11 @@ class Step1:
             for stopover in ship["stopovers_list"]
             for handling in stopover["handlings_list"]
         ]
-        handlings.sort(key=lambda handling: handling["dock"]["ETA"])
+        
+        #TODO Implémenter Rules>priority
+        handlings.sort(key=lambda handling: handling["dock"]["ETA"]) 
+        
         for index, handling in enumerate(handlings):
             handling["ID"] = index
+        
         return self.pas
