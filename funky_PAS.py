@@ -16,68 +16,74 @@ Tout
 '''
 #===============================================================
 
-# CHARGEMENT
+import argparse
+import logging
+from modules.Handlings import Handlings
 
-import json
-from typing import Iterable
-import jsonschema
 
-def chargement_json(folder_path: str, item_list: Iterable[str], suffix: str) :
-    ''' 
-    Charge des jsons du dossier donnée selon la séquence donnée en utilisant le suffix donné
+
+logging.basicConfig(
+    level= logging.INFO, 
+    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
+logger = logging.getLogger("pas-modelling")
+
+
+#=====================================================
+def main() :
     '''
-    #TODO convertir en un truc propre 
-
-    loaded_jsons = []
-
-    for item in item_list :
-        with open(folder_path + item + suffix) as json_file:
-            item = json.load(json_file)
-        loaded_jsons.append(item)
-
-    return loaded_jsons
-
-def schema_checking(tuples_list: Iterable[tuple]) :
+    Prends un dictionnaire unique (PAS), et le fait transformer successivement par chaque module selon la séquence donnée.
     '''
-    Confronte les json à leurs schema. On fournit une liste de tuples sous la forme (json, schema)
-    '''
-    #TODO ne pas se contenter de faire crasher le bousin
+    logger.warning("Begining funky_PAS")
+    
+    PAS = {}
 
-    for item in tuples_list :
-        jsonschema.validate(item[0], item[1])
+    # TODO ici l'idée initiale était de dérouler l'application d'une liste de modules passé en argument. Pr le moment on va faire en dur.
+    # moduleSequence = [ #FIXME c'est moche en dur comme ça, mais c'est plus pratique pr le moment
+    #     "Inport_Inputs", 
+    #     "Handlings", 
+    #     "Operations", 
+    #     "Activities", 
+    #     "Consumptions", 
+    #     "Export_output"
+    # ]
 
-# RUN
+    # for module_i in moduleSequence : #TODO ajouter des assert etc
+    #     logger.warning(f"Calling module {module_i}") 
+    #     exec('from modules import ' + module_i, locals(), globals())
+    #     currentModule = module_i(PAS)
+    #     currentModule.checkIn() #Le module doit vérifier que son input est ok (+ importer son fichier de conf etc)
+    #     currentModule.process() #Le module doit transformer son input
+    #     PAS = currentModule.checkOut() #Le module doit vérifier que son output est ok
+    currentModule = Handlings(PAS)
+    if currentModule.checkIn() :#Le module doit vérifier que son input est ok (+ importer son fichier de conf etc)
+        currentModule.process() #Le module doit transformer son input
+    if currentModule.checkOut()[0] : #Si l'output est valide
+            PAS = currentModule.checkOut()[1] #Le module doit vérifier que son output est ok
 
-## INITIALISATION
-item_list = [
-        "CARGOES_HANDLING_REQUESTS", 
-        "RULES", 
-        "SUPPLYCHAINS", 
-        "RESOURCES", 
-        ]
+    logger.warning("Closing funky_PAS") 
+    
 
-#Chargement des inputs
-handlings, rules, supplychains, resources = chargement_json(
-    folder_path= "./inputs/simple_examples/",
-    item_list= item_list,
-    suffix= ".json"
-)
 
-#Chargement des schémas
-handlings_schema, rules_schema, supplychains_schema, resources_schema = chargement_json(
-    folder_path= "./tools/json_schema/",
-    item_list= item_list,
-    suffix= "_schema.json"
-)
 
-#Test de validités des schémas
-schema_checking(zip(
-    [handlings, rules, supplychains, resources],
-    [handlings_schema, rules_schema, supplychains_schema, resources_schema]
-    )
-)
+#=====================================================
+if __name__ == "__main__" :
+    parser = argparse.ArgumentParser(description="Process executable options.")
+    
+    # parser.add_argument(
+    #     "--moduleSequence", nargs="+", type=str, help="Steps numbers to execute.",
+    # ) #TODO: pouvoir passer la liste des modules ET/OU le path du fichier de conf (défaut racine)
+    
+    # parser.add_argument(
+    #     "-sp", "--settingsPath", default="./settings.json", type=str, help="Path to the json file containing settings"
+    # ) TODO voir précédent
 
-#ORDONNANCEMENT
-#TODO en respectant la conf donnée par Rules
+    # parser.add_argument(
+    #     "-ov", "--outputVerbose", default="normal", type=str, help="restricted: only valid records in output.\n normal (default value); balanced output.\n extended: every processing logs insered into output. Use for setting issues identification. May generate trouble for output conversion to graph"
+    # ) TODO: pouvoir passer la liste des modules à la place du fichier de conf ?
 
-print("\n\n\n GREEAT !!! \n\n\n")
+    # parser.add_argument(
+    #     "--monitor", default=False, action="store_true", help="Start monitoring server"
+    # )
+    args = parser.parse_args()
+
+    main()#args.moduleSequence, args.outputVerbose, args.settingsPath)
