@@ -1,17 +1,19 @@
 {
-    "items": [
-        "CARGOES_HANDLING_REQUESTS", 
-        "RULES", 
-        "SUPPLYCHAINS", 
-        "RESOURCES" 
-    ],
-    "schemas": {
-        "path":"./tools/json_schema/",
-        "suffix":"_schema.json"
-    },
-    "inputs": {
-        "path":"./inputs/simple_examples/",
-        "suffix":".json"
-    }
-    
+    "InputsCollector": {
+        "items": [
+            "CARGOES_HANDLING_REQUESTS", 
+            "RULES", 
+            "SUPPLYCHAINS", 
+            "RESOURCES" 
+        ],
+        "schemas": {
+            "path":"./tools/json_schema/",
+            "suffix":"_schema.json"
+        },
+        "inputs": {
+            "path":"./inputs/simple_examples/",
+            "suffix":".json"
+        }
+
+    }  
 }

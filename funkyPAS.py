@@ -18,7 +18,9 @@ Tout
 
 import argparse
 import logging
-from modules.Handlings import Handlings
+import json
+import modules.InputsCollector
+import modules.Handlings
 
 
 
@@ -29,13 +31,13 @@ logger = logging.getLogger("pas-modelling")
 
 
 #=====================================================
-def main() :
+def main(call) :
     '''
     Prends un dictionnaire unique (PAS), et le fait transformer successivement par chaque module selon la séquence donnée.
     '''
-    logger.warning("Begining funky_PAS")
+    logger.warning("Begining funkyPAS")
     
-    PAS = {}
+    PAS = call
 
     # TODO ici l'idée initiale était de dérouler l'application d'une liste de modules passé en argument. Pr le moment on va faire en dur.
     # moduleSequence = [ #FIXME c'est moche en dur comme ça, mais c'est plus pratique pr le moment
@@ -49,22 +51,24 @@ def main() :
 
     # for module_i in moduleSequence : #TODO ajouter des assert etc
     #     logger.warning(f"Calling module {module_i}") 
-    #     exec('from modules import ' + module_i, locals(), globals())
-    #     currentModule = module_i(PAS)
-    #     currentModule.checkIn() #Le module doit vérifier que son input est ok (+ importer son fichier de conf etc)
-    #     currentModule.process() #Le module doit transformer son input
-    #     PAS = currentModule.checkOut() #Le module doit vérifier que son output est ok
-    currentModule = Handlings(PAS)
-    if currentModule.checkIn() :#Le module doit vérifier que son input est ok (+ importer son fichier de conf etc)
-        currentModule.process() #Le module doit transformer son input
-    if currentModule.checkOut()[0] : #Si l'output est valide
-            PAS = currentModule.checkOut()[1] #Le module doit vérifier que son output est ok
-
-    logger.warning("Closing funky_PAS") 
+    #     exec('import ' + module_i, locals(), globals())
+    #     PAS = module_i(PAS)
     
+    PAS = InputsCollector(PAS)
+    PAS = Handlings(PAS)
+    #PAS = Operations(PAS)
+    #PAS = Activities(PAS)
+    #PAS = Consumptions(PAS)
+    #PAS = Export_output(PAS)
 
-
-
+    print(PAS)
+    logger.warning("Closing funkyPAS") 
+    
+#Subtools
+def get_json(path, file, suffixe):
+    with open(path + file + suffixe) as file :
+        return json.load(file)
+    
 #=====================================================
 if __name__ == "__main__" :
     parser = argparse.ArgumentParser(description="Process executable options.")
@@ -84,6 +88,10 @@ if __name__ == "__main__" :
     # parser.add_argument(
     #     "--monitor", default=False, action="store_true", help="Start monitoring server"
     # )
+
+    parser.add_argument(
+        "--call", default=None, action="store_true", help="Body du call au modèle"
+    )
     args = parser.parse_args()
 
-    main()#args.moduleSequence, args.outputVerbose, args.settingsPath)
+    main(args.call)#args.moduleSequence, args.outputVerbose, args.settingsPath)
