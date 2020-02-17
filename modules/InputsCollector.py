@@ -15,19 +15,20 @@ import jsonschema
 - vérifier que son output est conforme
 - renvoyer le PAS modifié
 '''
-def InputsCollector(call):
-    #INITIALISATION
-    settings = get_json("../"+"settings.json")
+def InputsCollector(call, settings_i):
 
+    #CHECKING INPUTS
+    #TODO passer par un shema sur le call ? 
+   
     #PROCESSING #TODO remplacer par la récupération sur l'IH (sur la base de call)
-    Handlings, Rules, Supplychains, Resources = chargement_json(
-        "."+settings_file["InputsCollector"]["inputs"]["path"],
-        settings_file["InputsCollector"]["items"],
-        settings_file["InputsCollector"]["inputs"]["suffix"],
-    )
-    #TODO empacter le résultat du process ?
+    #TODO Séparer récupération CHR et settings
 
-    #CLOSSING
+    loaded_jsons = []
+    for item in settings_i["items"] :#TODO assert etc
+        loaded_jsons.append(load(settings_i["inputs"]["path"] + item + ".json")) 
+    Handlings, Rules, Supplychains, Resources = iter(loaded_jsons) #TODO avoir ça en dur !?!
+
+    #CHECKING OUTPUT
     for tuple_i in zip(
                 [Handlings, Rules, Supplychains, Resources],
                 chargement_json(
@@ -38,15 +39,4 @@ def InputsCollector(call):
             ):
         jsonschema.validate(tuple_i[0], tuple_i[1])
     
-    return data
-#===================================================================
-
-def chargement_json(folder_path: str, item_list: Iterable[str], suffix: str) :
-    ''' 
-    Charge des jsons du dossier donnée selon la séquence donnée en utilisant le suffix donné
-    '''
-    loaded_jsons = []
-
-    for item in item_list :
-        loaded_jsons.append(get_json(folder_path + item + suffix))
-    return loaded_jsons
+    return handlings

@@ -25,11 +25,11 @@ def main(service, call) :
     # Chargement et appelle des modules
     PAS = call
 
+    # Execussion du code monté comme module par exec (en terme de sécurité c'est 0, puisque on s'en remet au module monté)
     for module_i in modulesSequence : #TODO ajouter des assert etc
         logger.warning(f"Calling module {module_i}") 
         exec('from modules.' + module_i + " import " + module_i , locals(), globals())
-        exec(PAS = module_i(PAS)) #>> passer appelles en dur pr le moment
-
+        PAS = exec(module_i + "(PAS, settings['modules_settings'][module_i])")
     logger.warning("Closing funkyPAS") 
 
 # %% UTILITIES
