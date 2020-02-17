@@ -1,75 +1,43 @@
-#===============================================================
-'''
-# SYNOPSIS
-
-## PURPOSE
-Refonte du PAS builder dans une approche plus fonctionnelle. En effet on ne procede qu'à une succession de transformations identique pour tous les enregistrement, dans un flux univoque/directionnel.
-Handlings ==> Operations ==> Activités ==> Consommations ==> Emissions
-
-## STATUT
-
-V0.1
-
-### TODO
-Tout
-
-'''
-#===============================================================
-
+# %% LIBRAIRIE
 import argparse
 import logging
 import json
-import modules.InputsCollector
-import modules.Handlings
 
+#import modules.Handlings
 
-
+# %% LOGGER
 logging.basicConfig(
     level= logging.INFO, 
     format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
 logger = logging.getLogger("pas-modelling")
 
-
-#=====================================================
-def main(call) :
+# %% MAIN
+def main(service, call) :
     '''
-    Prends un dictionnaire unique (PAS), et le fait transformer successivement par chaque module selon la séquence donnée.
+    Appelle les modules listés dans Settings pour le Service appeler, leurs passant successivement l'object de Call (transformé par chaque module).
     '''
     logger.warning("Begining funkyPAS")
     
+    #Chargement settings
+    settings = load("./settings.json")
+    modulesSequence =  settings["service"][service]
+
+    # Chargement et appelle des modules
     PAS = call
 
-    # TODO ici l'idée initiale était de dérouler l'application d'une liste de modules passé en argument. Pr le moment on va faire en dur.
-    # moduleSequence = [ #FIXME c'est moche en dur comme ça, mais c'est plus pratique pr le moment
-    #     "Inport_Inputs", 
-    #     "Handlings", 
-    #     "Operations", 
-    #     "Activities", 
-    #     "Consumptions", 
-    #     "Export_output"
-    # ]
+    for module_i in modulesSequence : #TODO ajouter des assert etc
+        logger.warning(f"Calling module {module_i}") 
+        exec('from modules.' + module_i + " import " + module_i , locals(), globals())
+        exec(PAS = module_i(PAS)) #>> passer appelles en dur pr le moment
 
-    # for module_i in moduleSequence : #TODO ajouter des assert etc
-    #     logger.warning(f"Calling module {module_i}") 
-    #     exec('import ' + module_i, locals(), globals())
-    #     PAS = module_i(PAS)
-    
-    PAS = InputsCollector(PAS)
-    PAS = Handlings(PAS)
-    #PAS = Operations(PAS)
-    #PAS = Activities(PAS)
-    #PAS = Consumptions(PAS)
-    #PAS = Export_output(PAS)
-
-    print(PAS)
     logger.warning("Closing funkyPAS") 
-    
-#Subtools
-def get_json(path, file, suffixe):
-    with open(path + file + suffixe) as file :
+
+# %% UTILITIES
+def load(full_path):
+    with open(full_path) as file :
         return json.load(file)
-    
-#=====================================================
+
+# %% SHELL
 if __name__ == "__main__" :
     parser = argparse.ArgumentParser(description="Process executable options.")
     
@@ -90,8 +58,22 @@ if __name__ == "__main__" :
     # )
 
     parser.add_argument(
-        "--call", default=None, action="store_true", help="Body du call au modèle"
+        "--call",
+        nargs='?', 
+        default=None, 
+        help="Données initiales (info pr call à l'IH)"
     )
+    
+    parser.add_argument(
+        "-s", "--service", 
+        nargs='?',
+        default="energy_consumption_assessment", 
+        help="Spécifie le service du PAS appellé."
+    )
+
     args = parser.parse_args()
 
-    main(args.call)#args.moduleSequence, args.outputVerbose, args.settingsPath)
+    main(args.service, args.call)#args.moduleSequence, args.outputVerbose, args.settingsPath)
+
+
+# %%
