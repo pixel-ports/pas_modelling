@@ -1,7 +1,8 @@
 import json
 import jsonschema
 import logging
-import strict-rfc3339
+import pandas as pd
+#import dateutil.parser
 
 # %% LOGGER
 logging.basicConfig(
@@ -20,32 +21,51 @@ def IH_converter(inputs, modSettings) :
 
     # PROCESSING
     output = {}
+    output["parameters"] = inputs["parameters"]
     output["handlings"] = []
     
     for item in inputs["handlings"][0]["records"]:
-        output["handlings"].append(#).update(
-            {
-                "departure_dock": item["data"].get("departure_dock", None),
-                "boat_ID":str(
-                    item["data"].get("IMO", None)
-                    ), 
-                
-                "ETArrival_dock": datetime.datetime(item["data"].get("arrival_dock", None)).isoformat("T")
-                # datetime.datetime.strptime(
-                #     , 
-                #     "%Y-%m-%dT%H:%M:%S.%fZ"
-                #     ).isoformat()
-                    
-                # "ETDeparture_dock": 1515359700000,
-                # "boat_ID": 9571545,
-                # "journeyid": 20180001,
-                # "name": "MUNTGRACHT",
-                # "operation": "unloading",           
+        if item["data"].get("operation", None) == "unloading" : #FIXME c'est moche, on devrait pouvoir factoriser les champs communs
+            output["handlings"].append(
+                {
+                    "boat_ID":str(item["data"].get("IMO", None)),
+                    "boat_label": item["data"].get("name", None),
+                    "ETArrival_dock": item["data"].get("arrival_dock", None), #FIXME on reste en epoch ==> ne respecte pas le json-schema
+                    "ETDeparture_dock": item["data"].get("departure_dock", None), #FIXME idem
+                    "stopover_ID":str(item["data"].get("journeyid", None)), 
+                    "direction": item["data"].get("operation", None),
+                    "agent": item["data"].get("unloading_agent", None),
+                    "dock_ID":str(item["data"].get("unloading_berth", None)),
+                    "segment": item["data"].get("unloading_cargo_fiscal_type", None),
+                    "cargo": item["data"].get("unloading_cargo_type", None),
+                    "dangerous": item["data"].get("unloading_dangerous", None),
+                    "amount": item["data"].get("unloading_tonnage", None)
+                }
+            )
+        elif item["data"].get("operation", None) == "loading" :
+            output["handlings"].append(
+                {   
+                    "boat_ID":str(item["data"].get("IMO", None)),
+                    "boat_label": item["data"].get("name", None),
+                    "ETArrival_dock": item["data"].get("arrival_dock", None), #FIXME on reste en epoch ==> ne respecte pas le json-schema
+                    "ETDeparture_dock": item["data"].get("departure_dock", None), #FIXME idem
+                    "stopover_ID":str(item["data"].get("journeyid", None)), 
+                    "direction": item["data"].get("operation", None),
+                    "agent": item["data"].get("loading_agent", None),
+                    "dock_ID":str(item["data"].get("loading_berth", None)),
+                    "segment": item["data"].get("loading_cargo_fiscal_type", None),
+                    "cargo": item["data"].get("loading_cargo_type", None),
+                    "dangerous": item["data"].get("loading_dangerous", None),
+                    "amount": item["data"].get("loading_tonnage", None),                    
             }
-        )
+        ) #TODO filtrer les enregistrements dont un champ requi manque
 
+    #juste pr check
+    # with open("./export_IH_converter.json", "w") as file :
+    #     json.dump(output, file)
+    # FILTRATION
 
-    # CONVERSIONS
+    # CHECK OUTPUT
 
     logger.warning("Ending IH_converter")
     return output
