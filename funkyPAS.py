@@ -2,6 +2,7 @@
 import argparse
 import logging
 import json
+import os
 
 #import modules.Handlings
 
@@ -16,20 +17,21 @@ def main(service, call) :
     '''
     Appelle les modules listés dans Settings pour le Service appeler, leurs passant successivement l'object de Call (transformé par chaque module).
     '''
+    os.system("clear") 
     logger.warning("Begining funkyPAS")
     
-    #Chargement settings
+    # INITIALISATION
     settings = load("./settings.json")
     modulesSequence =  settings["service"][service]
 
-    # Chargement et appelle des modules
-    PAS = call
+    # PROCESSING
+    pas = call
 
-    # Execussion du code monté comme module par exec (en terme de sécurité c'est 0, puisque on s'en remet au module monté)
     for module_i in modulesSequence : #TODO ajouter des assert etc
         logger.warning(f"Calling module {module_i}") 
-        exec('from modules.' + module_i + " import " + module_i , locals(), globals())
-        PAS = exec(module_i + "(PAS, settings['modules_settings'][module_i])")
+        exec('from modules.' + module_i + " import " + module_i , locals(), globals()) #FIXME donner les droits en globals ? Vérifier de quoi il retourne
+        pas = eval(module_i + "(pas, settings['modules_settings'][module_i])")
+    
     logger.warning("Closing funkyPAS") 
 
 # %% UTILITIES
@@ -60,7 +62,7 @@ if __name__ == "__main__" :
     parser.add_argument(
         "--call",
         nargs='?', 
-        default=None, 
+        default="{'call_key':'call_value}", 
         help="Données initiales (info pr call à l'IH)"
     )
     

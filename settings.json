@@ -1,27 +1,35 @@
 {
     "service": {
         "energy_consumption_assessment": [
-            "InputsCollector",
+            "call_IH",
+            "IH_converter",
             "SC_mapper"
         ]
     },
     "modules_settings": {
-        "InputsCollector": {
-            "items": [
-                "CARGOES_HANDLING_REQUESTS",
-                "RULES",
-                "SUPPLYCHAINS",
-                "RESOURCES"
-            ],
-            "schemas": {
-                "path": "./tools/json_schema/",
-                "suffix": "_schema.json"
+        "call_IH": {
+            "handlings": {
+                "full_path": "./inputs/IH_brutes/IH_2018.json"
             },
-            "inputs": {
-                "path": "./inputs/simple_examples/",
+            "set_parameters": {
+                "name": [
+                    "RULES",
+                    "SUPPLYCHAINS",
+                    "RESOURCES"
+                ],
+                "folder_path": "./inputs/simple_examples/",
                 "suffix": ".json"
+            },
+            "schemas": {
+                "folder_path": "./tools/json_schema/",
+                "suffix": "_schema.json"
             }
         },
-        "SC_mapper": {}
+        "IH_converter": {
+            "IH_converter_settings_key": "settings_value"
+        },
+        "SC_mapper": {
+            "SC_mapper_settings_key": "settings_value"
+        }
     }
 }
