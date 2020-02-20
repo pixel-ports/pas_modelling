@@ -4,21 +4,19 @@ import logging
 import json
 import os
 
-#import modules.Handlings
-
-# %% LOGGER
+os.system("clear") 
 logging.basicConfig(
     level= logging.INFO, 
-    format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
-logger = logging.getLogger("pas-modelling")
+    format='%(name) -8s %(message)s')
+logger = logging.getLogger("funkyPAS (main)")
 
 # %% MAIN
 def main(service, call) :
     '''
     Appelle les modules listés dans Settings pour le Service appeler, leurs passant successivement l'object de Call (transformé par chaque module).
     '''
-    os.system("clear") 
-    logger.warning("Begining funkyPAS")
+    
+    logger.warning("Starting")
     
     # INITIALISATION
     settings = load("./settings.json")
@@ -27,12 +25,12 @@ def main(service, call) :
     # PROCESSING
     pas = call
 
-    for module_i in modulesSequence : #TODO ajouter des assert etc
+    for module_i in modulesSequence : #TODO ajouter des assert/try pour empécher tout crash salle
         logger.warning(f"Calling module {module_i}") 
         exec('from modules.' + module_i + " import " + module_i , locals(), globals()) #FIXME donner les droits en globals ? Vérifier de quoi il retourne
         pas = eval(module_i + "(pas, settings['modules_settings'][module_i])")
     
-    logger.warning("Closing funkyPAS") 
+    logger.warning("Ending") 
 
 # %% UTILITIES
 def load(full_path):

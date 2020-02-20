@@ -2,16 +2,20 @@ import json
 import jsonschema
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
-logger = logging.getLogger("pas-modelling")
+#logging.basicConfig(level=logging.INFO, format='%(name)-8s %(message)s')
+logger = logging.getLogger("SC_mapper")
 
-def SC_mapper(INPUT, modSettings) :
+def SC_mapper(inputs, modSettings) :
     '''
     Transform previous PAS state into proper Handlings
+    Options:
+    - enable restriction filtering (default: False)
+    - allow multiple SC (default: False)
     '''
-    logger.warning("Begining SC_mapper")
-    
-    logger.warning("Ending SC_mapper")
-    return PAS
+    logger.warning("Starting")
+    for handling in inputs["handlings"] :
+        pass 
+    logger.warning("Ending")
+    return inputs
 
 

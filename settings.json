@@ -1,15 +1,16 @@
 {
     "service": {
         "energy_consumption_assessment": [
-            "call_IH",
+            "IH_getter",
             "IH_converter",
+            "Availability_calculator",
             "SC_mapper"
         ]
     },
     "modules_settings": {
-        "call_IH": {
+        "IH_getter": {
             "handlings": {
-                "full_path": "./inputs/IH_brutes/IH_2018.json"
+                "full_path": "./inputs/GPMB/IH_2018.json"
             },
             "set_parameters": {
                 "name": [
@@ -17,7 +18,7 @@
                     "SUPPLYCHAINS",
                     "RESOURCES"
                 ],
-                "folder_path": "./inputs/simple_examples/",
+                "folder_path": "./inputs/GPMB/",
                 "suffix": ".json"
             },
             "schemas": {
@@ -30,6 +31,8 @@
         },
         "SC_mapper": {
             "SC_mapper_settings_key": "settings_value"
-        }
+        },
+        "Availability_calculator":{}
+
     }
 }
