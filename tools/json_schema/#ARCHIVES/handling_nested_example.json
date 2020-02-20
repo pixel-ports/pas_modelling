@@ -1,0 +1,40 @@
+[
+    {
+        "terminal": "terminal_1",
+        "ships_list": [
+            {
+                "ID": "boat_1",
+                "category": "cargo >500 tjb",
+                "capacity": 15000,
+                "label": "Ship's labelling (eg. name)",
+                "stopovers_list": [
+                    {
+                        "ID": "stopover_1",
+                        "status": "achieved",
+                        "port_gate_ETA": "2018-11-13T20:00:00+00:00",
+                        "port_gate_ETD": "2018-11-14T14:00:00+00:00",
+                        "handlings_list": [
+                            {
+                                "ID": "handling_1",
+                                "operator": "Handling's operator's name",
+                                "dock_ID": "dock_1",
+                                "dock_ETA": "2018-11-14T15:00:00+00:00",
+								"dock_ETD": "2018-11-16T07:00:00+00:00",
+								"nature": "cargo",
+                                "contents": {
+                                    "direction": "unloading",
+									"category": "sand",
+									"segment": "solid bulk",
+                                    "amount": 4560,
+                                    "dangerous": false,
+                                    "agent": "Cargo's agent's name",
+                                    "label": "Cargo's labelling (eg. short description)"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

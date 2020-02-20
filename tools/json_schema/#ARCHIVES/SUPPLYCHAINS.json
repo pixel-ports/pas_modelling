@@ -3,9 +3,21 @@
         "ID": "SC1",
         "label": "SC_unknown's name",
         "comment": "SC_unknown's comment",
-        "shiftworks_ID": [
-                "typical"
+        "compatibility": {
+            "cargoes_category": [
+                "CargoCat1"
             ],
+            "directions_nature": [
+                "loading",
+                "unloading"
+            ],
+            "areas_ID": [
+                "Dock1"
+            ],
+            "shiftworks_ID": [
+                "typical"
+            ]
+        },
         "steps_list": [
             {
                 "ID": "Step1",

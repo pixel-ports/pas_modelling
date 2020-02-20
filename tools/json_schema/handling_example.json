@@ -1,0 +1,23 @@
+{    
+    "content_agent": "Cargo's agent's name",
+    "content_amount": 4560,
+    "content_dangerous": false,
+    "content_label": "Contents's labelling (eg. short description)",
+    "content_type": "sand",
+    "handling_direction": "unloading",
+    "handling_dock": "dock_417",
+    "handling_ID": "handling_1",
+    "handling_maxEnd":"2018-11-13T20:00:00+00:00",
+    "handling_minStart":"2018-11-13T20:00:00+00:00",
+    "handling_operator": "Handling's operator's name",
+    "handling_type": "solid bulk",
+    "ship_capacity": 15000,
+    "ship_ID": "boat_1",
+    "ship_label": "Ship's labelling (eg. name)",
+    "ship_type": "cargo >500 tjb",
+    "sstopover_ETD": "2018-11-14T14:00:00+00:00",
+    "stopover_ETA": "2018-11-13T20:00:00+00:00",
+    "stopover_ID": "stopover_1",
+    "stopover_status": "consolided",
+    "stopover_terminal": "terminal_1"
+}

@@ -81,7 +81,7 @@
         },
         {
             "ID": "E.COLZA VRAC",
-            "segment": "SOL.V",
+            "segment": "CEREAL",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -94,7 +94,7 @@
                     "dock_ID": [
                         "449"
                     ],
-                    "supply_chain_ID": "loading_SOL.V"
+                    "supply_chain_ID": "loading_CEREAL"
                 }
             ]
         },

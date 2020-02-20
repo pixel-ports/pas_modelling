@@ -6,8 +6,8 @@
             "E.COLIS LOURDS"
         ],
         "areas_ID": [
-            "417",
-            "413"
+            "413",
+            "417"
         ],
         "label": "Some label",
         "comment": "Some comment",
@@ -19,8 +19,8 @@
                 "loading"
             ],
             "areas_ID": [
-                "417",
-                "413"
+                "413",
+                "417"
             ],
             "shiftworks_ID": [
                 "typical"
@@ -84,6 +84,7 @@
             "E.BLE VRAC",
             "E.CER.+OLEAG. MIXTES",
             "E.CEREALES MIXTES VRAC",
+            "E.COLZA VRAC",
             "E.GRAINES SOJA",
             "E.MAIS VRAC",
             "E.SORGHO VRAC"
@@ -99,6 +100,7 @@
                 "E.BLE VRAC",
                 "E.CER.+OLEAG. MIXTES",
                 "E.CEREALES MIXTES VRAC",
+                "E.COLZA VRAC",
                 "E.GRAINES SOJA",
                 "E.MAIS VRAC",
                 "E.SORGHO VRAC"
@@ -256,8 +258,8 @@
             "E.CONTENEURS"
         ],
         "areas_ID": [
-            "432",
-            "433"
+            "433",
+            "432"
         ],
         "label": "Some label",
         "comment": "Some comment",
@@ -269,8 +271,8 @@
                 "loading"
             ],
             "areas_ID": [
-                "432",
-                "433"
+                "433",
+                "432"
             ],
             "shiftworks_ID": [
                 "typical"
@@ -331,7 +333,6 @@
         "ID": "loading_SOL.V",
         "directions_nature": "loading",
         "cargoes_category": [
-            "E.COLZA VRAC",
             "E.FERRAIL.REFONT.",
             "E.MINER.NON FERR.AUTRES",
             "E.PNEUS BROYES",
@@ -341,18 +342,16 @@
             "E.TRTX TOURNESOL"
         ],
         "areas_ID": [
-            "417",
+            "414",
             "434",
-            "431",
             "413",
-            "449",
-            "414"
+            "417",
+            "431"
         ],
         "label": "Some label",
         "comment": "Some comment",
         "compatibility": {
             "cargoes_category": [
-                "E.COLZA VRAC",
                 "E.FERRAIL.REFONT.",
                 "E.MINER.NON FERR.AUTRES",
                 "E.PNEUS BROYES",
@@ -365,12 +364,11 @@
                 "loading"
             ],
             "areas_ID": [
-                "417",
+                "414",
                 "434",
-                "431",
                 "413",
-                "449",
-                "414"
+                "417",
+                "431"
             ],
             "shiftworks_ID": [
                 "typical"
@@ -435,10 +433,10 @@
             "I.COLIS LOURDS"
         ],
         "areas_ID": [
-            "417",
             "413",
-            "415",
-            "416"
+            "417",
+            "416",
+            "415"
         ],
         "label": "Some label",
         "comment": "Some comment",
@@ -451,10 +449,10 @@
                 "unloading"
             ],
             "areas_ID": [
-                "417",
                 "413",
-                "415",
-                "416"
+                "417",
+                "416",
+                "415"
             ],
             "shiftworks_ID": [
                 "typical"
@@ -602,8 +600,8 @@
             "I.TALL-OIL"
         ],
         "areas_ID": [
-            "416",
-            "436"
+            "436",
+            "416"
         ],
         "label": "Some label",
         "comment": "Some comment",
@@ -623,8 +621,8 @@
                 "unloading"
             ],
             "areas_ID": [
-                "416",
-                "436"
+                "436",
+                "416"
             ],
             "shiftworks_ID": [
                 "typical"
@@ -688,8 +686,8 @@
             "I.CONTENEURS"
         ],
         "areas_ID": [
-            "432",
-            "433"
+            "433",
+            "432"
         ],
         "label": "Some label",
         "comment": "Some comment",
@@ -701,8 +699,8 @@
                 "unloading"
             ],
             "areas_ID": [
-                "432",
-                "433"
+                "433",
+                "432"
             ],
             "shiftworks_ID": [
                 "typical"
@@ -779,13 +777,13 @@
             "I.UREE VRAC"
         ],
         "areas_ID": [
-            "434",
             "416",
             "435",
-            "433",
-            "431",
+            "415",
+            "434",
             "413",
-            "415"
+            "433",
+            "431"
         ],
         "label": "Some label",
         "comment": "Some comment",
@@ -810,13 +808,13 @@
                 "unloading"
             ],
             "areas_ID": [
-                "434",
                 "416",
                 "435",
-                "433",
-                "431",
+                "415",
+                "434",
                 "413",
-                "415"
+                "433",
+                "431"
             ],
             "shiftworks_ID": [
                 "typical"
