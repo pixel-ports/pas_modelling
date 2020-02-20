@@ -1,8 +1,8 @@
 {
-    "cargoes_categories": [
+    "content_type": [
         {
-            "ID": "E.BLE VRAC",
-            "segment": "CEREAL",
+            "content_type_ID": "E.BLE VRAC",
+            "handling_type": "CEREAL",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -10,18 +10,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "449"
                     ],
-                    "supply_chain_ID": "loading_CEREAL"
+                    "supply_chain_assignation": "loading_CEREAL"
                 }
             ]
         },
         {
-            "ID": "E.CER.+OLEAG. MIXTES",
-            "segment": "CEREAL",
+            "content_type_ID": "E.CER.+OLEAG. MIXTES",
+            "handling_type": "CEREAL",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -29,19 +28,18 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "417",
                         "449"
                     ],
-                    "supply_chain_ID": "loading_CEREAL"
+                    "supply_chain_assignation": "loading_CEREAL"
                 }
             ]
         },
         {
-            "ID": "E.CEREALES MIXTES VRAC",
-            "segment": "CEREAL",
+            "content_type_ID": "E.CEREALES MIXTES VRAC",
+            "handling_type": "CEREAL",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -49,19 +47,18 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "449",
                         "417"
                     ],
-                    "supply_chain_ID": "loading_CEREAL"
+                    "supply_chain_assignation": "loading_CEREAL"
                 }
             ]
         },
         {
-            "ID": "E.COLIS LOURDS",
-            "segment": "AUTRES",
+            "content_type_ID": "E.COLIS LOURDS",
+            "handling_type": "AUTRES",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -69,19 +66,18 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "413",
                         "417"
                     ],
-                    "supply_chain_ID": "loading_AUTRES"
+                    "supply_chain_assignation": "loading_AUTRES"
                 }
             ]
         },
         {
-            "ID": "E.COLZA VRAC",
-            "segment": "SOL.V",
+            "content_type_ID": "E.COLZA VRAC",
+            "handling_type": "CEREAL",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -89,18 +85,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "449"
                     ],
-                    "supply_chain_ID": "loading_SOL.V"
+                    "supply_chain_assignation": "loading_CEREAL"
                 }
             ]
         },
         {
-            "ID": "E.CONTENEURS",
-            "segment": "P.C.",
+            "content_type_ID": "E.CONTENEURS",
+            "handling_type": "P.C.",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -108,19 +103,18 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "432",
                         "433"
                     ],
-                    "supply_chain_ID": "loading_P.C."
+                    "supply_chain_assignation": "loading_P.C."
                 }
             ]
         },
         {
-            "ID": "E.EMHV - EMAG - FAME ",
-            "segment": "LIQ.V",
+            "content_type_ID": "E.EMHV - EMAG - FAME ",
+            "handling_type": "LIQ.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -128,18 +122,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "436"
                     ],
-                    "supply_chain_ID": "loading_LIQ.V"
+                    "supply_chain_assignation": "loading_LIQ.V"
                 }
             ]
         },
         {
-            "ID": "E.FERRAIL.REFONT.",
-            "segment": "SOL.V",
+            "content_type_ID": "E.FERRAIL.REFONT.",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -147,18 +140,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "414"
                     ],
-                    "supply_chain_ID": "loading_SOL.V"
+                    "supply_chain_assignation": "loading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "E.GRAINES SOJA",
-            "segment": "CEREAL",
+            "content_type_ID": "E.GRAINES SOJA",
+            "handling_type": "CEREAL",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -166,18 +158,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "449"
                     ],
-                    "supply_chain_ID": "loading_CEREAL"
+                    "supply_chain_assignation": "loading_CEREAL"
                 }
             ]
         },
         {
-            "ID": "E.HUILE COLZA",
-            "segment": "LIQ.V",
+            "content_type_ID": "E.HUILE COLZA",
+            "handling_type": "LIQ.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -185,18 +176,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "436"
                     ],
-                    "supply_chain_ID": "loading_LIQ.V"
+                    "supply_chain_assignation": "loading_LIQ.V"
                 }
             ]
         },
         {
-            "ID": "E.HUILE TOURNESOL",
-            "segment": "LIQ.V",
+            "content_type_ID": "E.HUILE TOURNESOL",
+            "handling_type": "LIQ.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -204,18 +194,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "436"
                     ],
-                    "supply_chain_ID": "loading_LIQ.V"
+                    "supply_chain_assignation": "loading_LIQ.V"
                 }
             ]
         },
         {
-            "ID": "E.HUILES MIXTES",
-            "segment": "LIQ.V",
+            "content_type_ID": "E.HUILES MIXTES",
+            "handling_type": "LIQ.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -223,18 +212,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "436"
                     ],
-                    "supply_chain_ID": "loading_LIQ.V"
+                    "supply_chain_assignation": "loading_LIQ.V"
                 }
             ]
         },
         {
-            "ID": "E.MAIS VRAC",
-            "segment": "CEREAL",
+            "content_type_ID": "E.MAIS VRAC",
+            "handling_type": "CEREAL",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -242,19 +230,18 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "449",
                         "417"
                     ],
-                    "supply_chain_ID": "loading_CEREAL"
+                    "supply_chain_assignation": "loading_CEREAL"
                 }
             ]
         },
         {
-            "ID": "E.MINER.NON FERR.AUTRES",
-            "segment": "SOL.V",
+            "content_type_ID": "E.MINER.NON FERR.AUTRES",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -262,18 +249,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "413"
                     ],
-                    "supply_chain_ID": "loading_SOL.V"
+                    "supply_chain_assignation": "loading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "E.PNEUS BROYES",
-            "segment": "SOL.V",
+            "content_type_ID": "E.PNEUS BROYES",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -281,20 +267,19 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "413",
                         "417",
                         "414"
                     ],
-                    "supply_chain_ID": "loading_SOL.V"
+                    "supply_chain_assignation": "loading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "E.PROD.CHIM.LIQ. AUTRES",
-            "segment": "LIQ.V",
+            "content_type_ID": "E.PROD.CHIM.LIQ. AUTRES",
+            "handling_type": "LIQ.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -302,18 +287,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "436"
                     ],
-                    "supply_chain_ID": "loading_LIQ.V"
+                    "supply_chain_assignation": "loading_LIQ.V"
                 }
             ]
         },
         {
-            "ID": "E.SORGHO VRAC",
-            "segment": "CEREAL",
+            "content_type_ID": "E.SORGHO VRAC",
+            "handling_type": "CEREAL",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -321,18 +305,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "449"
                     ],
-                    "supply_chain_ID": "loading_CEREAL"
+                    "supply_chain_assignation": "loading_CEREAL"
                 }
             ]
         },
         {
-            "ID": "E.TALC",
-            "segment": "SOL.V",
+            "content_type_ID": "E.TALC",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -340,18 +323,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "431"
                     ],
-                    "supply_chain_ID": "loading_SOL.V"
+                    "supply_chain_assignation": "loading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "E.TERRE REFRACT.",
-            "segment": "SOL.V",
+            "content_type_ID": "E.TERRE REFRACT.",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -359,18 +341,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "413"
                     ],
-                    "supply_chain_ID": "loading_SOL.V"
+                    "supply_chain_assignation": "loading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "E.TRTX COLZA",
-            "segment": "SOL.V",
+            "content_type_ID": "E.TRTX COLZA",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -378,19 +359,18 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "417",
                         "413"
                     ],
-                    "supply_chain_ID": "loading_SOL.V"
+                    "supply_chain_assignation": "loading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "E.TRTX TOURNESOL",
-            "segment": "SOL.V",
+            "content_type_ID": "E.TRTX TOURNESOL",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -398,19 +378,18 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "loading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "loading",
+                    "dock_restriction": [
                         "417",
                         "434"
                     ],
-                    "supply_chain_ID": "loading_SOL.V"
+                    "supply_chain_assignation": "loading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "I.BOIS SCIES DU NORD",
-            "segment": "AUTRES",
+            "content_type_ID": "I.BOIS SCIES DU NORD",
+            "handling_type": "AUTRES",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -418,20 +397,19 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "417",
                         "415",
                         "416"
                     ],
-                    "supply_chain_ID": "unloading_AUTRES"
+                    "supply_chain_assignation": "unloading_AUTRES"
                 }
             ]
         },
         {
-            "ID": "I.BOIS+COPEAUX MIXTES",
-            "segment": "SOL.V",
+            "content_type_ID": "I.BOIS+COPEAUX MIXTES",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -439,18 +417,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "413"
                     ],
-                    "supply_chain_ID": "unloading_SOL.V"
+                    "supply_chain_assignation": "unloading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "I.BUTADIENE",
-            "segment": "GAZ.L",
+            "content_type_ID": "I.BUTADIENE",
+            "handling_type": "GAZ.L",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -458,18 +435,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "436"
                     ],
-                    "supply_chain_ID": "unloading_GAZ.L"
+                    "supply_chain_assignation": "unloading_GAZ.L"
                 }
             ]
         },
         {
-            "ID": "I.CHARBON",
-            "segment": "SOL.V",
+            "content_type_ID": "I.CHARBON",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -477,18 +453,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "435"
                     ],
-                    "supply_chain_ID": "unloading_SOL.V"
+                    "supply_chain_assignation": "unloading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "I.CIMENT",
-            "segment": "SOL.V",
+            "content_type_ID": "I.CIMENT",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -496,18 +471,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "413"
                     ],
-                    "supply_chain_ID": "unloading_SOL.V"
+                    "supply_chain_assignation": "unloading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "I.CLINKER",
-            "segment": "SOL.V",
+            "content_type_ID": "I.CLINKER",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -515,20 +489,19 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "416",
                         "431",
                         "415"
                     ],
-                    "supply_chain_ID": "unloading_SOL.V"
+                    "supply_chain_assignation": "unloading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "I.COLIS LOURDS",
-            "segment": "AUTRES",
+            "content_type_ID": "I.COLIS LOURDS",
+            "handling_type": "AUTRES",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -536,18 +509,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "413"
                     ],
-                    "supply_chain_ID": "unloading_AUTRES"
+                    "supply_chain_assignation": "unloading_AUTRES"
                 }
             ]
         },
         {
-            "ID": "I.COLZA VRAC",
-            "segment": "SOL.V",
+            "content_type_ID": "I.COLZA VRAC",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -555,18 +527,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "434"
                     ],
-                    "supply_chain_ID": "unloading_SOL.V"
+                    "supply_chain_assignation": "unloading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "I.CONTENEURS",
-            "segment": "P.C.",
+            "content_type_ID": "I.CONTENEURS",
+            "handling_type": "P.C.",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -574,19 +545,18 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "432",
                         "433"
                     ],
-                    "supply_chain_ID": "unloading_P.C."
+                    "supply_chain_assignation": "unloading_P.C."
                 }
             ]
         },
         {
-            "ID": "I.EMHV - EMAG - FAME",
-            "segment": "LIQ.V",
+            "content_type_ID": "I.EMHV - EMAG - FAME",
+            "handling_type": "LIQ.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -594,18 +564,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "436"
                     ],
-                    "supply_chain_ID": "unloading_LIQ.V"
+                    "supply_chain_assignation": "unloading_LIQ.V"
                 }
             ]
         },
         {
-            "ID": "I.ENGR.LIQUIDES",
-            "segment": "LIQ.V",
+            "content_type_ID": "I.ENGR.LIQUIDES",
+            "handling_type": "LIQ.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -613,18 +582,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "436"
                     ],
-                    "supply_chain_ID": "unloading_LIQ.V"
+                    "supply_chain_assignation": "unloading_LIQ.V"
                 }
             ]
         },
         {
-            "ID": "I.ENGR.MANUF.VRAC",
-            "segment": "SOL.V",
+            "content_type_ID": "I.ENGR.MANUF.VRAC",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -632,18 +600,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "433"
                     ],
-                    "supply_chain_ID": "unloading_SOL.V"
+                    "supply_chain_assignation": "unloading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "I.HUILE COLZA",
-            "segment": "LIQ.V",
+            "content_type_ID": "I.HUILE COLZA",
+            "handling_type": "LIQ.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -651,18 +618,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "436"
                     ],
-                    "supply_chain_ID": "unloading_LIQ.V"
+                    "supply_chain_assignation": "unloading_LIQ.V"
                 }
             ]
         },
         {
-            "ID": "I.HUILE SOJA",
-            "segment": "LIQ.V",
+            "content_type_ID": "I.HUILE SOJA",
+            "handling_type": "LIQ.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -670,18 +636,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "436"
                     ],
-                    "supply_chain_ID": "unloading_LIQ.V"
+                    "supply_chain_assignation": "unloading_LIQ.V"
                 }
             ]
         },
         {
-            "ID": "I.HUILE TOURNESOL",
-            "segment": "LIQ.V",
+            "content_type_ID": "I.HUILE TOURNESOL",
+            "handling_type": "LIQ.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -689,18 +654,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "436"
                     ],
-                    "supply_chain_ID": "unloading_LIQ.V"
+                    "supply_chain_assignation": "unloading_LIQ.V"
                 }
             ]
         },
         {
-            "ID": "I.HUILES MIXTES",
-            "segment": "LIQ.V",
+            "content_type_ID": "I.HUILES MIXTES",
+            "handling_type": "LIQ.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -708,18 +672,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "436"
                     ],
-                    "supply_chain_ID": "unloading_LIQ.V"
+                    "supply_chain_assignation": "unloading_LIQ.V"
                 }
             ]
         },
         {
-            "ID": "I.KAOLIN",
-            "segment": "SOL.V",
+            "content_type_ID": "I.KAOLIN",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -727,18 +690,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "413"
                     ],
-                    "supply_chain_ID": "unloading_SOL.V"
+                    "supply_chain_assignation": "unloading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "I.LAITIERS",
-            "segment": "SOL.V",
+            "content_type_ID": "I.LAITIERS",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -746,18 +708,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "435"
                     ],
-                    "supply_chain_ID": "unloading_SOL.V"
+                    "supply_chain_assignation": "unloading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "I.MELASSES",
-            "segment": "LIQ.V",
+            "content_type_ID": "I.MELASSES",
+            "handling_type": "LIQ.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -765,18 +726,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "416"
                     ],
-                    "supply_chain_ID": "unloading_LIQ.V"
+                    "supply_chain_assignation": "unloading_LIQ.V"
                 }
             ]
         },
         {
-            "ID": "I.METHANOL",
-            "segment": "LIQ.V",
+            "content_type_ID": "I.METHANOL",
+            "handling_type": "LIQ.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -784,18 +744,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "436"
                     ],
-                    "supply_chain_ID": "unloading_LIQ.V"
+                    "supply_chain_assignation": "unloading_LIQ.V"
                 }
             ]
         },
         {
-            "ID": "I.MINERAUX AUTRES",
-            "segment": "SOL.V",
+            "content_type_ID": "I.MINERAUX AUTRES",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -803,18 +762,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "434"
                     ],
-                    "supply_chain_ID": "unloading_SOL.V"
+                    "supply_chain_assignation": "unloading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "I.POTASSE VRAC",
-            "segment": "SOL.V",
+            "content_type_ID": "I.POTASSE VRAC",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -822,18 +780,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "433"
                     ],
-                    "supply_chain_ID": "unloading_SOL.V"
+                    "supply_chain_assignation": "unloading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "I.SEL",
-            "segment": "SOL.V",
+            "content_type_ID": "I.SEL",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -841,18 +798,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "433"
                     ],
-                    "supply_chain_ID": "unloading_SOL.V"
+                    "supply_chain_assignation": "unloading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "I.TALL-OIL",
-            "segment": "LIQ.V",
+            "content_type_ID": "I.TALL-OIL",
+            "handling_type": "LIQ.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -860,18 +816,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "436"
                     ],
-                    "supply_chain_ID": "unloading_LIQ.V"
+                    "supply_chain_assignation": "unloading_LIQ.V"
                 }
             ]
         },
         {
-            "ID": "I.TOURBE",
-            "segment": "SOL.V",
+            "content_type_ID": "I.TOURBE",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -879,18 +834,17 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "413"
                     ],
-                    "supply_chain_ID": "unloading_SOL.V"
+                    "supply_chain_assignation": "unloading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "I.TOURNESOL VRAC",
-            "segment": "SOL.V",
+            "content_type_ID": "I.TOURNESOL VRAC",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -898,20 +852,19 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "413",
                         "434",
                         "435"
                     ],
-                    "supply_chain_ID": "unloading_SOL.V"
+                    "supply_chain_assignation": "unloading_SOL.V"
                 }
             ]
         },
         {
-            "ID": "I.UREE VRAC",
-            "segment": "SOL.V",
+            "content_type_ID": "I.UREE VRAC",
+            "handling_type": "SOL.V",
             "unit": "Tons",
             "typical_amount_range": [
                 500,
@@ -919,13 +872,12 @@
             ],
             "assignation_preference": [
                 {
-                    "priority": 1,
-                    "direction": "unloading",
-                    "dock_ID": [
+                    "handling_direction_restriction": "unloading",
+                    "dock_restriction": [
                         "433",
                         "415"
                     ],
-                    "supply_chain_ID": "unloading_SOL.V"
+                    "supply_chain_assignation": "unloading_SOL.V"
                 }
             ]
         }
@@ -973,7 +925,5 @@
             ]
         }
     ],
-    "priority": {},
-    "assignment": {},
-    "validity": {}
+    "handling_priority": {}
 }
