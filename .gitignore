@@ -1,10 +1,8 @@
 __pycache__/
 *.pyc
-.vscode/
 */.ipynb_checkpoints/*
 *.dat
 callgrind.out.*
 massif.out.*
 output.json
 /outputs
-Set de commande pr run PAS modelling
