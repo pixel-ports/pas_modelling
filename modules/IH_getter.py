@@ -4,50 +4,49 @@ from typing import Iterable
 import jsonschema
 from pathlib import Path
 
-# %% LOGGER
 logger = logging.getLogger("IH_getter")
 
-'''
-Appelle l'IH sur la base des données passées, pour récupérer toutes les informations (input=handling + paramètres=set_parameters), les mettres dans un object unique renvoyé
-'''
-def IH_getter(IH_call_parameters, modSettings):
 
+def IH_getter(pas, module_settings):
+    '''
+    Converts call_parameters to stopover_seed (raw data from IH)
+    '''
     logger.warning("Starting")
 
     # %% CHECKING INPUTS
     #TODO passer par un shema sur le call ? 
 
-    #PROCESSING #TODO remplacer par la récupération sur l'IH (sur la base de input)
-    pas = {}
-
-    ##HANDLINGS
-    pas["handlings"] = load(
-        modSettings["handlings"]["full_path"])
-
-    ##SET_PARAMETERS
-    pas["parameters"] = {}
-    for item in modSettings["set_parameters"]["name"] :#TODO assert etc
-        #logger.warning(f"loading : {file_path}")
-        pas["parameters"][item] = load(
-            modSettings["set_parameters"]["folder_path"] +
-            item +
-            modSettings["set_parameters"]["suffix"]
+    #PROCESSING 
+    ## Récupérations stopovers #TODO remplacer par la récupération sur l'IH (sur la base de call_parameters)
+    pas["state"] = [record["data"] for record in load(module_settings["handlings"]["full_path"])[0]["records"]] #Le 0 est pr le terminal de Bassens
+    #LOG
+    
+    ## Récupération des paramètres
+    for parameter_name in module_settings["pas_parameters"]["name"] :
+        pas["parameters"][parameter_name] = load(
+            module_settings["pas_parameters"]["folder_path"] +
+            parameter_name +
+            module_settings["pas_parameters"]["suffix"]
         )
-    #CHECKING OUTPUT
-    #FIXME compléter le set de json-schema et réactiver cette partie
-    # for item in modSettings["set_parameters"]["name"] :
-    #     jsonschema.validate(
-    #         pas["parameters"][item], 
-    #         load(
-    #             #"." +
-    #             modSettings["schemas"]["folder_path"] +
-    #             item +
-    #             modSettings["schemas"]["suffix"]
-    #         )
-    #     )
+
+        ## Vérification du json-shema
+        try:
+            jsonschema.validate(
+                pas["parameters"][parameter_name], 
+                load(
+                    #"." +
+                    module_settings["schemas"]["folder_path"] +
+                    parameter_name +
+                    module_settings["schemas"]["suffix"]
+                )
+            )
+        except: #FIXME Erreur chagement ou validation
+            pass
+        #LOG
+        
 
     logger.warning("Ending")
-    return pas 
+    return pas
 
 # %% UTILITIES
 def load(full_path):

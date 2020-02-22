@@ -1,5 +1,5 @@
 {
-    "service": {
+    "pipelines": {
         "energy_consumption_assessment": [
             "IH_getter",
             "IH_converter",
@@ -12,7 +12,7 @@
             "handlings": {
                 "full_path": "./inputs/GPMB/IH_2018.json"
             },
-            "set_parameters": {
+            "pas_parameters": {
                 "name": [
                     "RULES",
                     "SUPPLYCHAINS",
@@ -30,9 +30,13 @@
             "IH_converter_settings_key": "settings_value"
         },
         "SC_mapper": {
-            "SC_mapper_settings_key": "settings_value"
+            "restrictions": {
+                "direction": true,
+                "dock": true,
+                "amount_min": true,
+                "amount_max": true
+            }
         },
-        "Availability_calculator":{}
-
+        "Availability_calculator": {}
     }
 }

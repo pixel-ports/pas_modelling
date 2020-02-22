@@ -3,11 +3,10 @@ import jsonschema
 import logging
 import datetime
 
-# %% LOGGER
 logger = logging.getLogger("Availability_calculator")
 
 
-def Availability_calculator(inputs, modSettings) :
+def Availability_calculator(pas, module_settings) :
     '''
     Infer handling earliest possible TS for begining processing
     '''
@@ -16,7 +15,7 @@ def Availability_calculator(inputs, modSettings) :
     # CHECK INPUT
 
     # PROCESSING
-    for handling in inputs["handlings"]: #TODO factoriser les 2 cas
+    for handling in pas["state"]: #TODO factoriser les 2 cas
         # Disponnible au plus tôt
         try :
             handling["handling_minStart"] = handling["stopover_ETA"] + journey_duration(handling) + inspection_duration(handling) #On doit pouvoir raisonnablement se limiter à un try sur handling["ship_ETA"]
@@ -35,9 +34,8 @@ def Availability_calculator(inputs, modSettings) :
 
 
     # CHECK OUTPUT
-
     logger.warning("Ending")
-    return inputs #Cette fois on transforme directement l'objet :/
+    return pas
 
 
 #================================================================
