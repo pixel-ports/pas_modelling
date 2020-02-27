@@ -12,4 +12,14 @@ V0.1
 ### TODO
 Tout
 
+# USE
+
+## PIPELINES
+
+geting_stopovers: url_IH --> PAS (stopover + parameters + logs)
+stopovers2handlings
+où mettre availability
+handlings2operations
+(opération c'est avec durée ?)
+
 '''

@@ -14,37 +14,48 @@ def IH_converter(pas, module_settings) :
 
 	handlings = []
 	handling_counter = 0
-	log= {
-		"rejected_handlings": {
-			"invalid_key" : {
-				"direction":[],
-				"amount":[],
-				"status":[]
-			}
-		}
-	}
 
 
 	# PROCESSING
 	for stopover in pas["state"]:
-		handling_counter += 1 #C'est un ID qui peut apparaitre à l'utilisateur ==> on commence à 1
+		handling_counter += 1 #C'est un ID qui peut apparaitre à l'utilisateur ==> on commence à 1 utiliser enumerate dans la list compehension?
 		if stopover["operation"] in ["loading", "unloading"] :
 			handlings.append(transmutStopovers(stopover, handling_counter))
 		else :
-			log["rejected_handlings"]["invalid_key"]["handling_direction"].append(stopover)
+			pas["log"]['rejected_handlings'].append({
+				"issue": {
+					'invalid_key': {
+						"key":"handling_direction",
+						"value":stopover["handling_direction"],
+						"comment": "Should be equal to loading or unloading"
+					}
+				},
+				"module":"IH_converter",
+				"item": stopover
+			})
 
 
 	# FILTRATION #TODO
-		# - content type référencé
+		# - content type référencé (simple warning cause géré par default_SC)
 		# - handling type référencé
-		# - doc référencé
+		# - dock référencé
+		# - pas de doublons
 		# - content et handling type cohérents
 		# - sortie postérieur entrée
 		# - amount cohérent capacité
+		# - check contre un schéma ?
+	temp_filtre_handlings = [handling for handling in handlings if (
+		handling["content_amount"]>0
+		and handling["content_type"]!="" #VARIANTE (drastique): in [rule_content_type["content_type_ID"] for rule_content_type in pas["parameters"]["RULES"]["content_type_list"]]
+		and handling["handling_direction"] in ["loading", "unloading"]
+		and handling["handling_dock"]!=""
+		#and handling["handling_minStart"] < handling["handling_maxEnd"] #FIXME "'<' not supported between instances of 'datetime.datetime' and 'NoneType'"
+		and handling["handling_type"]!="" 
+		#and handling["stopover_ETA"] < handling["stopover_ETD"]
+	)]
 
 	# CHECK OUTPUT
-	pas["state"] = handlings
-	pas["log"]["IH_converter"] = log 
+	pas["state"] = temp_filtre_handlings #handlings
 
 	logger.warning("Ending")
 	return pas

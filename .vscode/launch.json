@@ -5,12 +5,18 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python : Fichier actuel",
+            "name": "funkyPAS",
             "type": "python",
             "request": "launch",
-            "program": "./funkyPAS.py",
+            "program": "${workspaceFolder}/funkyPAS.py",
             "console": "integratedTerminal",
-
+        },
+        {
+            "name": "scratchpad",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/modules/scratchpad.py",
+            "console": "integratedTerminal",
         }
     ]
 }

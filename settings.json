@@ -31,10 +31,10 @@
         },
         "SC_mapper": {
             "restrictions": {
-                "direction": true,
-                "dock": true,
-                "amount_min": true,
-                "amount_max": true
+                "direction": false,
+                "dock": false,
+                "amount_min": false,
+                "amount_max": false
             }
         },
         "Availability_calculator": {}
