@@ -135,3 +135,44 @@ def testing_SC(handling, assignation_restrictions, settings_restrictions):
 	
 	return True #(True, "all restrictions match")
 	#Faire un output en vecteur booléen ?
+
+#%% QUESTION ALEX
+
+import numpy as np
+import pandas as pd
+#%%
+npArray = np.array([1, 2, 3]) #Int
+nestedArray = np.array(
+	np.array(
+		[
+			npArray, 
+			np.append(
+				npArray+3, 
+				[7]
+			)
+		]
+	)
+)
+nestedArray
+
+#%% Instanciation du df
+try :
+	df = pd.DataFrame(	
+		data = nestedArray,
+		columns = ["colNestedArray"],
+	)
+except ValueError:
+	"Pandas se plante (1 columns passed, passed data had 2 columns)"
+
+df = pd.DataFrame.from_dict(	
+	data = {"colNestedArray": nestedArray}
+)
+
+#%%
+df.info()
+df
+
+# %%
+df["flatArray"]= nestedArray.values.tolist()
+
+# %%
