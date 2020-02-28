@@ -4,10 +4,8 @@
 			"ID":"Dock1",
 			"label":"",
 			"type":"dock",
-			"<<examples":["docks", "silo", "warehouses", "office", "gates", "other"],
 			"owner":"",
-			"terminal":"",
-			"<<comment":"Les areas peuvent avoir des consommations fixes (ou un nombre d'item, comme lampes et containers ?), sans lien avec un handling"
+			"terminal":""
 		}
 	],
 	"machines":[
