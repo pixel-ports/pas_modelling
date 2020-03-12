@@ -5,21 +5,21 @@ import logging
 logger = logging.getLogger("SC_mapper")
 
 
-def SC_mapper(pas, module_settings) :
+def SC_mapper(PAS, module_settings) :
 	'''
 	handling --> handling + [SC]
 
 	Add to each handling an array of suitable SupplyChains (deduced from parameters "RULES>content_type_list").
 	Optionnal filtration can be enabled into Setting
 	'''
-	logger.warning("Starting")
+	# logger.warning("Starting")
 
 
 	# ASSIGNATION SC DU CONTENT TYPE
-	for handling in pas["state"] :
+	for handling in PAS["state"] :
 		#AJOUT DES SC QUI MATCHENT
 		#VARIANTE (boucle)
-		for content_type in pas['parameters']['RULES']['content_type_list'] :
+		for content_type in PAS['parameters']['RULES']['content_type_list'] :
 			if content_type["content_type_ID"] == handling["content_type"] : 
 				for candidat_SC in content_type["suitable_SC"] :
 					if testing_SC(handling, candidat_SC["restrictions"], module_settings["restrictions"]):
@@ -30,7 +30,7 @@ def SC_mapper(pas, module_settings) :
 		'''#VARIANTE (hybride)
 		#Matching du content_type
 		matching_content_type_list = [content_type for content_type 
-			in pas["parameters"]["RULES"]["content_type_list"] 
+			in PAS["parameters"]["RULES"]["content_type_list"] 
 			if content_type["content_type_ID"] == handling["content_type"]]
 
 		#Log si content_type en double dans Rules
@@ -57,7 +57,7 @@ def SC_mapper(pas, module_settings) :
 		
 		'''#VARIANTE (list comprehension)
 		matching_content_type_list = [content_type 
-			for content_type in pas['parameters']['RULES']['content_type_list'] 
+			for content_type in PAS['parameters']['RULES']['content_type_list'] 
 			if content_type["content_type_ID"] == handling["content_type"]]
 		
 		if len(matching_content_type_list) == 1 : #c'est cette condition qui est embettante
@@ -69,7 +69,7 @@ def SC_mapper(pas, module_settings) :
 		'''
 	# GESTION DES HANDLINGS SANS SC #Doit couvrir l'ensemble des cas, pas uniquement les handlings sans CT qui match (donc après)
 	handlings_ss_SC= [handling 
-		for handling in pas["state"] 
+		for handling in PAS["state"] 
 		if len(handling.setdefault("supplychains", []))==0]
 	
 	print(f"Nb de handlings sans supplychain: {len(handlings_ss_SC)}")
@@ -78,10 +78,10 @@ def SC_mapper(pas, module_settings) :
 
 		#TODO Appliquer une SC par défaut
 		# for handling in handlings_ss_SC :
-	è	# 	handling = assigning_default_SC(handling)
+		# 	handling = assigning_default_SC(handling)
 		#TODO Rejetter les handling sans SC en log
 		# if len(matching_content_type_list) == 0:
-		# 	pas["log"]['rejected_handlings'].append({
+		# 	PAS["log"]['rejected_handlings'].append({
 		# 		"issue": {
 		# 			'invalid_key': {
 		# 				"key":"content_type",
@@ -93,9 +93,9 @@ def SC_mapper(pas, module_settings) :
 		# 		"handling": handling
 		# 	})
 		
-	logger.warning("Ending")
+	# logger.warning("Ending")
 	#print(candidat_SCs)
-	return pas
+	return PAS
 
 def calculating_duration(pas, module_settings) :
 	return #TODO
@@ -136,43 +136,3 @@ def testing_SC(handling, assignation_restrictions, settings_restrictions):
 	return True #(True, "all restrictions match")
 	#Faire un output en vecteur booléen ?
 
-#%% QUESTION ALEX
-
-import numpy as np
-import pandas as pd
-#%%
-npArray = np.array([1, 2, 3]) #Int
-nestedArray = np.array(
-	np.array(
-		[
-			npArray, 
-			np.append(
-				npArray+3, 
-				[7]
-			)
-		]
-	)
-)
-nestedArray
-
-#%% Instanciation du df
-try :
-	df = pd.DataFrame(	
-		data = nestedArray,
-		columns = ["colNestedArray"],
-	)
-except ValueError:
-	"Pandas se plante (1 columns passed, passed data had 2 columns)"
-
-df = pd.DataFrame.from_dict(	
-	data = {"colNestedArray": nestedArray}
-)
-
-#%%
-df.info()
-df
-
-# %%
-df["flatArray"]= nestedArray.values.tolist()
-
-# %%

@@ -1,14 +1,13 @@
 {
     "pipelines": {
         "energy_consumption_assessment": [
-            "IH_getter",
+            "IH_requeter",
             "IH_converter",
-            "Availability_calculator",
             "SC_mapper"
         ]
     },
     "modules_settings": {
-        "IH_getter": {
+        "IH_requeter": {
             "handlings": {
                 "full_path": "./inputs/GPMB/IH_2018.json"
             },
@@ -36,7 +35,6 @@
                 "amount_min": false,
                 "amount_max": false
             }
-        },
-        "Availability_calculator": {}
+        }
     }
 }

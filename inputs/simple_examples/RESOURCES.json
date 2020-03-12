@@ -1,5 +1,5 @@
 {
-	"areas":[
+	"areas_collection":[
 		{
 			"ID":"Dock1",
 			"label":"",
@@ -10,7 +10,7 @@
 			"<<comment":"Les areas peuvent avoir des consommations fixes (ou un nombre d'item, comme lampes et containers ?), sans lien avec un handling"
 		}
 	],
-	"machines":[
+	"machines_collection":[
 		{
 			"ID":"Machine1",
 			"label":"PORTIQUE_Centrale_hydraulique",

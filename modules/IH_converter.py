@@ -6,23 +6,25 @@ import datetime
 logger = logging.getLogger("IH_converter")
 
 
-def IH_converter(pas, module_settings) :
+def IH_converter(PAS, module_settings) :
 	'''
-	Transform stopover_seed into proper Handlings
+	Transform IH's stopover data into proper handlings request.
 	'''
-	logger.warning("Starting")
+	# logger.warning("Starting")
 
 	handlings = []
 	handling_counter = 0
 
-
-	# PROCESSING
-	for stopover in pas["state"]:
-		handling_counter += 1 #C'est un ID qui peut apparaitre à l'utilisateur ==> on commence à 1 utiliser enumerate dans la list compehension?
-		if stopover["operation"] in ["loading", "unloading"] :
-			handlings.append(transmutStopovers(stopover, handling_counter))
-		else :
-			pas["log"]['rejected_handlings'].append({
+	# CONVERTION DES CHAMPS
+	for stopover in PAS["state"]:
+		handling_counter += 1
+		try:
+			stopover_converter(stopover, handling_counter)
+			PAS["log"]["module"].append(f"IH_converter: successfully converted stopover {stopover}")
+			logger.warning(f"IH_converter: successfully converted stopover {stopover}")
+		except :
+			logger.warning(f"IH_converter: issue on convertion for stopover {stopover}")
+			PAS["log"].get(['rejected_handlings'], []).append({
 				"issue": {
 					'invalid_key': {
 						"key":"handling_direction",
@@ -35,18 +37,19 @@ def IH_converter(pas, module_settings) :
 			})
 
 
-	# FILTRATION #TODO
-		# - content type référencé (simple warning cause géré par default_SC)
-		# - handling type référencé
-		# - dock référencé
-		# - pas de doublons
-		# - content et handling type cohérents
-		# - sortie postérieur entrée
-		# - amount cohérent capacité
-		# - check contre un schéma ?
+	# FILTRATION 
+	#TODO
+	# - content type référencé (simple warning cause géré par default_SC)
+	# - handling type référencé
+	# - dock référencé
+	# - pas de doublons
+	# - content et handling type cohérents
+	# - sortie postérieur entrée
+	# - amount cohérent capacité
+	# - check contre un schéma ?
 	temp_filtre_handlings = [handling for handling in handlings if (
 		handling["content_amount"]>0
-		and handling["content_type"]!="" #VARIANTE (drastique): in [rule_content_type["content_type_ID"] for rule_content_type in pas["parameters"]["RULES"]["content_type_list"]]
+		and handling["content_type"]!="" #VARIANTE (drastique): in [rule_content_type["content_type_ID"] for rule_content_type in PAS["parameters"]["RULES"]["content_type_list"]]
 		and handling["handling_direction"] in ["loading", "unloading"]
 		and handling["handling_dock"]!=""
 		#and handling["handling_minStart"] < handling["handling_maxEnd"] #FIXME "'<' not supported between instances of 'datetime.datetime' and 'NoneType'"
@@ -54,40 +57,43 @@ def IH_converter(pas, module_settings) :
 		#and handling["stopover_ETA"] < handling["stopover_ETD"]
 	)]
 
-	# CHECK OUTPUT
-	pas["state"] = temp_filtre_handlings #handlings
+	PAS["state"] = temp_filtre_handlings #handlings
 
-	logger.warning("Ending")
-	return pas
+	# logger.warning("Ending")
+	return PAS
 
-def transmutStopovers(stopover, counter):
-	#FIXME Quid des stopovers avec 2 handlings incorporés ? est ce que le stopover a été doublé dans l'IH? ou alors autre clé que loading OU unloading?
-	#TODO mettre un try de validation contre le schema. Si échec, identifier la (première) clé problématique et mettre dans les rejetés correspondants (on garde le get(None pr les champs non critiques))
-	direction = stopover["operation"]
-	handling = {
-		"content_agent":		stopover.get(direction + "_agent", None),
-		"content_amount":		stopover.get(direction + "_tonnage", None),
-		"content_dangerous":	stopover.get(direction + "_dangerous", None),
-		"content_label":		None,
-		"content_type":			stopover.get(direction + "_cargo_type", None),
-		"handling_direction":   stopover.get("operation", None),
-		"handling_dock":		str(stopover.get(direction + "_berth", None)),
-		"handling_ID": 			"handling_" + str(counter),
-		"handling_maxEnd":		timeConvert(stopover.get("departure_dock", None)), 
-		"handling_minStart":	timeConvert(stopover.get("arrival_dock", None)), #Sera affiné par Availability_calculator si activé dans le service.
-		"handling_operator": 	stopover.get("operator", None),
-		"handling_type": 		stopover.get(direction + "_cargo_fiscal_type", None),
-		"ship_capacity":		None,
-		"ship_ID":				str(stopover.get("IMO", None)),
-		"ship_label": 			stopover.get("name", None),
-		"ship_type": 			None,
-		"stopover_ETA": 		timeConvert(stopover.get("arrival_dock", None)),
-		"stopover_ETD": 		timeConvert(stopover.get("departure_dock", None)),
-		"stopover_ID":			str(stopover.get("journeyid", None)),
-		"stopover_status": 		None, #TODO inférer valeur d'après les champs présent
-		"stopover_terminal": 	None
+
+#=========================================================================
+def stopover_converter(stopover, counter):
+	'''Convert one IH's stopover record (combined forced loading and unloading) into proper handling, with a key selection based on 'operation' value
+	NB: for a real dual stopover (unloading AND loading), only the one corresponding to the 'operation' value will be converted to handling ! #FIXME: à voir avec DAL/IH
+	'''
+	if stopover["operation"] in ["loading", "unloading"] :
+		return {
+			"content_agent":		stopover.get(stopover["operation"] + "_agent", None),
+			"content_amount":		stopover.get(stopover["operation"] + "_tonnage", None),
+			"content_dangerous":	stopover.get(stopover["operation"] + "_dangerous", None),
+			"content_label":		None,
+			"content_type":			stopover.get(stopover["operation"] + "_cargo_type", None),
+			"handling_direction":   stopover.get("operation", None),
+			"handling_dock":		str(stopover.get(stopover["operation"] + "_berth", None)),
+			"handling_ID": 			"handling_" + str(counter),
+			"handling_lattestEnd":		timeConvert(stopover.get("departure_dock", None)), #Suivant le sens réel de stopover_ETD, peut nécessiter de soustraire journey_duration(handling) 
+			"handling_earliestStart":	timeConvert(stopover.get("arrival_dock", None)) + journey_duration(stopover) + inspection_duration(stopover), #Cf stopover_ETA
+			"handling_operator": 	stopover.get("operator", None),
+			"handling_type": 		stopover.get(stopover["operation"] + "_cargo_fiscal_type", None),
+			"ship_capacity":		None,
+			"ship_ID":				str(stopover.get("IMO", None)),
+			"ship_label": 			stopover.get("name", None),
+			"ship_type": 			None,
+			"stopover_ETA": 		timeConvert(stopover.get("arrival_dock", None)), #Dans le cas des données consolidées pr GPMB, c'est en fait le timestamp d'arrivée à quai. Mais peut être le TS vis à vis du port pr d'autres cas.
+			"stopover_ETD": 		timeConvert(stopover.get("departure_dock", None)), #Cf stopover_ETA
+			"stopover_ID":			str(stopover.get("journeyid", None)),
+			"stopover_status": 		None, #TODO inférer valeur d'après les champs présent
+			"stopover_terminal": 	str(stopover.get("source", None))
 		}
-	return handling 
+
+
 
 def timeConvert(epoch_timestamp, output_format = 'datetime_obj'):
 	'''
@@ -105,3 +111,21 @@ def timeConvert(epoch_timestamp, output_format = 'datetime_obj'):
 			return datetime.datetime.utcfromtimestamp(epoch_timestamp/1000)
 		if output_format == 'keep_epoch' :
 			return epoch_timestamp
+
+
+def journey_duration(stopover): #Ajouter en argument les paramètres (Rules)
+    '''
+    
+    '''
+    journey_delta = datetime.timedelta(hours=0) #FIXME Si le quai de déstination du bateau est parmi [A, B, C], alors le delais de transit jusqu'au quai est de...
+
+    return journey_delta
+
+
+def inspection_duration(stopover): #Ajouter en argument les paramètres (Rules)
+    '''
+    
+    '''
+    inspection_duration_delta = datetime.timedelta(hours=0) #FIXME Si le type de cargaison est parmi [A, B, C], alors le delais d'inspection est de ...
+    
+    return inspection_duration_delta

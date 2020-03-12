@@ -1,89 +1,97 @@
-# %% LIBRAIRIE
 import argparse
+import os
 import logging
 import json
-import os
 
 os.system("clear") 
 logging.basicConfig(
 	level= logging.INFO, 
 	format='%(name) -8s %(message)s')
-logger = logging.getLogger("funkyPAS (main)")
+logger = logging.getLogger("MAIN")
 
-# %% MAIN
-def main(pipeline, call) :
+
+def main(pipeline, request_IH) :
 	'''
-	Appelle les modules listés dans Settings pour le pipeline appeler, leurs passant successivement l'object de Call (transformé par chaque module).
-	#TODO: regrouper en grandes étapes de transformation:
-	call --> handlings
-	handlings --> operations
-	operations --> consumptions
-	operations --> activities
-	#TODO homogénéiser les noms :
-	•UPPERCASE ou UPPER_CASE pour les constantes 
-	•TitleCasepour les classes 
-	•camelCasepour les fonctions, les m ́ethodes et les interfaces graphiques 
-	•lowercaseoulower_casepour tous les autres identifiants.
+	Pour le pipeline passé en argument, appelle successivement les différents modules, leurs passant successivement l'objet "PAS" qui contient l'entièreté des données afférente au scénario.
 	'''
-	logger.warning("Starting")
-	
+		
 	# INITIALISATION
-	with open("./settings.json") as file :
-		SETTINGS = json.load(file)
-
-	MODULES_SEQUENCE = SETTINGS["pipelines"][pipeline]
-	
-	pas = {
-		"state": call,
+	PAS = {
+		"state": request_IH,
 		"parameters": {},
-		"log": {}
+		"logs": {
+			"run": []
+		}
 	}
 
+	try :
+		with open("./settings.json") as file :
+			settings = json.load(file)
+		pipeline = settings["pipelines"][pipeline]
+		message = f"Loaded settings" ; PAS["logs"]["run"].append(message) ; logger.warning(message)
+	except :
+		message = f"Unable to load {file}, PAS modelling aborded" ; PAS["logs"]["run"].append(message) ; logger.warning(message) #Techniquement, inutile sauf si on ajoute un export du PAS ici
 
-	# PROCESSING
-	for module_i in MODULES_SEQUENCE : #TODO ajouter des assert/try pour empécher tout crash salle
-		logger.warning(f"Calling module {module_i}") 
-		exec('from modules.' + module_i + " import " + module_i , locals(), globals()) #FIXME donner les droits en globals ? Vérifier de quoi il retourne
-		pas = eval(module_i + "(pas, SETTINGS['modules_settings'][module_i])")
-	
-	
-	logger.warning("Ending")
-	
 
-# %% SHELL
+	# APPELE DES MODULES DE LA PIPELINE
+	# for module_i in pipeline :
+	# 	message = f"Calling module {module_i}" ; PAS["logs"]["run"].append(message) ; logger.warning(message)
+		
+	# 	try : 
+	# 		exec('from modules.' + module_i + " import " + module_i )#, locals(), globals())
+	# 		PAS = eval(module_i + "(PAS, settings['modules_settings'].get(module_i, [], str(module_i))")
+	# 		message = (f"Module {module_i} executed successfully") ; PAS["logs"]["run"].append(message) ; logger.warning(message)
+
+	# 	except :
+	# 		message = (f"Issue on calling module {module_i}") ; PAS["logs"]["run"].append(message) ; logger.warning(message)
+	# 		break
+	# CLOTURE
+	try:
+		#EXPORT DU PAS
+		message = (f"PAS export, PAS modelling closing") ; PAS["logs"]["run"].append(message) ; logger.warning(message)
+		#TODO: export du PAS
+	except:
+		message = (f"Unable to export PAS, PAS modelling closing") ; PAS["logs"]["run"].append(message) ; logger.warning(message)
+
+#=========================================================================
+def log(message, logs_leaf = PAS["logs"]["run"], source_name = module_i):
+	logs_leaf.append(message)
+	logging.getLogger(source_name).warning(message)
+
+# SHELL
 if __name__ == "__main__" :
 	parser = argparse.ArgumentParser(description="Process executable options.")
-	
-	# parser.add_argument(
-	#	 "--moduleSequence", nargs="+", type=str, help="Steps numbers to execute.",
-	# ) #TODO: pouvoir passer la liste des modules ET/OU le path du fichier de conf (défaut racine)
-	
-	# parser.add_argument(
-	#	 "-sp", "--settingsPath", default="./settings.json", type=str, help="Path to the json file containing settings"
-	# ) TODO voir précédent
-
-	# parser.add_argument(
-	#	 "-ov", "--outputVerbose", default="normal", type=str, help="restricted: only valid records in output.\n normal (default value); balanced output.\n extended: every processing logs insered into output. Use for setting issues identification. May generate trouble for output conversion to graph"
-	# ) TODO: pouvoir passer la liste des modules à la place du fichier de conf ?
-
-	# parser.add_argument(
-	#	 "--monitor", default=False, action="store_true", help="Start monitoring server"
-	# )
 
 	parser.add_argument(
-		"--call",
+		"-r", "--request_IH",
 		nargs='?', 
 		default= None, 
-		help="Données initiales (info pr call à l'IH)"
+		help="IH's calling request to obtaining data."
 	)
 	
 	parser.add_argument(
 		"-p", "--pipeline", 
 		nargs='?',
 		default="energy_consumption_assessment", 
-		help="Spécifie le pipeline du PAS appellé."
+		help="Name of the pipeline to use (see 'settings.json')."
 	)
+
+	#TODO : option facultatives à implémenter
+	# parser.add_argument(
+	#	 "--settingsPath", default="./settings.json", type=str, help="Path to the json file containing settings"
+	# )
+
+	# parser.add_argument(
+	#	 "-v", "--verbose", default="normal", type=str, help="restricted: only valid records in output.\n normal (default value); balanced output.\n extended: every processing logs insered into output. Use for setting issues identification. May generate trouble for output conversion to graph"
+	# )
+
+	# parser.add_argument(
+	#	 "-m", "--monitor", default=False, action="store_true", help="Start monitoring server"
+	# )
 
 	args = parser.parse_args()
 
-	main(args.pipeline, args.call)#args.moduleSequence, args.outputVerbose, args.settingsPath)
+	main(
+		args.pipeline, 
+		args.request_IH
+	)
