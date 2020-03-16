@@ -1,13 +1,13 @@
 {
     "pipelines": {
         "energy_consumption_assessment": [
-            "IH_requeter",
+            "IH_requester",
             "IH_converter",
             "SC_mapper"
         ]
     },
     "modules_settings": {
-        "IH_requeter": {
+        "IH_requester": {
             "handlings": {
                 "full_path": "./inputs/GPMB/IH_2018.json"
             },

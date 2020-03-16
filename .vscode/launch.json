@@ -15,7 +15,7 @@
             "name": "scratchpad",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/modules/scratchpad.py",
+            "program": "${workspaceFolder}/scratchpad.py",
             "console": "integratedTerminal",
         }
     ]

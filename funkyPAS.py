@@ -16,48 +16,46 @@ def main(pipeline, request_IH) :
 	'''
 		
 	# INITIALISATION
-	PAS = {
-		"state": request_IH,
-		"parameters": {},
-		"logs": {
-			"run": []
-		}
-	}
+	HANDLINGS = {request_IH} 
+	PARAMETERS = {}  
+	LOGS = []
+	SETTINGS = {} 
 
 	try :
 		with open("./settings.json") as file :
-			settings = json.load(file)
-		pipeline = settings["pipelines"][pipeline]
-		message = f"Loaded settings" ; PAS["logs"]["run"].append(message) ; logger.warning(message)
+			SETTINGS = json.load(file)
+		pipeline = SETTINGS["pipelines"][pipeline]
+		LOGS.append(f"Settings loaded successfully")
 	except :
-		message = f"Unable to load {file}, PAS modelling aborded" ; PAS["logs"]["run"].append(message) ; logger.warning(message) #Techniquement, inutile sauf si on ajoute un export du PAS ici
+		message = f"Unable to load {file}, PAS modelling aborded" ; LOGS.append(message) ; logger.warning(message) #Techniquement, inutile sauf si on ajoute un export du PAS ici
 
 
 	# APPELE DES MODULES DE LA PIPELINE
-	# for module_i in pipeline :
-	# 	message = f"Calling module {module_i}" ; PAS["logs"]["run"].append(message) ; logger.warning(message)
-		
-	# 	try : 
-	# 		exec('from modules.' + module_i + " import " + module_i )#, locals(), globals())
-	# 		PAS = eval(module_i + "(PAS, settings['modules_settings'].get(module_i, [], str(module_i))")
-	# 		message = (f"Module {module_i} executed successfully") ; PAS["logs"]["run"].append(message) ; logger.warning(message)
+	for module_i in pipeline :
+		message = f"Calling module {module_i}" ; LOGS.append(message) ; logger.warning(message)
+		LOGS.append({module_i:[]})
+		exec('from modules.' + module_i + " import " + module_i )#, locals(), globals())
+		eval(module_i + "(HANDLINGS, PARAMETERS, LOGS[-1][module_i], SETTINGS['modules_settings'][module_i])")
+		message = (f"Module {module_i} executed successfully") ; LOGS.append(message) ; logger.warning(message)
+		# try : 
+		# 	exec('from modules.' + module_i + " import " + module_i )#, locals(), globals())
+		# 	PAS = eval(module_i + "(PAS, settings['modules_settings'].get(module_i, [], str(module_i))")
+		# 	message = (f"Module {module_i} executed successfully") ; PAS["logs"]["run"].append(message) ; logger.warning(message)
 
-	# 	except :
-	# 		message = (f"Issue on calling module {module_i}") ; PAS["logs"]["run"].append(message) ; logger.warning(message)
-	# 		break
+		# except :
+		# 	message = (f"Issue on calling module {module_i}") ; PAS["logs"]["run"].append(message) ; logger.warning(message)
+		# 	break
+
+
 	# CLOTURE
 	try:
 		#EXPORT DU PAS
-		message = (f"PAS export, PAS modelling closing") ; PAS["logs"]["run"].append(message) ; logger.warning(message)
+		message = (f"PAS exported, PAS modelling closing") ; LOGS.append(message) ; logger.warning(message)
 		#TODO: export du PAS
 	except:
-		message = (f"Unable to export PAS, PAS modelling closing") ; PAS["logs"]["run"].append(message) ; logger.warning(message)
+		message = (f"Unable to export PAS, PAS modelling closing") ; LOGS.append(message) ; logger.warning(message)
 
 #=========================================================================
-def log(message, logs_leaf = PAS["logs"]["run"], source_name = module_i):
-	logs_leaf.append(message)
-	logging.getLogger(source_name).warning(message)
-
 # SHELL
 if __name__ == "__main__" :
 	parser = argparse.ArgumentParser(description="Process executable options.")

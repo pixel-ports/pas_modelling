@@ -6,7 +6,7 @@ import datetime
 logger = logging.getLogger("IH_converter")
 
 
-def IH_converter(PAS, module_settings) :
+def IH_converter() :
 	'''
 	Transform IH's stopover data into proper handlings request.
 	'''
@@ -16,19 +16,19 @@ def IH_converter(PAS, module_settings) :
 	handling_counter = 0
 
 	# CONVERTION DES CHAMPS
-	for stopover in PAS["state"]:
+	for stopover in STATE:
 		handling_counter += 1
 		try:
 			stopover_converter(stopover, handling_counter)
-			PAS["log"]["module"].append(f"IH_converter: successfully converted stopover {stopover}")
+			LOGS.append(f"IH_converter: successfully converted stopover {stopover}")
 			logger.warning(f"IH_converter: successfully converted stopover {stopover}")
-		except :
+		except:
 			logger.warning(f"IH_converter: issue on convertion for stopover {stopover}")
-			PAS["log"].get(['rejected_handlings'], []).append({
+			LOGS.append(f"{
 				"issue": {
 					'invalid_key': {
 						"key":"handling_direction",
-						"value":stopover["handling_direction"],
+						"value":stopover["operation"],
 						"comment": "Should be equal to loading or unloading"
 					}
 				},

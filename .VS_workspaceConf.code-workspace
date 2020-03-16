@@ -5,5 +5,7 @@
 			"path": "."
 		}
 	],
-	"settings": {}
+	"settings": {
+		"python.pythonPath": "/home/r1/miniconda3/envs/PAS_modelling/bin/python"
+	}
 }
