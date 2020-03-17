@@ -37,22 +37,22 @@ def main(pipeline_name, request_IH) :
 	for module_i in pipeline_modules :
 		LOGS.append(f"Calling module {module_i}")
 		
-		try : 
-			exec('from modules.' + module_i + " import " + module_i )#, locals(), globals())
-			LOGS.extend([
-				f"Module {module_i} imported successfully",
-				{module_i + "_settings": SETTINGS['modules_settings'][module_i]}
-				]
-			) 			
-			HANDLINGS, PORT, logs_module = eval(module_i + "(HANDLINGS, PORT, SETTINGS['modules_settings'][module_i])")
-			LOGS.extend([
-				{module_i + "_internal_logs": logs_module},
-				f"Module {module_i} executed successfully" #TODO: ajouter au renvois des modules un status, indiquant le succes ou pas
+	# try : #Le try est désactivé pr faciliter le debuggage
+		exec('from modules.' + module_i + " import " + module_i )#, locals(), globals())
+		LOGS.extend([
+			f"Module {module_i} imported successfully",
+			{module_i + "_settings": SETTINGS['modules_settings'][module_i]}
+			]
+		) 			
+		HANDLINGS, PORT, logs_module = eval(module_i + "(HANDLINGS, PORT, SETTINGS['modules_settings'][module_i])")
+		LOGS.extend([
+			{module_i + "_internal_logs": logs_module},
+			f"Module {module_i} executed successfully" #TODO: ajouter au renvois des modules un status, indiquant le succes ou pas
 			]
 		)
 
-		except :
-			LOGS.append(f"Issue on calling module {module_i}")
+	# except :
+	# 	LOGS.append(f"Issue on calling module {module_i}")
 
 
 	# CLOTURE
@@ -88,7 +88,7 @@ if __name__ == "__main__" :
 				},
 				{
 					"name": "Asignations",
-					"endpoint": "./inputs/GPMB/Assignations.json",
+					"endpoint": "./inputs/GPMB/Asignations.json",
 					"type": "Port_parameters",
 				},
 				{
