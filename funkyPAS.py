@@ -10,50 +10,66 @@ logging.basicConfig(
 logger = logging.getLogger("MAIN")
 
 
-def main(pipeline, request_IH) :
+def main(pipeline_name, request_IH) :
 	'''
 	Pour le pipeline passé en argument, appelle successivement les différents modules, leurs passant successivement l'objet "PAS" qui contient l'entièreté des données afférente au scénario.
 	'''
-		
+	
 	# INITIALISATION
-	HANDLINGS = {request_IH} 
-	PARAMETERS = {}  
-	LOGS = []
-	SETTINGS = {} 
-
-	try :
+	LOGS = [] #Array pr fils chronologique
+	PORT = {} #Ancien nom : PARAMETERS
+	HANDLINGS = request_IH
+	try : #Chargement SETTINGS
 		with open("./settings.json") as file :
 			SETTINGS = json.load(file)
-		pipeline = SETTINGS["pipelines"][pipeline]
-		LOGS.append(f"Settings loaded successfully")
+		pipeline_modules = SETTINGS["pipelines"][pipeline_name]
+		LOGS.extend([
+			f"pipeline: {pipeline_name}",
+			f"Settings loaded successfully",
+			f"modules: {pipeline_modules}",
+			]
+		)
 	except :
-		message = f"Unable to load {file}, PAS modelling aborded" ; LOGS.append(message) ; logger.warning(message) #Techniquement, inutile sauf si on ajoute un export du PAS ici
+		LOGS.append(f"Unable to load {file}, PAS modelling aborded")
 
 
-	# APPELE DES MODULES DE LA PIPELINE
-	for module_i in pipeline :
-		message = f"Calling module {module_i}" ; LOGS.append(message) ; logger.warning(message)
-		LOGS.append({module_i:[]})
-		exec('from modules.' + module_i + " import " + module_i )#, locals(), globals())
-		eval(module_i + "(HANDLINGS, PARAMETERS, LOGS[-1][module_i], SETTINGS['modules_settings'][module_i])")
-		message = (f"Module {module_i} executed successfully") ; LOGS.append(message) ; logger.warning(message)
-		# try : 
-		# 	exec('from modules.' + module_i + " import " + module_i )#, locals(), globals())
-		# 	PAS = eval(module_i + "(PAS, settings['modules_settings'].get(module_i, [], str(module_i))")
-		# 	message = (f"Module {module_i} executed successfully") ; PAS["logs"]["run"].append(message) ; logger.warning(message)
+	# APPLICATION DES MODULES DE LA PIPELINE
+	for module_i in pipeline_modules :
+		LOGS.append(f"Calling module {module_i}")
+		
+		try : 
+			exec('from modules.' + module_i + " import " + module_i )#, locals(), globals())
+			LOGS.extend([
+				f"Module {module_i} imported successfully",
+				{module_i + "_settings": SETTINGS['modules_settings'][module_i]}
+				]
+			) 			
+			HANDLINGS, PORT, logs_module = eval(module_i + "(HANDLINGS, PORT, SETTINGS['modules_settings'][module_i])")
+			LOGS.extend([
+				{module_i + "_internal_logs": logs_module},
+				f"Module {module_i} executed successfully" #TODO: ajouter au renvois des modules un status, indiquant le succes ou pas
+			]
+		)
 
-		# except :
-		# 	message = (f"Issue on calling module {module_i}") ; PAS["logs"]["run"].append(message) ; logger.warning(message)
-		# 	break
+		except :
+			LOGS.append(f"Issue on calling module {module_i}")
 
 
 	# CLOTURE
+	## Export du PAS
 	try:
-		#EXPORT DU PAS
-		message = (f"PAS exported, PAS modelling closing") ; LOGS.append(message) ; logger.warning(message)
-		#TODO: export du PAS
+		## Définition du PAS
+		PAS = {
+			"Handlings": HANDLINGS,
+			"Port":PORT,
+			"Logs": LOGS
+		}
+		#FIXME: module d'export à faire
+		LOGS.append(f"PAS exported, PAS modelling closing")
 	except:
-		message = (f"Unable to export PAS, PAS modelling closing") ; LOGS.append(message) ; logger.warning(message)
+		LOGS.append(f"Unable to export PAS, PAS modelling closing")
+
+
 
 #=========================================================================
 # SHELL
@@ -63,7 +79,30 @@ if __name__ == "__main__" :
 	parser.add_argument(
 		"-r", "--request_IH",
 		nargs='?', 
-		default= None, 
+		default= {
+			"input": [
+				{
+					"name": "Handlings",
+					"endpoint": "./inputs/GPMB/IH_2018.json",
+					"type": "Vessel_Calls",
+				},
+				{
+					"name": "Asignations",
+					"endpoint": "./inputs/GPMB/Assignations.json",
+					"type": "Port_parameters",
+				},
+				{
+					"name": "Supplychains",
+					"endpoint": "./inputs/GPMB/Supplychains.json",
+					"type": "Port_parameters",
+				},
+				{
+					"name": "Resources",
+					"endpoint": "./inputs/GPMB/Resources.json",
+					"type": "Port_parameters",
+				}
+			]
+		},
 		help="IH's calling request to obtaining data."
 	)
 	
