@@ -1,5 +1,8 @@
 {
     "pipelines": {
+        "IH_requester_only": [
+            "IH_requester"
+        ],
         "energy_consumption_assessment": [
             "IH_requester",
             "IH_converter",
@@ -8,28 +11,22 @@
     },
     "modules_settings": {
         "IH_requester": {
-            "schemas": [
-                {
-                    "ID": "handling",
-                    "check_enabled": false,
-                    "path": "./tools/json_schema/handling_schema.json"
-                },
-                {
-                    "ID": "asignation",
-                    "check_enabled": false,
-                    "path": "./tools/json_schema/assignation_schema.json"
-                },
-                {
-                    "ID": "supplychain",
-                    "check_enabled": false,
-                    "path": "./tools/json_schema/supplychain_schema.json"
-                },
-                {
-                    "ID": "resource",
-                    "check_enabled": false,
-                    "path": "./tools/json_schema/resource_schema.json"
-                }
-            ]
+            "handlings": {
+                "full_path": "./inputs/GPMB/IH_2018.json"
+            },
+            "pas_parameters": {
+                "name": [
+                    "RULES",
+                    "SUPPLYCHAINS",
+                    "RESOURCES"
+                ],
+                "folder_path": "./inputs/GPMB/",
+                "suffix": ".json"
+            },
+            "schemas": {
+                "folder_path": "./tools/json_schema/",
+                "suffix": "_schema.json"
+            }
         },
         "IH_converter": {
             "IH_converter_settings_key": "settings_value"
