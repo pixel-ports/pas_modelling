@@ -1,0 +1,2028 @@
+{
+	"id": "6e3d871ae3bbbc05ec45a14c",
+	"idRef": "5e3d771ae2cabc05ec59a14c",
+	"name": "pas-energy-execution1",
+	"description": "PAS exectuion 1. The id is an UUID identifying the exectuion. The idRef is an UUID identifying the model",
+	"mode": "ExecAsync",
+	"input": [{
+			"name": "pas-input",
+			"category": "ih-api",
+			"type": "vessel-calls-format (FIWARE datamodel)",
+			"description": "vessel calls",
+			"metadata:": {},
+			"options": [{
+					"name": "url",
+					"type": "string",
+					"description": "URL endpoint",
+					"value": "http://192.168.0.13:8080/archivingSystem/extractor/v1/data"
+				}, {
+					"name": "reqParams",
+					"type": "string",
+					"description": "request parameters (if any)",
+					"value": "?split=false"
+				}, {
+					"name": "sourceId",
+					"type": "string",
+					"description": "id of the datasource in the IH repo",
+					"value": "FR_BAS_vcall"
+				}, {
+					"name": "start",
+					"type": "datetime (Unix time)",
+					"description": "start of calculation period",
+					"value": 1580836740000
+				}, {
+					"name": "end",
+					"type": "datetime (Unix Time)",
+					"description": "end of calculation period",
+					"value": 1584458957000
+				}
+			]
+		}, {
+			"name": "supplychains",
+			"category": "forceInput"
+		}, {
+			"name": "rules",
+			"category": "forceInput"
+		}, {
+			"name": "resources",
+			"category": "forceInput"
+		}
+	],
+	"forceinput": [{
+			"name": "resources",
+			"value": {
+				"areas": [{
+						"ID": "449",
+						"label": "Mon dock céréal",
+						"category": "dock",
+						"owner": "SPBL",
+						"terminal": "FR_BAS"
+					}
+				],
+				"machines": [{
+						"ID": "machine_1",
+						"label": "Machine virtuelle concatenant toute la SC",
+						"category": "Full_SC",
+						"tag": ["Virtual"],
+						"owner": "SPBL",
+						"shift_ID": "typical",
+						"throughput": {
+							"Value": 1000,
+							"Unit": "t/h"
+						},
+						"consumptions": [{
+								"nature": "electricity",
+								"value": 841,
+								"unit": "kWh"
+							}
+						]
+					}
+				],
+				"others": [{}
+				]
+			},
+			"type": "resources-format (FIWARE datamodel or not)",
+			"description": "This value will be used as resources, instead of the default value in 'input'. This corresponds to a waht-if scenario",
+			"metadata": {}
+		},
+		{
+			"name": "supplychains",
+			"value": [
+				{
+					"ID": "loading_AUTRES",
+					"directions_nature": "loading",
+					"cargoes_category": [
+						"E.COLIS LOURDS"
+					],
+					"areas_ID": [
+						"417",
+						"413"
+					],
+					"label": "Some label",
+					"comment": "Some comment",
+					"compatibility": {
+						"cargoes_category": [
+							"E.COLIS LOURDS"
+						],
+						"directions_nature": [
+							"loading"
+						],
+						"areas_ID": [
+							"417",
+							"413"
+						],
+						"shiftworks_ID": [
+							"typical"
+						]
+					},
+					"steps_list": [
+						{
+							"ID": "Step1",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Initialization",
+							"scheduling": {
+								"start": {
+									"nature": "delay",
+									"value": 0
+								},
+								"duration": {
+									"nature": "delay",
+									"value": 20
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine1"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						},
+						{
+							"ID": "Step2",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Processing",
+							"scheduling": {
+								"start": {
+									"nature": "after_any",
+									"value": [
+										"Step1"
+									]
+								},
+								"duration": {
+									"nature": "cargo_%",
+									"value": 100
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine2, Machine3"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						}
+					]
+				},
+				{
+					"ID": "loading_CEREAL",
+					"directions_nature": "loading",
+					"cargoes_category": [
+						"E.BLE VRAC",
+						"E.CER.+OLEAG. MIXTES",
+						"E.CEREALES MIXTES VRAC",
+						"E.GRAINES SOJA",
+						"E.MAIS VRAC",
+						"E.SORGHO VRAC"
+					],
+					"areas_ID": [
+						"417",
+						"449"
+					],
+					"label": "Some label",
+					"comment": "Some comment",
+					"compatibility": {
+						"cargoes_category": [
+							"E.BLE VRAC",
+							"E.CER.+OLEAG. MIXTES",
+							"E.CEREALES MIXTES VRAC",
+							"E.GRAINES SOJA",
+							"E.MAIS VRAC",
+							"E.SORGHO VRAC"
+						],
+						"directions_nature": [
+							"loading"
+						],
+						"areas_ID": [
+							"417",
+							"449"
+						],
+						"shiftworks_ID": [
+							"typical"
+						]
+					},
+					"steps_list": [
+						{
+							"ID": "Step1",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Initialization",
+							"scheduling": {
+								"start": {
+									"nature": "delay",
+									"value": 0
+								},
+								"duration": {
+									"nature": "delay",
+									"value": 20
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine1"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						},
+						{
+							"ID": "Step2",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Processing",
+							"scheduling": {
+								"start": {
+									"nature": "after_any",
+									"value": [
+										"Step1"
+									]
+								},
+								"duration": {
+									"nature": "cargo_%",
+									"value": 100
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine2, Machine3"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						}
+					]
+				},
+				{
+					"ID": "loading_LIQ.V",
+					"directions_nature": "loading",
+					"cargoes_category": [
+						"E.EMHV - EMAG - FAME ",
+						"E.HUILE COLZA",
+						"E.HUILE TOURNESOL",
+						"E.HUILES MIXTES",
+						"E.PROD.CHIM.LIQ. AUTRES"
+					],
+					"areas_ID": [
+						"436"
+					],
+					"label": "Some label",
+					"comment": "Some comment",
+					"compatibility": {
+						"cargoes_category": [
+							"E.EMHV - EMAG - FAME ",
+							"E.HUILE COLZA",
+							"E.HUILE TOURNESOL",
+							"E.HUILES MIXTES",
+							"E.PROD.CHIM.LIQ. AUTRES"
+						],
+						"directions_nature": [
+							"loading"
+						],
+						"areas_ID": [
+							"436"
+						],
+						"shiftworks_ID": [
+							"typical"
+						]
+					},
+					"steps_list": [
+						{
+							"ID": "Step1",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Initialization",
+							"scheduling": {
+								"start": {
+									"nature": "delay",
+									"value": 0
+								},
+								"duration": {
+									"nature": "delay",
+									"value": 20
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine1"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						},
+						{
+							"ID": "Step2",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Processing",
+							"scheduling": {
+								"start": {
+									"nature": "after_any",
+									"value": [
+										"Step1"
+									]
+								},
+								"duration": {
+									"nature": "cargo_%",
+									"value": 100
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine2, Machine3"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						}
+					]
+				},
+				{
+					"ID": "loading_P.C.",
+					"directions_nature": "loading",
+					"cargoes_category": [
+						"E.CONTENEURS"
+					],
+					"areas_ID": [
+						"432",
+						"433"
+					],
+					"label": "Some label",
+					"comment": "Some comment",
+					"compatibility": {
+						"cargoes_category": [
+							"E.CONTENEURS"
+						],
+						"directions_nature": [
+							"loading"
+						],
+						"areas_ID": [
+							"432",
+							"433"
+						],
+						"shiftworks_ID": [
+							"typical"
+						]
+					},
+					"steps_list": [
+						{
+							"ID": "Step1",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Initialization",
+							"scheduling": {
+								"start": {
+									"nature": "delay",
+									"value": 0
+								},
+								"duration": {
+									"nature": "delay",
+									"value": 20
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine1"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						},
+						{
+							"ID": "Step2",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Processing",
+							"scheduling": {
+								"start": {
+									"nature": "after_any",
+									"value": [
+										"Step1"
+									]
+								},
+								"duration": {
+									"nature": "cargo_%",
+									"value": 100
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine2, Machine3"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						}
+					]
+				},
+				{
+					"ID": "loading_SOL.V",
+					"directions_nature": "loading",
+					"cargoes_category": [
+						"E.COLZA VRAC",
+						"E.FERRAIL.REFONT.",
+						"E.MINER.NON FERR.AUTRES",
+						"E.PNEUS BROYES",
+						"E.TALC",
+						"E.TERRE REFRACT.",
+						"E.TRTX COLZA",
+						"E.TRTX TOURNESOL"
+					],
+					"areas_ID": [
+						"417",
+						"434",
+						"431",
+						"413",
+						"449",
+						"414"
+					],
+					"label": "Some label",
+					"comment": "Some comment",
+					"compatibility": {
+						"cargoes_category": [
+							"E.COLZA VRAC",
+							"E.FERRAIL.REFONT.",
+							"E.MINER.NON FERR.AUTRES",
+							"E.PNEUS BROYES",
+							"E.TALC",
+							"E.TERRE REFRACT.",
+							"E.TRTX COLZA",
+							"E.TRTX TOURNESOL"
+						],
+						"directions_nature": [
+							"loading"
+						],
+						"areas_ID": [
+							"417",
+							"434",
+							"431",
+							"413",
+							"449",
+							"414"
+						],
+						"shiftworks_ID": [
+							"typical"
+						]
+					},
+					"steps_list": [
+						{
+							"ID": "Step1",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Initialization",
+							"scheduling": {
+								"start": {
+									"nature": "delay",
+									"value": 0
+								},
+								"duration": {
+									"nature": "delay",
+									"value": 20
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine1"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						},
+						{
+							"ID": "Step2",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Processing",
+							"scheduling": {
+								"start": {
+									"nature": "after_any",
+									"value": [
+										"Step1"
+									]
+								},
+								"duration": {
+									"nature": "cargo_%",
+									"value": 100
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine2, Machine3"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						}
+					]
+				},
+				{
+					"ID": "unloading_AUTRES",
+					"directions_nature": "unloading",
+					"cargoes_category": [
+						"I.BOIS SCIES DU NORD",
+						"I.COLIS LOURDS"
+					],
+					"areas_ID": [
+						"417",
+						"413",
+						"415",
+						"416"
+					],
+					"label": "Some label",
+					"comment": "Some comment",
+					"compatibility": {
+						"cargoes_category": [
+							"I.BOIS SCIES DU NORD",
+							"I.COLIS LOURDS"
+						],
+						"directions_nature": [
+							"unloading"
+						],
+						"areas_ID": [
+							"417",
+							"413",
+							"415",
+							"416"
+						],
+						"shiftworks_ID": [
+							"typical"
+						]
+					},
+					"steps_list": [
+						{
+							"ID": "Step1",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Initialization",
+							"scheduling": {
+								"start": {
+									"nature": "delay",
+									"value": 0
+								},
+								"duration": {
+									"nature": "delay",
+									"value": 20
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine1"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						},
+						{
+							"ID": "Step2",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Processing",
+							"scheduling": {
+								"start": {
+									"nature": "after_any",
+									"value": [
+										"Step1"
+									]
+								},
+								"duration": {
+									"nature": "cargo_%",
+									"value": 100
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine2, Machine3"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						}
+					]
+				},
+				{
+					"ID": "unloading_GAZ.L",
+					"directions_nature": "unloading",
+					"cargoes_category": [
+						"I.BUTADIENE"
+					],
+					"areas_ID": [
+						"436"
+					],
+					"label": "Some label",
+					"comment": "Some comment",
+					"compatibility": {
+						"cargoes_category": [
+							"I.BUTADIENE"
+						],
+						"directions_nature": [
+							"unloading"
+						],
+						"areas_ID": [
+							"436"
+						],
+						"shiftworks_ID": [
+							"typical"
+						]
+					},
+					"steps_list": [
+						{
+							"ID": "Step1",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Initialization",
+							"scheduling": {
+								"start": {
+									"nature": "delay",
+									"value": 0
+								},
+								"duration": {
+									"nature": "delay",
+									"value": 20
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine1"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						},
+						{
+							"ID": "Step2",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Processing",
+							"scheduling": {
+								"start": {
+									"nature": "after_any",
+									"value": [
+										"Step1"
+									]
+								},
+								"duration": {
+									"nature": "cargo_%",
+									"value": 100
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine2, Machine3"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						}
+					]
+				},
+				{
+					"ID": "unloading_LIQ.V",
+					"directions_nature": "unloading",
+					"cargoes_category": [
+						"I.EMHV - EMAG - FAME",
+						"I.ENGR.LIQUIDES",
+						"I.HUILE COLZA",
+						"I.HUILE SOJA",
+						"I.HUILE TOURNESOL",
+						"I.HUILES MIXTES",
+						"I.MELASSES",
+						"I.METHANOL",
+						"I.TALL-OIL"
+					],
+					"areas_ID": [
+						"416",
+						"436"
+					],
+					"label": "Some label",
+					"comment": "Some comment",
+					"compatibility": {
+						"cargoes_category": [
+							"I.EMHV - EMAG - FAME",
+							"I.ENGR.LIQUIDES",
+							"I.HUILE COLZA",
+							"I.HUILE SOJA",
+							"I.HUILE TOURNESOL",
+							"I.HUILES MIXTES",
+							"I.MELASSES",
+							"I.METHANOL",
+							"I.TALL-OIL"
+						],
+						"directions_nature": [
+							"unloading"
+						],
+						"areas_ID": [
+							"416",
+							"436"
+						],
+						"shiftworks_ID": [
+							"typical"
+						]
+					},
+					"steps_list": [
+						{
+							"ID": "Step1",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Initialization",
+							"scheduling": {
+								"start": {
+									"nature": "delay",
+									"value": 0
+								},
+								"duration": {
+									"nature": "delay",
+									"value": 20
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine1"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						},
+						{
+							"ID": "Step2",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Processing",
+							"scheduling": {
+								"start": {
+									"nature": "after_any",
+									"value": [
+										"Step1"
+									]
+								},
+								"duration": {
+									"nature": "cargo_%",
+									"value": 100
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine2, Machine3"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						}
+					]
+				},
+				{
+					"ID": "unloading_P.C.",
+					"directions_nature": "unloading",
+					"cargoes_category": [
+						"I.CONTENEURS"
+					],
+					"areas_ID": [
+						"432",
+						"433"
+					],
+					"label": "Some label",
+					"comment": "Some comment",
+					"compatibility": {
+						"cargoes_category": [
+							"I.CONTENEURS"
+						],
+						"directions_nature": [
+							"unloading"
+						],
+						"areas_ID": [
+							"432",
+							"433"
+						],
+						"shiftworks_ID": [
+							"typical"
+						]
+					},
+					"steps_list": [
+						{
+							"ID": "Step1",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Initialization",
+							"scheduling": {
+								"start": {
+									"nature": "delay",
+									"value": 0
+								},
+								"duration": {
+									"nature": "delay",
+									"value": 20
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine1"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						},
+						{
+							"ID": "Step2",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Processing",
+							"scheduling": {
+								"start": {
+									"nature": "after_any",
+									"value": [
+										"Step1"
+									]
+								},
+								"duration": {
+									"nature": "cargo_%",
+									"value": 100
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine2, Machine3"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						}
+					]
+				},
+				{
+					"ID": "unloading_SOL.V",
+					"directions_nature": "unloading",
+					"cargoes_category": [
+						"I.BOIS+COPEAUX MIXTES",
+						"I.CHARBON",
+						"I.CIMENT",
+						"I.CLINKER",
+						"I.COLZA VRAC",
+						"I.ENGR.MANUF.VRAC",
+						"I.KAOLIN",
+						"I.LAITIERS",
+						"I.MINERAUX AUTRES",
+						"I.POTASSE VRAC",
+						"I.SEL",
+						"I.TOURBE",
+						"I.TOURNESOL VRAC",
+						"I.UREE VRAC"
+					],
+					"areas_ID": [
+						"434",
+						"416",
+						"435",
+						"433",
+						"431",
+						"413",
+						"415"
+					],
+					"label": "Some label",
+					"comment": "Some comment",
+					"compatibility": {
+						"cargoes_category": [
+							"I.BOIS+COPEAUX MIXTES",
+							"I.CHARBON",
+							"I.CIMENT",
+							"I.CLINKER",
+							"I.COLZA VRAC",
+							"I.ENGR.MANUF.VRAC",
+							"I.KAOLIN",
+							"I.LAITIERS",
+							"I.MINERAUX AUTRES",
+							"I.POTASSE VRAC",
+							"I.SEL",
+							"I.TOURBE",
+							"I.TOURNESOL VRAC",
+							"I.UREE VRAC"
+						],
+						"directions_nature": [
+							"unloading"
+						],
+						"areas_ID": [
+							"434",
+							"416",
+							"435",
+							"433",
+							"431",
+							"413",
+							"415"
+						],
+						"shiftworks_ID": [
+							"typical"
+						]
+					},
+					"steps_list": [
+						{
+							"ID": "Step1",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Initialization",
+							"scheduling": {
+								"start": {
+									"nature": "delay",
+									"value": 0
+								},
+								"duration": {
+									"nature": "delay",
+									"value": 20
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine1"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						},
+						{
+							"ID": "Step2",
+							"label": "step's name",
+							"comment": "step's comment",
+							"category": "Processing",
+							"scheduling": {
+								"start": {
+									"nature": "after_any",
+									"value": [
+										"Step1"
+									]
+								},
+								"duration": {
+									"nature": "cargo_%",
+									"value": 100
+								}
+							},
+							"work": {
+								"machines": [
+									"Machine2, Machine3"
+								],
+								"nature": "parallel",
+								"distance": "on_spot"
+							}
+						}
+					]
+				}
+			],
+			"type": "supplychains-format (FIWARE datamodel or not)",
+			"description": "supplychains",
+			"metadata:": {},
+			"options": []
+		},
+		{
+			"name": "rules",
+			"value": [
+				{
+					"content_type_ID": "E.BLE VRAC",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "CEREAL",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_CEREAL",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"449"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.CER.+OLEAG. MIXTES",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "CEREAL",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_CEREAL",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"417",
+									"449"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.CEREALES MIXTES VRAC",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "CEREAL",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_CEREAL",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"449",
+									"417"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.COLIS LOURDS",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "AUTRES",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_AUTRES",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"413",
+									"417"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.COLZA VRAC",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "CEREAL",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_CEREAL",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"449"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.CONTENEURS",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "P.C.",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_P.C.",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"432",
+									"433"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.EMHV - EMAG - FAME ",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "LIQ.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_LIQ.V",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"436"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.FERRAIL.REFONT.",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_SOL.V",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"414"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.GRAINES SOJA",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "CEREAL",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_CEREAL",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"449"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.HUILE COLZA",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "LIQ.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_LIQ.V",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"436"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.HUILE TOURNESOL",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "LIQ.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_LIQ.V",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"436"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.HUILES MIXTES",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "LIQ.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_LIQ.V",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"436"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.MAIS VRAC",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "CEREAL",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_CEREAL",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"449",
+									"417"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.MINER.NON FERR.AUTRES",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_SOL.V",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"413"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.PNEUS BROYES",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_SOL.V",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"413",
+									"417",
+									"414"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.PROD.CHIM.LIQ. AUTRES",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "LIQ.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_LIQ.V",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"436"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.SORGHO VRAC",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "CEREAL",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_CEREAL",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"449"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.TALC",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_SOL.V",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"431"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.TERRE REFRACT.",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_SOL.V",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"413"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.TRTX COLZA",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_SOL.V",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"417",
+									"413"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "E.TRTX TOURNESOL",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "loading_SOL.V",
+							"restrictions": {
+								"direction": "loading",
+								"dock": [
+									"417",
+									"434"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.BOIS SCIES DU NORD",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "AUTRES",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_AUTRES",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"417",
+									"415",
+									"416"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.BOIS+COPEAUX MIXTES",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"413"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.BUTADIENE",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "GAZ.L",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_GAZ.L",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"436"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.CHARBON",
+					"label": "TEST",
+					"comment": "DOUBLON",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V_doublon",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"435"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.CHARBON",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"435"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.CIMENT",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"413"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.CLINKER",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"416",
+									"431",
+									"415"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.COLIS LOURDS",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "AUTRES",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_AUTRES",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"413"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.COLZA VRAC",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"434"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.CONTENEURS",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "P.C.",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_P.C.",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"432",
+									"433"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.EMHV - EMAG - FAME",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "LIQ.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_LIQ.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"436"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.ENGR.LIQUIDES",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "LIQ.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_LIQ.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"436"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.ENGR.MANUF.VRAC",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"433"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.HUILE COLZA NEUTRALISATION",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "LIQ.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_LIQ.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"436"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.HUILE SOJA",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "LIQ.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_LIQ.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"436"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.HUILE TOURNESOL",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "LIQ.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_LIQ.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"436"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.HUILES MIXTES",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "LIQ.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_LIQ.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"436"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.KAOLIN",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"413"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.LAITIERS",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"435"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.MELASSES",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "LIQ.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_LIQ.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"416"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.METHANOL",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "LIQ.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_LIQ.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"436"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.MINERAUX AUTRES",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"434"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.POTASSE VRAC",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"433"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.SEL",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"433"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.TALL-OIL",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "LIQ.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_LIQ.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"436"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.TOURBE",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"413"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.TOURNESOL VRAC",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"413",
+									"434",
+									"435"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				{
+					"content_type_ID": "I.UREE VRAC",
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_type": "SOL.V",
+					"unit": "Tons",
+					"suitable_SC": [
+						{
+							"supplychain": "unloading_SOL.V",
+							"restrictions": {
+								"direction": "unloading",
+								"dock": [
+									"433",
+									"415"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				}
+			],
+			"type": "rules-format (FIWARE datamodel or not)",
+			"description": "rules",
+			"metadata:": {},
+			"options": []
+		}
+	],
+	"output": [{
+			"name": "energy-consumption",
+			"category": "ih-api",
+			"type": "energy-consumption-format (but it will include id_model, id_execution)",
+			"description": "(estimated) energy consumed between the given timeframe. id_execution is given by the OT at invocation time. This is the format to be stored in the IH",
+			"metadata:": {},
+			"options": [{
+					"name": "url",
+					"type": "string",
+					"description": "URL endpoint",
+					"value": "http://192.168.0.13:8080/archivingSystem/injector/v1/data"
+				}, {
+					"name": "reqParams",
+					"type": "string",
+					"description": "request parameters (if any)",
+					"value": "?split=false"
+				}, {
+					"name": "sourceId",
+					"type": "string",
+					"description": "id of the datasource in the IH repo",
+					"value": "instances"
+				}
+			]
+		}
+	],
+	"logging": [{
+			"name": "energy-consumption-logging",
+			"category": "ih-api",
+			"type": "energy-consumption-loging",
+			"description": "logging activity",
+			"metadata:": {},
+			"options": [{
+					"name": "url",
+					"type": "string",
+					"description": "URL endpoint",
+					"value": "http://192.168.0.13:8080/archivingSystem/injector/v1/data"
+				}, {
+					"name": "reqParams",
+					"type": "string",
+					"description": "request parameters (if any)",
+					"value": "?split=false"
+				}, {
+					"name": "sourceId",
+					"type": "string",
+					"description": "id of the datasource in the IH repo",
+					"value": "instances-logging"
+				}
+			]
+		}
+	]
+}

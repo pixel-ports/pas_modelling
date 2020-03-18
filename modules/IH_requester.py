@@ -3,6 +3,7 @@ import json
 from typing import Iterable
 import jsonschema
 from pathlib import Path
+import requests
 
 logger = logging.getLogger("IH_requester")
 mod_name = "IH_requester:"
@@ -17,49 +18,50 @@ def IH_requester(HANDLINGS, PORT, MODSETTINGS):
 	logger.warning("IH_requester initialisation")
 	MODLOGS = ["IH_requester initialisation"]
 
+	for name in ["supplychains", "rules", "resources"]:
+		message, data = get(HANDLINGS, name)
+		if message:
+			MODLOGS.append(message)
+		PORT.update({name: data})
 
-	#RECUPERATION DATA (EXTERIEURES)
-	##PORT
-	Port_request = [request 
-		for request in HANDLINGS["input"] 
-		if request["type"] == "Port_parameters" #Attention, doit matcher avec l'IH!
-	]
-	if len(Port_request) == 0 : #On peut éventuellement ajouter une vérification plus rigoureuse
-		MODLOGS.append(f"prb, aucun port's parameters dans le call à l'IH!")
-	else:
-		for request in Port_request :
-			request_status, request_object = get(request)
-			MODLOGS.append(request_status)
-			PORT.update({request["name"]:request_object})
-	
-	## HANDLINGS
-	Handlings_request = [request 
-		for request in HANDLINGS["input"] 
-		if request["type"] == "Vessel_Calls" #Attention, doit matcher avec l'IH!
-	]
-	if len(Handlings_request) > 1:
-		MODLOGS.append(f"prb, plus d'un handling dans le call à l'IH!")
-	if len(Handlings_request) ==0 :
-		MODLOGS.append(f"prb, aucun handling dans le call à l'IH!")
-	else:
-		request_status, request_object = get(Handlings_request[0])
-		MODLOGS.append(request_status)
-		HANDLINGS = request_object[0]["records"]
-
+	message, data = get(HANDLINGS, "pas-input")
+	if message:
+		MODLOGS.append(message)
+	HANDLINGS = data
 
 	return (HANDLINGS, PORT, MODLOGS)
 
 # %% UTILITIES
-def get(request):
-	loaded_json = {}
-	try:
-		with open(request["endpoint"]) as file :
-			loaded_json = json.load(file)
-	except FileNotFoundError: 
-		message = f"{request.get('name', 'undefined name')} loading issue: invalid source ({request.get('endpoint', 'undefined endpoint')})"		
-	except ValueError: 
-		message = f"{request.get('name', 'undefined name')} loading issue: invalid file"
+def get(pas_instance_data, name):
+
+	message = None
+	data = None
+	input_element = next(x for x in pas_instance_data["input"] if x["name"]==name)
+	if input_element["category"] == "ih-api":
+		input_body = {
+			"source": {
+				"sourceId": input_element["options"][2]["value"]
+			}
+		}
+		if len(input_element["options"]) > 3:  # For the pas_input
+			input_body["timeIntervals"] = [  # TODO: Implement the fact that there can be multiple timeIntervals
+				{
+					"start": input_element["options"][3]["value"],
+					"end": input_element["options"][4]["value"]
+				}
+			]
+		url = input_element["options"][0]["value"] + input_element["options"][1]["value"]
+		response = requests.post(
+			url,
+			headers = {
+				'Content-Type': 'application/json',
+				'Accept': 'application/json'
+			},
+			data=input_body
+		)
+		data = response.json()
+	elif input_element["category"]=="forceInput":
+		data = next(x["value"] for x in pas_instance_data["forceinput"] if x["name"]==name)
 	else:
-		message = f"{request.get('name', 'undefined name')} succefully loaded"
-	
-	return message, loaded_json
+		message = "Unknown input_element category: %s" % input_element["category"]
+	return message, data
