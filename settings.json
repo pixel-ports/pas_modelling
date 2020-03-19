@@ -3,30 +3,34 @@
         "IH_requester_only": [
             "IH_requester"
         ],
-        "energy_consumption_assessment": [
-            "IH_requester",
+        "GPMB_demo": [
+            "local_inputs_loader",
             "IH_converter",
             "SC_mapper"
         ]
     },
+    "Operational Tools input": "",
     "modules_settings": {
-        "IH_requester": {
-            "handlings": {
-                "full_path": "./inputs/GPMB/IH_2018.json"
+        "IH_requester": {},
+        "local_inputs_loader": {
+            "Handlings": {
+                "name": "Handlings",
+                "file_path": "./tools/demo_inputs/GPMB_2018/Handlings.json"
             },
-            "pas_parameters": {
-                "name": [
-                    "RULES",
-                    "SUPPLYCHAINS",
-                    "RESOURCES"
-                ],
-                "folder_path": "./inputs/GPMB/",
-                "suffix": ".json"
-            },
-            "schemas": {
-                "folder_path": "./tools/json_schema/",
-                "suffix": "_schema.json"
-            }
+            "Port": [
+                {
+                    "name": "Asignations",
+                    "file_path": "./tools/demo_inputs/GPMB_2018//Asignations.json"
+                },
+                {
+                    "name": "Supplychains",
+                    "file_path": "./tools/demo_inputs/GPMB_2018/Supplychains.json"
+                },
+                {
+                    "name": "Resources",
+                    "file_path": "./tools/demo_inputs/GPMB_2018/Resources.json"
+                }
+            ]
         },
         "IH_converter": {
             "IH_converter_settings_key": "settings_value"

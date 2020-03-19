@@ -1,48 +1,29 @@
 #%% 
 import json
-HANDLINGS = {
-	"input": [
-        {
-            "name": "Handlings",
-            "endpoint": "./inputs/GPMB/IH_2018.json",
-            "type": "Vessel_Calls",
-        },
-        {
-            "name": "Asignations",
-            "endpoint": "./inputs/GPMB/Assignations.json",
-            "type": "Port_parameters",
-        },
-        {
-            "name": "Supplychains",
-            "endpoint": "./inputs/GPMB/Supplychains.json",
-            "type": "Port_parameters",
-        },
-        {
-            "name": "Resources",
-            "endpoint": "./inputs/GPMB/Resources.json",
-            "type": "Port_parameters",
-        }
-    ]
-}
+with open("./settings.json") as file :
+    SETTINGS = json.load(file)
 
-def get(request):
-	loaded_json = None
-	try:
-		with open(request["endpoint"]) as file :
-			loaded_json = json.load(file)
-	except FileNotFoundError: 
-		message = f"{request.get('name', 'undefined name')} loading issue: invalid source ({request.get('endpoint', 'undefined endpoint')})"
-		
-	except ValueError: 
-		message = f"{request.get('name', 'undefined name')} loading issue: invalid file"
-	else:
-		message = f"{request.get('name', 'undefined name')} succefully loaded"
-	
-	return message, loaded_json
+pipeline_name = "GPMB_demo"	
+modules_sequence = SETTINGS["pipelines"][pipeline_name]
+
+SETTINGS
+
+relevant_modul={}
+#%%
+for (key, content) in SETTINGS["modules_settings"].items():
+    if key in modules_sequence:
+        relevant_modul.update({key: content})
+        
+
 
 #%%
-toto = { key:value for (key, value) in HANDLINGS["input"].items()  }
-toto
+{
+    {key: content} 
+    for (key, content) in SETTINGS["modules_settings"].items() 
+    if  key in modules_sequence
+}
+
+
 #%%
 #l'ordre de récupération des fichiers est fixé dans settings?
 for request in HANDLINGS["input"]:

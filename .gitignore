@@ -6,4 +6,4 @@ callgrind.out.*
 massif.out.*
 output.json
 /outputs
-.vscode
+.vscode/settings.json
