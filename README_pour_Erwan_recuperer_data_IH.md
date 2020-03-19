@@ -1,6 +1,6 @@
 ## Prerequisites
 
-You need to be in a python3 environment with the `requests` and `jsonschema` library available. So either restore the Pipfile or run it through Docker (I installed `requests` in the Dockerfile for testing purposes).
+You need to be in a python3 environment with the `elasticsearch==7.5.1` and `jsonschema` library available. So either restore the Pipfile or run it through Docker (I installed those libraries in the Dockerfile for testing purposes).
 
 ## Where does the data come from
 
@@ -28,7 +28,7 @@ And we can run the `IH_requester_only pipeline` through docker for testing:
 cd pas_modelling
 rm -f ./test/resources/vpn/vpn.cert_auth  # This doesn't seem to be an important file, and otherwise we cannot build
 docker build -t pas .
-docker run --rm --net=container:vpn pas python3 funkyPAS.py --pipeline IH_requester_only --request_IH "$(cat ./test/resources/PAS_instance.json)"
+docker run --rm --net=container:vpn pas python3 funkyPAS.py --pipeline IH_only --request_IH "$(cat ./test/resources/PAS_instance.json)"
 ```
 
 ## Integrate this test in Github Actions

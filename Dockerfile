@@ -13,7 +13,7 @@ WORKDIR /
 
 COPY . /pas_modelling
 WORKDIR /pas_modelling
-RUN python3.8 -m pip install requests jsonschema
+RUN python3.8 -m pip install requests jsonschema elasticsearch==7.5.1
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8

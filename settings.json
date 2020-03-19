@@ -1,7 +1,9 @@
 {
     "pipelines": {
-        "IH_requester_only": [
-            "IH_requester"
+        "IH_only": [
+            "IH_requester",
+            "IH_logger",
+            "IH_writer"
         ],
         "GPMB_demo": [
             "local_inputs_loader",
@@ -42,6 +44,10 @@
                 "amount_min": false,
                 "amount_max": false
             }
+        },
+        "IH_logger": {
+        },
+        "IH_writer": {
         }
     }
 }

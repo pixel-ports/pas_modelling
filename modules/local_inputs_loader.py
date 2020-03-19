@@ -10,7 +10,8 @@ def local_inputs_loader(HANDLINGS, PORT, LOGS, SETTINGS, name):
 	#NB : la vérification de conformité vis à vis des schémas était initialement faite à l'import (cf le settings du module). Mais pour certains cas, il serait mieux de faire cela à l'étape de conversion.
 
 	#INITIALISATION
-	LOGS.append(f"{name} initialisation")
+	MODLOGS = [f"{name} initialisation"]
+	# LOGS.append(f"{name} initialisation")
 
 	#CHARGEMENT DES FICHIERS
 
@@ -26,7 +27,7 @@ def local_inputs_loader(HANDLINGS, PORT, LOGS, SETTINGS, name):
 		PORT.update({parameter["name"]:loaded_json})
 
 
-	return (HANDLINGS, PORT, LOGS, SETTINGS)
+	return (HANDLINGS, PORT, LOGS)
 
 # %% UTILITIES
 def get(target):

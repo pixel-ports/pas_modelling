@@ -46,10 +46,12 @@ def main(pipeline_name, OT_input) :
 		exec('from modules.' + module_i + " import " + module_i )#, locals(), globals())
 		LOGS.append(f"Module {module_i} imported successfully")
 			
-		HANDLINGS, PORT, LOGS, SETTINGS = eval(module_i + "(HANDLINGS, PORT, LOGS, SETTINGS, module_i)") #Le fait que Settings soit lui aussi attendu est pour qu'un module puisse modifier le comportement d'un suivant. A voir
-		#LOGS.append(f"Module {module_i} executed successfully" #TODO: ajouter au renvois des modules un status, indiquant le succes ou pas
-		# except :
-		# 	LOGS.append(f"Issue on calling module {module_i}")
+		HANDLINGS, PORT, MODLOGS = eval(module_i + "(HANDLINGS, PORT, LOGS, SETTINGS, module_i)") #On peut envisager de recevoir aussi SETTINGS pour qu'un module puisse modifier le comportement d'un suivant. A voir
+		LOGS.extend([
+			{module_i + "_internal_logs": MODLOGS},
+			f"Module {module_i} executed successfully" #TODO: ajouter au renvois des modules un status, indiquant le succes ou pas
+			]
+		)#FIXME alors, log ou modlogs ? choisir
 
 	print("Ending")
 #=========================================================================
