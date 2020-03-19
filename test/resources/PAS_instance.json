@@ -14,27 +14,22 @@
 					"name": "url",
 					"type": "string",
 					"description": "URL endpoint",
-					"value": "http://192.168.0.13:8080/archivingSystem/extractor/v1/data"
-				}, {
-					"name": "reqParams",
-					"type": "string",
-					"description": "request parameters (if any)",
-					"value": "?split=false"
+					"value": "http://192.168.0.13:8200/ih-api/"
 				}, {
 					"name": "sourceId",
 					"type": "string",
 					"description": "id of the datasource in the IH repo",
-					"value": "FR_BAS_vcall"
+					"value": "arh-lts-vesselcall"
 				}, {
 					"name": "start",
 					"type": "datetime (Unix time)",
-					"description": "start of calculation period",
-					"value": 1580836740000
+					"description": "start of calculation period, in milliseconds",
+					"value": 1580547482000
 				}, {
 					"name": "end",
 					"type": "datetime (Unix Time)",
-					"description": "end of calculation period",
-					"value": 1584458957000
+					"description": "end of calculation period, in milliseconds",
+					"value": 1583053082000
 				}
 			]
 		}, {
@@ -1985,17 +1980,12 @@
 					"name": "url",
 					"type": "string",
 					"description": "URL endpoint",
-					"value": "http://192.168.0.13:8080/archivingSystem/injector/v1/data"
-				}, {
-					"name": "reqParams",
-					"type": "string",
-					"description": "request parameters (if any)",
-					"value": "?split=false"
+					"value": "http://192.168.0.13:8200/ih-api"
 				}, {
 					"name": "sourceId",
 					"type": "string",
-					"description": "id of the datasource in the IH repo",
-					"value": "instances"
+					"description": "id of the datasource in the IH repo. Is it unique and will be created on insertion.",
+					"value": "pas_modelling_output_test_1584608282000"
 				}
 			]
 		}
@@ -2010,17 +2000,12 @@
 					"name": "url",
 					"type": "string",
 					"description": "URL endpoint",
-					"value": "http://192.168.0.13:8080/archivingSystem/injector/v1/data"
-				}, {
-					"name": "reqParams",
-					"type": "string",
-					"description": "request parameters (if any)",
-					"value": "?split=false"
+					"value": "http://192.168.0.13:8200/ih-api"
 				}, {
 					"name": "sourceId",
 					"type": "string",
 					"description": "id of the datasource in the IH repo",
-					"value": "instances-logging"
+					"value": "pas_modelling_logging_test_1584608282000"
 				}
 			]
 		}

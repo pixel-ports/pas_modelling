@@ -1,7 +1,9 @@
 {
     "pipelines": {
-        "IH_requester_only": [
-            "IH_requester"
+        "IH_only": [
+            "IH_requester",
+            "IH_logger",
+            "IH_writer"
         ],
         "energy_consumption_assessment": [
             "IH_requester",
@@ -38,6 +40,10 @@
                 "amount_min": false,
                 "amount_max": false
             }
+        },
+        "IH_logger": {
+        },
+        "IH_writer": {
         }
     }
 }
