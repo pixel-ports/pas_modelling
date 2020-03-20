@@ -32,6 +32,7 @@ def Availability_calculator(pas, module_settings) :
             handling["handling_maxEnd"] = handling["stopover_ETD"] - journey_duration(handling) - inspection_duration(handling)
 "handling_lattestEnd":		timeConvert(stopover.get("departure_dock", None)), #Suivant le sens réel de stopover_ETD, peut nécessiter de soustraire journey_duration(handling) 
 "handling_earliestStart":
+Vérifier aussi cohérence chronologie
 # "handling_lattestEnd":		timeConvert(stopover.get("departure_dock", None)), #Suivant le sens réel de stopover_ETD, peut nécessiter de soustraire journey_duration(handling) 
 # 		"handling_earliestStart":	timeConvert(stopover.get("arrival_dock", None)) + journey_duration(stopover) + inspection_duration(stopover), #Cf stopover_ETA
 

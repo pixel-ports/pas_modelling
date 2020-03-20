@@ -1,100 +1,128 @@
 import json
 import jsonschema
-import logging
 import datetime
-
-logger = logging.getLogger("IH_converter")
 
 
 def IH_converter(HANDLINGS, PORT, LOGS, SETTINGS, name) :
 	'''
 	Transform  raw stopover data into proper handlings request.
 	'''
-	logger.warning("Starting")
 
 	#INITIALISATION
-	Unconverted_records = []
+	LOGS.append(f"===== {name} STARTS =====")
 	
 	# CONVERTION DES CHAMPS
-	HANDLINGS = [stopover_converter(stopover, HANDLINGS.index(stopover))
-		for stopover in HANDLINGS 
-		if stopover["operation"] in ["loading", "unloading"]
-	]
-
-	handling_counter = 0
-	for stopover in HANDLINGS:
-		try:
-			stopover = stopover_converter(stopover, handling_counter)
-			handling_counter += 1
-		except:
-			Unconverted_records.append(stopover)
-		else:
-			Unconverted_records
+	Converted_records = []
+	Unconverted_records = []
+	for record in HANDLINGS:
+		convertion_success, convertion_object = stopover_converter(record, len(Converted_records))
+		if convertion_success:
+			Converted_records.append(convertion_object)
+		elif not convertion_success:
+			Unconverted_records.append(record)
 	
-	#vérifier qu'en sortie len(HANDLINGS) == handling_counter et que len(HANDLINGS)+len(discarded_handling)
-	LOGS.append(f"{handling_counter} records succeffully converted, {len(Unconverted_records)} record discarded ({len(Unconverted_records) / len(HANDLINGS)} %)") #FIXME crachera si 0 handlings
-
+	LOGS.append(f"Convertion: {len(HANDLINGS)} records where passed, {len(Converted_records)} records succeffully converted, {len(Unconverted_records)} record discarded")
+	LOGS.append({"Discarted records": Unconverted_records})
+	HANDLINGS = Converted_records
+	#Variante sans logs ni gestion erreur
+	# HANDLINGS = [stopover_converter(stopover, HANDLINGS.index(stopover))
+	# 	for stopover in HANDLINGS 
+	# 	# if stopover["operation"] in ["loading", "unloading"]
+	# ]
+	
 	# FILTRATION 
-	#TODO
+	Suitable_records = []
+	Unsuitable_records = []
+	for record in HANDLINGS:
+		filtering_success, filtering_Messages = handling_filter(record)
+		if filtering_success:
+			Suitable_records.append(record)
+		else :
+			Unsuitable_records.append({"record": record, "causes": filtering_Messages })
+	
+	LOGS.append(f"Filtration: {len(HANDLINGS)} records where passed, {len(Suitable_records)} records suitable, {len(Unsuitable_records)} records discarded")
+	LOGS.append({"Discarted records": Unsuitable_records})
+	HANDLINGS = Suitable_records
+	
+
+	
+		
+	#CLOSSING
+	LOGS.append(f"===== {name} ENDS =====")
+	return (HANDLINGS, PORT, LOGS, SETTINGS)
+
+
+#=========================================================================
+def stopover_converter(stopover, ID_number):
+	'''Convert one IH's stopover record (combined forced loading and unloading) into proper handling, with a key selection based on 'operation' value
+	NB: for a real dual stopover (unloading AND loading), only the one corresponding to the 'operation' value will be converted to handling ! #FIXME: à voir avec DAL/IH
+	'''
+	try:
+		handling = {
+			"content_agent":			str(stopover.get(stopover["operation"] + "_agent")),
+			"content_amount":			int(stopover.get(stopover["operation"] + "_tonnage")),
+			"content_dangerous":		bool(stopover.get(stopover["operation"] + "_dangerous")),
+			"content_label":			None,
+			"content_type":				str(stopover.get(stopover["operation"] + "_cargo_type")),
+			"handling_direction":   	str(stopover.get("operation")),
+			"handling_dock":			str(stopover.get(stopover["operation"] + "_berth")),
+			"handling_ID": 				"handling_" + str(ID_number),
+			"handling_lattestEnd":		timeConvert(stopover.get("arrival_dock")), #Suivant le sens réel de stopover_ETD, peut nécessiter de soustraire journey_duration(handling) 
+			"handling_earliestStart":	timeConvert(stopover.get("departure_dock")), #Cf stopover_ETA
+			"handling_operator": 		str(stopover.get("operator")),
+			"handling_type": 			str(stopover.get(stopover["operation"] + "_cargo_fiscal_type")),
+			"ship_capacity":			None,
+			"ship_ID":					str(stopover.get("IMO")),
+			"ship_label": 				str(stopover.get("name")),
+			"ship_type": 				None,
+			"stopover_ETA": 			timeConvert(stopover.get("arrival_dock")), #Dans le cas des données consolidées pr GPMB, c'est en fait le timestamp d'arrivée à quai. Mais peut être le TS vis à vis du port pr d'autres cas.
+			"stopover_ETD": 			timeConvert(stopover.get("departure_dock")), #Cf stopover_ETA
+			"stopover_ID":				str(stopover.get("journeyid")),
+			"stopover_status": 			None, #TODO inférer valeur d'après les champs présent
+			"stopover_terminal": 		str(stopover.get("source"))
+		}
+		success = True
+	except:
+		handling = stopover
+		success = False
+	return success, handling
+
+def handling_filter(handling):
+	''' 
+	Check si un ensemble de contions sont respectées par l'handling. Renvois le status et une liste de message.
+	NB: 
+	- on pourrait couvrir une bonne partie des besoins avec un simple test contre un json-schema, mais pas les plus complexes.
+	- on pourrait distinguer les causes de warning et les causes de discart du handling
+	- plusieures conditions pourraient être à rajouter, mais cela dépends du contexte (ouvre la voie à des paramètres pr cette fonctions, qui seraient tirés des settings de ce module (fixés pr ce port)
+	'''
+	Messages = []
+	if handling["content_amount"] <= 0 :
+		Messages.append(f"Content amount should be > 0")
+	if handling["content_type"] == "" or handling["content_type"] == None: #VARIANTE (drastique): in [rule_content_type["content_type_ID"] for rule_content_type in PAS["parameters"]["RULES"]["content_type_list"]]
+		Messages.append(f"Content type should be provided")
+	if handling["handling_direction"] not in ["loading", "unloading"] :
+		Messages.append(f"Handling direction should be loading or unloading") #FIXME ne marchera pas pour les paquebots etc
+	if handling["handling_dock"] == "" or  handling["handling_dock"] == None:
+		Messages.append(f"Dock should be provided") #VARIANTE (drastique) : Restreindre à être dans la liste d'ID de dock ? (cf conten_type)
+	if handling["stopover_ETA"] is not None and handling["stopover_ETD"] is not None :
+		if handling["stopover_ETA"] > handling["stopover_ETD"]:
+			Messages.append(f"ETA should be before ETD")
 	# - content type référencé (simple warning cause géré par default_SC)
 	# - handling type référencé
 	# - dock référencé
 	# - pas de doublons
 	# - content et handling type cohérents
-	# - sortie postérieur entrée
 	# - amount cohérent capacité
 	# - check contre un schéma ?
-	# for stopover in HANDLINGS:
 
-	HANDLINGS = [handling for handling in HANDLINGS if (
-		handling["content_amount"]>0
-		and handling["content_type"]!="" #VARIANTE (drastique): in [rule_content_type["content_type_ID"] for rule_content_type in PAS["parameters"]["RULES"]["content_type_list"]]
-		and handling["handling_direction"] in ["loading", "unloading"]
-		and handling["handling_dock"]!=""
-		#and handling["handling_minStart"] < handling["handling_maxEnd"] #FIXME "'<' not supported between instances of 'datetime.datetime' and 'NoneType'"
-		and handling["handling_type"]!="" 
-		#and handling["stopover_ETA"] < handling["stopover_ETD"]
-	)]
+	if len(Messages) > 0:
+		success = False
+	else:
+		Messages.append("Record filtering: successfull")
+		success = True
+	return success, Messages
 
-	
-
-	# logger.warning("Ending")
-	return (HANDLINGS, PORT, LOGS, SETTINGS)
-
-
-#=========================================================================
-def stopover_converter(stopover, counter):
-	'''Convert one IH's stopover record (combined forced loading and unloading) into proper handling, with a key selection based on 'operation' value
-	NB: for a real dual stopover (unloading AND loading), only the one corresponding to the 'operation' value will be converted to handling ! #FIXME: à voir avec DAL/IH
-	'''
-# if stopover["operation"] in ["loading", "unloading"] :
-	return {
-		"content_agent":			stopover.get(stopover["operation"] + "_agent"),
-		"content_amount":			stopover.get(stopover["operation"] + "_tonnage"),
-		"content_dangerous":		stopover.get(stopover["operation"] + "_dangerous"),
-		"content_label":			None,
-		"content_type":				stopover.get(stopover["operation"] + "_cargo_type"),
-		"handling_direction":   	stopover.get("operation"),
-		"handling_dock":			str(stopover.get(stopover["operation"] + "_berth")),
-		"handling_ID": 				"handling_" + str(counter),
-		"handling_lattestEnd":		timeConvert(stopover.get("arrival_dock")), #Suivant le sens réel de stopover_ETD, peut nécessiter de soustraire journey_duration(handling) 
-		"handling_earliestStart":	timeConvert(stopover.get("departure_dock")), #Cf stopover_ETA
-		"handling_operator": 		stopover.get("operator"),
-		"handling_type": 			stopover.get(stopover["operation"] + "_cargo_fiscal_type"),
-		"ship_capacity":			None,
-		"ship_ID":					str(stopover.get("IMO")),
-		"ship_label": 				stopover.get("name"),
-		"ship_type": 				None,
-		"stopover_ETA": 			timeConvert(stopover.get("arrival_dock")), #Dans le cas des données consolidées pr GPMB, c'est en fait le timestamp d'arrivée à quai. Mais peut être le TS vis à vis du port pr d'autres cas.
-		"stopover_ETD": 			timeConvert(stopover.get("departure_dock")), #Cf stopover_ETA
-		"stopover_ID":				str(stopover.get("journeyid")),
-		"stopover_status": 			None, #TODO inférer valeur d'après les champs présent
-		"stopover_terminal": 		str(stopover.get("source"))
-	}
-
-
-
-def timeConvert(epoch_timestamp, output_format = 'datetime_obj'):
+def timeConvert(epoch_timestamp, output_format = 'datetime_obj'): 
 	'''
 	3 formats de sortie possible : 'datetime_obj' (défaut), 'str_iso' (pr export json), keep_epoch
 	'''

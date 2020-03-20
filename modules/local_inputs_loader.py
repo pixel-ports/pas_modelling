@@ -10,24 +10,25 @@ def local_inputs_loader(HANDLINGS, PORT, LOGS, SETTINGS, name):
 	#NB : la vérification de conformité vis à vis des schémas était initialement faite à l'import (cf le settings du module). Mais pour certains cas, il serait mieux de faire cela à l'étape de conversion.
 
 	#INITIALISATION
-	MODLOGS = [f"{name} initialisation"]
-	# LOGS.append(f"{name} initialisation")
+	LOGS.append(f"===== {name} STARTS =====")
+
 
 	#CHARGEMENT DES FICHIERS
 
 		# HANDLINGS
 	message, loaded_json = get(SETTINGS["modules_settings"][name]["Handlings"])
-	LOGS.append(message)
+	LOGS.append(f"Handlings loading: {message}")
 	HANDLINGS = loaded_json
 
 		# PARAMETRES DU PORT
 	for parameter in SETTINGS["modules_settings"][name]["Port"] :
 		message, loaded_json = get(parameter)
-		LOGS.append(message)
+		LOGS.append(f"Port's parameters loading: {message}")
 		PORT.update({parameter["name"]:loaded_json})
 
-
-	return (HANDLINGS, PORT, LOGS)
+	#CLOTURE
+	LOGS.append(f"===== {name} ENDS =====")
+	return (HANDLINGS, PORT, LOGS, SETTINGS)
 
 # %% UTILITIES
 def get(target):

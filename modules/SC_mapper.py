@@ -5,7 +5,7 @@ import logging
 logger = logging.getLogger("SC_mapper")
 
 
-def SC_mapper(PAS, module_settings) :
+def SC_mapper(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	'''
 	handling --> handling + [SC]
 
@@ -16,13 +16,13 @@ def SC_mapper(PAS, module_settings) :
 
 
 	# ASSIGNATION SC DU CONTENT TYPE
-	for handling in PAS["state"] :
+	for handling in HANDLINGS :
 		#AJOUT DES SC QUI MATCHENT
 		#VARIANTE (boucle)
-		for content_type in PAS['parameters']['RULES']['content_type_list'] :
+		for content_type in PORT['Asignations'] :
 			if content_type["content_type_ID"] == handling["content_type"] : 
 				for candidat_SC in content_type["suitable_SC"] :
-					if testing_SC(handling, candidat_SC["restrictions"], module_settings["restrictions"]):
+					if testing_SC(handling, candidat_SC["restrictions"], SETTINGS["modules_settings"][module_name]["restrictions"]):
 						handling["supplychains"] = [candidat_SC["supplychain"] 
 							for candidat_SC in content_type["suitable_SC"]]
 		
@@ -69,7 +69,7 @@ def SC_mapper(PAS, module_settings) :
 		'''
 	# GESTION DES HANDLINGS SANS SC #Doit couvrir l'ensemble des cas, pas uniquement les handlings sans CT qui match (donc après)
 	handlings_ss_SC= [handling 
-		for handling in PAS["state"] 
+		for handling in HANDLINGS
 		if len(handling.setdefault("supplychains", []))==0]
 	
 	print(f"Nb de handlings sans supplychain: {len(handlings_ss_SC)}")
@@ -95,7 +95,7 @@ def SC_mapper(PAS, module_settings) :
 		
 	# logger.warning("Ending")
 	#print(candidat_SCs)
-	return PAS
+	return HANDLINGS, PORT, LOGS, SETTINGS
 
 def calculating_duration(pas, module_settings) :
 	return #TODO

@@ -1,0 +1,42 @@
+{
+    "pipeline": "GPMB_demo",
+    "modules_sequence": [
+        "local_inputs_loader",
+        "IH_converter",
+        "SC_mapper"
+    ],
+    "OT_input": "foo_bar",
+    "modules_settings": {
+        "local_inputs_loader": {
+            "Handlings": {
+                "name": "Handlings",
+                "file_path": "./tools/demo_inputs/GPMB_2018/Handlings.json"
+            },
+            "Port": [
+                {
+                    "name": "Asignations",
+                    "file_path": "./tools/demo_inputs/GPMB_2018//Asignations.json"
+                },
+                {
+                    "name": "Supplychains",
+                    "file_path": "./tools/demo_inputs/GPMB_2018/Supplychains.json"
+                },
+                {
+                    "name": "Resources",
+                    "file_path": "./tools/demo_inputs/GPMB_2018/Resources.json"
+                }
+            ]
+        },
+        "IH_converter": {
+            "IH_converter_settings_key": "settings_value"
+        },
+        "SC_mapper": {
+            "restrictions": {
+                "direction": false,
+                "dock": false,
+                "amount_min": false,
+                "amount_max": false
+            }
+        }
+    }
+}
