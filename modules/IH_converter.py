@@ -10,7 +10,8 @@ def IH_converter(HANDLINGS, PORT, LOGS, SETTINGS, name) :
 
 	#INITIALISATION
 	LOGS.append(f"===== {name} STARTS =====")
-	
+
+
 	# CONVERTION DES CHAMPS
 	Converted_records = []
 	Unconverted_records = []
@@ -34,7 +35,7 @@ def IH_converter(HANDLINGS, PORT, LOGS, SETTINGS, name) :
 	Suitable_records = []
 	Unsuitable_records = []
 	for record in HANDLINGS:
-		filtering_success, filtering_Messages = handling_filter(record)
+		filtering_success, filtering_Messages = handling_filter(record, SETTINGS["modules_settings"][name]["filters"])
 		if filtering_success:
 			Suitable_records.append(record)
 		else :
@@ -87,7 +88,7 @@ def stopover_converter(stopover, ID_number):
 		success = False
 	return success, handling
 
-def handling_filter(handling):
+def handling_filter(handling, enabled_filters):
 	''' 
 	Check si un ensemble de contions sont respectées par l'handling. Renvois le status et une liste de message.
 	NB: 
@@ -96,17 +97,22 @@ def handling_filter(handling):
 	- plusieures conditions pourraient être à rajouter, mais cela dépends du contexte (ouvre la voie à des paramètres pr cette fonctions, qui seraient tirés des settings de ce module (fixés pr ce port)
 	'''
 	Messages = []
-	if handling["content_amount"] <= 0 :
-		Messages.append(f"Content amount should be > 0")
-	if handling["content_type"] == "" or handling["content_type"] == None: #VARIANTE (drastique): in [rule_content_type["content_type_ID"] for rule_content_type in PAS["parameters"]["RULES"]["content_type_list"]]
-		Messages.append(f"Content type should be provided")
-	if handling["handling_direction"] not in ["loading", "unloading"] :
-		Messages.append(f"Handling direction should be loading or unloading") #FIXME ne marchera pas pour les paquebots etc
-	if handling["handling_dock"] == "" or  handling["handling_dock"] == None:
-		Messages.append(f"Dock should be provided") #VARIANTE (drastique) : Restreindre à être dans la liste d'ID de dock ? (cf conten_type)
-	if handling["stopover_ETA"] is not None and handling["stopover_ETD"] is not None :
-		if handling["stopover_ETA"] > handling["stopover_ETD"]:
-			Messages.append(f"ETA should be before ETD")
+	if enabled_filters["content_amount"] :
+		if handling["content_amount"] <= 0 :
+			Messages.append(f"Content amount should be > 0")
+	if enabled_filters["content_type"] :
+		if handling["content_type"] == "" or handling["content_type"] == None: #VARIANTE (drastique): in [rule_content_type["content_type_ID"] for rule_content_type in PAS["parameters"]["RULES"]["content_type_list"]]
+			Messages.append(f"Content type should be provided")
+	if enabled_filters["handling_direction"] :
+		if handling["handling_direction"] not in ["loading", "unloading"] :
+			Messages.append(f"Handling direction should be loading or unloading") #FIXME ne marchera pas pour les paquebots etc
+	if enabled_filters["handling_dock"] :
+		if handling["handling_dock"] == "" or  handling["handling_dock"] == None:
+			Messages.append(f"Dock should be provided") #VARIANTE (drastique) : Restreindre à être dans la liste d'ID de dock ? (cf conten_type)
+	if enabled_filters["ET_consistency"] :
+		if handling["stopover_ETA"] is not None and handling["stopover_ETD"] is not None :
+			if handling["stopover_ETA"] > handling["stopover_ETD"]:
+				Messages.append(f"ETA should be before ETD")
 	# - content type référencé (simple warning cause géré par default_SC)
 	# - handling type référencé
 	# - dock référencé

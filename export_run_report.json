@@ -15,8 +15,8 @@
                 },
                 "Port": [
                     {
-                        "name": "Asignations",
-                        "file_path": "./tools/demo_inputs/GPMB_2018//Asignations.json"
+                        "name": "Assignations",
+                        "file_path": "./tools/demo_inputs/GPMB_2018//Assignations.json"
                     },
                     {
                         "name": "Supplychains",
@@ -29,15 +29,23 @@
                 ]
             },
             "IH_converter": {
-                "IH_converter_settings_key": "settings_value"
+                "filters": {
+                    "content_amount": true,
+                    "content_type": true,
+                    "handling_direction": true,
+                    "handling_dock": true,
+                    "ET_consistency": true
+                }
             },
             "SC_mapper": {
                 "restrictions": {
-                    "direction": false,
-                    "dock": false,
-                    "amount_min": false,
-                    "amount_max": false
-                }
+                    "direction": true,
+                    "dock": true,
+                    "amount_min": true,
+                    "amount_max": true
+                },
+                "default_SC": true,
+                "discart_unassigned": true
             }
         }
     },
@@ -48,7 +56,7 @@
         "Module local_inputs_loader imported successfully",
         "===== local_inputs_loader STARTS =====",
         "Handlings loading: Handlings succefully loaded",
-        "Port's parameters loading: Asignations succefully loaded",
+        "Port's parameters loading: Assignations succefully loaded",
         "Port's parameters loading: Supplychains succefully loaded",
         "Port's parameters loading: Resources succefully loaded",
         "===== local_inputs_loader ENDS =====",
@@ -5289,6 +5297,395 @@
         },
         "===== IH_converter ENDS =====",
         "Calling module SC_mapper",
-        "Module SC_mapper imported successfully"
+        "Module SC_mapper imported successfully",
+        "===== SC_mapper STARTS =====",
+        "Number of duplicated content type: 1",
+        {
+            "List of duplicated content type": "{'I.CHARBON'}"
+        },
+        "Number of handling with unreconized content type: 8",
+        {
+            "List of unreconized content type": "{'I.HUILE COLZA'}"
+        },
+        "Number of handling that loose matching assignation due to SC requirement: 3",
+        {
+            "List of requirements rejection": [
+                {
+                    "Handling": {
+                        "content_agent": "SEAINVEST",
+                        "content_amount": 114,
+                        "content_dangerous": false,
+                        "content_label": null,
+                        "content_type": "E.COLIS LOURDS",
+                        "handling_direction": "loading",
+                        "handling_dock": "413",
+                        "handling_ID": "handling_55",
+                        "handling_lattestEnd": "2018-02-20 10:20:00",
+                        "handling_earliestStart": "2018-02-20 21:10:00",
+                        "handling_operator": "None",
+                        "handling_type": "AUTRES",
+                        "ship_capacity": null,
+                        "ship_ID": "9671436",
+                        "ship_label": "EEMSLIFT NADINE",
+                        "ship_type": null,
+                        "stopover_ETA": "2018-02-20 10:20:00",
+                        "stopover_ETD": "2018-02-20 21:10:00",
+                        "stopover_ID": "20180108",
+                        "stopover_status": null,
+                        "stopover_terminal": "FR_BAS/vcall",
+                        "supplychains": []
+                    },
+                    "Rejections": [
+                        {
+                            "Rejected SC": "loading_AUTRES",
+                            "Causes": [
+                                "Unmatch on amount_min"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Handling": {
+                        "content_agent": "MSC",
+                        "content_amount": 417,
+                        "content_dangerous": false,
+                        "content_label": null,
+                        "content_type": "E.CONTENEURS",
+                        "handling_direction": "loading",
+                        "handling_dock": "432",
+                        "handling_ID": "handling_218",
+                        "handling_lattestEnd": "2018-07-03 10:10:00",
+                        "handling_earliestStart": "2018-07-05 12:30:00",
+                        "handling_operator": "None",
+                        "handling_type": "P.C.",
+                        "ship_capacity": null,
+                        "ship_ID": "9388388",
+                        "ship_label": "LIBERTAS-H",
+                        "ship_type": null,
+                        "stopover_ETA": "2018-07-03 10:10:00",
+                        "stopover_ETD": "2018-07-05 12:30:00",
+                        "stopover_ID": "20180444",
+                        "stopover_status": null,
+                        "stopover_terminal": "FR_BAS/vcall",
+                        "supplychains": []
+                    },
+                    "Rejections": [
+                        {
+                            "Rejected SC": "loading_P.C.",
+                            "Causes": [
+                                "Unmatch on amount_min"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "Handling": {
+                        "content_agent": "SEAINVEST",
+                        "content_amount": 979,
+                        "content_dangerous": false,
+                        "content_label": null,
+                        "content_type": "I.BOIS SCIES DU NORD",
+                        "handling_direction": "unloading",
+                        "handling_dock": "415",
+                        "handling_ID": "handling_337",
+                        "handling_lattestEnd": "2018-10-11 20:50:00",
+                        "handling_earliestStart": "2018-10-16 13:39:00",
+                        "handling_operator": "None",
+                        "handling_type": "AUTRES",
+                        "ship_capacity": null,
+                        "ship_ID": "8904434",
+                        "ship_label": "MEKHANIK PYATLIN",
+                        "ship_type": null,
+                        "stopover_ETA": "2018-10-11 20:50:00",
+                        "stopover_ETD": "2018-10-16 13:39:00",
+                        "stopover_ID": "20180693",
+                        "stopover_status": null,
+                        "stopover_terminal": "FR_BAS/vcall",
+                        "supplychains": []
+                    },
+                    "Rejections": [
+                        {
+                            "Rejected SC": "unloading_AUTRES",
+                            "Causes": [
+                                "Unmatch on amount_min"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "Number of handling that get a default assignation: 0",
+        "Number of handling that did not get any SC assignation : 11",
+        "Deleting non assigned handling (option in settings): True",
+        {
+            "List of handlings without any SC assignation": [
+                {
+                    "content_agent": "SEAINVEST",
+                    "content_amount": 114,
+                    "content_dangerous": false,
+                    "content_label": null,
+                    "content_type": "E.COLIS LOURDS",
+                    "handling_direction": "loading",
+                    "handling_dock": "413",
+                    "handling_ID": "handling_55",
+                    "handling_lattestEnd": "2018-02-20 10:20:00",
+                    "handling_earliestStart": "2018-02-20 21:10:00",
+                    "handling_operator": "None",
+                    "handling_type": "AUTRES",
+                    "ship_capacity": null,
+                    "ship_ID": "9671436",
+                    "ship_label": "EEMSLIFT NADINE",
+                    "ship_type": null,
+                    "stopover_ETA": "2018-02-20 10:20:00",
+                    "stopover_ETD": "2018-02-20 21:10:00",
+                    "stopover_ID": "20180108",
+                    "stopover_status": null,
+                    "stopover_terminal": "FR_BAS/vcall",
+                    "supplychains": []
+                },
+                {
+                    "content_agent": "SEAINVEST",
+                    "content_amount": 2690,
+                    "content_dangerous": false,
+                    "content_label": null,
+                    "content_type": "I.HUILE COLZA",
+                    "handling_direction": "unloading",
+                    "handling_dock": "436",
+                    "handling_ID": "handling_133",
+                    "handling_lattestEnd": "2018-04-30 18:20:00",
+                    "handling_earliestStart": "2018-05-01 10:30:00",
+                    "handling_operator": "None",
+                    "handling_type": "LIQ.V",
+                    "ship_capacity": null,
+                    "ship_ID": "9268174",
+                    "ship_label": "ATLANTIS ALVARADO",
+                    "ship_type": null,
+                    "stopover_ETA": "2018-04-30 18:20:00",
+                    "stopover_ETD": "2018-05-01 10:30:00",
+                    "stopover_ID": "20180275",
+                    "stopover_status": null,
+                    "stopover_terminal": "FR_BAS/vcall",
+                    "supplychains": []
+                },
+                {
+                    "content_agent": "SEAINVEST",
+                    "content_amount": 2993,
+                    "content_dangerous": false,
+                    "content_label": null,
+                    "content_type": "I.HUILE COLZA",
+                    "handling_direction": "unloading",
+                    "handling_dock": "436",
+                    "handling_ID": "handling_181",
+                    "handling_lattestEnd": "2018-06-03 23:30:00",
+                    "handling_earliestStart": "2018-06-08 14:20:00",
+                    "handling_operator": "None",
+                    "handling_type": "LIQ.V",
+                    "ship_capacity": null,
+                    "ship_ID": "9537094",
+                    "ship_label": "ORALUNA",
+                    "ship_type": null,
+                    "stopover_ETA": "2018-06-03 23:30:00",
+                    "stopover_ETD": "2018-06-08 14:20:00",
+                    "stopover_ID": "20180367",
+                    "stopover_status": null,
+                    "stopover_terminal": "FR_BAS/vcall",
+                    "supplychains": []
+                },
+                {
+                    "content_agent": "MSC",
+                    "content_amount": 417,
+                    "content_dangerous": false,
+                    "content_label": null,
+                    "content_type": "E.CONTENEURS",
+                    "handling_direction": "loading",
+                    "handling_dock": "432",
+                    "handling_ID": "handling_218",
+                    "handling_lattestEnd": "2018-07-03 10:10:00",
+                    "handling_earliestStart": "2018-07-05 12:30:00",
+                    "handling_operator": "None",
+                    "handling_type": "P.C.",
+                    "ship_capacity": null,
+                    "ship_ID": "9388388",
+                    "ship_label": "LIBERTAS-H",
+                    "ship_type": null,
+                    "stopover_ETA": "2018-07-03 10:10:00",
+                    "stopover_ETD": "2018-07-05 12:30:00",
+                    "stopover_ID": "20180444",
+                    "stopover_status": null,
+                    "stopover_terminal": "FR_BAS/vcall",
+                    "supplychains": []
+                },
+                {
+                    "content_agent": "SEAINVEST",
+                    "content_amount": 3002,
+                    "content_dangerous": false,
+                    "content_label": null,
+                    "content_type": "I.HUILE COLZA",
+                    "handling_direction": "unloading",
+                    "handling_dock": "436",
+                    "handling_ID": "handling_293",
+                    "handling_lattestEnd": "2018-08-31 08:35:00",
+                    "handling_earliestStart": "2018-09-01 10:50:00",
+                    "handling_operator": "None",
+                    "handling_type": "LIQ.V",
+                    "ship_capacity": null,
+                    "ship_ID": "9427524",
+                    "ship_label": "SILVER KENNA",
+                    "ship_type": null,
+                    "stopover_ETA": "2018-08-31 08:35:00",
+                    "stopover_ETD": "2018-09-01 10:50:00",
+                    "stopover_ID": "20180590",
+                    "stopover_status": null,
+                    "stopover_terminal": "FR_BAS/vcall",
+                    "supplychains": []
+                },
+                {
+                    "content_agent": "SEAINVEST",
+                    "content_amount": 3000,
+                    "content_dangerous": false,
+                    "content_label": null,
+                    "content_type": "I.HUILE COLZA",
+                    "handling_direction": "unloading",
+                    "handling_dock": "436",
+                    "handling_ID": "handling_333",
+                    "handling_lattestEnd": "2018-10-09 18:45:00",
+                    "handling_earliestStart": "2018-10-10 19:10:00",
+                    "handling_operator": "None",
+                    "handling_type": "LIQ.V",
+                    "ship_capacity": null,
+                    "ship_ID": "9391127",
+                    "ship_label": "STRAITVIEW",
+                    "ship_type": null,
+                    "stopover_ETA": "2018-10-09 18:45:00",
+                    "stopover_ETD": "2018-10-10 19:10:00",
+                    "stopover_ID": "20180688",
+                    "stopover_status": null,
+                    "stopover_terminal": "FR_BAS/vcall",
+                    "supplychains": []
+                },
+                {
+                    "content_agent": "SEAINVEST",
+                    "content_amount": 979,
+                    "content_dangerous": false,
+                    "content_label": null,
+                    "content_type": "I.BOIS SCIES DU NORD",
+                    "handling_direction": "unloading",
+                    "handling_dock": "415",
+                    "handling_ID": "handling_337",
+                    "handling_lattestEnd": "2018-10-11 20:50:00",
+                    "handling_earliestStart": "2018-10-16 13:39:00",
+                    "handling_operator": "None",
+                    "handling_type": "AUTRES",
+                    "ship_capacity": null,
+                    "ship_ID": "8904434",
+                    "ship_label": "MEKHANIK PYATLIN",
+                    "ship_type": null,
+                    "stopover_ETA": "2018-10-11 20:50:00",
+                    "stopover_ETD": "2018-10-16 13:39:00",
+                    "stopover_ID": "20180693",
+                    "stopover_status": null,
+                    "stopover_terminal": "FR_BAS/vcall",
+                    "supplychains": []
+                },
+                {
+                    "content_agent": "SEAINVEST",
+                    "content_amount": 3987,
+                    "content_dangerous": false,
+                    "content_label": null,
+                    "content_type": "I.HUILE COLZA",
+                    "handling_direction": "unloading",
+                    "handling_dock": "436",
+                    "handling_ID": "handling_376",
+                    "handling_lattestEnd": "2018-11-12 07:40:00",
+                    "handling_earliestStart": "2018-11-13 09:00:00",
+                    "handling_operator": "None",
+                    "handling_type": "LIQ.V",
+                    "ship_capacity": null,
+                    "ship_ID": "9336701",
+                    "ship_label": "ORASUND",
+                    "ship_type": null,
+                    "stopover_ETA": "2018-11-12 07:40:00",
+                    "stopover_ETD": "2018-11-13 09:00:00",
+                    "stopover_ID": "20180765",
+                    "stopover_status": null,
+                    "stopover_terminal": "FR_BAS/vcall",
+                    "supplychains": []
+                },
+                {
+                    "content_agent": "SEAINVEST",
+                    "content_amount": 2995,
+                    "content_dangerous": false,
+                    "content_label": null,
+                    "content_type": "I.HUILE COLZA",
+                    "handling_direction": "unloading",
+                    "handling_dock": "436",
+                    "handling_ID": "handling_385",
+                    "handling_lattestEnd": "2018-11-19 03:20:00",
+                    "handling_earliestStart": "2018-11-20 16:10:00",
+                    "handling_operator": "None",
+                    "handling_type": "LIQ.V",
+                    "ship_capacity": null,
+                    "ship_ID": "9537094",
+                    "ship_label": "ORALUNA",
+                    "ship_type": null,
+                    "stopover_ETA": "2018-11-19 03:20:00",
+                    "stopover_ETD": "2018-11-20 16:10:00",
+                    "stopover_ID": "20180780",
+                    "stopover_status": null,
+                    "stopover_terminal": "FR_BAS/vcall",
+                    "supplychains": []
+                },
+                {
+                    "content_agent": "SEAINVEST",
+                    "content_amount": 3004,
+                    "content_dangerous": false,
+                    "content_label": null,
+                    "content_type": "I.HUILE COLZA",
+                    "handling_direction": "unloading",
+                    "handling_dock": "436",
+                    "handling_ID": "handling_417",
+                    "handling_lattestEnd": "2018-12-11 08:30:00",
+                    "handling_earliestStart": "2018-12-12 07:40:00",
+                    "handling_operator": "None",
+                    "handling_type": "LIQ.V",
+                    "ship_capacity": null,
+                    "ship_ID": "9402689",
+                    "ship_label": "ORAKAI",
+                    "ship_type": null,
+                    "stopover_ETA": "2018-12-11 08:30:00",
+                    "stopover_ETD": "2018-12-12 07:40:00",
+                    "stopover_ID": "20180837",
+                    "stopover_status": null,
+                    "stopover_terminal": "FR_BAS/vcall",
+                    "supplychains": []
+                },
+                {
+                    "content_agent": "SEAINVEST",
+                    "content_amount": 3145,
+                    "content_dangerous": false,
+                    "content_label": null,
+                    "content_type": "I.HUILE COLZA",
+                    "handling_direction": "unloading",
+                    "handling_dock": "436",
+                    "handling_ID": "handling_441",
+                    "handling_lattestEnd": "2018-12-31 13:45:00",
+                    "handling_earliestStart": null,
+                    "handling_operator": "None",
+                    "handling_type": "LIQ.V",
+                    "ship_capacity": null,
+                    "ship_ID": "9391127",
+                    "ship_label": "STRAITVIEW",
+                    "ship_type": null,
+                    "stopover_ETA": "2018-12-31 13:45:00",
+                    "stopover_ETD": null,
+                    "stopover_ID": "20180879",
+                    "stopover_status": null,
+                    "stopover_terminal": "FR_BAS/vcall",
+                    "supplychains": []
+                }
+            ]
+        },
+        "===== SC_mapper ENDS =====",
+        "End of pipeline GPMB_demo. Clossing PAS builder"
     ]
 }

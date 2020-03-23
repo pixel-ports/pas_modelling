@@ -37,6 +37,7 @@ def main(pipeline_name, OT_input) :
 			LOGS.append(f"Settings loaded successfully")
 	except :
 		LOGS.append(f"Unable to load {file}, PAS modelling aborded")
+		#FIXME Exporter logs !
 
 
 	# APPLICATION DES MODULES DE LA PIPELINE
@@ -48,7 +49,9 @@ def main(pipeline_name, OT_input) :
 			
 		HANDLINGS, PORT, LOGS, SETTINGS = eval(module_i + "(HANDLINGS, PORT, LOGS, SETTINGS, module_i)") #On peut envisager de recevoir aussi SETTINGS pour qu'un module puisse modifier le comportement d'un suivant. A voir
 
-	#CLOSSINT
+	#CLOSSING
+	LOGS.append(f"End of pipeline {pipeline_name}. Clossing PAS builder")
+
 	export = {
 		"SETTINGS": SETTINGS,
 		"LOGS": LOGS

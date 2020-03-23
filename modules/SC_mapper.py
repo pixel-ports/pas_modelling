@@ -1,9 +1,4 @@
-import json
-import jsonschema
-import logging
-
-logger = logging.getLogger("SC_mapper")
-
+import collections
 
 def SC_mapper(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	'''
@@ -12,127 +7,158 @@ def SC_mapper(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	Add to each handling an array of suitable SupplyChains (deduced from parameters "RULES>content_type_list").
 	Optionnal filtration can be enabled into Setting
 	'''
-	# logger.warning("Starting")
+	#INITIALIZATION
+	LOGS.append(f"===== {module_name} STARTS =====")
 
 
-	# ASSIGNATION SC DU CONTENT TYPE
+	# ASSIGNATION SC
+
+	#	VARIANTE SANS LOGS
+	# for handling in HANDLINGS:
+	# 	for assignation in PORT["Assignations"]:
+	# 		if assignation["content_type_ID"] == handling["content_type"]:
+	# 			for candidat_SC in assignation.get("Suitable_SCs", []):
+	# 				if test_SC_requirements(handling, candidat_SC["restrictions"], SETTINGS["modules_settings"][module_name]["restrictions"])[0]:
+	# 					handling.setdefault("supplychains",[]).append(candidat_SC["supplychain"])
+
+	#	AVEC LOGS
+	Unreconized_content_types = []
+	Duplicated_content_types = []
+	Requirements_rejection = []
+
 	for handling in HANDLINGS :
-		#AJOUT DES SC QUI MATCHENT
-		#VARIANTE (boucle)
-		for content_type in PORT['Asignations'] :
-			if content_type["content_type_ID"] == handling["content_type"] : 
-				for candidat_SC in content_type["suitable_SC"] :
-					if testing_SC(handling, candidat_SC["restrictions"], SETTINGS["modules_settings"][module_name]["restrictions"]):
-						handling["supplychains"] = [candidat_SC["supplychain"] 
-							for candidat_SC in content_type["suitable_SC"]]
+		#	MATCHING CT:
+		candidatSC_nestedList = [assignation.get("Suitable_SCs", [])
+			for assignation in PORT["Assignations"] 
+			if assignation["content_type_ID"] == handling["content_type"]
+		]
+		if len(candidatSC_nestedList) == 0 : #NB même si pas de SC, le len sera de 1 avec un CT qui match 
+			Unreconized_content_types.append(handling["content_type"]) 
+		elif len(candidatSC_nestedList) > 1 : #NB cas qui ne devrait pas exister si PORT est propres
+			Duplicated_content_types.append(handling["content_type"])
 		
+		#	SUITABLE SC:
+		handling["supplychains"] = []
+		if len(candidatSC_nestedList) >0 :
+			Rejections=[]
+			for candidat_SC in [candidat_SC for suitable_CT in candidatSC_nestedList for candidat_SC in suitable_CT]:
+				requirement_success, requirement_Messages = test_SC_requirements(handling, candidat_SC["restrictions"], SETTINGS["modules_settings"][module_name]["restrictions"])
+				if requirement_success:
+					handling["supplychains"].append(candidat_SC["supplychain"])
+			#LOGS DES REJETS
+				else:
+					Rejections.append({
+						"Rejected SC": candidat_SC["supplychain"],
+						"Causes": requirement_Messages
+					})
+			if len(handling["supplychains"]) == 0: #On ne log qu'a posteriori, si l'handling n'a pas recut de SC du fait des requirements
+				Requirements_rejection.append(
+					{
+						"Handling": handling,
+						"Rejections":Rejections
+					}
+				)
 
-		'''#VARIANTE (hybride)
-		#Matching du content_type
-		matching_content_type_list = [content_type for content_type 
-			in PAS["parameters"]["RULES"]["content_type_list"] 
-			if content_type["content_type_ID"] == handling["content_type"]]
 
-		#Log si content_type en double dans Rules
-		if len(matching_content_type_list) >1:
-			print(f"\nError, the handling {handling} \n\nmatchs more than one content_type in Rules: \n{matching_content_type_list}\nOnly the first one will be considered") #TODO remplacer par w	arning log
-		
-		if len(matching_content_type_list) == 1:
-			#Extraction des SC du content type
-			candidat_SC_list = [content_type["suitable_SC"] for content_type 
-				in matching_content_type_list 
-				#if len(matching_content_type_list) == 1
-				][0] #On ne cherche pas à extraire de SC si la liste est vide
-		
-			#Assignation des SC si les requirements sont respectés
-			for candidat_SC in candidat_SC_list :
-				if testing_SC(handling, candidat_SC["restrictions"], module_settings["restrictions"]):
-					handling["supplychains"] = candidat_SC["supplychain"]
-			# #VARIANTE (list comprehension)
-			# handling.setdefault("supplychains", []).append([candidat_SC["supplychain"]
-			# 	for candidat_SC in candidat_SC_list[0]#On ne prends que le premier content_type 
-			# 	if testing_SC(handling, candidat_SC["restrictions"], module_settings["restrictions"])
-			# ])
-		'''
-		
-		'''#VARIANTE (list comprehension)
-		matching_content_type_list = [content_type 
-			for content_type in PAS['parameters']['RULES']['content_type_list'] 
-			if content_type["content_type_ID"] == handling["content_type"]]
-		
-		if len(matching_content_type_list) == 1 : #c'est cette condition qui est embettante
-			handling.setdefault("supplychains", []).append([candidat_SC["supplychain"] 
-				for candidat_SC in matching_content_type_list[0]["suitable_SC"] 
-				if testing_SC(handling, candidat_SC["restrictions"], module_settings["restrictions"])#[O]
-			])
-		#Comme finalement on ne s'appuit pas sur len(matching_content_type_list) pr traiter les cas =0,=1 et >1, ne sert à rien et peu lisible)
-		'''
-	# GESTION DES HANDLINGS SANS SC #Doit couvrir l'ensemble des cas, pas uniquement les handlings sans CT qui match (donc après)
-	handlings_ss_SC= [handling 
-		for handling in HANDLINGS
-		if len(handling.setdefault("supplychains", []))==0]
+	# ASSIGNIATIONS SC PAR DEFAULT 
+	Default_SC_assignations = []
+	if SETTINGS["modules_settings"][module_name]["default_SC"]:
+		for handling in HANDLINGS:
+			if len(handling["supplychains"]) == 0: 
+				default_success, default_sc = assigne_default_SC(handling, PORT["Assignations"])#FIXME non implémenté
+				if default_success:
+					handling["supplychains"].append(default_sc)
+					Default_SC_assignations.append(handling)
 	
-	print(f"Nb de handlings sans supplychain: {len(handlings_ss_SC)}")
-	for handling in handlings_ss_SC :
-		print(f'{handling["handling_ID"]}, {handling["handling_type"]}, {handling["content_type"]}')
 
-		#TODO Appliquer une SC par défaut
-		# for handling in handlings_ss_SC :
-		# 	handling = assigning_default_SC(handling)
-		#TODO Rejetter les handling sans SC en log
-		# if len(matching_content_type_list) == 0:
-		# 	PAS["log"]['rejected_handlings'].append({
-		# 		"issue": {
-		# 			'invalid_key': {
-		# 				"key":"content_type",
-		# 				"value":handling["content_type"],
-		# 				"comment": "No match with content_type in port's parameters"
-		# 			}
-		# 		},
-		# 		"module":"SC_mapper",
-		# 		"handling": handling
-		# 	})
-		
-	# logger.warning("Ending")
-	#print(candidat_SCs)
+	# REJET DES HANDLINGS SANS SC #TODO vraiment une bonne idée ? 
+	# VARIANTE on pourrait compacter en fusionnant avec l'assignation par défault, mais on choisit de cloisoner le code
+
+	Unassigned_handlings = [handling
+			for handling in HANDLINGS
+			if len(handling["supplychains"]) == 0
+		]
+	if SETTINGS["modules_settings"][module_name]["discart_unassigned"]:
+		for handling in Unassigned_handlings:
+			HANDLINGS.remove(handling) #Attention, fiabilité discutable s'il y a des doublons (mais devraient être en double aussi dans la liste mère)
+
+	#LOGS
+	#	Duplicated_content_types
+	LOGS.append(f"Number of duplicated content type: {len(set(Duplicated_content_types))}") #Impacte l'assignation a travers l'affectation de l'ordre des SC résultantes
+	if len(set(Duplicated_content_types)) > 0:
+		LOGS.append({"List of duplicated content type": set(Duplicated_content_types)})
+	
+	#	Unreconized_content_types
+	LOGS.append(f"Number of handling with unreconized content type: {len(Unreconized_content_types)}")
+	if len(set(Unreconized_content_types)) > 0:
+		LOGS.append({"List of unreconized content type": set(Unreconized_content_types)}) #TODO ajouter le nb d'handlings du sous groupe
+			
+	#	Requirements_rejection
+	LOGS.append(f"Number of handling that loose matching assignation due to SC requirement: {len(Requirements_rejection)}")
+	if len(Requirements_rejection) > 0:
+		LOGS.append({"List of requirements rejection": Requirements_rejection})
+
+	#	Default SC assignation
+	LOGS.append(f"Number of handling that get a default assignation: {len(Default_SC_assignations)}")
+	if len(Default_SC_assignations) > 0:
+		LOGS.append({"List of handlings with a default SC assignation": Default_SC_assignations})
+	
+	#	Discarted handlings
+	LOGS.append(f"Number of handling that did not get any SC assignation : {len(Unassigned_handlings)}")
+	LOGS.append(f'Deleting non assigned handling (option in settings): {SETTINGS["modules_settings"][module_name]["discart_unassigned"]}')
+	if len(Unassigned_handlings) > 0:
+		LOGS.append({"List of handlings without any SC assignation": Unassigned_handlings})
+	
+	
+	#CLOTURE	
+	LOGS.append(f"===== {module_name} ENDS =====")
 	return HANDLINGS, PORT, LOGS, SETTINGS
 
-def calculating_duration(pas, module_settings) :
-	return #TODO
-
-
 #=====================================================
-def testing_SC(handling, assignation_restrictions, settings_restrictions): 
+def test_SC_requirements(handling, assignation_restrictions, settings_restrictions): 
 	'''Test a handlings against a candidat assignation, return False if does not meet every requirements
 	(intersection of {enabled restrictions in settings} and {existing requirement into assignation})
 	NB: a requirement key not present into assignation description is considered as succefully passed but a requirement key present with an empty value will reject every handling
 	'''#Variante, mettre une clé pour activer/désactivé (en gardant la valeur) pour assignation_restrictions ?
+	Messages = []
 
-	if (settings_restrictions["direction"] #Bool true pr enabled
-		and ("direction" in assignation_restrictions) 
-		#VARIANTE: and  len(assignation_restrictions["direction"]) > 0  #on autorise un array vide
-		and handling["handling_direction"] not in assignation_restrictions["direction"] 
+	if (settings_restrictions["direction"] #Etat de l'option de filtre dans settings
+		and ("direction" in assignation_restrictions) #Existance de la clé dans l'assignation
+		and handling["handling_direction"] not in assignation_restrictions["direction"] #Adéquation de l'handling
 	) : 
-		return False #VARIANTE: (False, "Unmatch on direction") #si on veut un tuple avec la raison du refus
+		Messages.append(f"Unmatch on direction")
 	
 	if (settings_restrictions["dock"] 
 		and ("dock" in assignation_restrictions) 
 		and handling["handling_dock"] not in assignation_restrictions["dock"] 
 	) : 
-		return False #(False, "Unmatch on dock")
+		Messages.append(f"Unmatch on dock")
 	
 	if (settings_restrictions["amount_min"] 
 		and("amount_min" in assignation_restrictions) 
 		and handling["content_amount"] < assignation_restrictions["amount_min"] 
 	) : 
-		return False #(False, "Unmatch on amount_min")
+		Messages.append(f"Unmatch on amount_min")
 	
 	if (settings_restrictions["amount_max"] 
 		and("amount_max" in assignation_restrictions) 
 		and handling["content_amount"] > assignation_restrictions["amount_max"] 
 	) : 
-		return False #(False, "Unmatch on amount_max")
+		Messages.append(f"Unmatch on amount_max")
 	
-	return True #(True, "all restrictions match")
-	#Faire un output en vecteur booléen ?
+	if len(Messages) > 0:
+		success = False
+	else:
+		Messages = "SC requirements filtering: successfull"
+		success = True
+	return (success, Messages)
 
+def assigne_default_SC(handling, Assignations):
+	default_SC = None
+
+	if default_SC is None:
+		success = False
+	else :
+		success = True
+
+	return (success, default_SC)

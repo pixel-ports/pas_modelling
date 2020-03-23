@@ -21,8 +21,8 @@
             },
             "Port": [
                 {
-                    "name": "Asignations",
-                    "file_path": "./tools/demo_inputs/GPMB_2018//Asignations.json"
+                    "name": "Assignations",
+                    "file_path": "./tools/demo_inputs/GPMB_2018//Assignations.json"
                 },
                 {
                     "name": "Supplychains",
@@ -35,19 +35,25 @@
             ]
         },
         "IH_converter": {
-            "IH_converter_settings_key": "settings_value"
+            "filters": {
+                "content_amount": true,
+                "content_type": true,
+                "handling_direction": true,
+                "handling_dock": true,
+                "ET_consistency": true
+            }
         },
         "SC_mapper": {
             "restrictions": {
-                "direction": false,
-                "dock": false,
-                "amount_min": false,
-                "amount_max": false
-            }
+                "direction": true,
+                "dock": true,
+                "amount_min": true,
+                "amount_max": true
+            },
+            "default_SC": true,
+            "discart_unassigned": true
         },
-        "IH_logger": {
-        },
-        "IH_writer": {
-        }
+        "IH_logger": {},
+        "IH_writer": {}
     }
 }

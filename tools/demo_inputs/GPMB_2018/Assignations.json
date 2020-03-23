@@ -5,7 +5,7 @@
         "comment": "Some comment",
         "handling_type": "CEREAL",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_CEREAL",
                 "restrictions": {
@@ -25,7 +25,7 @@
         "comment": "Some comment",
         "handling_type": "CEREAL",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_CEREAL",
                 "restrictions": {
@@ -46,7 +46,7 @@
         "comment": "Some comment",
         "handling_type": "CEREAL",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_CEREAL",
                 "restrictions": {
@@ -67,7 +67,7 @@
         "comment": "Some comment",
         "handling_type": "AUTRES",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_AUTRES",
                 "restrictions": {
@@ -88,7 +88,7 @@
         "comment": "Some comment",
         "handling_type": "CEREAL",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_CEREAL",
                 "restrictions": {
@@ -108,7 +108,7 @@
         "comment": "Some comment",
         "handling_type": "P.C.",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_P.C.",
                 "restrictions": {
@@ -129,7 +129,7 @@
         "comment": "Some comment",
         "handling_type": "LIQ.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_LIQ.V",
                 "restrictions": {
@@ -149,7 +149,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_SOL.V",
                 "restrictions": {
@@ -169,7 +169,7 @@
         "comment": "Some comment",
         "handling_type": "CEREAL",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_CEREAL",
                 "restrictions": {
@@ -189,7 +189,7 @@
         "comment": "Some comment",
         "handling_type": "LIQ.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_LIQ.V",
                 "restrictions": {
@@ -209,7 +209,7 @@
         "comment": "Some comment",
         "handling_type": "LIQ.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_LIQ.V",
                 "restrictions": {
@@ -229,7 +229,7 @@
         "comment": "Some comment",
         "handling_type": "LIQ.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_LIQ.V",
                 "restrictions": {
@@ -249,7 +249,7 @@
         "comment": "Some comment",
         "handling_type": "CEREAL",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_CEREAL",
                 "restrictions": {
@@ -270,7 +270,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_SOL.V",
                 "restrictions": {
@@ -290,7 +290,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_SOL.V",
                 "restrictions": {
@@ -312,7 +312,7 @@
         "comment": "Some comment",
         "handling_type": "LIQ.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_LIQ.V",
                 "restrictions": {
@@ -332,7 +332,7 @@
         "comment": "Some comment",
         "handling_type": "CEREAL",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_CEREAL",
                 "restrictions": {
@@ -352,7 +352,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_SOL.V",
                 "restrictions": {
@@ -372,7 +372,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_SOL.V",
                 "restrictions": {
@@ -392,7 +392,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_SOL.V",
                 "restrictions": {
@@ -413,7 +413,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "loading_SOL.V",
                 "restrictions": {
@@ -434,7 +434,7 @@
         "comment": "Some comment",
         "handling_type": "AUTRES",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_AUTRES",
                 "restrictions": {
@@ -456,7 +456,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V",
                 "restrictions": {
@@ -476,7 +476,7 @@
         "comment": "Some comment",
         "handling_type": "GAZ.L",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_GAZ.L",
                 "restrictions": {
@@ -496,16 +496,10 @@
         "comment": "DOUBLON",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V_doublon",
                 "restrictions": {
-                    "direction": "unloading",
-                    "dock": [
-                        "435"
-                    ],
-                    "amount_min": 1000,
-                    "amount_max": 50000
                 }
             }
         ]
@@ -516,7 +510,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V",
                 "restrictions": {
@@ -536,7 +530,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V",
                 "restrictions": {
@@ -556,7 +550,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V",
                 "restrictions": {
@@ -578,7 +572,7 @@
         "comment": "Some comment",
         "handling_type": "AUTRES",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_AUTRES",
                 "restrictions": {
@@ -598,7 +592,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V",
                 "restrictions": {
@@ -618,7 +612,7 @@
         "comment": "Some comment",
         "handling_type": "P.C.",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_P.C.",
                 "restrictions": {
@@ -639,9 +633,20 @@
         "comment": "Some comment",
         "handling_type": "LIQ.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_LIQ.V",
+                "restrictions": {
+                    "direction": "unloading",
+                    "dock": [
+                        "436"
+                    ],
+                    "amount_min": 1000,
+                    "amount_max": 50000
+                }
+            },
+            {
+                "supplychain": "deuxième pr voir",
                 "restrictions": {
                     "direction": "unloading",
                     "dock": [
@@ -659,7 +664,7 @@
         "comment": "Some comment",
         "handling_type": "LIQ.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_LIQ.V",
                 "restrictions": {
@@ -679,7 +684,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V",
                 "restrictions": {
@@ -699,7 +704,7 @@
         "comment": "Some comment",
         "handling_type": "LIQ.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_LIQ.V",
                 "restrictions": {
@@ -719,7 +724,7 @@
         "comment": "Some comment",
         "handling_type": "LIQ.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_LIQ.V",
                 "restrictions": {
@@ -739,7 +744,7 @@
         "comment": "Some comment",
         "handling_type": "LIQ.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_LIQ.V",
                 "restrictions": {
@@ -759,7 +764,7 @@
         "comment": "Some comment",
         "handling_type": "LIQ.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_LIQ.V",
                 "restrictions": {
@@ -779,7 +784,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V",
                 "restrictions": {
@@ -799,7 +804,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V",
                 "restrictions": {
@@ -819,7 +824,7 @@
         "comment": "Some comment",
         "handling_type": "LIQ.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_LIQ.V",
                 "restrictions": {
@@ -839,7 +844,7 @@
         "comment": "Some comment",
         "handling_type": "LIQ.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_LIQ.V",
                 "restrictions": {
@@ -859,7 +864,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V",
                 "restrictions": {
@@ -879,7 +884,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V",
                 "restrictions": {
@@ -899,7 +904,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V",
                 "restrictions": {
@@ -919,7 +924,7 @@
         "comment": "Some comment",
         "handling_type": "LIQ.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_LIQ.V",
                 "restrictions": {
@@ -939,7 +944,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V",
                 "restrictions": {
@@ -959,7 +964,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V",
                 "restrictions": {
@@ -981,7 +986,7 @@
         "comment": "Some comment",
         "handling_type": "SOL.V",
         "unit": "Tons",
-        "suitable_SC": [
+        "Suitable_SCs": [
             {
                 "supplychain": "unloading_SOL.V",
                 "restrictions": {
