@@ -1,39 +1,45 @@
-import logging
+# import logging
 import json
-from typing import Iterable
-import jsonschema
+# from typing import Iterable
+# import jsonschema
 from elasticsearch import Elasticsearch
 
-logger = logging.getLogger("IH_requester")
-mod_name = "IH_requester:"
+# logger = logging.getLogger("IH_requester")
+# mod_name = "IH_requester:"
 
-def IH_requester(OT_INPUT, HANDLINGS, PORT, MODSETTINGS, LOGS):
+# def IH_requester(OT_INPUT, HANDLINGS, PORT, MODSETTINGS, LOGS):
+def process(HANDLINGS, PORT, LOGS, SETTINGS, name):
 	'''
-	Converts IH request parameters to PAS modelling inputs (port's raw stopover and parameters set)
+	#FIXME
 	'''
-	#NB : la vérification de conformité vis à vis des schémas était initialement faite à l'import (cf le settings du module). Mais pour certains cas, il serait mieux de faire cela à l'étape de conversion.
-
 	#INITIALISATION
-	logger.info("IH_requester initialisation")
-	MODLOGS = ["IH_requester initialisation"]
+	LOGS.append(f"===== {name} STARTS =====")
 
+
+	#IH REQUESTING
 	for name in ["supplychains", "rules", "resources"]:
-		message, data = get(OT_INPUT, name)
+		message, data = get(SETTINGS["OT_input"], name)
 		if message:
-			MODLOGS.append(message)
+			LOGS.append(message)
 		PORT.update({name: data})
 
-	message, data = get(OT_INPUT, "pas-input")
+	message, data = get(SETTINGS["OT_input"], "pas-input")
 	if message:
-		MODLOGS.append(message)
+		LOGS.append(message)
 	HANDLINGS = data
 
-	return (HANDLINGS, PORT, MODLOGS)
 
-# %% UTILITIES
+	#CLOTURE
+	LOGS.append(f"===== {name} ENDS =====")
+	return (HANDLINGS, PORT, LOGS, SETTINGS)
+
+
+#=========================================================================
 def get(pas_instance_data, name):
 	message = None
 	data = None
+	print(f"\npas_instance_data: {pas_instance_data})
+	pas_instance_data["input"]
 	input_element = next(x for x in pas_instance_data["input"] if x["name"]==name)
 	if input_element["category"] == "ih-api":
 		es = Elasticsearch(input_element["options"][0]["value"])

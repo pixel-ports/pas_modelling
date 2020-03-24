@@ -3,16 +3,18 @@ import json
 #import jsonschema
 
 
-def local_inputs_loader(HANDLINGS, PORT, LOGS, SETTINGS, name):
+def process(HANDLINGS, PORT, LOGS, SETTINGS, name):
 	'''
 	Load local files (handlings and port's parameters) to PAS modelling inputs (port's raw stopover and parameters set)
 	'''
 	#NB : la vérification de conformité vis à vis des schémas était initialement faite à l'import (cf le settings du module). Mais pour certains cas, il serait mieux de faire cela à l'étape de conversion.
 
 	#INITIALISATION
-	LOGS.append(f"===== {name} STARTS =====")
+	LOGS.append(f"===== {name} STARTS =====")#FIXME remplacer par __name__?
 
+	print(__name__)
 
+	
 	#CHARGEMENT DES FICHIERS
 
 		# HANDLINGS

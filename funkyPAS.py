@@ -1,15 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import argparse
-# import os
-# import logging
 import json
-
-# os.system("clear") 
-# logging.basicConfig(
-# 	level= logging.INFO, 
-# 	format='%(name) -8s %(message)s')
-# logger = logging.getLogger("MAIN")
+import sys
+sys.path.insert(0, "./modules")
 
 
 def main(pipeline_name, OT_input) :
@@ -24,41 +18,60 @@ def main(pipeline_name, OT_input) :
 	try : 
 		with open("./settings.json") as file :
 			settings_file = json.load(file)
-			modules_sequence = settings_file["pipelines"][pipeline_name]
-			SETTINGS = {
-				"pipeline":pipeline_name,
-				"modules_sequence": modules_sequence,
-				"OT_input": OT_input,
-				"modules_settings": {module_name: module_settings 
-					for (module_name, module_settings) in settings_file["modules_settings"].items() 
-					if module_name in modules_sequence
-				}
+		modules_sequence = settings_file["Pipelines"][pipeline_name]#TODO expliciter l'erreur d'une pipeline non connue dans settings.json
+		SETTINGS = {
+			"pipeline":pipeline_name,
+			"modules_sequence": modules_sequence,
+			"OT_input": OT_input,
+			"modules_settings": {module_name: module_settings #TODO Retirer cette clé intermédiaire ?
+				for (module_name, module_settings) in settings_file["modules_settings"].items() 
+				if module_name in modules_sequence
 			}
-			LOGS.append(f"Settings loaded successfully")
-	except :
-		LOGS.append(f"Unable to load {file}, PAS modelling aborded")
-		#FIXME Exporter logs !
+		}
+		LOGS.append(f"Settings loaded successfully")
+	except Exception as error:
+		LOGS.append(f"Failled to load: {file}.\nError: {error}")
+		abording_export(LOGS, SETTINGS)
 
 
 	# APPLICATION DES MODULES DE LA PIPELINE
 	for module_i in modules_sequence :
 		LOGS.append(f"Calling module {module_i}")
-		# try : #Le try est désactivé pr faciliter le debuggage
-		exec('from modules.' + module_i + " import " + module_i )#, locals(), globals())
-		LOGS.append(f"Module {module_i} imported successfully")
-			
-		HANDLINGS, PORT, LOGS, SETTINGS = eval(module_i + "(HANDLINGS, PORT, LOGS, SETTINGS, module_i)") #On peut envisager de recevoir aussi SETTINGS pour qu'un module puisse modifier le comportement d'un suivant. A voir
-
+		# try : 
+		exec(f"import {module_i}")
+		# except Exception as error:
+		# 	LOGS.append(f"Failled to import: {module_i}.\nError: {error}")
+		# 	abording_export(LOGS, SETTINGS)
+		# else:
+		# 	try:	
+		HANDLINGS, PORT, LOGS, SETTINGS = eval(f"{module_i}.process(HANDLINGS, PORT, LOGS, SETTINGS, module_i)")
+			# except Exception as error:
+			# 	LOGS.append(f"Failled to run: {module_i}.\nError: {error}")
+			# 	abording_export(LOGS, SETTINGS)
+	
 	#CLOSSING
 	LOGS.append(f"End of pipeline {pipeline_name}. Clossing PAS builder")
+	# abording_export(LOGS, SETTINGS)
 
+
+#=========================================================================
+def abording_export(LOGS, SETTINGS):
+	LOGS.append(f"PAS modelling closing")
+	
 	export = {
 		"SETTINGS": SETTINGS,
 		"LOGS": LOGS
 	}
+	
 	with open("./export_run_report.json", 'w') as file:
 		json.dump(export, file, indent=4, default=str)
-#=========================================================================
+	
+	print(f"\n\n===== ABORDING!!!=====\nlogs & settings exported in {file} before closing")
+	
+	sys.exit(1)# ou bien on considère qu'on est en exit(0) ?
+
+
+
 # SHELL
 if __name__ == "__main__" :
 	parser = argparse.ArgumentParser(description="Process executable options.")

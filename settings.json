@@ -1,5 +1,5 @@
 {
-    "pipelines": {
+    "Pipelines": {
         "IH_only": [
             "IH_requester",
             "IH_logger",
@@ -7,11 +7,10 @@
         ],
         "GPMB_demo": [
             "local_inputs_loader",
-            "IH_converter",
-            "SC_mapper"
+            "handling_converter",
+            "supplychain_assignation"
         ]
     },
-    "Operational Tools input": "",
     "modules_settings": {
         "IH_requester": {},
         "local_inputs_loader": {
@@ -34,7 +33,7 @@
                 }
             ]
         },
-        "IH_converter": {
+        "handling_converter": {
             "filters": {
                 "content_amount": true,
                 "content_type": true,
@@ -43,7 +42,7 @@
                 "ET_consistency": true
             }
         },
-        "SC_mapper": {
+        "supplychain_assignation": {
             "restrictions": {
                 "direction": true,
                 "dock": true,

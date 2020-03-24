@@ -1,6 +1,6 @@
 import collections
 
-def SC_mapper(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
+def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	'''
 	handling --> handling + [SC]
 

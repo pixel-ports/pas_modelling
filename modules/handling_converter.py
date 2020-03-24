@@ -3,11 +3,10 @@ import jsonschema
 import datetime
 
 
-def IH_converter(HANDLINGS, PORT, LOGS, SETTINGS, name) :
+def process(HANDLINGS, PORT, LOGS, SETTINGS, name) :
 	'''
 	Transform  raw stopover data into proper handlings request.
 	'''
-
 	#INITIALISATION
 	LOGS.append(f"===== {name} STARTS =====")
 
@@ -25,11 +24,7 @@ def IH_converter(HANDLINGS, PORT, LOGS, SETTINGS, name) :
 	LOGS.append(f"Convertion: {len(HANDLINGS)} records where passed, {len(Converted_records)} records succeffully converted, {len(Unconverted_records)} record discarded")
 	LOGS.append({"Discarted records": Unconverted_records})
 	HANDLINGS = Converted_records
-	#Variante sans logs ni gestion erreur
-	# HANDLINGS = [stopover_converter(stopover, HANDLINGS.index(stopover))
-	# 	for stopover in HANDLINGS 
-	# 	# if stopover["operation"] in ["loading", "unloading"]
-	# ]
+	
 	
 	# FILTRATION 
 	Suitable_records = []
