@@ -1,9 +1,10 @@
-__pycache__/
-*.pyc
-*/.ipynb_checkpoints/*
-*.dat
-callgrind.out.*
-massif.out.*
-output.json
-/outputs
-.vscode/settings.json
+#VPN CREDENTIAL FOR IH DATA RETRIVING
+
+
+#STUFF THAT SHOULD NOT ENCUMBER THE REPOSITORY
+
+
+#PERSONNAL SETTINGS
+#.vscode
+
+#TEMPORARY FILES

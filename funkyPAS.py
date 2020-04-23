@@ -51,7 +51,9 @@ def main(pipeline_name, OT_input) :
 	
 	#CLOSSING
 	LOGS.append(f"End of pipeline {pipeline_name}. Clossing PAS builder")
-	# abording_export(LOGS, SETTINGS)
+	print(LOGS)
+	print("bye")
+	abording_export(LOGS, SETTINGS)
 
 
 #=========================================================================
@@ -68,7 +70,7 @@ def abording_export(LOGS, SETTINGS):
 	
 	print(f"\n\n===== ABORDING!!!=====\nlogs & settings exported in {file} before closing")
 	
-	sys.exit(1)# ou bien on considère qu'on est en exit(0) ?
+	sys.exit(0)# ou bien on considère qu'on est en exit(0) ?
 
 
 
