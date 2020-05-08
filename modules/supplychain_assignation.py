@@ -8,25 +8,17 @@ def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	Optionnal filtration can be enabled into Setting
 	'''
 	#INITIALIZATION
-	LOGS.append(f"===== {module_name} STARTS =====")
-
-
-	# ASSIGNATION SC
-
-	#	VARIANTE SANS LOGS
-	# for handling in HANDLINGS:
-	# 	for assignation in PORT["Assignations"]:
-	# 		if assignation["content_type_ID"] == handling["content_type"]:
-	# 			for candidat_SC in assignation.get("Suitable_SCs", []):
-	# 				if test_SC_requirements(handling, candidat_SC["restrictions"], SETTINGS["modules_settings"][module_name]["restrictions"])[0]:
-	# 					handling.setdefault("supplychains",[]).append(candidat_SC["supplychain"])
-
-	#	AVEC LOGS
+	LOGS.append(f"<==== {module_name} STARTS ====>")
 	Unreconized_content_types = []
 	Duplicated_content_types = []
 	Requirements_rejection = []
+	Default_SC_assignations = []
+	Unretrieved_SCs = []
+	nb_handlings_in = len(HANDLINGS)
 
+	#PROCESSING
 	for handling in HANDLINGS :
+		# ASSIGNATION SC PAR CONTENT TYPE
 		#	MATCHING CT:
 		candidatSC_nestedList = [assignation.get("Suitable_SCs", [])
 			for assignation in PORT["Assignations"] 
@@ -36,22 +28,21 @@ def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 			Unreconized_content_types.append(handling["content_type"]) 
 		elif len(candidatSC_nestedList) > 1 : #NB cas qui ne devrait pas exister si PORT est propres
 			Duplicated_content_types.append(handling["content_type"])
-		
 		#	SUITABLE SC:
-		handling["supplychains"] = []
-		if len(candidatSC_nestedList) >0 :
+		handling["Supplychains"] = []
+		if len(candidatSC_nestedList) > 0 :
 			Rejections=[]
 			for candidat_SC in [candidat_SC for suitable_CT in candidatSC_nestedList for candidat_SC in suitable_CT]:
 				requirement_success, requirement_Messages = test_SC_requirements(handling, candidat_SC["restrictions"], SETTINGS["modules_settings"][module_name]["restrictions"])
 				if requirement_success:
-					handling["supplychains"].append(candidat_SC["supplychain"])
+					handling["Supplychains"].append(candidat_SC["supplychain"])
 			#LOGS DES REJETS
 				else:
 					Rejections.append({
 						"Rejected SC": candidat_SC["supplychain"],
 						"Causes": requirement_Messages
 					})
-			if len(handling["supplychains"]) == 0: #On ne log qu'a posteriori, si l'handling n'a pas recut de SC du fait des requirements
+			if len(handling["Supplychains"]) == 0: #On ne log qu'a posteriori, si l'handling n'a pas recut de SC du fait des requirements
 				Requirements_rejection.append(
 					{
 						"Handling": handling,
@@ -59,40 +50,44 @@ def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 					}
 				)
 
-
-	# ASSIGNIATIONS SC PAR DEFAULT 
-	Default_SC_assignations = []
-	if SETTINGS["modules_settings"][module_name]["default_SC"]:
-		for handling in HANDLINGS:
-			if len(handling["supplychains"]) == 0: 
+		# ASSIGNIATIONS SC PAR DEFAULT 
+		if SETTINGS["modules_settings"][module_name]["default_SC"]:
+			if len(handling["Supplychains"]) == 0: 
 				default_success, default_sc = assigne_default_SC(handling, PORT["Assignations"])#FIXME non implémenté
 				if default_success:
-					handling["supplychains"].append(default_sc)
+					handling["Supplychains"].append(default_sc)
 					Default_SC_assignations.append(handling)
-	
 
-	# REJET DES HANDLINGS SANS SC #TODO vraiment une bonne idée ? 
-	# VARIANTE on pourrait compacter en fusionnant avec l'assignation par défault, mais on choisit de cloisoner le code
+		# REMOVE HANDLING'S SC THAT ARE NOT DEFINED IN PORT["Supplychains"]
+		for sc in handling["Supplychains"]:
+			if sc not in [supplychain["ID"] for supplychain in PORT["Supplychains"]]:
+				handling["Supplychains"].remove(sc)
+				if sc not in set(Unretrieved_SCs):
+					Unretrieved_SCs.append(sc)
+				
+				
 
+	# REJET DES HANDLINGS SANS SC
 	Unassigned_handlings = [handling
 			for handling in HANDLINGS
-			if len(handling["supplychains"]) == 0
+			if len(handling["Supplychains"]) == 0
 		]
 	if SETTINGS["modules_settings"][module_name]["discart_unassigned"]:
 		for handling in Unassigned_handlings:
 			HANDLINGS.remove(handling) #Attention, fiabilité discutable s'il y a des doublons (mais devraient être en double aussi dans la liste mère)
+
 
 	#LOGS
 	#	Duplicated_content_types
 	LOGS.append(f"Number of duplicated content type: {len(set(Duplicated_content_types))}") #Impacte l'assignation a travers l'affectation de l'ordre des SC résultantes
 	if len(set(Duplicated_content_types)) > 0:
 		LOGS.append({"List of duplicated content type": set(Duplicated_content_types)})
-	
+
 	#	Unreconized_content_types
 	LOGS.append(f"Number of handling with unreconized content type: {len(Unreconized_content_types)}")
 	if len(set(Unreconized_content_types)) > 0:
 		LOGS.append({"List of unreconized content type": set(Unreconized_content_types)}) #TODO ajouter le nb d'handlings du sous groupe
-			
+
 	#	Requirements_rejection
 	LOGS.append(f"Number of handling that loose matching assignation due to SC requirement: {len(Requirements_rejection)}")
 	if len(Requirements_rejection) > 0:
@@ -102,16 +97,24 @@ def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	LOGS.append(f"Number of handling that get a default assignation: {len(Default_SC_assignations)}")
 	if len(Default_SC_assignations) > 0:
 		LOGS.append({"List of handlings with a default SC assignation": Default_SC_assignations})
-	
-	#	Discarted handlings
+
+	#	Unretrieved SC
+	LOGS.append(f"Number of supplychains not retrieved in port's supplychains collection: {len(Unretrieved_SCs)}")
+	if len(Unretrieved_SCs) > 0:
+		LOGS.append({"List of unretrieved supplychains": Unretrieved_SCs})
+
+		#	Discarted handlings
 	LOGS.append(f"Number of handling that did not get any SC assignation : {len(Unassigned_handlings)}")
 	LOGS.append(f'Deleting non assigned handling (option in settings): {SETTINGS["modules_settings"][module_name]["discart_unassigned"]}')
 	if len(Unassigned_handlings) > 0:
 		LOGS.append({"List of handlings without any SC assignation": Unassigned_handlings})
-	
-	
+
+	# Proportion
+	LOGS.append(f"Proportion of unassigned: {round((len(Unassigned_handlings)/nb_handlings_in)*100, 2)}% ({len(Unassigned_handlings)} from the inital {nb_handlings_in})")
+
+
 	#CLOTURE	
-	LOGS.append(f"===== {module_name} ENDS =====")
+	LOGS.append(f"====> {module_name} ENDS <====")
 	return HANDLINGS, PORT, LOGS, SETTINGS
 
 #=====================================================

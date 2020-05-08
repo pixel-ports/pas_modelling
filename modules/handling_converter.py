@@ -3,12 +3,12 @@ import jsonschema
 import datetime
 
 
-def process(HANDLINGS, PORT, LOGS, SETTINGS, name) :
+def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	'''
-	Transform  raw stopover data into proper handlings request.
+	Transform raw stopover data into proper handlings request.
 	'''
 	#INITIALISATION
-	LOGS.append(f"===== {name} STARTS =====")
+	LOGS.append(f"<==== {module_name} STARTS ====>")
 
 
 	# CONVERTION DES CHAMPS
@@ -30,7 +30,7 @@ def process(HANDLINGS, PORT, LOGS, SETTINGS, name) :
 	Suitable_records = []
 	Unsuitable_records = []
 	for record in HANDLINGS:
-		filtering_success, filtering_Messages = handling_filter(record, SETTINGS["modules_settings"][name]["filters"])
+		filtering_success, filtering_Messages = handling_filter(record, SETTINGS["modules_settings"][module_name]["filters"])
 		if filtering_success:
 			Suitable_records.append(record)
 		else :
@@ -44,7 +44,7 @@ def process(HANDLINGS, PORT, LOGS, SETTINGS, name) :
 	
 		
 	#CLOSSING
-	LOGS.append(f"===== {name} ENDS =====")
+	LOGS.append(f"====> {module_name} ENDS <====")
 	return (HANDLINGS, PORT, LOGS, SETTINGS)
 
 
@@ -53,18 +53,19 @@ def stopover_converter(stopover, ID_number):
 	'''Convert one IH's stopover record (combined forced loading and unloading) into proper handling, with a key selection based on 'operation' value
 	NB: for a real dual stopover (unloading AND loading), only the one corresponding to the 'operation' value will be converted to handling ! #FIXME: à voir avec DAL/IH
 	'''
+	#CONVERSION
 	try:
-		handling = {
+		data = {
 			"content_agent":			str(stopover.get(stopover["operation"] + "_agent")),
 			"content_amount":			int(stopover.get(stopover["operation"] + "_tonnage")),
 			"content_dangerous":		bool(stopover.get(stopover["operation"] + "_dangerous")),
 			"content_label":			None,
 			"content_type":				str(stopover.get(stopover["operation"] + "_cargo_type")),
-			"handling_direction":   	str(stopover.get("operation")),
+			"handling_direction":		str(stopover.get("operation")),
 			"handling_dock":			str(stopover.get(stopover["operation"] + "_berth")),
 			"handling_ID": 				"handling_" + str(ID_number),
-			"handling_lattestEnd":		timeConvert(stopover.get("arrival_dock")), #Suivant le sens réel de stopover_ETD, peut nécessiter de soustraire journey_duration(handling) 
-			"handling_earliestStart":	timeConvert(stopover.get("departure_dock")), #Cf stopover_ETA
+			"handling_earliestStart":	timeConvert(stopover.get("arrival_dock")), #Suivant le sens réel de stopover_ETD, peut nécessiter de soustraire journey_duration(handling) 
+			"handling_lattestEnd":		timeConvert(stopover.get("departure_dock")), #Cf stopover_ETA
 			"handling_operator": 		str(stopover.get("operator")),
 			"handling_type": 			str(stopover.get(stopover["operation"] + "_cargo_fiscal_type")),
 			"ship_capacity":			None,
@@ -78,10 +79,11 @@ def stopover_converter(stopover, ID_number):
 			"stopover_terminal": 		str(stopover.get("source"))
 		}
 		success = True
-	except:
-		handling = stopover
-		success = False
-	return success, handling
+	except Exception as error:
+		success = False		
+		data = {"record": stopover, "issue":error}
+	
+	return success, data
 
 def handling_filter(handling, enabled_filters):
 	''' 
@@ -102,8 +104,11 @@ def handling_filter(handling, enabled_filters):
 		if handling["handling_direction"] not in ["loading", "unloading"] :
 			Messages.append(f"Handling direction should be loading or unloading") #FIXME ne marchera pas pour les paquebots etc
 	if enabled_filters["handling_dock"] :
-		if handling["handling_dock"] == "" or  handling["handling_dock"] == None:
+		if handling["handling_dock"] == "" or handling["handling_dock"] == None:
 			Messages.append(f"Dock should be provided") #VARIANTE (drastique) : Restreindre à être dans la liste d'ID de dock ? (cf conten_type)
+	if enabled_filters["stopover_ETA"] :
+		if handling["stopover_ETA"] == "" or handling["stopover_ETA"] == None:
+			Messages.append(f"Ship ETA should be provided")
 	if enabled_filters["ET_consistency"] :
 		if handling["stopover_ETA"] is not None and handling["stopover_ETD"] is not None :
 			if handling["stopover_ETA"] > handling["stopover_ETD"]:

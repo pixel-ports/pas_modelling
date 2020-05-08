@@ -14,7 +14,20 @@ def main(pipeline_name, OT_input) :
 	HANDLINGS = [] #Liste des vessel calls à traiter
 	PORT = {} #Conteneur pour l'ensemble des paramètres décrivant le port
 	LOGS = [f"Starting PAS modelling: {pipeline_name}"] #Array pr fils chronologique
-		#SETTINGS
+	#	OT_input
+	if OT_input == "local_file": 
+		with open("./IH_testing/PAS_instance (CHR) extention SC.json") as file :
+			OT_input = json.load(file)
+		LOGS.append(f"Loading OT_input from file {file}: Success") 
+	else :
+		try:
+			#On convertie la string recue en dict
+			OT_input = json.loads(OT_input) 
+			LOGS.append(f"Converting OT_input to dict: Success") 
+		except Exception as error:
+			LOGS.append(f"Converting OT_input to dict: Failled.\nError: {error}") 
+
+	#	SETTINGS
 	try : 
 		with open("./settings.json") as file :
 			settings_file = json.load(file)
@@ -28,15 +41,15 @@ def main(pipeline_name, OT_input) :
 				if module_name in modules_sequence
 			}
 		}
-		LOGS.append(f"Settings loaded successfully")
+		LOGS.append(f"Loading Settings: Success")
 	except Exception as error:
-		LOGS.append(f"Failled to load: {file}.\nError: {error}")
-		abording_export(LOGS, SETTINGS)
+		LOGS.append(f"Loading Settings: Failled.\nError: {error}")
+		abording_export(LOGS)
 
 
 	# APPLICATION DES MODULES DE LA PIPELINE
 	for module_i in modules_sequence :
-		LOGS.append(f"Calling module {module_i}")
+		# LOGS.append(f"Calling module {module_i}")
 		# try : 
 		exec(f"import {module_i}")
 		# except Exception as error:
@@ -51,13 +64,13 @@ def main(pipeline_name, OT_input) :
 	
 	#CLOSSING
 	LOGS.append(f"End of pipeline {pipeline_name}. Clossing PAS builder")
-	print(LOGS)
+	# print(LOGS)
 	print("bye")
 	abording_export(LOGS, SETTINGS)
 
 
 #=========================================================================
-def abording_export(LOGS, SETTINGS):
+def abording_export(LOGS, SETTINGS=None):
 	LOGS.append(f"PAS modelling closing")
 	
 	export = {
@@ -65,7 +78,7 @@ def abording_export(LOGS, SETTINGS):
 		"LOGS": LOGS
 	}
 	
-	with open("./export_run_report.json", 'w') as file:
+	with open("./run_report.json", 'w') as file:
 		json.dump(export, file, indent=4, default=str)
 	
 	print(f"\n\n===== ABORDING!!!=====\nlogs & settings exported in {file} before closing")
@@ -81,7 +94,7 @@ if __name__ == "__main__" :
 	parser.add_argument(
 		"-r", "--OT_input",
 		nargs='?', 
-		default= "",
+		default= None,
 		help="Transmited argument from Operational Tools when calling PAS modelling"
 	)
 	

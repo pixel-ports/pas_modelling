@@ -4,49 +4,59 @@
 	"name": "pas-energy-execution1",
 	"description": "PAS exectuion 1. The id is an UUID identifying the exectuion. The idRef is an UUID identifying the model",
 	"mode": "ExecAsync",
-	"input": [{
+	"input": [
+		{
 			"name": "pas-input",
 			"category": "ih-api",
 			"type": "vessel-calls-format (FIWARE datamodel)",
 			"description": "vessel calls",
 			"metadata:": {},
-			"options": [{
+			"options": [
+				{
 					"name": "url",
 					"type": "string",
 					"description": "URL endpoint",
 					"value": "http://192.168.0.13:8200/ih-api/"
-				}, {
+				},
+				{
 					"name": "sourceId",
 					"type": "string",
 					"description": "id of the datasource in the IH repo",
 					"value": "arh-lts-vesselcall"
-				}, {
+				},
+				{
 					"name": "start",
 					"type": "datetime (Unix time)",
 					"description": "start of calculation period, in milliseconds",
 					"value": 1580547482000
-				}, {
+				},
+				{
 					"name": "end",
 					"type": "datetime (Unix Time)",
 					"description": "end of calculation period, in milliseconds",
 					"value": 1583053082000
 				}
 			]
-		}, {
+		},
+		{
 			"name": "supplychains",
 			"category": "forceInput"
-		}, {
+		},
+		{
 			"name": "rules",
 			"category": "forceInput"
-		}, {
+		},
+		{
 			"name": "resources",
 			"category": "forceInput"
 		}
 	],
-	"forceinput": [{
+	"forceinput": [
+		{
 			"name": "resources",
 			"value": {
-				"areas": [{
+				"areas": [
+					{
 						"ID": "449",
 						"label": "Mon dock céréal",
 						"category": "dock",
@@ -54,18 +64,22 @@
 						"terminal": "FR_BAS"
 					}
 				],
-				"machines": [{
+				"machines": [
+					{
 						"ID": "machine_1",
 						"label": "Machine virtuelle concatenant toute la SC",
 						"category": "Full_SC",
-						"tag": ["Virtual"],
+						"tag": [
+							"Virtual"
+						],
 						"owner": "SPBL",
 						"shift_ID": "typical",
 						"throughput": {
 							"Value": 1000,
 							"Unit": "t/h"
 						},
-						"consumptions": [{
+						"consumptions": [
+							{
 								"nature": "electricity",
 								"value": 841,
 								"unit": "kWh"
@@ -73,11 +87,12 @@
 						]
 					}
 				],
-				"others": [{}
+				"others": [
+					{}
 				]
 			},
 			"type": "resources-format (FIWARE datamodel or not)",
-			"description": "This value will be used as resources, instead of the default value in 'input'. This corresponds to a waht-if scenario",
+			"description": "This value will be used as resources, instead of the default value in input. This corresponds to a waht-if scenario",
 			"metadata": {}
 		},
 		{
@@ -113,8 +128,8 @@
 					"steps_list": [
 						{
 							"ID": "Step1",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Initialization",
 							"scheduling": {
 								"start": {
@@ -136,8 +151,8 @@
 						},
 						{
 							"ID": "Step2",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Processing",
 							"scheduling": {
 								"start": {
@@ -201,8 +216,8 @@
 					"steps_list": [
 						{
 							"ID": "Step1",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Initialization",
 							"scheduling": {
 								"start": {
@@ -224,8 +239,8 @@
 						},
 						{
 							"ID": "Step2",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Processing",
 							"scheduling": {
 								"start": {
@@ -285,8 +300,8 @@
 					"steps_list": [
 						{
 							"ID": "Step1",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Initialization",
 							"scheduling": {
 								"start": {
@@ -308,8 +323,8 @@
 						},
 						{
 							"ID": "Step2",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Processing",
 							"scheduling": {
 								"start": {
@@ -363,8 +378,8 @@
 					"steps_list": [
 						{
 							"ID": "Step1",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Initialization",
 							"scheduling": {
 								"start": {
@@ -386,8 +401,8 @@
 						},
 						{
 							"ID": "Step2",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Processing",
 							"scheduling": {
 								"start": {
@@ -463,8 +478,8 @@
 					"steps_list": [
 						{
 							"ID": "Step1",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Initialization",
 							"scheduling": {
 								"start": {
@@ -486,8 +501,8 @@
 						},
 						{
 							"ID": "Step2",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Processing",
 							"scheduling": {
 								"start": {
@@ -547,8 +562,8 @@
 					"steps_list": [
 						{
 							"ID": "Step1",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Initialization",
 							"scheduling": {
 								"start": {
@@ -570,8 +585,8 @@
 						},
 						{
 							"ID": "Step2",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Processing",
 							"scheduling": {
 								"start": {
@@ -623,8 +638,8 @@
 					"steps_list": [
 						{
 							"ID": "Step1",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Initialization",
 							"scheduling": {
 								"start": {
@@ -646,8 +661,8 @@
 						},
 						{
 							"ID": "Step2",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Processing",
 							"scheduling": {
 								"start": {
@@ -717,8 +732,8 @@
 					"steps_list": [
 						{
 							"ID": "Step1",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Initialization",
 							"scheduling": {
 								"start": {
@@ -740,8 +755,8 @@
 						},
 						{
 							"ID": "Step2",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Processing",
 							"scheduling": {
 								"start": {
@@ -795,8 +810,8 @@
 					"steps_list": [
 						{
 							"ID": "Step1",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Initialization",
 							"scheduling": {
 								"start": {
@@ -818,8 +833,8 @@
 						},
 						{
 							"ID": "Step2",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Processing",
 							"scheduling": {
 								"start": {
@@ -909,8 +924,8 @@
 					"steps_list": [
 						{
 							"ID": "Step1",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Initialization",
 							"scheduling": {
 								"start": {
@@ -932,8 +947,8 @@
 						},
 						{
 							"ID": "Step2",
-							"label": "step's name",
-							"comment": "step's comment",
+							"label": "step name",
+							"comment": "step comment",
 							"category": "Processing",
 							"scheduling": {
 								"start": {
@@ -1970,18 +1985,21 @@
 			"options": []
 		}
 	],
-	"output": [{
+	"output": [
+		{
 			"name": "energy-consumption",
 			"category": "ih-api",
 			"type": "energy-consumption-format (but it will include id_model, id_execution)",
 			"description": "(estimated) energy consumed between the given timeframe. id_execution is given by the OT at invocation time. This is the format to be stored in the IH",
 			"metadata:": {},
-			"options": [{
+			"options": [
+				{
 					"name": "url",
 					"type": "string",
 					"description": "URL endpoint",
 					"value": "http://192.168.0.13:8200/ih-api"
-				}, {
+				},
+				{
 					"name": "sourceId",
 					"type": "string",
 					"description": "id of the datasource in the IH repo. Is it unique and will be created on insertion.",
@@ -1990,18 +2008,21 @@
 			]
 		}
 	],
-	"logging": [{
+	"logging": [
+		{
 			"name": "energy-consumption-logging",
 			"category": "ih-api",
 			"type": "energy-consumption-loging",
 			"description": "logging activity",
 			"metadata:": {},
-			"options": [{
+			"options": [
+				{
 					"name": "url",
 					"type": "string",
 					"description": "URL endpoint",
 					"value": "http://192.168.0.13:8200/ih-api"
-				}, {
+				},
+				{
 					"name": "sourceId",
 					"type": "string",
 					"description": "id of the datasource in the IH repo",

@@ -7,18 +7,18 @@ import datetime
 
 
 # def process(pas, module_settings) :
-def process(HANDLINGS, PORT, LOGS, SETTINGS, name):
+def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 	'''
 	Infer handling earliest possible TS for begining processing
 	'''
 	# logger.warning("Starting")
 
 	#INITIALISATION
-	LOGS.append(f"===== {name} STARTS =====")
+	LOGS.append(f"<==== {module_name} STARTS ====>")
 
 
 	# PROCESSING
-	for handling in pas["state"]: #TODO factoriser les 2 cas
+	for handling in HANDLINGS: #TODO factoriser les 2 cas
 		# Disponnible au plus tôt
 		try :
 			handling["handling_minStart"] = handling["stopover_ETA"] + journey_duration(handling) + inspection_duration(handling) #On doit pouvoir raisonnablement se limiter à un try sur handling["ship_ETA"]
@@ -41,7 +41,7 @@ def process(HANDLINGS, PORT, LOGS, SETTINGS, name):
 
 
 	#CLOTURE
-	LOGS.append(f"===== {name} ENDS =====")
+	LOGS.append(f"====> {module_name} ENDS <====")
 	return (HANDLINGS, PORT, LOGS, SETTINGS)
 
 

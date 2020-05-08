@@ -6,28 +6,31 @@ from elasticsearch import helpers
 
 
 # def IH_logger(OT_INPUT, HANDLINGS, PORT, MODSETTINGS, LOGS):
-def process(HANDLINGS, PORT, LOGS, SETTINGS, name):
+def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 	'''
 	#FIXME
 	'''
 	#INITIALISATION
-	LOGS.append(f"===== {name} STARTS =====")
+	LOGS.append(f"<==== {module_name} STARTS ====>")
 
 
 	#ECRITURE
 	for to_log in SETTINGS["OT_input"]["logging"]:
 		es = Elasticsearch(to_log["options"][0]["value"])
-		data = [{
-			"_index": to_log["options"][1]["value"],
-			"doc": {
-				"body": str(datum)
-			}
-		} for datum in LOGS]
+		data = [
+			{
+				"_index": to_log["options"][1]["value"],
+				"doc": {
+					"body": str(datum)
+				}
+			} 
+			for datum in LOGS
+		]
 		helpers.bulk(es, data)
 
 
 	#CLOTURE
-	LOGS.append(f"===== {name} ENDS =====")
+	LOGS.append(f"====> {module_name} ENDS <====")
 	return (HANDLINGS, PORT, LOGS, SETTINGS)
 
 

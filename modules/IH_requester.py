@@ -1,72 +1,88 @@
-# import logging
 import json
-# from typing import Iterable
-# import jsonschema
 from elasticsearch import Elasticsearch
 
-# logger = logging.getLogger("IH_requester")
-# mod_name = "IH_requester:"
 
-# def IH_requester(OT_INPUT, HANDLINGS, PORT, MODSETTINGS, LOGS):
-def process(HANDLINGS, PORT, LOGS, SETTINGS, name):
+def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 	'''
 	#FIXME
 	'''
 	#INITIALISATION
-	LOGS.append(f"===== {name} STARTS =====")
+	LOGS.append(f"<==== {module_name} STARTS ====>")
 
-
-	#IH REQUESTING
-	for name in ["supplychains", "rules", "resources"]:
-		message, data = get(SETTINGS["OT_input"], name)
-		if message:
-			LOGS.append(message)
-		PORT.update({name: data})
-
-	message, data = get(SETTINGS["OT_input"], "pas-input")
-	if message:
-		LOGS.append(message)
-	HANDLINGS = data
+	
+	# PROCESSING
+	for input_component in SETTINGS["OT_input"]["input"]:
+		
+		#DATA RETRIVING
+		
+		#IH requesting
+		if input_component["category"] == "ih-api": 
+			success, answer = IH_requesting(input_component)
+			LOGS.append(f"Requesting {input_component['name']} to the IH: {'Success' if success else 'Failled'}") 
+			if not success:
+				LOGS.append({"cause": answer})
+		
+		#OT_input parsing
+		elif input_component["category"] == "forceInput":
+			try:
+				answer = [forced_input_component["value"]
+					for forced_input_component in SETTINGS["OT_input"]["forceinput"] 
+					if forced_input_component['name'] == input_component['name']
+				]
+				success = True
+			except Exception as error:
+				success = False
+				answer = error
+			LOGS.append(f"Parsing {input_component['name']} from the OT input: {'Success' if success else 'Failled'}") 
+			if not success:
+				LOGS.append({"cause": answer})
+		else :
+			LOGS.append(f"Unable to recognize {input_component['name']} source: {input_component['category']}")
+		
+		#DATA AFFECTATION
+		if input_component['name'] in ["supplychains", "rules", "resources"]:
+			PORT[input_component['name']] = answer
+		elif input_component['name'] == "pas-input":
+			HANDLINGS = answer
+		else :
+			LOGS.append(f"Unable to recognize {input_component['name']} destination")
 
 
 	#CLOTURE
-	LOGS.append(f"===== {name} ENDS =====")
+	LOGS.append(f"====> {module_name} ENDS <====")
 	return (HANDLINGS, PORT, LOGS, SETTINGS)
 
 
 #=========================================================================
-def get(pas_instance_data, name):
-	message = None
-	data = None
-	print(f"\npas_instance_data: {pas_instance_data})
-	pas_instance_data["input"]
-	input_element = next(x for x in pas_instance_data["input"] if x["name"]==name)
-	if input_element["category"] == "ih-api":
-		es = Elasticsearch(input_element["options"][0]["value"])
-		if len(input_element["options"]) == 2:  # We retrieve all data from index
-			input_body = {
-				"query": {
-					"match_all": {}
+def IH_requesting(input_component):
+	success = True
+	es = Elasticsearch(next(option["value"] for option in input_component["options"] if option["name"] == "url")) #devrait avoir un len de 1
+	index = next(option["value"] for option in input_component["options"] if option["name"] == "sourceId")
+	#aditional_parameters = next(option.get["value"] for option in input_component["options"] if option["name"] == "reqParams") #Options présente dans CERTAINS PAS_instance.json, mais pas tous
+	start_TS = next((option["value"] for option in input_component["options"] if option["name"] == "start"), None)
+	end_TS = next((option["value"] for option in input_component["options"] if option["name"] == "end"), None)
+	if start_TS == None or end_TS == None:
+		subbody = {
+			"match_all": {}
+		}
+	else :
+		subbody = {
+			"range": {
+				"timestamp" : {
+					"gte" : start_TS,
+					"lte" : end_TS
 				}
 			}
-		elif len(input_element["options"]) == 4:  # For the pas_input
-			input_body = {  # TODO: Implement the fact that there can be multiple timeIntervals
-				"query": {
-					"range" : {
-						"timestamp" : {
-							"gte" : input_element["options"][2]["value"],
-							"lte" : input_element["options"][3]["value"]
-						}
-					}
-				}
-			}
-		else:
-			raise Exception("Incorrect number of parameters in json input")
-		index = input_element["options"][1]["value"]
-		response = es.search(index=index, body={"query": {"match_all": {}}})
-		data = [hit for hit in response["hits"]["hits"]]
-	elif input_element["category"]=="forceInput":
-		data = next(x["value"] for x in pas_instance_data["forceinput"] if x["name"]==name)
-	else:
-		message = "Unknown input_element category: %s" % input_element["category"]
-	return message, data
+		}
+	
+	try:
+		raw_answer = es.search(
+			index=index, 
+			body= {"query": subbody}
+		)
+		answer = [hit["_source"]["data"] for hit in raw_answer["hits"]["hits"]] #FIXME problème ici, la LC force la convertion en array
+	except Exception as error:
+		success = False #FIXME on ne catch pas les erreurs de connections comme "ConnectionError('N/A', "(<urllib3.connection.HTTPConnection object at 0x7fb870d39a00>, 'Connection to 192.168.0.13 timed out. (connect timeout=10)')", ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7fb870d39a00>, 'Connection to 192.168.0.13 timed out. (connect timeout=10)'))"
+		answer = error
+
+	return success, answer
