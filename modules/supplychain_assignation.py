@@ -7,6 +7,9 @@ def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	Add to each handling an array of suitable SupplyChains (deduced from parameters "RULES>content_type_list").
 	Optionnal filtration can be enabled into Setting
 	'''
+	# COMMENT
+	# Un code avait été fait pr les DM mis à jour. Cette base est modifiée (passe en commentaires) pr être compatible avec les anciens DM utilisés pr la GUI
+	
 	#INITIALIZATION
 	LOGS.append(f"<==== {module_name} STARTS ====>")
 	Unreconized_content_types = []
@@ -20,40 +23,49 @@ def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	for handling in HANDLINGS :
 		# ASSIGNATION SC PAR CONTENT TYPE
 		#	MATCHING CT:
-		candidatSC_nestedList = [assignation.get("Suitable_SCs", [])
-			for assignation in PORT["Assignations"] 
-			if assignation["content_type_ID"] == handling["content_type"]
-		]
+		candidatSC_nestedList = []
+		for content in PORT["Contents"]:
+			if content["ID"] == handling["content_type"]:
+				for candidat_assignation in content["assignation_preference"]:
+					if candidat_assignation["dock_ID"] == handling["handling_dock"] and candidat_assignation["direction"] == handling["handling_direction"]:
+						candidatSC_nestedList.append(candidat_assignation["supply_chain_ID"])
+		# candidatSC_nestedList = [content["assignation_preference"].get("Suitable_SCs", [])
+		# 	for content in PORT["Contents"] 
+		# 	if content["ID"] == handling["content_type"]
+		# ]
 		if len(candidatSC_nestedList) == 0 : #NB même si pas de SC, le len sera de 1 avec un CT qui match 
 			Unreconized_content_types.append(handling["content_type"]) 
 		elif len(candidatSC_nestedList) > 1 : #NB cas qui ne devrait pas exister si PORT est propres
 			Duplicated_content_types.append(handling["content_type"])
+		
+		handling["Supplychains"]= candidatSC_nestedList
 		#	SUITABLE SC:
-		handling["Supplychains"] = []
+		# handling["Supplychains"] = []
 		if len(candidatSC_nestedList) > 0 :
-			Rejections=[]
-			for candidat_SC in [candidat_SC for suitable_CT in candidatSC_nestedList for candidat_SC in suitable_CT]:
-				requirement_success, requirement_Messages = test_SC_requirements(handling, candidat_SC["restrictions"], SETTINGS["modules_settings"][module_name]["restrictions"])
-				if requirement_success:
-					handling["Supplychains"].append(candidat_SC["supplychain"])
+			
+			# Rejections=[]
+			# for candidat_SC in [candidat_SC for suitable_CT in candidatSC_nestedList for candidat_SC in suitable_CT]:
+			# 	requirement_success, requirement_Messages = test_SC_requirements(handling, candidat_SC["restrictions"], SETTINGS["modules_settings"][module_name]["restrictions"])
+			# 	if requirement_success:
+			# 		handling["Supplychains"].append(candidat_SC["supplychain"])
 			#LOGS DES REJETS
-				else:
-					Rejections.append({
-						"Rejected SC": candidat_SC["supplychain"],
-						"Causes": requirement_Messages
-					})
+				# else:
+				# 	Rejections.append({
+				# 		"Rejected SC": candidat_SC["supplychain"],
+				# 		"Causes": requirement_Messages
+				# 	})
 			if len(handling["Supplychains"]) == 0: #On ne log qu'a posteriori, si l'handling n'a pas recut de SC du fait des requirements
 				Requirements_rejection.append(
 					{
 						"Handling": handling,
-						"Rejections":Rejections
+						# "Rejections":Rejections
 					}
 				)
 
 		# ASSIGNIATIONS SC PAR DEFAULT 
 		if SETTINGS["modules_settings"][module_name]["default_SC"]:
 			if len(handling["Supplychains"]) == 0: 
-				default_success, default_sc = assigne_default_SC(handling, PORT["Assignations"])#FIXME non implémenté
+				default_success, default_sc = assigne_default_SC(handling, PORT["Contents"])#FIXME non implémenté
 				if default_success:
 					handling["Supplychains"].append(default_sc)
 					Default_SC_assignations.append(handling)
@@ -156,8 +168,8 @@ def test_SC_requirements(handling, assignation_restrictions, settings_restrictio
 		success = True
 	return (success, Messages)
 
-def assigne_default_SC(handling, Assignations):
-	default_SC = None
+def assigne_default_SC(handling, Assignations):#FIXME
+	default_SC = "SC1"
 
 	if default_SC is None:
 		success = False

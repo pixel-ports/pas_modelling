@@ -1,37 +1,16 @@
 [
 	{
 		"ID": "loading_AUTRES",
-		"directions_nature": "loading",
-		"cargoes_category": [
-			"E.COLIS LOURDS"
-		],
-		"areas_ID": [
-			"417",
-			"413"
-		],
 		"label": "Some label",
 		"comment": "Some comment",
-		"compatibility": {
-			"cargoes_category": [
-				"E.COLIS LOURDS"
-			],
-			"directions_nature": [
-				"loading"
-			],
-			"areas_ID": [
-				"417",
-				"413"
-			],
-			"shiftworks_ID": [
-				"typical"
-			]
-		},
-		"steps_list": [
+		"owner": "some owner",
+		"terminal": "some terminal",
+		"operations_list": [
 			{
-				"ID": "Step1",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Initialization",
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag_list": ["Initialization"],
 				"scheduling": {
 					"start": {
 						"nature": "delay",
@@ -42,24 +21,23 @@
 						"value": 20
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine1"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			},
 			{
-				"ID": "Step2",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Processing",
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
 				"scheduling": {
 					"start": {
-						"nature": "after_any",
+						"nature": "asap",
 						"value": [
-							"Step1"
+							"operation_1"
 						]
 					},
 					"duration": {
@@ -67,59 +45,25 @@
 						"value": 100
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine2", "Machine3"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			}
 		]
 	},
 	{
 		"ID": "loading_CEREAL",
-		"directions_nature": "loading",
-		"cargoes_category": [
-			"E.BLE VRAC",
-			"E.CER.+OLEAG. MIXTES",
-			"E.CEREALES MIXTES VRAC",
-			"E.GRAINES SOJA",
-			"E.MAIS VRAC",
-			"E.SORGHO VRAC"
-		],
-		"areas_ID": [
-			"417",
-			"449"
-		],
 		"label": "Some label",
 		"comment": "Some comment",
-		"compatibility": {
-			"cargoes_category": [
-				"E.BLE VRAC",
-				"E.CER.+OLEAG. MIXTES",
-				"E.CEREALES MIXTES VRAC",
-				"E.GRAINES SOJA",
-				"E.MAIS VRAC",
-				"E.SORGHO VRAC"
-			],
-			"directions_nature": [
-				"loading"
-			],
-			"areas_ID": [
-				"417",
-				"449"
-			],
-			"shiftworks_ID": [
-				"typical"
-			]
-		},
-		"steps_list": [
+		"Operations": [
 			{
-				"ID": "Step1",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Initialization",
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
 				"scheduling": {
 					"start": {
 						"nature": "delay",
@@ -130,24 +74,23 @@
 						"value": 20
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine1"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			},
 			{
-				"ID": "Step2",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Processing",
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
 				"scheduling": {
 					"start": {
 						"nature": "after_any",
 						"value": [
-							"Step1"
+							"operation_1"
 						]
 					},
 					"duration": {
@@ -155,55 +98,25 @@
 						"value": 100
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine2", "Machine3"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			}
 		]
 	},
 	{
 		"ID": "loading_LIQ.V",
-		"directions_nature": "loading",
-		"cargoes_category": [
-			"E.EMHV - EMAG - FAME ",
-			"E.HUILE COLZA",
-			"E.HUILE TOURNESOL",
-			"E.HUILES MIXTES",
-			"E.PROD.CHIM.LIQ. AUTRES"
-		],
-		"areas_ID": [
-			"436"
-		],
 		"label": "Some label",
 		"comment": "Some comment",
-		"compatibility": {
-			"cargoes_category": [
-				"E.EMHV - EMAG - FAME ",
-				"E.HUILE COLZA",
-				"E.HUILE TOURNESOL",
-				"E.HUILES MIXTES",
-				"E.PROD.CHIM.LIQ. AUTRES"
-			],
-			"directions_nature": [
-				"loading"
-			],
-			"areas_ID": [
-				"436"
-			],
-			"shiftworks_ID": [
-				"typical"
-			]
-		},
-		"steps_list": [
+		"Operations": [
 			{
-				"ID": "Step1",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Initialization",
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
 				"scheduling": {
 					"start": {
 						"nature": "delay",
@@ -214,24 +127,23 @@
 						"value": 20
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine1"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			},
 			{
-				"ID": "Step2",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Processing",
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
 				"scheduling": {
 					"start": {
 						"nature": "after_any",
 						"value": [
-							"Step1"
+							"operation_1"
 						]
 					},
 					"duration": {
@@ -239,49 +151,25 @@
 						"value": 100
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine2", "Machine3"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			}
 		]
 	},
 	{
 		"ID": "loading_P.C.",
-		"directions_nature": "loading",
-		"cargoes_category": [
-			"E.CONTENEURS"
-		],
-		"areas_ID": [
-			"432",
-			"433"
-		],
 		"label": "Some label",
 		"comment": "Some comment",
-		"compatibility": {
-			"cargoes_category": [
-				"E.CONTENEURS"
-			],
-			"directions_nature": [
-				"loading"
-			],
-			"areas_ID": [
-				"432",
-				"433"
-			],
-			"shiftworks_ID": [
-				"typical"
-			]
-		},
-		"steps_list": [
+		"Operations": [
 			{
-				"ID": "Step1",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Initialization",
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
 				"scheduling": {
 					"start": {
 						"nature": "delay",
@@ -292,24 +180,23 @@
 						"value": 20
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine1"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			},
 			{
-				"ID": "Step2",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Processing",
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
 				"scheduling": {
 					"start": {
 						"nature": "after_any",
 						"value": [
-							"Step1"
+							"operation_1"
 						]
 					},
 					"duration": {
@@ -317,12 +204,11 @@
 						"value": 100
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine2", "Machine3"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			}
 		]
@@ -330,58 +216,14 @@
 	{
 		"ID": "loading_SOL.V",
 		"directions_nature": "loading",
-		"cargoes_category": [
-			"E.COLZA VRAC",
-			"E.FERRAIL.REFONT.",
-			"E.MINER.NON FERR.AUTRES",
-			"E.PNEUS BROYES",
-			"E.TALC",
-			"E.TERRE REFRACT.",
-			"E.TRTX COLZA",
-			"E.TRTX TOURNESOL"
-		],
-		"areas_ID": [
-			"417",
-			"434",
-			"431",
-			"413",
-			"449",
-			"414"
-		],
 		"label": "Some label",
 		"comment": "Some comment",
-		"compatibility": {
-			"cargoes_category": [
-				"E.COLZA VRAC",
-				"E.FERRAIL.REFONT.",
-				"E.MINER.NON FERR.AUTRES",
-				"E.PNEUS BROYES",
-				"E.TALC",
-				"E.TERRE REFRACT.",
-				"E.TRTX COLZA",
-				"E.TRTX TOURNESOL"
-			],
-			"directions_nature": [
-				"loading"
-			],
-			"areas_ID": [
-				"417",
-				"434",
-				"431",
-				"413",
-				"449",
-				"414"
-			],
-			"shiftworks_ID": [
-				"typical"
-			]
-		},
-		"steps_list": [
+		"Operations": [
 			{
-				"ID": "Step1",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Initialization",
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
 				"scheduling": {
 					"start": {
 						"nature": "delay",
@@ -392,24 +234,23 @@
 						"value": 20
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine1"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			},
 			{
-				"ID": "Step2",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Processing",
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
 				"scheduling": {
 					"start": {
 						"nature": "after_any",
 						"value": [
-							"Step1"
+							"operation_1"
 						]
 					},
 					"duration": {
@@ -417,55 +258,26 @@
 						"value": 100
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine2", "Machine3"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			}
 		]
 	},
 	{
 		"ID": "unloading_AUTRES",
-		"directions_nature": "unloading",
-		"cargoes_category": [
-			"I.BOIS SCIES DU NORD",
-			"I.COLIS LOURDS"
-		],
-		"areas_ID": [
-			"417",
-			"413",
-			"415",
-			"416"
-		],
+		
 		"label": "Some label",
 		"comment": "Some comment",
-		"compatibility": {
-			"cargoes_category": [
-				"I.BOIS SCIES DU NORD",
-				"I.COLIS LOURDS"
-			],
-			"directions_nature": [
-				"unloading"
-			],
-			"areas_ID": [
-				"417",
-				"413",
-				"415",
-				"416"
-			],
-			"shiftworks_ID": [
-				"typical"
-			]
-		},
-		"steps_list": [
+		"Operations": [
 			{
-				"ID": "Step1",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Initialization",
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
 				"scheduling": {
 					"start": {
 						"nature": "delay",
@@ -476,24 +288,23 @@
 						"value": 20
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine1"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			},
 			{
-				"ID": "Step2",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Processing",
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
 				"scheduling": {
 					"start": {
 						"nature": "after_any",
 						"value": [
-							"Step1"
+							"operation_1"
 						]
 					},
 					"duration": {
@@ -501,47 +312,25 @@
 						"value": 100
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine2", "Machine3"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			}
 		]
 	},
 	{
 		"ID": "unloading_GAZ.L",
-		"directions_nature": "unloading",
-		"cargoes_category": [
-			"I.BUTADIENE"
-		],
-		"areas_ID": [
-			"436"
-		],
 		"label": "Some label",
 		"comment": "Some comment",
-		"compatibility": {
-			"cargoes_category": [
-				"I.BUTADIENE"
-			],
-			"directions_nature": [
-				"unloading"
-			],
-			"areas_ID": [
-				"436"
-			],
-			"shiftworks_ID": [
-				"typical"
-			]
-		},
-		"steps_list": [
+		"Operations": [
 			{
-				"ID": "Step1",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Initialization",
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
 				"scheduling": {
 					"start": {
 						"nature": "delay",
@@ -552,24 +341,23 @@
 						"value": 20
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine1"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			},
 			{
-				"ID": "Step2",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Processing",
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
 				"scheduling": {
 					"start": {
 						"nature": "after_any",
 						"value": [
-							"Step1"
+							"operation_1"
 						]
 					},
 					"duration": {
@@ -577,65 +365,26 @@
 						"value": 100
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine2", "Machine3"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			}
 		]
 	},
 	{
 		"ID": "unloading_LIQ.V",
-		"directions_nature": "unloading",
-		"cargoes_category": [
-			"I.EMHV - EMAG - FAME",
-			"I.ENGR.LIQUIDES",
-			"I.HUILE COLZA",
-			"I.HUILE SOJA",
-			"I.HUILE TOURNESOL",
-			"I.HUILES MIXTES",
-			"I.MELASSES",
-			"I.METHANOL",
-			"I.TALL-OIL"
-		],
-		"areas_ID": [
-			"416",
-			"436"
-		],
 		"label": "Some label",
 		"comment": "Some comment",
-		"compatibility": {
-			"cargoes_category": [
-				"I.EMHV - EMAG - FAME",
-				"I.ENGR.LIQUIDES",
-				"I.HUILE COLZA",
-				"I.HUILE SOJA",
-				"I.HUILE TOURNESOL",
-				"I.HUILES MIXTES",
-				"I.MELASSES",
-				"I.METHANOL",
-				"I.TALL-OIL"
-			],
-			"directions_nature": [
-				"unloading"
-			],
-			"areas_ID": [
-				"416",
-				"436"
-			],
-			"shiftworks_ID": [
-				"typical"
-			]
-		},
-		"steps_list": [
+		
+		"Operations": [
 			{
-				"ID": "Step1",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Initialization",
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
 				"scheduling": {
 					"start": {
 						"nature": "delay",
@@ -646,24 +395,23 @@
 						"value": 20
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine1"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			},
 			{
-				"ID": "Step2",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Processing",
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
 				"scheduling": {
 					"start": {
 						"nature": "after_any",
 						"value": [
-							"Step1"
+							"operation_1"
 						]
 					},
 					"duration": {
@@ -671,49 +419,25 @@
 						"value": 100
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine2", "Machine3"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			}
 		]
 	},
 	{
 		"ID": "unloading_P.C.",
-		"directions_nature": "unloading",
-		"cargoes_category": [
-			"I.CONTENEURS"
-		],
-		"areas_ID": [
-			"432",
-			"433"
-		],
 		"label": "Some label",
 		"comment": "Some comment",
-		"compatibility": {
-			"cargoes_category": [
-				"I.CONTENEURS"
-			],
-			"directions_nature": [
-				"unloading"
-			],
-			"areas_ID": [
-				"432",
-				"433"
-			],
-			"shiftworks_ID": [
-				"typical"
-			]
-		},
-		"steps_list": [
+		"Operations": [
 			{
-				"ID": "Step1",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Initialization",
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
 				"scheduling": {
 					"start": {
 						"nature": "delay",
@@ -724,24 +448,23 @@
 						"value": 20
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine1"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			},
 			{
-				"ID": "Step2",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Processing",
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
 				"scheduling": {
 					"start": {
 						"nature": "after_any",
 						"value": [
-							"Step1"
+							"operation_1"
 						]
 					},
 					"duration": {
@@ -749,85 +472,27 @@
 						"value": 100
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine2", "Machine3"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			}
 		]
 	},
 	{
 		"ID": "unloading_SOL.V",
-		"directions_nature": "unloading",
-		"cargoes_category": [
-			"I.BOIS+COPEAUX MIXTES",
-			"I.CHARBON",
-			"I.CIMENT",
-			"I.CLINKER",
-			"I.COLZA VRAC",
-			"I.ENGR.MANUF.VRAC",
-			"I.KAOLIN",
-			"I.LAITIERS",
-			"I.MINERAUX AUTRES",
-			"I.POTASSE VRAC",
-			"I.SEL",
-			"I.TOURBE",
-			"I.TOURNESOL VRAC",
-			"I.UREE VRAC"
-		],
-		"areas_ID": [
-			"434",
-			"416",
-			"435",
-			"433",
-			"431",
-			"413",
-			"415"
-		],
+		
 		"label": "Some label",
 		"comment": "Some comment",
-		"compatibility": {
-			"cargoes_category": [
-				"I.BOIS+COPEAUX MIXTES",
-				"I.CHARBON",
-				"I.CIMENT",
-				"I.CLINKER",
-				"I.COLZA VRAC",
-				"I.ENGR.MANUF.VRAC",
-				"I.KAOLIN",
-				"I.LAITIERS",
-				"I.MINERAUX AUTRES",
-				"I.POTASSE VRAC",
-				"I.SEL",
-				"I.TOURBE",
-				"I.TOURNESOL VRAC",
-				"I.UREE VRAC"
-			],
-			"directions_nature": [
-				"unloading"
-			],
-			"areas_ID": [
-				"434",
-				"416",
-				"435",
-				"433",
-				"431",
-				"413",
-				"415"
-			],
-			"shiftworks_ID": [
-				"typical"
-			]
-		},
-		"steps_list": [
+		
+		"Operations": [
 			{
-				"ID": "Step1",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Initialization",
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
 				"scheduling": {
 					"start": {
 						"nature": "delay",
@@ -838,24 +503,23 @@
 						"value": 20
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine1"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			},
 			{
-				"ID": "Step2",
-				"label": "step's name",
-				"comment": "step's comment",
-				"category": "Processing",
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
 				"scheduling": {
 					"start": {
 						"nature": "after_any",
 						"value": [
-							"Step1"
+							"operation_1"
 						]
 					},
 					"duration": {
@@ -863,12 +527,11 @@
 						"value": 100
 					}
 				},
-				"work": {
-					"machines": [
+				"ressources_uses": {
+					"ressources_IDs": [
 						"Machine2", "Machine3"
 					],
-					"nature": "parallel",
-					"distance": "on_spot"
+					"nature": "parallel"
 				}
 			}
 		]

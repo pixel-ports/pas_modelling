@@ -12,6 +12,7 @@
 		"GPMB_demo": [
 			"local_inputs_loader",
 			"handling_converter",
+			"port_converter",
 			"supplychain_assignation",
 			"operations_planning"
 		]
@@ -25,16 +26,16 @@
 			},
 			"Port": [
 				{
-					"name": "Assignations",
-					"file_path": "./tools/demo_inputs/GPMB_2018//Assignations.json"
+					"name": "RULES",
+					"file_path": "./tools/DM_old/RULES.json"
 				},
 				{
 					"name": "Supplychains",
-					"file_path": "./tools/demo_inputs/GPMB_2018/Supplychains.json"
+					"file_path": "./tools/DM_old/SUPPLY-CHAINS.json"
 				},
 				{
 					"name": "Resources",
-					"file_path": "./tools/demo_inputs/GPMB_2018/Resources.json"
+					"file_path": "./tools/DM_old/RESOURCES.json"
 				}
 			]
 		},

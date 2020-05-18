@@ -1,0 +1,245 @@
+{
+    "definitions": {},
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://example.com/root.json",
+    "type": "object",
+    "title": "The Root Schema",
+    "required": [
+        "areas",
+        "machines"
+    ],
+    "properties": {
+        "areas": {
+            "$id": "#/properties/areas",
+            "type": "array",
+            "title": "The Areas Schema",
+            "items": {
+                "$id": "#/properties/areas/items",
+                "type": "object",
+                "title": "The Items Schema",
+                "required": [
+                    "ID"
+                ],
+                "properties": {
+                    "ID": {
+                        "$id": "#/properties/areas/items/properties/ID",
+                        "type": "string",
+                        "title": "The Id Schema",
+                        "default": "",
+                        "examples": [
+                            "Dock1"
+                        ],
+                        "pattern": "^(.*)$"
+                    },
+                    "label": {
+                        "$id": "#/properties/areas/items/properties/label",
+                        "type": "string",
+                        "title": "The Label Schema",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ],
+                        "pattern": "^(.*)$"
+                    },
+                    "type": {
+                        "$id": "#/properties/areas/items/properties/type",
+                        "type": "string",
+                        "title": "The Type Schema",
+                        "default": "",
+                        "examples": ["docks", "silo", "warehouses", "office", "gates", "other"],
+                        "pattern": "^(.*)$"
+                    },
+                    "owner": {
+                        "$id": "#/properties/areas/items/properties/owner",
+                        "type": "string",
+                        "title": "The Owner Schema",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ],
+                        "pattern": "^(.*)$"
+                    },
+                    "terminal": {
+                        "$id": "#/properties/areas/items/properties/terminal",
+                        "type": "string",
+                        "title": "The Terminal Schema",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ],
+                        "pattern": "^(.*)$"
+                    }
+                }
+            }
+        },
+        "machines": {
+            "$id": "#/properties/machines",
+            "type": "array",
+            "title": "The Machines Schema",
+            "items": {
+                "$id": "#/properties/machines/items",
+                "type": "object",
+                "title": "The Items Schema",
+                "required": [
+                    "ID",
+                    "type",
+                    "throughput",
+                    "consumptions"
+                ],
+                "properties": {
+                    "ID": {
+                        "$id": "#/properties/machines/items/properties/ID",
+                        "type": "string",
+                        "title": "The Id Schema",
+                        "default": "",
+                        "examples": [
+                            "Machine1"
+                        ],
+                        "pattern": "^(.*)$"
+                    },
+                    "label": {
+                        "$id": "#/properties/machines/items/properties/label",
+                        "type": "string",
+                        "title": "The Label Schema",
+                        "default": "",
+                        "examples": [
+                            "PORTIQUE_Centrale_hydraulique"
+                        ],
+                        "pattern": "^(.*)$"
+                    },
+                    "type": {
+                        "$id": "#/properties/machines/items/properties/type",
+                        "type": "string",
+                        "title": "The Type Schema",
+                        "default": "",
+                        "examples": [
+                            "Generator"
+                        ],
+                        "pattern": "^(.*)$"
+                    },
+                    "group": {
+                        "$id": "#/properties/machines/items/properties/group",
+                        "type": "array",
+                        "title": "The Group Schema",
+                        "items": {
+                            "$id": "#/properties/machines/items/properties/group/items",
+                            "type": "string",
+                            "title": "The Items Schema",
+                            "default": "",
+                            "examples": [
+                                "PORTIQUE"
+                            ],
+                            "pattern": "^(.*)$"
+                        }
+                    },
+                    "owner": {
+                        "$id": "#/properties/machines/items/properties/owner",
+                        "type": "string",
+                        "title": "The Owner Schema",
+                        "default": "",
+                        "examples": [
+                            ""
+                        ],
+                        "pattern": "^(.*)$"
+                    },
+                    "shift_ID": {
+                        "$id": "#/properties/machines/items/properties/shift_ID",
+                        "type": "string",
+                        "title": "The Shift_id Schema",
+                        "default": "",
+                        "examples": [
+                            "typical"
+                        ],
+                        "pattern": "^(.*)$"
+                    },
+                    "throughput": {
+                        "$id": "#/properties/machines/items/properties/throughput",
+                        "type": "object",
+                        "title": "The Throughput Schema",
+                        "required": [
+                            "Value",
+                            "Unit"
+                        ],
+                        "properties": {
+                            "Value": {
+                                "$id": "#/properties/machines/items/properties/throughput/properties/Value",
+                                "type": "integer",
+                                "title": "The Value Schema",
+                                "default": 0,
+                                "examples": [
+                                    1000
+                                ]
+                            },
+                            "Unit": {
+                                "$id": "#/properties/machines/items/properties/throughput/properties/Unit",
+                                "type": "string",
+                                "title": "The Unit Schema",
+                                "default": "",
+                                "examples": [
+                                    "t/h"
+                                ],
+                                "pattern": "^(.*)$"
+                            }
+                        }
+                    },
+                    "consumptions": {
+                        "$id": "#/properties/machines/items/properties/consumptions",
+                        "type": "array",
+                        "title": "The Consumptions Schema",
+                        "items": {
+                            "$id": "#/properties/machines/items/properties/consumptions/items",
+                            "type": "object",
+                            "title": "The Items Schema",
+                            "required": [
+                                "nature",
+                                "value",
+                                "unit"
+                            ],
+                            "properties": {
+                                "nature": {
+                                    "$id": "#/properties/machines/items/properties/consumptions/items/properties/nature",
+                                    "type": "string",
+                                    "title": "The Nature Schema",
+                                    "default": "",
+                                    "examples": [
+                                        "electricity"
+                                    ],
+                                    "pattern": "^(.*)$"
+                                },
+                                "value": {
+                                    "$id": "#/properties/machines/items/properties/consumptions/items/properties/value",
+                                    "type": "integer",
+                                    "title": "The Value Schema",
+                                    "default": 0,
+                                    "examples": [
+                                        18
+                                    ]
+                                },
+                                "unit": {
+                                    "$id": "#/properties/machines/items/properties/consumptions/items/properties/unit",
+                                    "type": "string",
+                                    "title": "The Unit Schema",
+                                    "default": "",
+                                    "examples": [
+                                        "kWh"
+                                    ],
+                                    "pattern": "^(.*)$"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "others": {
+            "$id": "#/properties/others",
+            "type": "array",
+            "title": "The Others Schema",
+            "items": {
+                "$id": "#/properties/others/items",
+                "type": "object",
+                "title": "The Items Schema"
+            }
+        }
+    }
+}

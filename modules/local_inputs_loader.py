@@ -17,12 +17,12 @@ def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 	
 	#CHARGEMENT DES FICHIERS
 
-		# HANDLINGS
+	#	HANDLINGS
 	message, loaded_json = get(SETTINGS["modules_settings"][module_name]["Handlings"])
 	LOGS.append(f"Handlings loading: {message}")
 	HANDLINGS = loaded_json
 
-		# PARAMETRES DU PORT
+	#	PARAMETRES DU PORT
 	for parameter in SETTINGS["modules_settings"][module_name]["Port"] :
 		message, loaded_json = get(parameter)
 		LOGS.append(f"Port's parameters loading: {message}")
