@@ -1,7 +1,7 @@
 import json
 
 
-def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
+def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	'''
 	Transform odl port's parameters to the new DM.
 	'''

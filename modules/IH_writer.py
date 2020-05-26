@@ -10,7 +10,7 @@ from elasticsearch import helpers
 
 
 # def IH_writer(OT_INPUT, HANDLINGS, PORT, MODSETTINGS, LOGS):
-def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
+def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 	'''
 	#FIXME
 	'''

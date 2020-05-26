@@ -2,7 +2,7 @@ import json
 from elasticsearch import Elasticsearch
 
 
-def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
+def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 	'''
 	#FIXME
 	'''

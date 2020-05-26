@@ -3,7 +3,7 @@ import jsonschema
 import datetime
 
 
-def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
+def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	'''
 	Transform raw stopover data into proper handlings request.
 	'''

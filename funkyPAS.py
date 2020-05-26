@@ -57,7 +57,7 @@ def main(pipeline_name, OT_input) :
 		# 	abording_export(LOGS, SETTINGS)
 		# else:
 		# 	try:	
-		HANDLINGS, PORT, LOGS, SETTINGS = eval(f"{module_i}.process(HANDLINGS, PORT, LOGS, SETTINGS, module_i)")
+		HANDLINGS, PORT, LOGS, SETTINGS = eval(f"{module_i}.main(HANDLINGS, PORT, LOGS, SETTINGS, module_i)")
 			# except Exception as error:
 			# 	LOGS.append(f"Failled to run: {module_i}.\nError: {error}")
 			# 	abording_export(LOGS, SETTINGS)

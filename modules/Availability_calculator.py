@@ -6,8 +6,8 @@ import datetime
 # logger = logging.getLogger("Availability_calculator")
 
 
-# def process(pas, module_settings) :
-def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
+# def main(pas, module_settings) :
+def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 	'''
 	Infer handling earliest possible TS for begining processing
 	'''

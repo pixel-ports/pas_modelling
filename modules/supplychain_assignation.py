@@ -1,6 +1,6 @@
 #import collections
 
-def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
+def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	'''
 	handling --> handling + [SC]
 

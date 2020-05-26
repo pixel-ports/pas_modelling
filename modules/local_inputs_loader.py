@@ -3,7 +3,7 @@ import json
 #import jsonschema
 
 
-def process(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
+def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 	'''
 	Load local files (handlings and port's parameters) to PAS modelling inputs (port's raw stopover and parameters set)
 	'''
