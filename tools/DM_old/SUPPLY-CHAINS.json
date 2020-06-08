@@ -83,7 +83,36 @@
                         "nature": "after_any",
                         "value": [
                             "Op_1",
-                            "Op_2"
+                            "Op_2",
+                            "Op_4"
+                        ]
+                    }
+                },
+                "work": {
+                    "machines": [
+                        "Machine1",
+                        "Machine2"
+                    ],
+                    "nature": "parallel",
+                    "distance": "on_spot"
+                }
+            },
+            {
+                "ID": "Op_4",
+                "label": "Operation name",
+                "comment": "Operation comment",
+                "category": "Initialization",
+                "scheduling": {
+                    "start": {
+                        "nature": "with_any",
+                        "value": [
+                            "Op_3"
+                        ]
+                    },
+                    "duration": {
+                        "nature": "after_any",
+                        "value": [
+                            "Op_1"
                         ]
                     }
                 },

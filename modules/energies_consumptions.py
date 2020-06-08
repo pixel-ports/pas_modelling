@@ -1,23 +1,20 @@
 # from datetime import datetime 
 # from datetime import timedelta
 import datetime #Contrainte pr les tests de type
-
+from itertools import groupby
 
 def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	'''
-	For each handling, assign a list of activities (practical handling processing unit). That is to say SC's operations (theoritical processing unit) completed with {start TS, duration, end TS). NB: if the concurency management is activated, the handlings prioritition module should executed before in the pipeline.
+	For each activity, resolve the energies consumptions.
+	NB: 1 activity --> N energies (1 consumption for each)
 	'''
-	#FIXME devrait être précéder du module de prioritisation
-	#FIXME concurence for ressource use should be an activable option in settings
-	#NB: un premier bloc de fonction (qui pourrait être des méthodes de classe) sont définies en entete de main pour ne pas avoir à faire des appels très lourds. Ce sont des fonctions qui ne renvoient rien mais modifient des objects dans le scope courant (cad un handling donné).
-	#Les fonctions qui sont définies en dehors du main quant à elles renvoient un objet 
-	'''
-	Résolution:
-		creat graphe
-		parcours du graphe (récursif)
-		resolve node candidat TS 
-		corige candidat TS for machine availability
-	'''
+	#PRINCIPLE
+	# ∀ handling
+	# 	∀ activity
+	# 		∀ resource
+	# 			retrive resource_consumption
+	# 			groupby energy_type with sum
+	
 	#INITIALIZATION
 	LOGS.append(f"<==== {module_name} STARTS ====>")
 	#	SOME LIST	
@@ -25,34 +22,38 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	Errors_details = [] #Pr les logs
 
 #---------------------------------------------------------
+	handling_ss_duration = []
+	for handling in HANDLINGS:
+		for activity in handling['activities'].items():
+			if activity[1].get("duration") == None:
+				handling_ss_duration.append({
+					"handling ID": handling["handling_ID"],
+					"operation ss durée ID": activity[0],
+					# "operation ss durée desc": activity[1]
+				})
 	#PROCESSING	
 	for handling in HANDLINGS:
-
-		#OPERATIONS RESOLUTION
-		HAS = create_HAS(handling, PORT["Supplychains"], PORT["Resources"]["machines"])
-
-		for node_ID in HAS["graph"]:
-			if node_ID in HAS["unchecked"]:
-				HAS["stack"] = []
-				wander_HAS(node_ID, HAS)#Obligé de tout mettre dans cette fonction pr la récursivité
-			if HAS["loop_detected"]:
-				break 
-
-		#	#Ecarter le handling
-		if HAS["loop_detected"]:
-			Invalide_handlings.append(handling)
-			Errors_details.append(HAS["error_msg"])
-			HANDLINGS.remove(handling)
-		else:
-			handling["activities"] = HAS["Activities"]
+		for activity_value in handling["activities"].values():
+			Resources = [resource for resource in PORT["Resources"]["machines"] if resource["ID"] in activity_value["Resources"]]
+			for resources in Resources :
+				for energy in resources['consumptions']:
+				#FIXME attention à reprendre le formalisme de sortie de la master_v3
+					energy_consumption = { #FIXME attention, une machine peut avoir plus d'une énergie ? (ou forcer découpage de la machine en sous-composant ? <== non car à l'inverse on autorise de regrouper des machines !)
+						"energy_type": energy['nature'],
+						"energy_consumption": energy['value']*2
+						# resources[]
+					}
+			#NB on choisit d'avoir la granularité la plus fine (donc pr chaque machine, on fera les aggrégations après)
+	# handling_ss_duration = [handling in HANDLING if handling['activities']['Op_1']['duration']]	
+	
 	#CLOTURE
 	#	Duplicated_content_types
-	LOGS.append(f"Number of handlings for which activities could not be established: {len(Invalide_handlings)}") #Impacte l'assignation a travers l'affectation de l'ordre des SC résultantes
-	if len(Invalide_handlings) > 0:
-		Involved_SC = set([handling['Supplychains'][0] #Pas génial de forcer la reprise de la première SC pr avoir la SC utilisée
-			for handling in Invalide_handlings
-		])
-		LOGS.append({f"Supplychains involved {len(Involved_SC)} ({Involved_SC}). List of discarted handling and details": Errors_details})
+	# LOGS.append(f"Number of handlings for which activities could not be established: {len(Invalide_handlings)}") #Impacte l'assignation a travers l'affectation de l'ordre des SC résultantes
+	# if len(Invalide_handlings) > 0:
+	# 	Involved_SC = set([handling['Supplychains'][0] #Pas génial de forcer la reprise de la première SC pr avoir la SC utilisée
+	# 		for handling in Invalide_handlings
+	# 	])
+	# 	LOGS.append({f"Supplychains involved {len(Involved_SC)} ({Involved_SC}). List of discarted handling and details": Errors_details})
 	LOGS.append(f"====> {module_name} ENDS <====")
 	return HANDLINGS, PORT, LOGS, SETTINGS
 
@@ -157,25 +158,22 @@ def wander_HAS(node_ID:str, HAS: dict)-> None:
 
 def resolve_node(node_ID:str, HAS: dict)-> None: #Cette fonction n'est qu'une isolation formelle du bloc de code
 	#INITIALIZATION
-	operation = next((operation
-		for operation in HAS['Operations_descriptions']
-		if operation["ID"] == node_ID[0]),
+	operation_description = next((operation_description
+		for operation_description in HAS['Operations_descriptions']
+		if operation_description["ID"] == node_ID[0]),
 		None
 	)
 	if node_ID[1] == "start":
 		key = "start"
 	elif node_ID[1] == "end":
 		key = "duration" #Dans le DM, l'info pour end est fusionnée avec duration
-	schedule_nature = operation["scheduling"][key].get("nature")
-	schedule_value = operation["scheduling"][key].get("value")
+	schedule_nature = operation_description["scheduling"][key].get("nature")
+	schedule_value = operation_description["scheduling"][key].get("value")
 
 	if node_ID[0] not in HAS['Activities']:
 		HAS['Activities'][node_ID[0]] = {} #Attention, ici on sort de la structure "usuelle", pas de champs ID mais mais un nom de dict
-	
-	activity_key = HAS['Activities'][node_ID[0]] #Simple shortcut
-	# activity_description = HAS['Activities'][node_ID[1]]
-	
-	activity_key.update({"Resources": operation['work']['machines']}) #On ne l'utilise pas ici, mais plus simple de générer ici pour les modules en aval. 
+
+	HAS['Activities'][node_ID[0]].update({"Ressources": operation_description['work']['machines']}) #On ne l'utilise pas ici, mais plus simple de générer ici pour les modules en aval. 
 	
 	#CONSTRUCTION DE L'ACTIVITÉ
 	#On pourrait séparer en sub fonction distinctes, mais à quoi bon ?
@@ -183,29 +181,14 @@ def resolve_node(node_ID:str, HAS: dict)-> None: #Cette fonction n'est qu'une is
 	#	DELAY (start ou duration)
 	if schedule_nature == "delay": 
 		if node_ID[1] == "start":#TODO DM maj; plus de delais pr start
-			activity_key.update({"start_TS":
+			HAS['Activities'][node_ID[0]].update({"start_TS":
 				HAS['handling_description']['handling_earliestStart'] + datetime.timedelta(minutes= schedule_value) #NB Attention à l'unité saisie par l'utilisateur
 			})
 		elif node_ID[1] == "end":
-			activity_key.update({"duration": 
+			HAS['Activities'][node_ID[0]].update({"duration": 
 				datetime.timedelta(minutes= schedule_value)
 			})
 
-	#	QUANTITY (duration)
-	elif schedule_nature in ['cargo_%', 'cargo_tons']:
-		if schedule_nature == "cargo_%":
-			amount = HAS['handling_description']["content_amount"] * schedule_value / 100
-		elif schedule_nature == "cargo_tons":
-			amount = schedule_value					
-		operation_throughput = get_operation_throughput(operation.get("work"), HAS['Machines_descriptions']) 
-		if operation_throughput[0] :
-			activity_key.update({"duration": 
-				datetime.timedelta(minutes= (amount / operation_throughput[1]) * 60)
-			})
-			activity_key.update({"end_TS": 
-				activity_key["start_TS"] + activity_key["duration"]
-			})
-	
 	#	DEPENDENCY (start ou end)
 	elif schedule_nature in ["before_any", "before_all","with_any", "with_all"]: #Tous pointent vers un start d'opération, mais les before pour générer un end tandis que les with pr générer un start
 		Dependencies_start_TS = [activity[1]['start_TS'] 
@@ -213,11 +196,11 @@ def resolve_node(node_ID:str, HAS: dict)-> None: #Cette fonction n'est qu'une is
 			if activity[0] in schedule_value
 		]
 		if schedule_nature in ['before_any', 'with_any']:
-			activity_key.update({node_ID[1] + "_TS": #L'aiguillage se fait par node_ID[1] car seul un node start peut avoir un before et seul un node end peut avoir un with
+			HAS['Activities'][node_ID[0]].update({node_ID[1] + "_TS": #L'aiguillage se fait par node_ID[1] car seul un node start peut avoir un before et seul un node end peut avoir un with
 				min(Dependencies_start_TS)
 			})
 		elif schedule_nature in ['before_all', 'with_all']:
-			activity_key.update({node_ID[1] + "_TS": 
+			HAS['Activities'][node_ID[0]].update({node_ID[1] + "_TS": 
 				max(Dependencies_start_TS)
 			})
 
@@ -227,22 +210,30 @@ def resolve_node(node_ID:str, HAS: dict)-> None: #Cette fonction n'est qu'une is
 			if activity[0] in schedule_value
 		]
 		if schedule_nature == 'after_any':
-			activity_key.update({node_ID[1] + "_TS": 
+			HAS['Activities'][node_ID[0]].update({node_ID[1] + "_TS": 
 				min(Dependencies_end_TS)
 			})
 		elif schedule_nature == 'after_all':
-			activity_key.update({node_ID[1] + "_TS": 
+			HAS['Activities'][node_ID[0]].update({node_ID[1] + "_TS": 
 				max(Dependencies_end_TS)
 			})
 
-	activity_key.update({"duration": #NB un peu hacky de recalculer les durations pr TOUS les cas
-		HAS['Activities'][node_ID[1]]["end_TS"] - HAS['Activities'][node_ID[1]]["start_TS"]
-	})
-	
-	#INTEGRITY CHECK
-	token = HAS['Activities'][node_ID[1]]
-	if None in [token["start_TS"], token["end_TS"], token["duration"]]:
-		HAS["Logs"].append(f"Issue for handling {HAS['handling_description']['handling_ID']}, in SC {HAS['handling_description']['Supplychains'][0]} for operation {node_ID}. Handling discarted")
+	#	QUANTITY (duration)
+	elif schedule_nature in ['cargo_%', 'cargo_tons']:
+		if schedule_nature == "cargo_%":
+			amount = HAS['handling_description']["content_amount"] * schedule_value / 100
+		elif schedule_nature == "cargo_tons":
+			amount = schedule_value					
+		operation_throughput = get_operation_throughput(operation_description.get("work"), HAS['Machines_descriptions']) 
+		if operation_throughput[0] :
+			HAS['Activities'][node_ID[0]].update({"duration": 
+				datetime.timedelta(minutes= (amount / operation_throughput[1]) * 60)
+			})
+			HAS['Activities'][node_ID[0]].update({"end_TS": 
+				HAS['Activities'][node_ID[0]]["start_TS"] + HAS['Activities'][node_ID[0]]["duration"]
+			})
+		else :
+			HAS["Logs"].append(f"Issue for handling {HAS['handling_description']['handling_ID']}, in SC {HAS['handling_description']['Supplychains'][0]} for operation {node_ID}. Issue: {operation_throughput[1]} Handling discarted")
 
 	#TODO Rajouter un test de cohérence (start + duration = end et duration >0 )
 

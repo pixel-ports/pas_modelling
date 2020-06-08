@@ -63,25 +63,29 @@ def main(pipeline_name, OT_input) :
 			# 	abording_export(LOGS, SETTINGS)
 	
 	#CLOSSING
-	LOGS.append(f"End of pipeline {pipeline_name}. Clossing PAS builder")
-	# print(LOGS)
-	print("bye")
-	abording_export(LOGS, SETTINGS)
+	LOGS.append(f"End of pipeline {pipeline_name}. Exporting PAS and clossing PAS builder")
+
+	#FIXME uniquement pr tests en local (le PAS est transmit à l'IH par le module idoine)
+	if pipeline_name == "GPMB_demo":
+		abording_export(LOGS, HANDLINGS, PORT, SETTINGS)
 
 
 #=========================================================================
-def abording_export(LOGS, SETTINGS=None):
+def abording_export(LOGS, HANDLINGS= None, PORT= None, SETTINGS= None):
 	LOGS.append(f"PAS modelling closing")
 	
 	export = {
-		"SETTINGS": SETTINGS,
-		"LOGS": LOGS
+		"LOGS": LOGS,
+		"PORT'S ACTIVITIES SCENARIO": HANDLINGS,
+		"PORT'S PARAMETERS": PORT,
+		"SETTINGS": SETTINGS
+		
 	}
 	
-	with open("./run_report.json", 'w') as file:
+	with open("./PAS_output.json", 'w') as file:
 		json.dump(export, file, indent=4, default=str)
 	
-	print(f"\n\n===== ABORDING!!!=====\nlogs & settings exported in {file} before closing")
+	print(f"\n\nlogs & settings exported in {file} before closing")
 	
 	sys.exit(0)# ou bien on considère qu'on est en exit(0) ?
 

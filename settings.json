@@ -14,7 +14,8 @@
 			"handling_converter",
 			"port_converter",
 			"supplychain_assignation",
-			"operations_planning"
+			"operations_planning",
+			"energies_consumptions"
 		]
 	},
 	"modules_settings": {
