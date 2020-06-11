@@ -23,36 +23,94 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	#	SOME LIST	
 	Invalide_handlings = [] #Pr les logs
 	Errors_details = [] #Pr les logs
+	Errors_synthesise = {} #Pr les logs
 
-#---------------------------------------------------------
+	#	==> DEBUG
+	#Check doublons input
+	len([handling['handling_ID'] for handling in HANDLINGS]) == len(set([handling['handling_ID'] for handling in HANDLINGS]))
+	
+	nb_hand_initial = len(HANDLINGS)
+	print(f"nb_hand_initial: {nb_hand_initial}")
+	counter_handling_processed =0
+		
 	#PROCESSING	
 	for handling in HANDLINGS:
-
 		#OPERATIONS RESOLUTION
 		HAS = create_HAS(handling, PORT["Supplychains"], PORT["Resources"]["machines"])
-
 		for node_ID in HAS["graph"]:
 			if node_ID in HAS["unchecked"]:
 				HAS["stack"] = []
 				wander_HAS(node_ID, HAS)#Obligé de tout mettre dans cette fonction pr la récursivité
 			if HAS["loop_detected"]:
 				break 
-
-		#	#Ecarter le handling
-		if HAS["loop_detected"]:
+		
+		handling["Activities"] = list(HAS["Activities"].values()) #On fait l'affectation avant le controle d'intégrité pr avoir le détail de l'activités calculée dans les logs pr les handlings rejetés (car incohérents)
+		
+		#INTEGRITY CHECK
+		if HAS["error"] is not None:
 			Invalide_handlings.append(handling)
-			Errors_details.append(HAS["error_msg"])
-			HANDLINGS.remove(handling)
-		else:
-			handling["activities"] = HAS["Activities"]
+			Errors_details.append(HAS["error"])
+			counter_handling_processed +=1
+			print(HAS["error"])
+		
+		# if "Activities" not in handling.keys():
+		# 	Invalide_handlings.append(handling)
+		# 	Errors_details.append({
+		# 		"type": "no activities inputed",
+		# 		"SC": next(iter(HAS['handling_description']["Supplychains_IDs"])),
+		# 		"operation": 'undetermined',
+		# 		"message": f"For unknow raison, no activities where imputed to this handling"
+		# 	})
+		
+	print(f"counter_handling_processed: {counter_handling_processed}")
+	# # <<ajouter les handling sans Activities ?
+	ss_activities = [handling for handling in HANDLINGS if "Activities" not in handling.keys()]
+	# for handling in ss_activities:
+	# 	HANDLINGS.remove(handling)
 	#CLOTURE
-	#	Duplicated_content_types
-	LOGS.append(f"Number of handlings for which activities could not be established: {len(Invalide_handlings)}") #Impacte l'assignation a travers l'affectation de l'ordre des SC résultantes
+	for error in Errors_details:
+		Errors_synthesise.setdefault(error['type'], {})
+		Errors_synthesise[error['type']].setdefault(error["SC"], {})
+		Errors_synthesise[error['type']][error["SC"]].setdefault(error["operation"], {
+			"number of occurences": 0,
+			"detail": error["message"]
+		})
+		Errors_synthesise[error['type']][error["SC"]][error["operation"]]["number of occurences"] += 1
+
+	#---------------------------------------------------
+	#DEBUG HANDLINGS FOIREUX
+	print(f"nb_hand_final: {len(HANDLINGS)}")
+	#	PRINT
+	ID_ss_activities = 	[handling['handling_ID'] for handling in ss_activities]
+	ID_invalides = 		[handling['handling_ID'] for handling in Invalide_handlings]
+	ID_oks = 			[handling['handling_ID'] for handling in HANDLINGS]
+
+	print(f"============================\nnb de handling :")
+	print(f"intial: 			{nb_hand_initial}")
+	print(f"sans Activities: 	{len(ss_activities)}")#, 		{ID_ss_activities}")
+	print(f"incohérents: 		{len(ID_invalides)}")#,  	{ID_invalides}")
+	print(f"ok ?: 				{len(ID_oks)}")#, 			{ID_oks}")
+	
+	count_invalides_U_ssActivities = 0
+	for handling_ID in ID_ss_activities:
+		if handling_ID in ID_oks:
+			count_invalides_U_ssActivities += 1
+			# print(handling_ID)
+	print(count_invalides_U_ssActivities)
+	#	DEBUG EXPORT
+	import json
+	export = {
+		"invalid handlings (loop et duration)": Invalide_handlings,
+		"ss activities": ss_activities
+	}
+	with open("./handlings_activities_HS.json", 'w') as file:
+		json.dump(export, file, indent=4, default=str)
+	#---------------------------------------------------
+
+	LOGS.append(f"Number of handlings for which activities could not be established and been discarted: {len(Invalide_handlings)}") 
 	if len(Invalide_handlings) > 0:
-		Involved_SC = set([handling['Supplychains'][0] #Pas génial de forcer la reprise de la première SC pr avoir la SC utilisée
-			for handling in Invalide_handlings
-		])
-		LOGS.append({f"Supplychains involved {len(Involved_SC)} ({Involved_SC}). List of discarted handling and details": Errors_details})
+		LOGS.append({"Details": Errors_synthesise})
+		LOGS.append({"Discarted handlings": Invalide_handlings}) #TODO ne pas mettre tous les handlings ici, mais les ventiler par cause de rejet (dc dans Errors_synthesise)
 	LOGS.append(f"====> {module_name} ENDS <====")
 	return HANDLINGS, PORT, LOGS, SETTINGS
 
@@ -70,7 +128,7 @@ def create_HAS(handling:dict, Supplychains_collection: list, Machines_collection
 	Operations_descriptions = next(
 			(port_sc["steps_list"] #Retrieving SC's operation description
 			for port_sc in Supplychains_collection #Unretrievable handling's SC already filtered in SC assignation modul
-			if port_sc["ID"] == handling["Supplychains"][0]), #Only the operations of the first suitable handling's SC is considered
+			if port_sc["ID"] == handling["Supplychains_IDs"][0]), #Only the operations of the first suitable handling's SC is considered
 			None 
 		)
 
@@ -120,15 +178,14 @@ def create_HAS(handling:dict, Supplychains_collection: list, Machines_collection
 		"stack": [],
 		"checked":[],
 		"loop_detected": False,
-		#LOGS
-		"Logs":[],
 		#RESULTS
-		"Activities":{}
+		"Activities":{},
+		"error": None
 	} 
 	
 	return HAS
 
-def wander_HAS(node_ID:str, HAS: dict)-> None:
+def wander_HAS(node_ID:tuple, HAS: dict)-> None:
 	'''Recursive function that go accross all the operations graph to:
 	- check if there is a dependency loop
 	- call for node TS resolution when it's dependencies are resolved.
@@ -140,8 +197,14 @@ def wander_HAS(node_ID:str, HAS: dict)-> None:
 		return
 	for parent_ID in HAS["graph"][node_ID]:
 		if parent_ID in HAS["stack"]: # Détection d'une boucle dans le graphe
-			HAS["loop_detected"] = True 
-			HAS["error_msg"] = f"Issue for {[node_ID]}: the parent node {parent_ID} creats an infinit loop."
+			HAS["loop_detected"] = True
+			HAS["error"] = {
+				"type": "infinit loop",
+				"SC": next(iter(HAS['handling_description']["Supplychains_IDs"])),
+				"operation": node_ID[0],
+				"message": f"Issue for operation {node_ID[0]} (boundarie {node_ID[1]} call for the parent operation {parent_ID}, creating an infinit loop."
+			}
+				
 			break
 		if parent_ID in HAS["unchecked"]:# Appel récursif sur les dépendences de l'opération
 			wander_HAS(parent_ID, HAS)
@@ -154,14 +217,26 @@ def wander_HAS(node_ID:str, HAS: dict)-> None:
 
 	return #HAS
 
-
-def resolve_node(node_ID:str, HAS: dict)-> None: #Cette fonction n'est qu'une isolation formelle du bloc de code
+def resolve_node(node_ID:tuple, HAS: dict)-> None: #Cette fonction n'est qu'une isolation formelle du bloc de code
 	#INITIALIZATION
+
+	#	RETRIVE OPERATION DESCRIPTION FROM PORT
 	operation = next((operation
 		for operation in HAS['Operations_descriptions']
 		if operation["ID"] == node_ID[0]),
 		None
 	)
+
+	#	INSTANTIATE ACTIVITY IN HAS 
+	if node_ID[0] not in HAS['Activities']:
+		HAS['Activities'][node_ID[0]] = { #Attention, ici on sort de la structure "usuelle", pas de champs ID mais mais un nom de dict
+			"operation_ID": node_ID[0],
+			"Resources_IDs": operation['work']['machines'] #On ne l'utilise pas ici, mais plus simple de générer ici pour les modules en aval.
+		} 
+
+	#	SHORTCUT
+	activity = HAS['Activities'][node_ID[0]] #Simple shortcut
+	
 	if node_ID[1] == "start":
 		key = "start"
 	elif node_ID[1] == "end":
@@ -169,25 +244,17 @@ def resolve_node(node_ID:str, HAS: dict)-> None: #Cette fonction n'est qu'une is
 	schedule_nature = operation["scheduling"][key].get("nature")
 	schedule_value = operation["scheduling"][key].get("value")
 
-	if node_ID[0] not in HAS['Activities']:
-		HAS['Activities'][node_ID[0]] = {} #Attention, ici on sort de la structure "usuelle", pas de champs ID mais mais un nom de dict
 	
-	activity_key = HAS['Activities'][node_ID[0]] #Simple shortcut
-	# activity_description = HAS['Activities'][node_ID[1]]
+	# ACTIVITY RESOLUTION #On pourrait séparer en sub fonction distinctes, mais à quoi bon ? #NB: on parcours simplement l'arborescence des possibles avec les elif
 	
-	activity_key.update({"Resources": operation['work']['machines']}) #On ne l'utilise pas ici, mais plus simple de générer ici pour les modules en aval. 
-	
-	#CONSTRUCTION DE L'ACTIVITÉ
-	#On pourrait séparer en sub fonction distinctes, mais à quoi bon ?
-	#NB: on parcours simplement l'arborescence des possibles avec les elif
 	#	DELAY (start ou duration)
 	if schedule_nature == "delay": 
 		if node_ID[1] == "start":#TODO DM maj; plus de delais pr start
-			activity_key.update({"start_TS":
+			activity.update({"start_TS":
 				HAS['handling_description']['handling_earliestStart'] + datetime.timedelta(minutes= schedule_value) #NB Attention à l'unité saisie par l'utilisateur
 			})
 		elif node_ID[1] == "end":
-			activity_key.update({"duration": 
+			activity.update({"duration": 
 				datetime.timedelta(minutes= schedule_value)
 			})
 
@@ -199,53 +266,64 @@ def resolve_node(node_ID:str, HAS: dict)-> None: #Cette fonction n'est qu'une is
 			amount = schedule_value					
 		operation_throughput = get_operation_throughput(operation.get("work"), HAS['Machines_descriptions']) 
 		if operation_throughput[0] :
-			activity_key.update({"duration": 
+			activity.update({"duration": 
 				datetime.timedelta(minutes= (amount / operation_throughput[1]) * 60)
 			})
-			activity_key.update({"end_TS": 
-				activity_key["start_TS"] + activity_key["duration"]
+			activity.update({"end_TS": 
+				activity["start_TS"] + activity["duration"]
 			})
 	
 	#	DEPENDENCY (start ou end)
+	#		ACTIVITY START
 	elif schedule_nature in ["before_any", "before_all","with_any", "with_all"]: #Tous pointent vers un start d'opération, mais les before pour générer un end tandis que les with pr générer un start
-		Dependencies_start_TS = [activity[1]['start_TS'] 
-			for activity in HAS['Activities'].items()
-			if activity[0] in schedule_value
+		Dependencies_start_TS = [parent_activity[1]['start_TS'] 
+			for parent_activity in HAS['Activities'].items()
+			if parent_activity[0] in schedule_value
 		]
 		if schedule_nature in ['before_any', 'with_any']:
-			activity_key.update({node_ID[1] + "_TS": #L'aiguillage se fait par node_ID[1] car seul un node start peut avoir un before et seul un node end peut avoir un with
+			activity.update({node_ID[1] + "_TS": #L'aiguillage se fait par node_ID[1] car seul un node start peut avoir un before et seul un node end peut avoir un with
 				min(Dependencies_start_TS)
 			})
 		elif schedule_nature in ['before_all', 'with_all']:
-			activity_key.update({node_ID[1] + "_TS": 
+			activity.update({node_ID[1] + "_TS": 
 				max(Dependencies_start_TS)
 			})
 
+	#		ACTIVITY END
 	elif schedule_nature in ['after_any', 'after_all']: #Les nodes start et end peuvent tous deux avoir un after, là encore on aiguille par node_ID[1] pour savoir le champs de activity à MaJ
-		Dependencies_end_TS = [activity[1]['end_TS']
-			for activity in HAS['Activities'].items()
-			if activity[0] in schedule_value
+		Dependencies_end_TS = [parent_activity[1]['end_TS']
+			for parent_activity in HAS['Activities'].items()
+			if parent_activity[0] in schedule_value
 		]
 		if schedule_nature == 'after_any':
-			activity_key.update({node_ID[1] + "_TS": 
+			activity.update({node_ID[1] + "_TS": 
 				min(Dependencies_end_TS)
 			})
 		elif schedule_nature == 'after_all':
-			activity_key.update({node_ID[1] + "_TS": 
+			activity.update({node_ID[1] + "_TS": 
 				max(Dependencies_end_TS)
 			})
 
-	activity_key.update({"duration": #NB un peu hacky de recalculer les durations pr TOUS les cas
-		HAS['Activities'][node_ID[1]]["end_TS"] - HAS['Activities'][node_ID[1]]["start_TS"]
-	})
+	#		ACTIVITY DURATION
+	if node_ID[1] == "end": #D'après la condition de dépendence, alors ce node n'est résolu que si son start est résolu
+		activity.update({"duration": #NB un peu hacky de recalculer les durations pr TOUS les cas
+			activity["end_TS"] - activity["start_TS"]
+		})
 	
-	#INTEGRITY CHECK
-	token = HAS['Activities'][node_ID[1]]
-	if None in [token["start_TS"], token["end_TS"], token["duration"]]:
-		HAS["Logs"].append(f"Issue for handling {HAS['handling_description']['handling_ID']}, in SC {HAS['handling_description']['Supplychains'][0]} for operation {node_ID}. Handling discarted")
+	#	CLOSING
+		success, data = activity_consistency_test(activity)
+		if not success:
+			HAS["error"] = {
+				"type": "inconsistent TimeStamp",
+				"SC": next(iter(HAS['handling_description']["Supplychains_IDs"])),
+				"operation": node_ID[0],
+				"message": f"Issue for operation {node_ID[0]}. Resulting activity timestamp inconsistent."
+			}
 
-	#TODO Rajouter un test de cohérence (start + duration = end et duration >0 )
-
+	
+		
+		
+		#Convertir ici la durée en nb d'heures (float) duration.total_seconds() / 60 ?
 	return #HAS
 
 def get_operation_throughput(work:dict, Machines:list)-> tuple: 
@@ -299,3 +377,19 @@ def get_operation_throughput(work:dict, Machines:list)-> tuple:
 
 def get_next_resource_availability(resource_ID: str, resources_register: dict)-> str:
  pass #FIXME
+
+def activity_consistency_test(activity: dict)-> tuple:
+	success = False
+	data = None
+
+	Inconsistency_conditions = [
+		(None in [activity["start_TS"], activity["end_TS"], activity["duration"]]),
+		(activity["start_TS"] > activity["end_TS"]),
+		(activity["duration"] != activity["end_TS"] - activity["start_TS"])
+	]
+	if True in Inconsistency_conditions:
+		success = False
+	else:
+		success = True
+	
+	return success, data
