@@ -13,19 +13,21 @@ def main(pipeline_name, OT_input) :
 	# INITIALISATION
 	HANDLINGS = [] #Liste des vessel calls à traiter
 	PORT = {} #Conteneur pour l'ensemble des paramètres décrivant le port
-	LOGS = [f"Starting PAS modelling: {pipeline_name}"] #Array pr fils chronologique
-	#	OT_input
+	LOGS = [  #Array pr fils chronologique
+		f"==== main  ====",
+		f"Pipeline: {pipeline_name}"
+	]
+	#	OT INPUT
 	if OT_input == "local_file": 
-		with open("./IH_testing/PAS_instance (CHR) extention SC.json") as file :
+		with open("./local_inputs/PAS_instance.json") as file :
 			OT_input = json.load(file)
 		LOGS.append(f"Loading OT_input from file {file}: Success") 
 	else :
 		try:
-			#On convertie la string recue en dict
 			OT_input = json.loads(OT_input) 
 			LOGS.append(f"Converting OT_input to dict: Success") 
 		except Exception as error:
-			LOGS.append(f"Converting OT_input to dict: Failled.\nError: {error}") 
+			LOGS.append(f"Converting OT_input to dict: Failled. Error: {error}") 
 
 	#	SETTINGS
 	try : 
@@ -43,35 +45,35 @@ def main(pipeline_name, OT_input) :
 		}
 		LOGS.append(f"Loading Settings: Success")
 	except Exception as error:
-		LOGS.append(f"Loading Settings: Failled.\nError: {error}")
-		abording_export(LOGS)
+		LOGS.append(f"Loading Settings: Failled. Error: {error}")
+		export_local_output_file(LOGS)
 
 
 	# APPLICATION DES MODULES DE LA PIPELINE
 	for module_i in modules_sequence :
-		# LOGS.append(f"Calling module {module_i}")
 		# try : 
 		exec(f"import {module_i}")
 		# except Exception as error:
-		# 	LOGS.append(f"Failled to import: {module_i}.\nError: {error}")
-		# 	abording_export(LOGS, SETTINGS)
+		# 	LOGS.append(f"Failled to import: {module_i}.Error: {error}")
+		# 	export_local_output_file(LOGS, SETTINGS)
 		# else:
 		# 	try:	
 		HANDLINGS, PORT, LOGS, SETTINGS = eval(f"{module_i}.main(HANDLINGS, PORT, LOGS, SETTINGS, module_i)")
 			# except Exception as error:
-			# 	LOGS.append(f"Failled to run: {module_i}.\nError: {error}")
-			# 	abording_export(LOGS, SETTINGS)
+			# 	LOGS.append(f"Failled to run: {module_i}.Error: {error}")
+			# 	export_local_output_file(LOGS, SETTINGS)
 	
 	#CLOSSING
+	LOGS.append(f"==== main  ====")
 	LOGS.append(f"End of pipeline {pipeline_name}. Exporting PAS and clossing PAS builder")
 
 	#FIXME uniquement pr tests en local (le PAS est transmit à l'IH par le module idoine)
-	if pipeline_name == "GPMB_demo":
-		abording_export(LOGS, HANDLINGS, PORT, SETTINGS)
+	if "local" in pipeline_name:
+		export_local_output_file(LOGS, HANDLINGS, PORT, SETTINGS)
 
 
 #=========================================================================
-def abording_export(LOGS, HANDLINGS= None, PORT= None, SETTINGS= None):
+def export_local_output_file(LOGS, HANDLINGS= None, PORT= None, SETTINGS= None):
 	LOGS.append(f"PAS modelling closing")
 	
 	export = {

@@ -8,7 +8,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	Transform raw stopover data into proper handlings request.
 	'''
 	#INITIALISATION
-	LOGS.append(f"<==== {module_name} STARTS ====>")
+	LOGS.append(f"==== {module_name}  ====")
 
 
 	# CONVERTION DES CHAMPS
@@ -44,7 +44,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	
 		
 	#CLOSSING
-	LOGS.append(f"====> {module_name} ENDS <====")
+	#LOGS.append(f"====> {module_name} ENDS <====")
 	return (HANDLINGS, PORT, LOGS, SETTINGS)
 
 

@@ -10,7 +10,7 @@
 	],
 	"machines":[
 		{
-			"ID":"Machine1",
+			"ID":"mac_1",
 			"label":"PORTIQUE_Centrale_hydraulique",
 			"type":"Generator",
 			"group":["PORTIQUE"],
@@ -23,7 +23,7 @@
 			"consumptions":[
 				{
 					"nature": "electricity",
-					"value": 18,
+					"value": 1,
 					"unit": "kWh"
 				}
 			]
@@ -36,14 +36,24 @@
 			"owner":"",
 			"shift_ID":"typical",
 			"throughput":{
-				"Value":1000,
+				"Value":500,
 				"Unit":"t/h"
 			},
 			"consumptions":[
 				{
 					"nature": "electricity",
-					"value": 18,
+					"value": 51,
 					"unit": "kWh"
+				},
+				{
+					"nature": "fuel",
+					"value": 24,
+					"unit": "L"
+				},
+				{
+					"nature": "electricity",
+					"value": 51,
+					"unit": "test doublon unit"
 				}
 			]
 		}

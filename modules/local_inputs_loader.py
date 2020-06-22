@@ -10,7 +10,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 	#NB : la vérification de conformité vis à vis des schémas était initialement faite à l'import (cf le settings du module). Mais pour certains cas, il serait mieux de faire cela à l'étape de conversion.
 
 	#INITIALISATION
-	LOGS.append(f"<==== {module_name} STARTS ====>")#FIXME remplacer par __name__?
+	LOGS.append(f"==== {module_name}  ====")#FIXME remplacer par __name__?
 
 	print(__name__)
 
@@ -29,7 +29,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 		PORT.update({parameter["name"]:loaded_json})
 
 	#CLOTURE
-	LOGS.append(f"====> {module_name} ENDS <====")
+	#LOGS.append(f"====> {module_name} ENDS <====")
 	return (HANDLINGS, PORT, LOGS, SETTINGS)
 
 # %% UTILITIES

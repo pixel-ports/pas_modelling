@@ -19,20 +19,39 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 		corige candidat TS for machine availability
 	'''
 	#INITIALIZATION
-	LOGS.append(f"<==== {module_name} STARTS ====>")
-	#	SOME LIST	
+	LOGS.append(f"==== {module_name}  ====")
 	Invalide_handlings = [] #Pr les logs
 	Errors_details = [] #Pr les logs
 	Errors_synthesise = {} #Pr les logs
 
-	#	==> DEBUG
-	#Check doublons input
-	len([handling['handling_ID'] for handling in HANDLINGS]) == len(set([handling['handling_ID'] for handling in HANDLINGS]))
-	
-	nb_hand_initial = len(HANDLINGS)
-	print(f"nb_hand_initial: {nb_hand_initial}")
-	counter_handling_processed =0
-		
+	#DEBUG
+	# HANDLINGS = [
+		# {
+		# 	"content_agent": "SEAINVEST",
+		# 	"content_amount": 8500,
+		# 	"content_dangerous": False,
+		# 	"content_label": None,
+		# 	"content_type": "I.EMHV - EMAG - FAME",
+		# 	"handling_direction": "unloading",
+		# 	"handling_dock": "436",
+		# 	"handling_ID": "handling_1",
+		# 	"handling_earliestStart": datetime.datetime(2018, 1, 1, 18, 50),
+		# 	"handling_lattestEnd": datetime.datetime(2018, 1, 7, 21, 15),
+		# 	"handling_operator": "None",
+		# 	"handling_type": "LIQ.V",
+		# 	"ship_capacity": None,
+		# 	"ship_ID": "9803429",
+		# 	"ship_label": "TANAB",
+		# 	"ship_type": None,
+		# 	"stopover_ETA": datetime.datetime(2018, 1, 1, 18, 50),
+		# 	"stopover_ETD": datetime.datetime(2018, 1, 7, 21, 15),
+		# 	"stopover_ID": "20180002",
+		# 	"stopover_status": None,
+		# 	"stopover_terminal": "FR_BAS/vcall",
+		# 	"Supplychains_IDs": ["SC1"]
+		# }
+	# ]
+							
 	#PROCESSING	
 	for handling in HANDLINGS:
 		#OPERATIONS RESOLUTION
@@ -44,74 +63,66 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 			if HAS["loop_detected"]:
 				break 
 		
+		#IMPUTING
 		handling["Activities"] = list(HAS["Activities"].values()) #On fait l'affectation avant le controle d'intégrité pr avoir le détail de l'activités calculée dans les logs pr les handlings rejetés (car incohérents)
 		
 		#INTEGRITY CHECK
 		if HAS["error"] is not None:
 			Invalide_handlings.append(handling)
 			Errors_details.append(HAS["error"])
-			counter_handling_processed +=1
-			print(HAS["error"])
-		
-		# if "Activities" not in handling.keys():
-		# 	Invalide_handlings.append(handling)
-		# 	Errors_details.append({
-		# 		"type": "no activities inputed",
-		# 		"SC": next(iter(HAS['handling_description']["Supplychains_IDs"])),
-		# 		"operation": 'undetermined',
-		# 		"message": f"For unknow raison, no activities where imputed to this handling"
-		# 	})
-		
-	print(f"counter_handling_processed: {counter_handling_processed}")
-	# # <<ajouter les handling sans Activities ?
-	ss_activities = [handling for handling in HANDLINGS if "Activities" not in handling.keys()]
-	# for handling in ss_activities:
-	# 	HANDLINGS.remove(handling)
-	#CLOTURE
+
+	
+	#CLEANING
+	for handling in Invalide_handlings:
+		HANDLINGS.remove(handling)
+	
+	
+	#LOGS
 	for error in Errors_details:
 		Errors_synthesise.setdefault(error['type'], {})
 		Errors_synthesise[error['type']].setdefault(error["SC"], {})
 		Errors_synthesise[error['type']][error["SC"]].setdefault(error["operation"], {
-			"number of occurences": 0,
-			"detail": error["message"]
+			"number of occurences": 0, 
+			"message": error["message"],
+			"handlings (see details in Activities)": []
 		})
-		Errors_synthesise[error['type']][error["SC"]][error["operation"]]["number of occurences"] += 1
+		Errors_synthesise[error['type']][error["SC"]][error["operation"]]["handlings (see details in Activities)"].append(error["handling"])
+		Errors_synthesise[error['type']][error["SC"]][error["operation"]]["number of occurences"] = len(Errors_synthesise[error['type']][error["SC"]][error["operation"]]["handlings (see details in Activities)"])
+
 
 	#---------------------------------------------------
-	#DEBUG HANDLINGS FOIREUX
-	print(f"nb_hand_final: {len(HANDLINGS)}")
-	#	PRINT
-	ID_ss_activities = 	[handling['handling_ID'] for handling in ss_activities]
-	ID_invalides = 		[handling['handling_ID'] for handling in Invalide_handlings]
-	ID_oks = 			[handling['handling_ID'] for handling in HANDLINGS]
+	#DEBUG: EXPORT HANDLINGS FOIREUX #FIXME supprimer
+	# import json
+	# import statistics 
+	# export = {
+	# 	"handlings_OK": HANDLINGS,
+	# 	"handlings_HS": Errors_synthesise
+	# }
+	# with open("./error_OpPlan.json", 'w') as file:
+	# 	json.dump(export, file, indent=4, default=str)
 
-	print(f"============================\nnb de handling :")
-	print(f"intial: 			{nb_hand_initial}")
-	print(f"sans Activities: 	{len(ss_activities)}")#, 		{ID_ss_activities}")
-	print(f"incohérents: 		{len(ID_invalides)}")#,  	{ID_invalides}")
-	print(f"ok ?: 				{len(ID_oks)}")#, 			{ID_oks}")
-	
-	count_invalides_U_ssActivities = 0
-	for handling_ID in ID_ss_activities:
-		if handling_ID in ID_oks:
-			count_invalides_U_ssActivities += 1
-			# print(handling_ID)
-	print(count_invalides_U_ssActivities)
-	#	DEBUG EXPORT
-	import json
-	export = {
-		"invalid handlings (loop et duration)": Invalide_handlings,
-		"ss activities": ss_activities
-	}
-	with open("./handlings_activities_HS.json", 'w') as file:
-		json.dump(export, file, indent=4, default=str)
+	# hand_OK = HANDLINGS
+	# amount_OK = [handling['content_amount'] for handling in hand_OK]
+	# print("\nOK")
+	# print(min(amount_OK))
+	# print(max(amount_OK))
+	# print(statistics.mean(amount_OK))
+	# print(statistics.median(amount_OK))
+
+	# hand_HS = Invalide_handlings
+	# amount_HS = [handling['content_amount'] for handling in hand_HS]
+	# print("\nHS")
+	# print(min(amount_HS))
+	# print(max(amount_HS))
+	# print(statistics.mean(amount_HS))
+	# print(statistics.median(amount_HS))
+
 	#---------------------------------------------------
 
 	LOGS.append(f"Number of handlings for which activities could not be established and been discarted: {len(Invalide_handlings)}") 
 	if len(Invalide_handlings) > 0:
 		LOGS.append({"Details": Errors_synthesise})
-		LOGS.append({"Discarted handlings": Invalide_handlings}) #TODO ne pas mettre tous les handlings ici, mais les ventiler par cause de rejet (dc dans Errors_synthesise)
-	LOGS.append(f"====> {module_name} ENDS <====")
+	#LOGS.append(f"====> {module_name} ENDS <====")
 	return HANDLINGS, PORT, LOGS, SETTINGS
 
 #=====================================================
@@ -198,10 +209,11 @@ def wander_HAS(node_ID:tuple, HAS: dict)-> None:
 	for parent_ID in HAS["graph"][node_ID]:
 		if parent_ID in HAS["stack"]: # Détection d'une boucle dans le graphe
 			HAS["loop_detected"] = True
-			HAS["error"] = {
+			HAS["error"] = { #TODO refactoroser
 				"type": "infinit loop",
 				"SC": next(iter(HAS['handling_description']["Supplychains_IDs"])),
 				"operation": node_ID[0],
+				"handling": {HAS['handling_description']["handling_ID"]: HAS['handling_description']},
 				"message": f"Issue for operation {node_ID[0]} (boundarie {node_ID[1]} call for the parent operation {parent_ID}, creating an infinit loop."
 			}
 				
@@ -219,7 +231,6 @@ def wander_HAS(node_ID:tuple, HAS: dict)-> None:
 
 def resolve_node(node_ID:tuple, HAS: dict)-> None: #Cette fonction n'est qu'une isolation formelle du bloc de code
 	#INITIALIZATION
-
 	#	RETRIVE OPERATION DESCRIPTION FROM PORT
 	operation = next((operation
 		for operation in HAS['Operations_descriptions']
@@ -297,7 +308,7 @@ def resolve_node(node_ID:tuple, HAS: dict)-> None: #Cette fonction n'est qu'une 
 		]
 		if schedule_nature == 'after_any':
 			activity.update({node_ID[1] + "_TS": 
-				min(Dependencies_end_TS)
+				min(Dependencies_end_TS) #FIXME ajouter si val < start, alors prendre start (pr durée à 0 et non négative ?)
 			})
 		elif schedule_nature == 'after_all':
 			activity.update({node_ID[1] + "_TS": 
@@ -311,12 +322,13 @@ def resolve_node(node_ID:tuple, HAS: dict)-> None: #Cette fonction n'est qu'une 
 		})
 	
 	#	CLOSING
-		success, data = activity_consistency_test(activity)
+		success = activity_consistency_test(activity) #TODO si n opérations pausent problème, toutes devraient être remontées ds data, pas uniquement la première
 		if not success:
-			HAS["error"] = {
+			HAS["error"] = {#TODO refactoroser
 				"type": "inconsistent TimeStamp",
 				"SC": next(iter(HAS['handling_description']["Supplychains_IDs"])),
 				"operation": node_ID[0],
+				"handling": {HAS['handling_description']["handling_ID"]: HAS['handling_description']},
 				"message": f"Issue for operation {node_ID[0]}. Resulting activity timestamp inconsistent."
 			}
 
@@ -380,7 +392,7 @@ def get_next_resource_availability(resource_ID: str, resources_register: dict)->
 
 def activity_consistency_test(activity: dict)-> tuple:
 	success = False
-	data = None
+	#data = None
 
 	Inconsistency_conditions = [
 		(None in [activity["start_TS"], activity["end_TS"], activity["duration"]]),
@@ -392,4 +404,4 @@ def activity_consistency_test(activity: dict)-> tuple:
 	else:
 		success = True
 	
-	return success, data
+	return success#, data

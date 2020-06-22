@@ -7,7 +7,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 	#FIXME
 	'''
 	#INITIALISATION
-	LOGS.append(f"<==== {module_name} STARTS ====>")
+	LOGS.append(f"==== {module_name}  ====")
 
 	
 	# PROCESSING
@@ -49,7 +49,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 
 
 	#CLOTURE
-	LOGS.append(f"====> {module_name} ENDS <====")
+	#LOGS.append(f"====> {module_name} ENDS <====")
 	return (HANDLINGS, PORT, LOGS, SETTINGS)
 
 
@@ -80,7 +80,7 @@ def IH_requesting(input_component):
 			index=index, 
 			body= {"query": subbody}
 		)
-		answer = [hit["_source"]["data"] for hit in raw_answer["hits"]["hits"]] #FIXME problème ici, la LC force la convertion en array
+		answer = [hit["_source"]["data"] for hit in raw_answer["hits"]["hits"]] #FIXME la sous cl� data ne devrait pas �tre ici, mais � la conversion
 	except Exception as error:
 		success = False #FIXME on ne catch pas les erreurs de connections comme "ConnectionError('N/A', "(<urllib3.connection.HTTPConnection object at 0x7fb870d39a00>, 'Connection to 192.168.0.13 timed out. (connect timeout=10)')", ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7fb870d39a00>, 'Connection to 192.168.0.13 timed out. (connect timeout=10)'))"
 		answer = error

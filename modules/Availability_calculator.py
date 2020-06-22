@@ -14,7 +14,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 	# logger.warning("Starting")
 
 	#INITIALISATION
-	LOGS.append(f"<==== {module_name} STARTS ====>")
+	LOGS.append(f"==== {module_name}  ====")
 
 
 	# PROCESSING
@@ -41,7 +41,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 
 
 	#CLOTURE
-	LOGS.append(f"====> {module_name} ENDS <====")
+	#LOGS.append(f"====> {module_name} ENDS <====")
 	return (HANDLINGS, PORT, LOGS, SETTINGS)
 
 

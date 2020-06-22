@@ -11,7 +11,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	# Un code avait été fait pr les DM mis à jour. Cette base est modifiée (passe en commentaires) pr être compatible avec les anciens DM utilisés pr la GUI
 	
 	#INITIALIZATION
-	LOGS.append(f"<==== {module_name} STARTS ====>")
+	LOGS.append(f"==== {module_name}  ====")
 	Unreconized_content_types = []
 	Duplicated_content_types = []
 	Requirements_rejection = []
@@ -38,23 +38,23 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 		elif len(candidatSC_nestedList) > 1 : #NB cas qui ne devrait pas exister si PORT est propres
 			Duplicated_content_types.append(handling["content_type"])
 		
-		handling["Supplychains"]= candidatSC_nestedList
+		handling["Supplychains_IDs"]= candidatSC_nestedList
 		#	SUITABLE SC:
-		# handling["Supplychains"] = []
+		# handling["Supplychains_IDs"] = []
 		if len(candidatSC_nestedList) > 0 :
 			
 			# Rejections=[]
 			# for candidat_SC in [candidat_SC for suitable_CT in candidatSC_nestedList for candidat_SC in suitable_CT]:
 			# 	requirement_success, requirement_Messages = test_SC_requirements(handling, candidat_SC["restrictions"], SETTINGS["modules_settings"][module_name]["restrictions"])
 			# 	if requirement_success:
-			# 		handling["Supplychains"].append(candidat_SC["supplychain"])
+			# 		handling["Supplychains_IDs"].append(candidat_SC["supplychain"])
 			#LOGS DES REJETS
 				# else:
 				# 	Rejections.append({
 				# 		"Rejected SC": candidat_SC["supplychain"],
 				# 		"Causes": requirement_Messages
 				# 	})
-			if len(handling["Supplychains"]) == 0: #On ne log qu'a posteriori, si l'handling n'a pas recut de SC du fait des requirements
+			if len(handling["Supplychains_IDs"]) == 0: #On ne log qu'a posteriori, si l'handling n'a pas recut de SC du fait des requirements
 				Requirements_rejection.append(
 					{
 						"Handling": handling,
@@ -64,16 +64,16 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 
 		# ASSIGNIATIONS SC PAR DEFAULT 
 		if SETTINGS["modules_settings"][module_name]["default_SC"]:
-			if len(handling["Supplychains"]) == 0: 
+			if len(handling["Supplychains_IDs"]) == 0: 
 				default_success, default_sc = assigne_default_SC(handling, PORT["Contents"])#FIXME non implémenté
 				if default_success:
-					handling["Supplychains"].append(default_sc)
+					handling["Supplychains_IDs"].append(default_sc)
 					Default_SC_assignations.append(handling)
 
 		# REMOVE HANDLING'S SC THAT ARE NOT DEFINED IN PORT["Supplychains"]
-		for sc in handling["Supplychains"]:
+		for sc in handling["Supplychains_IDs"]:
 			if sc not in [supplychain["ID"] for supplychain in PORT["Supplychains"]]:
-				handling["Supplychains"].remove(sc)
+				handling["Supplychains_IDs"].remove(sc)
 				if sc not in set(Unretrieved_SCs):
 					Unretrieved_SCs.append(sc)
 				
@@ -82,7 +82,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	# REJET DES HANDLINGS SANS SC
 	Unassigned_handlings = [handling
 			for handling in HANDLINGS
-			if len(handling["Supplychains"]) == 0
+			if len(handling["Supplychains_IDs"]) == 0
 		]
 	if SETTINGS["modules_settings"][module_name]["discart_unassigned"]:
 		for handling in Unassigned_handlings:
@@ -126,7 +126,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 
 
 	#CLOTURE	
-	LOGS.append(f"====> {module_name} ENDS <====")
+	#LOGS.append(f"====> {module_name} ENDS <====")
 	return HANDLINGS, PORT, LOGS, SETTINGS
 
 #=====================================================

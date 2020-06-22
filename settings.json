@@ -1,21 +1,26 @@
 {
 	"Pipelines": {
-		"IH_conversion": [
-			"IH_requester",
-			"handling_converter"
-		],
 		"IH_only": [
 			"IH_requester",
 			"IH_logger",
 			"IH_writer"
 		],
-		"GPMB_demo": [
+		"local_json_files": [
 			"local_inputs_loader",
 			"handling_converter",
 			"port_converter",
 			"supplychain_assignation",
 			"operations_planning",
 			"energies_consumptions"
+		],
+		"local_PAS_instance": [
+			"IH_requester",
+			"handling_converter",
+			"port_converter",
+			"supplychain_assignation",
+			"operations_planning",
+			"energies_consumptions",
+			"IH_writer"
 		]
 	},
 	"modules_settings": {
@@ -23,20 +28,20 @@
 		"local_inputs_loader": {
 			"Handlings": {
 				"name": "Handlings",
-				"file_path": "./tools/demo_inputs/GPMB_2018/Handlings.json"
+				"file_path": "./local_inputs/Handlings.json"
 			},
 			"Port": [
 				{
 					"name": "RULES",
-					"file_path": "./tools/DM_old/RULES.json"
+					"file_path": "./local_inputs/RULES.json"
 				},
 				{
 					"name": "Supplychains",
-					"file_path": "./tools/DM_old/SUPPLY-CHAINS.json"
+					"file_path": "./local_inputs/SUPPLY-CHAINS.json"
 				},
 				{
 					"name": "Resources",
-					"file_path": "./tools/DM_old/RESOURCES.json"
+					"file_path": "./local_inputs/RESOURCES.json"
 				}
 			]
 		},

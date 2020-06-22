@@ -6,7 +6,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	Transform odl port's parameters to the new DM.
 	'''
 	#INITIALISATION
-	LOGS.append(f"<==== {module_name} STARTS ====>")
+	LOGS.append(f"==== {module_name}  ====")
 
 
 	#RULES ==> ASSIGNATIONS
@@ -34,7 +34,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	# 	"category":>"tag":
 		
 	#CLOSSING
-	LOGS.append(f"====> {module_name} ENDS <====")
+	#LOGS.append(f"====> {module_name} ENDS <====")
 	return (HANDLINGS, PORT, LOGS, SETTINGS)
 
 

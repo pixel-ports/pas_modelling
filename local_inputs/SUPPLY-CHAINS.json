@@ -1,0 +1,70 @@
+[
+    {
+        "ID": "SC1",
+        "label": "SC_unknown's name",
+        "comment": "SC_unknown's comment",
+        "compatibility": {
+            "cargoes_category": [
+                "CargoCat1"
+            ],
+            "directions_nature": [
+                "loading",
+                "unloading"
+            ],
+            "areas_ID": [
+                "Dock1"
+            ],
+            "shiftworks_ID": [
+                "typical"
+            ]
+        },
+        "steps_list": [
+            {
+                "ID": "ope_1",
+                "label": "Operation name",
+                "comment": "Operation comment",
+                "category": "Initialization",
+                "scheduling": {
+                    "start": {
+                        "nature": "delay",
+                        "value": 0
+                    },
+                    "duration": {
+                        "nature": "cargo_%",
+                        "value": 100
+                    }
+                },
+                "work": {
+                    "machines": [
+                        "mac_1"
+                    ],
+                    "nature": "parallel",
+                    "distance": "on_spot"
+                }
+            },
+            {
+                "ID": "ope_2",
+                "label": "Operation name",
+                "comment": "Operation comment",
+                "category": "Initialization",
+                "scheduling": {
+                    "start": {
+                        "nature": "after_all",
+                        "value": ["ope_1"]
+                    },
+                    "duration": {
+                        "nature": "cargo_%",
+                        "value": 100
+                    }
+                },
+                "work": {
+                    "machines": [
+                        "mac_1"
+                    ],
+                    "nature": "parallel",
+                    "distance": "on_spot"
+                }
+            }
+        ]
+    }
+]

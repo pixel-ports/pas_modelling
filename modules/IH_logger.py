@@ -11,7 +11,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 	#FIXME
 	'''
 	#INITIALISATION
-	LOGS.append(f"<==== {module_name} STARTS ====>")
+	LOGS.append(f"==== {module_name}  ====")
 
 
 	#ECRITURE
@@ -30,7 +30,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 
 
 	#CLOTURE
-	LOGS.append(f"====> {module_name} ENDS <====")
+	#LOGS.append(f"====> {module_name} ENDS <====")
 	return (HANDLINGS, PORT, LOGS, SETTINGS)
 
 
