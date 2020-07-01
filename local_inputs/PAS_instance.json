@@ -30,37 +30,35 @@
                 "_type": "_doc",
                 "_id": null,
                 "_score": 1,
-                "_source": {
-                    "handlings": [
-                        {
-                            "departure_dock": 1515359700000,
-                            "loading_cargo_type": "",
-                            "IMO": "test invalide direction",
-                            "loading_berth": 435,
-                            "source": "FR_BAS/vcall",
-                            "loading_cargo_fiscal_type": "SOL.V",
-                            "journeyid": 20180001,
-                            "loading_dangerous": false,
-                            "unloading_tonnage": 10094,
-                            "arrival_dock": 1514832600000,
-                            "pixel_etd": 1515267476902,
-                            "unloading_cargo_fiscal_type": "SOL.V",
-                            "loading_tonnage": 0,
-                            "unloading_cargo_type": "I.CHARBON",
-                            "unloading_agent": "SEAINVEST",
-                            "unloading_berth": 435,
-                            "name": "MUNTGRACHT",
-                            "unloading_dangerous": false,
-                            "location": {
-                                "lon": 44.863,
-                                "lat": -0.5472
-                            },
-                            "dataProvider": "http://FR_BAS/vcall",
-                            "operation": "foobar",
-                            "loading_agent": "SEAINVEST"
-                        }
-                    ]
-                }
+                "_source": [
+                    {
+                        "departure_dock": 1515359700000,
+                        "loading_cargo_type": "",
+                        "IMO": "test invalide direction",
+                        "loading_berth": 435,
+                        "source": "FR_BAS/vcall",
+                        "loading_cargo_fiscal_type": "SOL.V",
+                        "journeyid": 20180001,
+                        "loading_dangerous": false,
+                        "unloading_tonnage": 10094,
+                        "arrival_dock": 1514832600000,
+                        "pixel_etd": 1515267476902,
+                        "unloading_cargo_fiscal_type": "SOL.V",
+                        "loading_tonnage": 0,
+                        "unloading_cargo_type": "I.CHARBON",
+                        "unloading_agent": "SEAINVEST",
+                        "unloading_berth": 435,
+                        "name": "MUNTGRACHT",
+                        "unloading_dangerous": false,
+                        "location": {
+                            "lon": 44.863,
+                            "lat": -0.5472
+                        },
+                        "dataProvider": "http://FR_BAS/vcall",
+                        "operation": "unloading",
+                        "loading_agent": "SEAINVEST"
+                    }
+                ]
             }
         },
         {
@@ -161,48 +159,92 @@
                 "_type": "_doc",
                 "_id": "FyVix3IBMKBGkHzk1pcX",
                 "_score": 1,
-                "_source": {
-                    "ID": "sc_1",
-                    "label": "un nom",
-                    "comment": "un comment",
-                    "compatibility": {
-                        "cargoes_category": [
-                            "ConTyp_1"
-                        ],
-                        "directions_nature": [
-                            "loading"
-                        ],
-                        "areas_ID": [
-                            "are_1"
-                        ],
-                        "shiftworks_ID": []
-                    },
-                    "steps_list": [
-                        {
-                            "ID": "ope_1",
-                            "label": "un nom",
-                            "comment": "un commentaire",
-                            "category": "Initialization",
-                            "scheduling": {
-                                "start": {
-                                    "nature": "delay",
-                                    "value": 0
+                "_source": [
+                    {
+                        "ID": "sc_1",
+                        "label": "un nom",
+                        "comment": "un comment",
+                        "compatibility": {
+                            "cargoes_category": [
+                                "ConTyp_1"
+                            ],
+                            "directions_nature": [
+                                "loading"
+                            ],
+                            "areas_ID": [
+                                "are_1"
+                            ],
+                            "shiftworks_ID": []
+                        },
+                        "steps_list": [
+                            {
+                                "ID": "ope_1",
+                                "label": "un nom",
+                                "comment": "un commentaire",
+                                "category": "Initialization",
+                                "scheduling": {
+                                    "start": {
+                                        "nature": "delay",
+                                        "value": 0
+                                    },
+                                    "duration": {
+                                        "nature": "cargo_%",
+                                        "value": 100
+                                    }
                                 },
-                                "duration": {
-                                    "nature": "cargo_%",
-                                    "value": 100
+                                "work": {
+                                    "machines": [
+                                        "mac_1"
+                                    ],
+                                    "nature": "sequential",
+                                    "distance": "0"
                                 }
-                            },
-                            "work": {
-                                "machines": [
-                                    "mac_1"
-                                ],
-                                "nature": "sequential",
-                                "distance": "0"
                             }
-                        }
-                    ]
-                }
+                        ]
+                    },
+                    {
+                        "ID": "sc_2",
+                        "label": "un nom",
+                        "comment": "un comment",
+                        "compatibility": {
+                            "cargoes_category": [
+                                "ConTyp_1"
+                            ],
+                            "directions_nature": [
+                                "unloading"
+                            ],
+                            "areas_ID": [
+                                "are_1"
+                            ],
+                            "shiftworks_ID": []
+                        },
+                        "steps_list": [
+                            {
+                                "ID": "ope_1",
+                                "label": "un nom",
+                                "comment": "un commentaire",
+                                "category": "Initialization",
+                                "scheduling": {
+                                    "start": {
+                                        "nature": "delay",
+                                        "value": 0
+                                    },
+                                    "duration": {
+                                        "nature": "cargo_%",
+                                        "value": 100
+                                    }
+                                },
+                                "work": {
+                                    "machines": [
+                                        "mac_1"
+                                    ],
+                                    "nature": "sequential",
+                                    "distance": "0"
+                                }
+                            }
+                        ]
+                    }
+                ]
             }
         },
         {

@@ -122,7 +122,8 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 		LOGS.append({"List of handlings without any SC assignation": Unassigned_handlings})
 
 	# Proportion
-	LOGS.append(f"Proportion of unassigned: {round((len(Unassigned_handlings)/nb_handlings_in)*100, 2)}% ({len(Unassigned_handlings)} from the inital {nb_handlings_in})")
+	if nb_handlings_in > 0:
+		LOGS.append(f"Proportion of unassigned: {round((len(Unassigned_handlings)/nb_handlings_in)*100, 2)}% ({len(Unassigned_handlings)} from the inital {nb_handlings_in})")
 
 
 	#CLOTURE	

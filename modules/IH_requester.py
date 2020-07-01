@@ -3,86 +3,122 @@ from elasticsearch import Elasticsearch
 
 
 def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
-	'''
-	#FIXME
-	'''
+	"""From Operational Tools, retrives PAS inputs (handling requests -> HANDLINGS and port's parameters -> PORT)
+	NB: Here the names and values are inherited from outside PAS model. The modules "handling_converter" and "port_converter" are used to set those elements in proper format 
+	"""
 	#INITIALISATION
 	LOGS.append(f"==== {module_name}  ====")
 
 	
 	# PROCESSING
-	for input_component in SETTINGS["OT_input"]["input"]:
+	for input_component in SETTINGS['OT_input']['input']:
 		
-		#DATA RETRIVING
-		
-		#IH requesting
-		if input_component["category"] == "ih-api": 
-			success, answer = IH_requesting(input_component)
-			LOGS.append(f"Requesting {input_component['name']} to the IH: {'Success' if success else 'Failled'}") 
+		#INPUTS RETRIVING
+		#	FROM IH
+		if input_component['category'] == "ih-api": 
+			success, data = request_IH_input(input_component)
+			LOGS.append(f"Retriving {input_component['name']} from IH: {'Success' if success else 'Failled'}") 
 			if not success:
-				LOGS.append({"cause": answer})
+				LOGS.append({'Details': data})
 		
-		#OT_input parsing
-		elif input_component["category"] == "forceInput":
-			try:
-				answer = [forced_input_component["value"]
-					for forced_input_component in SETTINGS["OT_input"]["forceinput"] 
-					if forced_input_component['name'] == input_component['name']
-				]
-				success = True
-			except Exception as error:
-				success = False
-				answer = error
-			LOGS.append(f"Parsing {input_component['name']} from the OT input: {'Success' if success else 'Failled'}") 
+		#	FORCED INPUTS
+		elif input_component['category'] == "forceInput": 
+			success, data = get_foreced_input(input_component['name'], SETTINGS['OT_input']['forceinput'])
+			LOGS.append(f"Retriving {input_component['name']} form forced input: {'Success' if success else 'Failled'}") 
 			if not success:
-				LOGS.append({"cause": answer})
-		else :
-			LOGS.append(f"Unable to recognize {input_component['name']} source: {input_component['category']}")
+				LOGS.append({'Details': data})
+				
+		#	OTHER CASE
+		else:
+			LOGS.append(f"Unable to retrive {input_component['name']} from {input_component['category']}")
 		
-		#DATA AFFECTATION
-		if input_component['name'] in ["supplychains", "rules", "resources"]:
-			PORT[input_component['name']] = answer
+		#INPUTS PARSING
+		if input_component['name'] in ['supplychains', 'rules', 'resources']:
+			PORT[input_component['name']] = data
 		elif input_component['name'] == "pas-input":
-			HANDLINGS = answer
+			HANDLINGS = data
 		else :
-			LOGS.append(f"Unable to recognize {input_component['name']} destination")
+			LOGS.append(f"Unable to reconize {input_component['name']} destination")
 
 
 	#CLOTURE
-	#LOGS.append(f"====> {module_name} ENDS <====")
 	return (HANDLINGS, PORT, LOGS, SETTINGS)
 
 
 #=========================================================================
-def IH_requesting(input_component):
-	success = True
-	es = Elasticsearch(next(option["value"] for option in input_component["options"] if option["name"] == "url")) #devrait avoir un len de 1
-	index = next(option["value"] for option in input_component["options"] if option["name"] == "sourceId")
-	#aditional_parameters = next(option.get["value"] for option in input_component["options"] if option["name"] == "reqParams") #Options présente dans CERTAINS PAS_instance.json, mais pas tous
-	start_TS = next((option["value"] for option in input_component["options"] if option["name"] == "start"), None)
-	end_TS = next((option["value"] for option in input_component["options"] if option["name"] == "end"), None)
-	if start_TS == None or end_TS == None:
-		subbody = {
-			"match_all": {}
-		}
-	else :
-		subbody = {
-			"range": {
-				"timestamp" : {
-					"gte" : start_TS,
-					"lte" : end_TS
+def request_IH_input(input_component: dict)-> tuple: #FIXME sans doute divers changements à faire pr 
+	"""From request's parameters given in OT_input, retrive the input component from IH
+	"""
+	success = None
+	data = None
+
+	try:
+		#INITIALIZATION: REQUEST'S PARAMETERS
+		es = Elasticsearch(next(option['value'] for option in input_component['options'] if option['name'] == "url")) #devrait avoir un len de 1
+		index = next(option['value'] for option in input_component['options'] if option['name'] == "sourceId")
+		#aditional_parameters = next(option.get['value'] for option in input_component['options'] if option['name'] == "reqParams") #Options prÃ©sente dans CERTAINS PAS_instance.json, mais pas tous
+		start_TS = next((option['value'] for option in input_component['options'] if option['name'] == "start"), None) #FIXME uniquement pr handlings ?
+		end_TS = next((option['value'] for option in input_component['options'] if option['name'] == "end"), None)
+		if start_TS == None or end_TS == None:
+			subbody = {
+				'match_all': {}
+			}
+		else :
+			subbody = {
+				'range': {
+					'timestamp' : {
+						'gte' : start_TS,
+						'lte' : end_TS
+					}
 				}
 			}
-		}
-	
-	try:
+
+		#PROCESS: SENT REQUEST
 		raw_answer = es.search(
 			index=index, 
-			body= {"query": subbody}
+			body= {'query': subbody}
 		)
-		answer = [hit["_source"]["data"] for hit in raw_answer["hits"]["hits"]] #FIXME la sous cl� data ne devrait pas �tre ici, mais � la conversion
+
+		#OUTPUT
+		success = True
+		data = [hit['_source'] for hit in raw_answer['hits']['hits']] #FIXME doit on réellement renvoyer tous les hit, ou uniquement le premier ?
+		
 	except Exception as error:
 		success = False #FIXME on ne catch pas les erreurs de connections comme "ConnectionError('N/A', "(<urllib3.connection.HTTPConnection object at 0x7fb870d39a00>, 'Connection to 192.168.0.13 timed out. (connect timeout=10)')", ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7fb870d39a00>, 'Connection to 192.168.0.13 timed out. (connect timeout=10)'))"
-		answer = error
+		data = { 
+			'type': "Aborded IH request",
+			'item': input_component['name'],				
+			'message': f"{error}"
+		}
 
-	return success, answer
+	return success, data
+
+
+def get_foreced_input(component_name: str, Foreced_components: dict)-> tuple:
+	"""From input component name and OT_input forced values list, give the component ['_source'] value
+	"""
+	success = None
+	data = None
+
+	try:
+		#INITIALIZATION
+		
+		#PROCESS
+		forced_value = next(forced_input_component['value']['_source']
+			for forced_input_component in Foreced_components 
+			if forced_input_component['name'] == component_name
+		)
+		#OUTPUT
+		success = True
+		data = forced_value
+
+		
+	except Exception as error:
+		success = False
+		data = { 
+			'type': "Aborded forced value retriving",
+			'item': component_name,				
+			'message': f"{error}"
+		}
+
+	return success, data
