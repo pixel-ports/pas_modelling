@@ -35,34 +35,100 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 					'amount_max': None
 				}
 			})
+	
 	#	TIMETABLES (ex SHIFTWORKS)
 	PORT['Timetables'] = PORT['rules']['shiftworks'] #Déjà un dict par parsing dans le requester
 	# for shiftwork in PORT['rules']['shiftworks']:
 	# 	PORT['Shiftworks'].update({shifwork['ID']: shifwork })
+	
 	#	PRIORITIES
 	PORT['Priorities'] = PORT['rules']['priority'] #Il n'y a qu'une séquence de priority
+	
 	#	CLEANNING
-	del PORT['rules']
+	
 
 	#SUPPLYCHAINS
-	#PORT['Supplychains'] = {SC['ID']: PORT['supplychains']} #FIXME Prb dans le format d'enregistrement des SC depuis la GUI vers l'IH, avec une étape intermédiaire inconnue par l'OT
-	PORT['Supplychains'] = {SC['ID']: SC
-		for SC in PORT['supplychains'] #Devrait être un array
-	}
-	del PORT['supplychains']
-	<<Faire aussi les modifs suivante (en fait changer le nom de la clé)
-	#SUPPLY-CHAINS ==> SUPPLYCHAINS
+	PORT['Supplychains'] = {}
 	for sc in PORT['supplychains']:
-		PORT['Supplychains'].update({
-			sc['ID']: {
-				
+		operations_list = []
+		for step in sc['steps_list']:
+			operation = {
+				step['ID']: {
+					"label": step['label'],
+					"comment": step['comment'],
+					"tag_list": [step['category']],
+					"scheduling": step['scheduling'],
+					"ressources_uses": {
+						"ressources_IDs": step['work'].get('machines'),
+						"nature": step['work'].get('nature'),
+						"distance": step['work'].get('distance')
+					}
+				}
 			}
-			"operations_list": sc[]
-	"steps_list": [ >"Operations": [
-		"category":>"tag":
+			operations_list.append(operation)
+
+		PORT['Supplychains'].update(
+			{
+				sc['ID']: {
+					'label': sc['label'],
+					'comment': sc['comment'],
+					'operations_list': operations_list
+				}
+			}
+		)
+
+	
+	#RESOURCES
+	PORT["Resources"] = {} #On remerge en un seul type d'entité, mais avec une clé de nature
+	for nature in PORT['resources'].keys():
+		for resource in PORT['resources'][nature]:
+			PORT["Resources"].update({
+				resource.get('ID'): {
+					'label': resource.get('label'),
+					'comment': resource.get('comment'),
+					'nature': nature,
+					'type': resource.get('type'),
+					'timetable_ID': resource.get('shift_ID'),
+					'throughput': resource.get('throughput'),
+					'Energies_consumptions': resource.get('consumptions')
+				}
+			})
+
+	# for area in PORT['resources'].get('areas'):
+	# 	Resources.update({
+	# 		area['ID']: {
+	# 			'label': area['label'],
+	# 			'comment': area['comment'],
+	# 			'nature': "area",
+	# 			'type': area['type'],
+	# 			'timetable_ID': area['shift_ID'],
+	# 			'throughput': area['throughput'],
+	# 			'Energies_consumptions': area['consumptions'],
+	# 			}
+	# 		}
+	# 	)
+	# for machine in PORT['resources'].get('machines'):
+	# 	Resources.update({
+	# 		machine['ID']: {
+	# 			'label': machine['label'],
+	# 			'comment': machine['comment'],
+	# 			'nature': "machine",
+	# 			'type': machine['type'],
+	# 			'timetable_ID': machine['shift_ID'],
+	# 			'throughput': machine['throughput'],
+	# 			'Energies_consumptions': machine['consumptions'],
+	# 			}
+	# 		}
+	# 	)
+	
+
 		
 	#CLOSSING
-	#LOGS.append(f"====> {module_name} ENDS <====")
+	#	CLEANNING
+	del PORT['rules']
+	del PORT['supplychains']
+	del PORT['resources']
+
 	return (HANDLINGS, PORT, LOGS, SETTINGS)
 
 

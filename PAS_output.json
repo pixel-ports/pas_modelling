@@ -2,7 +2,7 @@
     "LOGS": [
         "==== main  ====",
         "Pipeline: local_PAS_instance",
-        "Loading OT_input from file <_io.TextIOWrapper name='./local_inputs/PAS_instance.json' mode='r' encoding='UTF-8'>: Success",
+        "Loading OT_input from file <_io.TextIOWrapper name='./local_inputs/PAS_instance.json' mode='r' encoding='cp1252'>: Success",
         "Loading Settings: Success",
         "==== IH_requester  ====",
         "Retriving pas-input form forced input: Success",
@@ -10,41 +10,40 @@
         "Retriving rules form forced input: Success",
         "Retriving resources form forced input: Success",
         "==== handling_converter  ====",
-        "Convertion: 1 records where passed, 0 records succeffully converted, 1 record discarded",
+        "Convertion: 1 records converted (1 records where passed,  0 record discarded)",
+        "Filtration: 0 records suitable (1 records where passed, 1 records discarded)",
         {
-            "Discarted records": [
+            "Details": [
                 {
-                    "departure_dock": 1515359700000,
-                    "loading_cargo_type": "",
-                    "IMO": "test invalide direction",
-                    "loading_berth": 435,
-                    "source": "FR_BAS/vcall",
-                    "loading_cargo_fiscal_type": "SOL.V",
-                    "journeyid": 20180001,
-                    "loading_dangerous": false,
-                    "unloading_tonnage": 10094,
-                    "arrival_dock": 1514832600000,
-                    "pixel_etd": 1515267476902,
-                    "unloading_cargo_fiscal_type": "SOL.V",
-                    "loading_tonnage": 0,
-                    "unloading_cargo_type": "I.CHARBON",
-                    "unloading_agent": "SEAINVEST",
-                    "unloading_berth": 435,
-                    "name": "MUNTGRACHT",
-                    "unloading_dangerous": false,
-                    "location": {
-                        "lon": 44.863,
-                        "lat": -0.5472
+                    "type": "Filtered handling",
+                    "item": "Undetermined",
+                    "handling": {
+                        "handling_0": {
+                            "content_agent": "SEAINVEST",
+                            "content_amount": 10094,
+                            "content_dangerous": false,
+                            "content_label": null,
+                            "content_type": "I.CHARBON",
+                            "handling_direction": "unloading",
+                            "handling_dock": "435",
+                            "handling_earliestStart": "2018-01-01 18:50:00",
+                            "handling_lattestEnd": "2018-01-07 21:15:00",
+                            "handling_operator": "None",
+                            "handling_type": "SOL.V",
+                            "ship_capacity": null,
+                            "ship_ID": "test invalide direction",
+                            "ship_label": "MUNTGRACHT",
+                            "ship_type": null,
+                            "stopover_ETA": "2018-01-01 18:50:00",
+                            "stopover_ETD": "2018-01-07 21:15:00",
+                            "stopover_ID": "20180001",
+                            "stopover_status": null,
+                            "stopover_terminal": "FR_BAS/vcall"
+                        }
                     },
-                    "dataProvider": "http://FR_BAS/vcall",
-                    "operation": "foobar",
-                    "loading_agent": "SEAINVEST"
+                    "message": "'content_amount'"
                 }
             ]
-        },
-        "Filtration: 0 records where passed, 0 records suitable, 0 records discarded",
-        {
-            "Discarted records": []
         },
         "==== port_converter  ====",
         "==== supplychain_assignation  ====",
@@ -66,173 +65,7 @@
     ],
     "PORT'S ACTIVITIES SCENARIO": [],
     "PORT'S PARAMETERS": {
-        "supplychains": {
-            "ID": "sc_1",
-            "label": "un nom",
-            "comment": "un comment",
-            "compatibility": {
-                "cargoes_category": [
-                    "ConTyp_1"
-                ],
-                "directions_nature": [
-                    "loading"
-                ],
-                "areas_ID": [
-                    "are_1"
-                ],
-                "shiftworks_ID": []
-            },
-            "steps_list": [
-                {
-                    "ID": "ope_1",
-                    "label": "un nom",
-                    "comment": "un commentaire",
-                    "category": "Initialization",
-                    "scheduling": {
-                        "start": {
-                            "nature": "delay",
-                            "value": 0
-                        },
-                        "duration": {
-                            "nature": "cargo_%",
-                            "value": 100
-                        }
-                    },
-                    "work": {
-                        "machines": [
-                            "mac_1"
-                        ],
-                        "nature": "sequential",
-                        "distance": "0"
-                    }
-                }
-            ]
-        },
-        "rules": {
-            "cargoes_categories": [
-                {
-                    "ID": "ConTyp_1",
-                    "segment": "Butadine",
-                    "unit": "Tons",
-                    "typical_amount_range": [
-                        1,
-                        1000000
-                    ],
-                    "assignation_preference": [
-                        {
-                            "priority": 1,
-                            "direction": "loading",
-                            "dock_ID": "doc_1",
-                            "supply_chain_ID": "GPMB_SC_COLLECTION"
-                        },
-                        {
-                            "priority": 2,
-                            "direction": "other",
-                            "dock_ID": "doc_1",
-                            "supply_chain_ID": "GPMB_SC_COLLECTION"
-                        }
-                    ]
-                }
-            ],
-            "shiftworks": [
-                {
-                    "ID": "usual_week",
-                    "value": [
-                        {
-                            "Monday": [
-                                "07:30>12:30",
-                                "14:00>19:00"
-                            ]
-                        },
-                        {
-                            "Tuesday": [
-                                "07:30>12:30",
-                                "14:00>19:00"
-                            ]
-                        },
-                        {
-                            "Wednesday": [
-                                "07:30>12:30",
-                                "14:00>19:00"
-                            ]
-                        },
-                        {
-                            "Thursday": [
-                                "07:30>12:30",
-                                "14:00>19:00"
-                            ]
-                        },
-                        {
-                            "Friday": [
-                                "07:30>12:30",
-                                "14:00>19:00"
-                            ]
-                        },
-                        {
-                            "Saturday": [
-                                "07:30>12:30",
-                                "14:00>19:00"
-                            ]
-                        },
-                        {
-                            "Sunday": [
-                                "07:30>12:30",
-                                "14:00>19:00"
-                            ]
-                        }
-                    ]
-                }
-            ],
-            "priority": [
-                "HASARDOUS",
-                "FIFO"
-            ],
-            "validity": {},
-            "assignment": {}
-        },
-        "resources": {
-            "areas": [
-                {
-                    "ID": "are_1",
-                    "label": "ma berthe",
-                    "type": "Berth",
-                    "owner": "un proprio",
-                    "terminal": "un terminal"
-                }
-            ],
-            "machines": [
-                {
-                    "ID": "mac_1",
-                    "label": "ma machine de test",
-                    "type": "Fixed Crane",
-                    "group": [
-                        "un groupe"
-                    ],
-                    "owner": "un proprio",
-                    "shift_ID": "usual_week",
-                    "throughput": {
-                        "Value": 100,
-                        "Unit": "Tons/h"
-                    },
-                    "consumptions": [
-                        {
-                            "nature": "Electricity",
-                            "value": 1,
-                            "unit": "Kw"
-                        },
-                        {
-                            "nature": "deuxieme energy",
-                            "value": 0,
-                            "unit": "Litres/h"
-                        }
-                    ]
-                }
-            ],
-            "others": [
-                {}
-            ]
-        },
-        "Cargoes": {
+        "Contents": {
             "ConTyp_1": {
                 "label": "ConTyp_1",
                 "comment": "No value",
@@ -261,6 +94,168 @@
                         }
                     }
                 ]
+            }
+        },
+        "Timetables": [
+            {
+                "ID": "usual_week",
+                "value": [
+                    {
+                        "Monday": [
+                            "07:30>12:30",
+                            "14:00>19:00"
+                        ]
+                    },
+                    {
+                        "Tuesday": [
+                            "07:30>12:30",
+                            "14:00>19:00"
+                        ]
+                    },
+                    {
+                        "Wednesday": [
+                            "07:30>12:30",
+                            "14:00>19:00"
+                        ]
+                    },
+                    {
+                        "Thursday": [
+                            "07:30>12:30",
+                            "14:00>19:00"
+                        ]
+                    },
+                    {
+                        "Friday": [
+                            "07:30>12:30",
+                            "14:00>19:00"
+                        ]
+                    },
+                    {
+                        "Saturday": [
+                            "07:30>12:30",
+                            "14:00>19:00"
+                        ]
+                    },
+                    {
+                        "Sunday": [
+                            "07:30>12:30",
+                            "14:00>19:00"
+                        ]
+                    }
+                ]
+            }
+        ],
+        "Priorities": [
+            "HASARDOUS",
+            "FIFO"
+        ],
+        "Supplychains": {
+            "sc_1": {
+                "label": "un nom",
+                "comment": "un comment",
+                "operations_list": [
+                    {
+                        "ope_1": {
+                            "label": "un nom",
+                            "comment": "un commentaire",
+                            "tag_list": [
+                                "Initialization"
+                            ],
+                            "scheduling": {
+                                "start": {
+                                    "nature": "delay",
+                                    "value": 0
+                                },
+                                "duration": {
+                                    "nature": "cargo_%",
+                                    "value": 100
+                                }
+                            },
+                            "ressources_uses": {
+                                "ressources_IDs": [
+                                    "mac_1"
+                                ],
+                                "nature": "sequential",
+                                "distance": "0"
+                            }
+                        }
+                    }
+                ]
+            },
+            "sc_2": {
+                "label": "un nom",
+                "comment": "un comment",
+                "operations_list": [
+                    {
+                        "ope_1": {
+                            "label": "un nom",
+                            "comment": "un commentaire",
+                            "tag_list": [
+                                "Initialization"
+                            ],
+                            "scheduling": {
+                                "start": {
+                                    "nature": "delay",
+                                    "value": 0
+                                },
+                                "duration": {
+                                    "nature": "cargo_%",
+                                    "value": 100
+                                }
+                            },
+                            "ressources_uses": {
+                                "ressources_IDs": [
+                                    "mac_1"
+                                ],
+                                "nature": "sequential",
+                                "distance": "0"
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "Resources": {
+            "are_1": {
+                "label": "ma berthe",
+                "comment": null,
+                "nature": "areas",
+                "type": "Berth",
+                "timetable_ID": null,
+                "throughput": null,
+                "Energies_consumptions": null
+            },
+            "mac_1": {
+                "label": "ma machine de test",
+                "comment": null,
+                "nature": "machines",
+                "type": "Fixed Crane",
+                "timetable_ID": "usual_week",
+                "throughput": {
+                    "Value": 100,
+                    "Unit": "Tons/h"
+                },
+                "Energies_consumptions": [
+                    {
+                        "nature": "Electricity",
+                        "value": 1,
+                        "unit": "Kw"
+                    },
+                    {
+                        "nature": "deuxieme energy",
+                        "value": 0,
+                        "unit": "Litres/h"
+                    }
+                ]
+            },
+            "null": {
+                "label": null,
+                "comment": null,
+                "nature": "others",
+                "type": null,
+                "timetable_ID": null,
+                "throughput": null,
+                "Energies_consumptions": null
             }
         }
     },
@@ -307,37 +302,35 @@
                         "_type": "_doc",
                         "_id": null,
                         "_score": 1,
-                        "_source": {
-                            "handlings": [
-                                {
-                                    "departure_dock": 1515359700000,
-                                    "loading_cargo_type": "",
-                                    "IMO": "test invalide direction",
-                                    "loading_berth": 435,
-                                    "source": "FR_BAS/vcall",
-                                    "loading_cargo_fiscal_type": "SOL.V",
-                                    "journeyid": 20180001,
-                                    "loading_dangerous": false,
-                                    "unloading_tonnage": 10094,
-                                    "arrival_dock": 1514832600000,
-                                    "pixel_etd": 1515267476902,
-                                    "unloading_cargo_fiscal_type": "SOL.V",
-                                    "loading_tonnage": 0,
-                                    "unloading_cargo_type": "I.CHARBON",
-                                    "unloading_agent": "SEAINVEST",
-                                    "unloading_berth": 435,
-                                    "name": "MUNTGRACHT",
-                                    "unloading_dangerous": false,
-                                    "location": {
-                                        "lon": 44.863,
-                                        "lat": -0.5472
-                                    },
-                                    "dataProvider": "http://FR_BAS/vcall",
-                                    "operation": "foobar",
-                                    "loading_agent": "SEAINVEST"
-                                }
-                            ]
-                        }
+                        "_source": [
+                            {
+                                "departure_dock": 1515359700000,
+                                "loading_cargo_type": "",
+                                "IMO": "test invalide direction",
+                                "loading_berth": 435,
+                                "source": "FR_BAS/vcall",
+                                "loading_cargo_fiscal_type": "SOL.V",
+                                "journeyid": 20180001,
+                                "loading_dangerous": false,
+                                "unloading_tonnage": 10094,
+                                "arrival_dock": 1514832600000,
+                                "pixel_etd": 1515267476902,
+                                "unloading_cargo_fiscal_type": "SOL.V",
+                                "loading_tonnage": 0,
+                                "unloading_cargo_type": "I.CHARBON",
+                                "unloading_agent": "SEAINVEST",
+                                "unloading_berth": 435,
+                                "name": "MUNTGRACHT",
+                                "unloading_dangerous": false,
+                                "location": {
+                                    "lon": 44.863,
+                                    "lat": -0.5472
+                                },
+                                "dataProvider": "http://FR_BAS/vcall",
+                                "operation": "unloading",
+                                "loading_agent": "SEAINVEST"
+                            }
+                        ]
                     }
                 },
                 {
@@ -438,48 +431,92 @@
                         "_type": "_doc",
                         "_id": "FyVix3IBMKBGkHzk1pcX",
                         "_score": 1,
-                        "_source": {
-                            "ID": "sc_1",
-                            "label": "un nom",
-                            "comment": "un comment",
-                            "compatibility": {
-                                "cargoes_category": [
-                                    "ConTyp_1"
-                                ],
-                                "directions_nature": [
-                                    "loading"
-                                ],
-                                "areas_ID": [
-                                    "are_1"
-                                ],
-                                "shiftworks_ID": []
-                            },
-                            "steps_list": [
-                                {
-                                    "ID": "ope_1",
-                                    "label": "un nom",
-                                    "comment": "un commentaire",
-                                    "category": "Initialization",
-                                    "scheduling": {
-                                        "start": {
-                                            "nature": "delay",
-                                            "value": 0
+                        "_source": [
+                            {
+                                "ID": "sc_1",
+                                "label": "un nom",
+                                "comment": "un comment",
+                                "compatibility": {
+                                    "cargoes_category": [
+                                        "ConTyp_1"
+                                    ],
+                                    "directions_nature": [
+                                        "loading"
+                                    ],
+                                    "areas_ID": [
+                                        "are_1"
+                                    ],
+                                    "shiftworks_ID": []
+                                },
+                                "steps_list": [
+                                    {
+                                        "ID": "ope_1",
+                                        "label": "un nom",
+                                        "comment": "un commentaire",
+                                        "category": "Initialization",
+                                        "scheduling": {
+                                            "start": {
+                                                "nature": "delay",
+                                                "value": 0
+                                            },
+                                            "duration": {
+                                                "nature": "cargo_%",
+                                                "value": 100
+                                            }
                                         },
-                                        "duration": {
-                                            "nature": "cargo_%",
-                                            "value": 100
+                                        "work": {
+                                            "machines": [
+                                                "mac_1"
+                                            ],
+                                            "nature": "sequential",
+                                            "distance": "0"
                                         }
-                                    },
-                                    "work": {
-                                        "machines": [
-                                            "mac_1"
-                                        ],
-                                        "nature": "sequential",
-                                        "distance": "0"
                                     }
-                                }
-                            ]
-                        }
+                                ]
+                            },
+                            {
+                                "ID": "sc_2",
+                                "label": "un nom",
+                                "comment": "un comment",
+                                "compatibility": {
+                                    "cargoes_category": [
+                                        "ConTyp_1"
+                                    ],
+                                    "directions_nature": [
+                                        "unloading"
+                                    ],
+                                    "areas_ID": [
+                                        "are_1"
+                                    ],
+                                    "shiftworks_ID": []
+                                },
+                                "steps_list": [
+                                    {
+                                        "ID": "ope_1",
+                                        "label": "un nom",
+                                        "comment": "un commentaire",
+                                        "category": "Initialization",
+                                        "scheduling": {
+                                            "start": {
+                                                "nature": "delay",
+                                                "value": 0
+                                            },
+                                            "duration": {
+                                                "nature": "cargo_%",
+                                                "value": 100
+                                            }
+                                        },
+                                        "work": {
+                                            "machines": [
+                                                "mac_1"
+                                            ],
+                                            "nature": "sequential",
+                                            "distance": "0"
+                                        }
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 },
                 {

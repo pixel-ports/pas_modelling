@@ -55,7 +55,7 @@ def stopover_converter(stopover: dict, ID_number: int)-> tuple:
 	#CONVERSION
 	try:
 		data = {
-			"handling_" + str(ID_number): {
+			#"handling_" + str(ID_number): {
 				"content_agent":			str(stopover.get(stopover["operation"] + "_agent")),
 				"content_amount":			int(stopover.get(stopover["operation"] + "_tonnage")),
 				"content_dangerous":		bool(stopover.get(stopover["operation"] + "_dangerous")),
@@ -63,7 +63,7 @@ def stopover_converter(stopover: dict, ID_number: int)-> tuple:
 				"content_type":				str(stopover.get(stopover["operation"] + "_cargo_type")),
 				"handling_direction":		str(stopover.get("operation")),
 				"handling_dock":			str(stopover.get(stopover["operation"] + "_berth")),
-				#"handling_ID": 				"handling_" + str(ID_number),
+				"handling_ID": 				"handling_" + str(ID_number),
 				"handling_earliestStart":	timeConvert(stopover.get("arrival_dock")), #Suivant le sens réel de stopover_ETD, peut nécessiter de soustraire journey_duration(handling) 
 				"handling_lattestEnd":		timeConvert(stopover.get("departure_dock")), #Cf stopover_ETA
 				"handling_operator": 		str(stopover.get("operator")),
@@ -77,7 +77,7 @@ def stopover_converter(stopover: dict, ID_number: int)-> tuple:
 				"stopover_ID":				str(stopover.get("journeyid")),
 				"stopover_status": 			None, #TODO inférer valeur d'après les champs présent
 				"stopover_terminal": 		str(stopover.get("source"))
-			}
+			#}
 		}
 		success = True
 	except Exception as error:
