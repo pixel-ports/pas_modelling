@@ -28,20 +28,20 @@
 		"local_inputs_loader": {
 			"Handlings": {
 				"name": "Handlings",
-				"file_path": "./local_inputs/Handlings.json"
+				"file_path": "./LOCAL_INPUTS/Handlings.json"
 			},
 			"Port": [
 				{
 					"name": "RULES",
-					"file_path": "./local_inputs/RULES.json"
+					"file_path": "./LOCAL_INPUTS/RULES.json"
 				},
 				{
 					"name": "Supplychains",
-					"file_path": "./local_inputs/SUPPLY-CHAINS.json"
+					"file_path": "./LOCAL_INPUTS/SUPPLY-CHAINS.json"
 				},
 				{
 					"name": "Resources",
-					"file_path": "./local_inputs/RESOURCES.json"
+					"file_path": "./LOCAL_INPUTS/RESOURCES.json"
 				}
 			]
 		},

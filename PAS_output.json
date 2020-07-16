@@ -2,7 +2,7 @@
     "LOGS": [
         "==== main  ====",
         "Pipeline: local_PAS_instance",
-        "Loading OT_input from file <_io.TextIOWrapper name='./local_inputs/PAS_instance.json' mode='r' encoding='cp1252'>: Success",
+        "Loading OT_input from file <_io.TextIOWrapper name='./LOCAL_INPUTS/PAS_instance.json' mode='r' encoding='UTF-8'>: Success",
         "Loading Settings: Success",
         "==== IH_requester  ====",
         "Retriving pas-input form forced input: Success",
@@ -10,256 +10,20 @@
         "Retriving rules form forced input: Success",
         "Retriving resources form forced input: Success",
         "==== handling_converter  ====",
-        "Convertion: 1 records converted (1 records where passed,  0 record discarded)",
-        "Filtration: 0 records suitable (1 records where passed, 1 records discarded)",
-        {
-            "Details": [
-                {
-                    "type": "Filtered handling",
-                    "item": "Undetermined",
-                    "handling": {
-                        "handling_0": {
-                            "content_agent": "SEAINVEST",
-                            "content_amount": 10094,
-                            "content_dangerous": false,
-                            "content_label": null,
-                            "content_type": "I.CHARBON",
-                            "handling_direction": "unloading",
-                            "handling_dock": "435",
-                            "handling_earliestStart": "2018-01-01 18:50:00",
-                            "handling_lattestEnd": "2018-01-07 21:15:00",
-                            "handling_operator": "None",
-                            "handling_type": "SOL.V",
-                            "ship_capacity": null,
-                            "ship_ID": "test invalide direction",
-                            "ship_label": "MUNTGRACHT",
-                            "ship_type": null,
-                            "stopover_ETA": "2018-01-01 18:50:00",
-                            "stopover_ETD": "2018-01-07 21:15:00",
-                            "stopover_ID": "20180001",
-                            "stopover_status": null,
-                            "stopover_terminal": "FR_BAS/vcall"
-                        }
-                    },
-                    "message": "'content_amount'"
-                }
-            ]
-        },
+        "Convertion: 3 records converted (3 records where passed,  0 record discarded)",
+        "Filtration: 3 records suitable (3 records where passed, 0 records discarded)",
         "==== port_converter  ====",
         "==== supplychain_assignation  ====",
-        "Number of duplicated content type: 0",
-        "Number of handling with unreconized content type: 0",
-        "Number of handling that loose matching assignation due to SC requirement: 0",
-        "Number of handling that get a default assignation: 0",
-        "Number of supplychains not retrieved in port's supplychains collection: 0",
-        "Number of handling that did not get any SC assignation : 0",
-        "Deleting non assigned handling (option in settings): True",
+        "Handlings with assigned SC: 0 (3 records where passed, 0 records discarded)",
         "==== operations_planning  ====",
         "Number of handlings for which activities could not be established and been discarted: 0",
         "==== energies_consumptions  ====",
         "Number of handlings for which activities could not be established: 0",
         "==== IH_writer  ====",
-        "==== main  ====",
-        "End of pipeline local_PAS_instance. Exporting PAS and clossing PAS builder",
+        "Failled to run: IH_writer.Error: ConnectionError((<urllib3.connection.HTTPConnection object at 0x7f6fb3cc8cd0>, 'Connection to 192.168.0.13 timed out. (connect timeout=10)')) caused by: ConnectTimeoutError((<urllib3.connection.HTTPConnection object at 0x7f6fb3cc8cd0>, 'Connection to 192.168.0.13 timed out. (connect timeout=10)'))",
         "PAS modelling closing"
     ],
-    "PORT'S ACTIVITIES SCENARIO": [],
-    "PORT'S PARAMETERS": {
-        "Contents": {
-            "ConTyp_1": {
-                "label": "ConTyp_1",
-                "comment": "No value",
-                "handling_type": "No value",
-                "group": "Butadine",
-                "unit": "Tons",
-                "typical_min_amount": 1,
-                "typical_man_amount": 1000000,
-                "Suitable_SCs": [
-                    {
-                        "supply_chain_ID": "GPMB_SC_COLLECTION",
-                        "restrictions": {
-                            "direction": "loading",
-                            "dock_ID": "doc_1",
-                            "amount_min": null,
-                            "amount_max": null
-                        }
-                    },
-                    {
-                        "supply_chain_ID": "GPMB_SC_COLLECTION",
-                        "restrictions": {
-                            "direction": "other",
-                            "dock_ID": "doc_1",
-                            "amount_min": null,
-                            "amount_max": null
-                        }
-                    }
-                ]
-            }
-        },
-        "Timetables": [
-            {
-                "ID": "usual_week",
-                "value": [
-                    {
-                        "Monday": [
-                            "07:30>12:30",
-                            "14:00>19:00"
-                        ]
-                    },
-                    {
-                        "Tuesday": [
-                            "07:30>12:30",
-                            "14:00>19:00"
-                        ]
-                    },
-                    {
-                        "Wednesday": [
-                            "07:30>12:30",
-                            "14:00>19:00"
-                        ]
-                    },
-                    {
-                        "Thursday": [
-                            "07:30>12:30",
-                            "14:00>19:00"
-                        ]
-                    },
-                    {
-                        "Friday": [
-                            "07:30>12:30",
-                            "14:00>19:00"
-                        ]
-                    },
-                    {
-                        "Saturday": [
-                            "07:30>12:30",
-                            "14:00>19:00"
-                        ]
-                    },
-                    {
-                        "Sunday": [
-                            "07:30>12:30",
-                            "14:00>19:00"
-                        ]
-                    }
-                ]
-            }
-        ],
-        "Priorities": [
-            "HASARDOUS",
-            "FIFO"
-        ],
-        "Supplychains": {
-            "sc_1": {
-                "label": "un nom",
-                "comment": "un comment",
-                "operations_list": [
-                    {
-                        "ope_1": {
-                            "label": "un nom",
-                            "comment": "un commentaire",
-                            "tag_list": [
-                                "Initialization"
-                            ],
-                            "scheduling": {
-                                "start": {
-                                    "nature": "delay",
-                                    "value": 0
-                                },
-                                "duration": {
-                                    "nature": "cargo_%",
-                                    "value": 100
-                                }
-                            },
-                            "ressources_uses": {
-                                "ressources_IDs": [
-                                    "mac_1"
-                                ],
-                                "nature": "sequential",
-                                "distance": "0"
-                            }
-                        }
-                    }
-                ]
-            },
-            "sc_2": {
-                "label": "un nom",
-                "comment": "un comment",
-                "operations_list": [
-                    {
-                        "ope_1": {
-                            "label": "un nom",
-                            "comment": "un commentaire",
-                            "tag_list": [
-                                "Initialization"
-                            ],
-                            "scheduling": {
-                                "start": {
-                                    "nature": "delay",
-                                    "value": 0
-                                },
-                                "duration": {
-                                    "nature": "cargo_%",
-                                    "value": 100
-                                }
-                            },
-                            "ressources_uses": {
-                                "ressources_IDs": [
-                                    "mac_1"
-                                ],
-                                "nature": "sequential",
-                                "distance": "0"
-                            }
-                        }
-                    }
-                ]
-            }
-        },
-        "Resources": {
-            "are_1": {
-                "label": "ma berthe",
-                "comment": null,
-                "nature": "areas",
-                "type": "Berth",
-                "timetable_ID": null,
-                "throughput": null,
-                "Energies_consumptions": null
-            },
-            "mac_1": {
-                "label": "ma machine de test",
-                "comment": null,
-                "nature": "machines",
-                "type": "Fixed Crane",
-                "timetable_ID": "usual_week",
-                "throughput": {
-                    "Value": 100,
-                    "Unit": "Tons/h"
-                },
-                "Energies_consumptions": [
-                    {
-                        "nature": "Electricity",
-                        "value": 1,
-                        "unit": "Kw"
-                    },
-                    {
-                        "nature": "deuxieme energy",
-                        "value": 0,
-                        "unit": "Litres/h"
-                    }
-                ]
-            },
-            "null": {
-                "label": null,
-                "comment": null,
-                "nature": "others",
-                "type": null,
-                "timetable_ID": null,
-                "throughput": null,
-                "Energies_consumptions": null
-            }
-        }
-    },
-    "SETTINGS": {
+    "PORT'S ACTIVITIES SCENARIO": {
         "pipeline": "local_PAS_instance",
         "modules_sequence": [
             "IH_requester",
@@ -317,7 +81,61 @@
                                 "pixel_etd": 1515267476902,
                                 "unloading_cargo_fiscal_type": "SOL.V",
                                 "loading_tonnage": 0,
+                                "unloading_cargo_type": "ConTyp_1",
+                                "unloading_agent": "SEAINVEST",
+                                "unloading_berth": 435,
+                                "name": "MUNTGRACHT",
+                                "unloading_dangerous": false,
+                                "location": {
+                                    "lon": 44.863,
+                                    "lat": -0.5472
+                                },
+                                "dataProvider": "http://FR_BAS/vcall",
+                                "operation": "unloading",
+                                "loading_agent": "SEAINVEST"
+                            },
+                            {
+                                "departure_dock": 1515359700000,
+                                "loading_cargo_type": "",
+                                "IMO": "test invalide direction",
+                                "loading_berth": 435,
+                                "source": "FR_BAS/vcall",
+                                "loading_cargo_fiscal_type": "SOL.V",
+                                "journeyid": 20180001,
+                                "loading_dangerous": false,
+                                "unloading_tonnage": 10094,
+                                "arrival_dock": 1514832600000,
+                                "pixel_etd": 1515267476902,
+                                "unloading_cargo_fiscal_type": "SOL.V",
+                                "loading_tonnage": 0,
                                 "unloading_cargo_type": "I.CHARBON",
+                                "unloading_agent": "SEAINVEST",
+                                "unloading_berth": 435,
+                                "name": "MUNTGRACHT",
+                                "unloading_dangerous": false,
+                                "location": {
+                                    "lon": 44.863,
+                                    "lat": -0.5472
+                                },
+                                "dataProvider": "http://FR_BAS/vcall",
+                                "operation": "unloading",
+                                "loading_agent": "SEAINVEST"
+                            },
+                            {
+                                "departure_dock": 1515359700000,
+                                "loading_cargo_type": "",
+                                "IMO": "test invalide direction",
+                                "loading_berth": 435,
+                                "source": "FR_BAS/vcall",
+                                "loading_cargo_fiscal_type": "SOL.V",
+                                "journeyid": 20180001,
+                                "loading_dangerous": false,
+                                "unloading_tonnage": 10094,
+                                "arrival_dock": 1514832600000,
+                                "pixel_etd": 1515267476902,
+                                "unloading_cargo_fiscal_type": "SOL.V",
+                                "loading_tonnage": 0,
+                                "unloading_cargo_type": "toto",
                                 "unloading_agent": "SEAINVEST",
                                 "unloading_berth": 435,
                                 "name": "MUNTGRACHT",
@@ -642,5 +460,7 @@
             },
             "IH_writer": {}
         }
-    }
+    },
+    "PORT'S PARAMETERS": null,
+    "SETTINGS": null
 }
