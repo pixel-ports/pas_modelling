@@ -20,12 +20,12 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 			Converted_records.append(data)
 		elif not success:
 			Conversion_issues.append(data)
-	
+
 	LOGS.append(f"Convertion: {len(Converted_records)} records converted ({len(HANDLINGS)} records where passed,  {len(Conversion_issues)} record discarded)")
 	if len(Conversion_issues) > 0:
 		LOGS.append({"Details": Conversion_issues})
 	HANDLINGS = Converted_records
-	
+
 	
 	# FILTRATION 
 	Suitable_records = []

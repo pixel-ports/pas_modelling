@@ -8,4 +8,4 @@ Pour les paramètres du port, les data modèles sont au format Master v3 à quel
 ## VSCode launcher
 
 # Inputs unifiés dans le PAS instance
-Ce type d'input en local reste basé sur le PAS_instance, mais ce dernier contient directement tous les inputs (handlings + port's parameters) sans renvoyer à l'IH. 
+Ce type d'input en local reste basé sur le PAS_instance, mais ce dernier contient directement tous les inputs (handlings + port's parameters) sans renvoyer à l'IH.
