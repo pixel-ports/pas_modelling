@@ -1,0 +1,62 @@
+{
+	"areas":[
+		{
+			"ID":"Dock1",
+			"label":"",
+			"type":"dock",
+			"owner":"",
+			"terminal":""
+		}
+	],
+	"machines":[
+		{
+			"ID":"mac_1",
+			"label":"PORTIQUE_Centrale_hydraulique",
+			"type":"Generator",
+			"group":["PORTIQUE"],
+			"owner":"",
+			"shift_ID":"typical",
+			"throughput":{
+				"Value":1000,
+				"Unit":"t/h"
+			},
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 1,
+					"unit": "kWh"
+				}
+			]
+		},
+		{
+			"ID":"Machine2",
+			"label":"PORTIQUE_Centrale_hydraulique",
+			"type":"Generator",
+			"group":["PORTIQUE"],
+			"owner":"",
+			"shift_ID":"typical",
+			"throughput":{
+				"Value":500,
+				"Unit":"t/h"
+			},
+			"consumptions":[
+				{
+					"nature": "electricity",
+					"value": 51,
+					"unit": "kWh"
+				},
+				{
+					"nature": "fuel",
+					"value": 24,
+					"unit": "L"
+				},
+				{
+					"nature": "electricity",
+					"value": 51,
+					"unit": "test doublon unit"
+				}
+			]
+		}
+	],
+	"others":[{}]
+}
