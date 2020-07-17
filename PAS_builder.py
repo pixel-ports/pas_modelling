@@ -65,20 +65,20 @@ def main(pipeline_name, OT_input) :
 	
 	#CLOSSING
 	LOGS.append(f"==== main  ====")
-	LOGS.append(f"End of pipeline {pipeline_name}. Exporting PAS and clossing PAS builder")
+	LOGS.append(f"End of pipeline {pipeline_name}. (if local, exporting PAS and clossing PAS builder")
 
 	#FIXME uniquement pr tests en local (le PAS est transmit à l'IH par le module idoine)
 	if "local" in pipeline_name:
-		export_local_output_file(LOGS, HANDLINGS, PORT, SETTINGS)
+		export_local_output_file(LOGS, HANDLINGS, PORT, SETTINGS, abording= False)
 
-
+	sys.exit(0)
 #=========================================================================
-def export_local_output_file(LOGS, HANDLINGS= None, PORT= None, SETTINGS= None):
+def export_local_output_file(LOGS, HANDLINGS= None, PORT= None, SETTINGS= None, abording= True):
 	LOGS.append(f"PAS modelling closing")
 	
 	export = {
 		"LOGS": LOGS,
-		"PORT'S ACTIVITIES SCENARIO": HANDLINGS,
+		"ACTIVITIES": HANDLINGS,
 		"PORT'S PARAMETERS": PORT,
 		"SETTINGS": SETTINGS
 		
@@ -88,10 +88,9 @@ def export_local_output_file(LOGS, HANDLINGS= None, PORT= None, SETTINGS= None):
 		json.dump(export, file, indent=4, default=str)
 	
 	print(f"\n\nlogs & settings exported in {file} before closing")
-	
-	sys.exit(0)# ou bien on considère qu'on est en exit(0) ?
 
-
+	if abording:
+		sys.exit(1)
 
 # SHELL
 if __name__ == "__main__" :
