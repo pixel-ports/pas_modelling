@@ -19,8 +19,7 @@
 			"port_converter",
 			"supplychain_assignation",
 			"operations_planning",
-			"energies_consumptions",
-			"IH_writer"
+			"energies_consumptions"
 		]
 	},
 	"modules_settings": {

@@ -22,14 +22,14 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 	#ECRITURE
 	#FIXME format des ts exportable: Unable to serialize datetime.timedelta(
 	#FIXME mettre dans un try ? + log
-
-	for to_output in SETTINGS["OT_input"]["output"]:
-		es = Elasticsearch(to_output["options"][0]["value"])
-		data = [{
-			"_index": to_output["options"][1]["value"],
-			"doc": json.dumps(datum, indent=4, default=str)
-		} for datum in HANDLINGS]
-		helpers.bulk(es, data)
+	pass
+	# for to_output in SETTINGS["OT_input"]["output"]:
+	# 	es = Elasticsearch(to_output["options"][0]["value"])
+	# 	data = [{
+	# 		"_index": to_output["options"][1]["value"],
+	# 		"doc": json.dumps(datum, indent=4, default=str)
+	# 	} for datum in HANDLINGS]
+	# 	helpers.bulk(es, data)
 
 
 	#CLOTURE
