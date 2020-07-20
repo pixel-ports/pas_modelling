@@ -12,7 +12,7 @@ On "Develop" branch:
 ## develop_minimal_test
 Test if :
 - dependencies are clear
-- PAS_builder run without error on local PAS_instance (python3 ./PAS_builder.py --pipeline=local_PAS_instance, --OT_input=local_file)
+- PAS_builder run without error on local PAS_instance (python3 ./PAS_builder.py --pipeline=local_PAS_instance, --OT_input=local_PAS_instance)
 
 ## Dependencies:
 
