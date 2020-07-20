@@ -71,6 +71,7 @@ def main(pipeline_name, OT_input) :
 	if "local" in pipeline_name:
 		export_local_output_file(LOGS, HANDLINGS, PORT, SETTINGS, abording= False)
 
+	print(f"PAS_builder ended, {len(HANDLINGS)} were processed end-to-end. See logs for details: {LOGS}")
 	sys.exit(0)
 #=========================================================================
 def export_local_output_file(LOGS, HANDLINGS= None, PORT= None, SETTINGS= None, abording= True):
