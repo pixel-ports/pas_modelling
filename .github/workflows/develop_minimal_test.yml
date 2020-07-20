@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - feature/MaJ_tests 
 
 jobs:
   env_deployment:
