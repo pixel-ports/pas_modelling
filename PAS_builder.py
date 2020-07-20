@@ -18,7 +18,7 @@ def main(pipeline_name, OT_input) :
 		f"Pipeline: {pipeline_name}"
 	]
 	#	OT INPUT
-	if OT_input == "local_file": 
+	if OT_input == "local_PAS_instance": 
 		with open("./LOCAL_INPUTS/PAS_instance.json") as file :
 			OT_input = json.load(file)
 		LOGS.append(f"Loading OT_input from file {file}: Success") 
