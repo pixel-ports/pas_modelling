@@ -11,19 +11,6 @@ On "Develop" branch:
 
 ## develop_minimal_test
 Test if :
-- dependencies are clear
-- PAS_builder run without error on local PAS_instance (python3 ./PAS_builder.py --pipeline=local_PAS_instance, --OT_input=local_PAS_instance)
-
-## Dependencies:
-
-argparse
-json
-sys
-datetime
-from elasticsearch import Elasticsearch
-from elasticsearch import helpers
-iterable*
-jsonschema*
-statistics*
-
-*: oudated (legacy stuff that should be removed ?) #TODO
+[x] dependencies are clear
+[x] PAS_builder run without error on pipeline "local_PAS_instance" (e.g. without IH interactions: a local PAS_instance with all "force-input" (no IH read) and module IH_writer disabled) => "python3 ./PAS_builder.py --pipeline=local_PAS_instance, --OT_input=local_PAS_instance"
+[] PAS_builder run without error on pipeline "test_PAS_instance" (e.g. with IH interactions: a local PAS_instance with manualy edited url & index, and module exporting output to IH)
