@@ -26,6 +26,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+<<<<<<< develop
       # - name: Test with local PAS_instance
       # run: |
       #     python3.8 PAS_builder.py \
@@ -125,3 +126,10 @@ jobs:
       #         --pipeline=local_PAS_instance \
       #         --OT_input=local_PAS_instance
 >>>>>>> Incr correction + renamming firt test
+=======
+    - name: Run PAS_builder on local PAS_instance
+      run: |
+        python3.8 PAS_builder.py \
+          --pipeline=local_PAS_instance \
+          --OT_input=local_PAS_instance
+>>>>>>> Adds sub-job: run PAS
