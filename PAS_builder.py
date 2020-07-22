@@ -21,7 +21,7 @@ def main(pipeline_name, OT_input) :
 	if OT_input == "local_PAS_instance": 
 		with open("./LOCAL_INPUTS/PAS_instance.json") as file :
 			OT_input = json.load(file)
-		LOGS.append(f"Loading OT_input from file {file}: Success") 
+		LOGS.append(f"Loading OT_input from file {file.name}: Success") 
 	else :
 		try:
 			OT_input = json.loads(OT_input) 
@@ -65,13 +65,14 @@ def main(pipeline_name, OT_input) :
 	
 	#CLOSSING
 	LOGS.append(f"==== main  ====")
-	LOGS.append(f"End of pipeline {pipeline_name}. (if local, exporting PAS and clossing PAS builder")
+	LOGS.append(f"End of pipeline {pipeline_name}.")
 
-	#FIXME uniquement pr tests en local (le PAS est transmit à l'IH par le module idoine)
+	print(f"PAS_builder ended, {len(HANDLINGS)} were processed end-to-end. See logs for details")
 	if "local" in pipeline_name:
 		export_local_output_file(LOGS, HANDLINGS, PORT, SETTINGS, abording= False)
-
-	print(f"PAS_builder ended, {len(HANDLINGS)} were processed end-to-end. See logs for details: {LOGS}")
+	print(f"=============================================================================")	
+	print(f"PAS builder internal logs: {json.dumps(LOGS, indent=4, default=str)}")
+	
 	sys.exit(0)
 #=========================================================================
 def export_local_output_file(LOGS, HANDLINGS= None, PORT= None, SETTINGS= None, abording= True):
@@ -81,14 +82,14 @@ def export_local_output_file(LOGS, HANDLINGS= None, PORT= None, SETTINGS= None, 
 		"LOGS": LOGS,
 		"ACTIVITIES": HANDLINGS,
 		"PORT'S PARAMETERS": PORT,
-		"SETTINGS": SETTINGS
-		
+		"SETTINGS": SETTINGS	
 	}
 	
 	with open("./PAS_output.json", 'w') as file:
 		json.dump(export, file, indent=4, default=str)
 	
-	print(f"\n\nlogs & settings exported in {file} before closing")
+	print(f"\n\nLocal PAS builder run detected. PAS, logs & settings exported in {file.name} before closing") 
+
 
 	if abording:
 		sys.exit(1)

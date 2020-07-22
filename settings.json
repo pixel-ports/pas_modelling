@@ -1,6 +1,6 @@
 {
 	"Pipelines": {
-		"IH_only": [
+		"local_IH_integration_test": [
 			"IH_requester",
 			"IH_logger",
 			"IH_writer"
