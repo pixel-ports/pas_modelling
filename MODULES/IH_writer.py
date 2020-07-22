@@ -20,9 +20,33 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 
 
 	#ECRITURE
-	#FIXME format des ts exportable: Unable to serialize datetime.timedelta(
-	#FIXME mettre dans un try ? + log
-	pass
+	#TODO:
+	# - mettre dans un try ? 
+	# - ajouter résultats dans LOGS
+	# - exporter les logs (+ settings ?), soit avec 2 types si même index, soit 2 index
+
+	#pass
+	#SETTINGS["OT_input"]["output"]=
+
+
+
+	separator="/"
+	server= "http://192.168.0.16:9200"
+	mode= "post"
+	index= "pas_output"
+	document= "test_output"
+
+	for to_output in SETTINGS["OT_input"]["output"]:
+		es = Elasticsearch(server)
+		data = [
+			{
+				"_index": index,
+				"doc": json.dumps(handling, indent=4, default=str)
+			} for handling in HANDLINGS
+		]
+		helpers.bulk(es, data)
+
+	#ORIGINAL
 	# for to_output in SETTINGS["OT_input"]["output"]:
 	# 	es = Elasticsearch(to_output["options"][0]["value"])
 	# 	data = [{

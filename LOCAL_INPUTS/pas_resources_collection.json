@@ -1,0 +1,55 @@
+{
+    "label": "test_resources",
+    "type": "resources",
+    "Tags": [
+        "test",
+        "independent IH interaction"
+    ],
+    "Comments": [
+        "Custom resources for IH integration test"
+    ],
+    "Datas": [
+        {
+            "areas": [
+                {
+                    "ID": "are_1",
+                    "label": "ma berthe",
+                    "type": "Berth",
+                    "owner": "un proprio",
+                    "terminal": "un terminal"
+                }
+            ],
+            "machines": [
+                {
+                    "ID": "mac_1",
+                    "label": "ma machine de test",
+                    "type": "Fixed Crane",
+                    "group": [
+                        "un groupe"
+                    ],
+                    "owner": "un proprio",
+                    "shift_ID": "usual_week",
+                    "throughput": {
+                        "Value": 100,
+                        "Unit": "Tons/h"
+                    },
+                    "consumptions": [
+                        {
+                            "nature": "Electricity",
+                            "value": 1,
+                            "unit": "Kw"
+                        },
+                        {
+                            "nature": "deuxieme energy",
+                            "value": 0,
+                            "unit": "Litres/h"
+                        }
+                    ]
+                }
+            ],
+            "others": [
+                {}
+            ]
+        }
+    ]
+}

@@ -33,9 +33,9 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 			LOGS.append(f"Unable to retrive {input_component['name']} from {input_component['category']}")
 		
 		#INPUTS PARSING
-		if input_component['name'] in ['supplychains', 'rules', 'resources']:
+		if input_component['name'] in ['supplychains', 'rules', 'resources']:#FIXME (lorsque on fera le split de rules)
 			PORT[input_component['name']] = data
-		elif input_component['name'] == "pas-input":
+		elif input_component['name'] == "vesselcalls":
 			HANDLINGS = data
 		else :
 			LOGS.append(f"Unable to reconize {input_component['name']} destination")
@@ -46,7 +46,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 
 
 #=========================================================================
-def request_IH_input(input_component: dict)-> tuple: #FIXME sans doute divers changements à faire pr 
+def request_IH_input(input_component: dict)-> tuple: #FIXME?
 	"""From request's parameters given in OT_input, retrive the input component from IH
 	"""
 	success = None
@@ -54,11 +54,11 @@ def request_IH_input(input_component: dict)-> tuple: #FIXME sans doute divers ch
 
 	try:
 		#INITIALIZATION: REQUEST'S PARAMETERS
-		es = Elasticsearch(next(option['value'] for option in input_component['options'] if option['name'] == "url")) #devrait avoir un len de 1
-		index = next(option['value'] for option in input_component['options'] if option['name'] == "sourceId")
+		es = Elasticsearch(	next(option['value'] for option in input_component['options'] if option['name'] == "url")) #devrait avoir un len de 1
+		index = 			next(option['value'] for option in input_component['options'] if option['name'] == "sourceId")
 		#aditional_parameters = next(option.get['value'] for option in input_component['options'] if option['name'] == "reqParams") #Options prÃ©sente dans CERTAINS PAS_instance.json, mais pas tous
-		start_TS = next((option['value'] for option in input_component['options'] if option['name'] == "start"), None) #FIXME uniquement pr handlings ?
-		end_TS = next((option['value'] for option in input_component['options'] if option['name'] == "end"), None)
+		start_TS = 			next((option['value'] for option in input_component['options'] if option['name'] == "start"), None) #FIXME uniquement pr handlings ?
+		end_TS = 			next((option['value'] for option in input_component['options'] if option['name'] == "end"), None)
 		if start_TS == None or end_TS == None:
 			subbody = {
 				'match_all': {}
@@ -81,8 +81,9 @@ def request_IH_input(input_component: dict)-> tuple: #FIXME sans doute divers ch
 
 		#OUTPUT
 		success = True
-		data = [hit['_source'] for hit in raw_answer['hits']['hits']] #FIXME doit on réellement renvoyer tous les hit, ou uniquement le premier ?
-		
+		data = raw_answer['hits']['hits'][0]['_source']['Datas']
+				#[hit['_source']['Datas'] for hit in raw_answer['hits']['hits']] #FIXME doit on réellement renvoyer tous les hit, ou uniquement le premier ?
+
 	except Exception as error:
 		success = False #FIXME on ne catch pas les erreurs de connections comme "ConnectionError('N/A', "(<urllib3.connection.HTTPConnection object at 0x7fb870d39a00>, 'Connection to 192.168.0.13 timed out. (connect timeout=10)')", ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7fb870d39a00>, 'Connection to 192.168.0.13 timed out. (connect timeout=10)'))"
 		data = { 
