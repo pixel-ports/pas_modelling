@@ -20,8 +20,11 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 
 
 	#ECRITURE
-	#FIXME format des ts exportable: Unable to serialize datetime.timedelta(
-	#FIXME mettre dans un try ? + log
+	#TODO:
+	# - mettre dans un try ? 
+	# - ajouter résultats dans LOGS
+	# - exporter les logs (+ settings ?), soit avec 2 types si même index, soit 2 index
+
 	#pass
 	#SETTINGS["OT_input"]["output"]=
 

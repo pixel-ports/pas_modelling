@@ -34,9 +34,9 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 		
 		#INPUTS PARSING
 		if input_component['name'] in ['supplychains', 'rules', 'resources']:#FIXME (lorsque on fera le split de rules)
-			PORT[input_component['name']] = data['Datas']
+			PORT[input_component['name']] = data
 		elif input_component['name'] == "vesselcalls":
-			HANDLINGS = data['Datas']
+			HANDLINGS = data
 		else :
 			LOGS.append(f"Unable to reconize {input_component['name']} destination")
 
@@ -81,7 +81,8 @@ def request_IH_input(input_component: dict)-> tuple: #FIXME?
 
 		#OUTPUT
 		success = True
-		data = [hit['_source'] for hit in raw_answer['hits']['hits']] #FIXME doit on réellement renvoyer tous les hit, ou uniquement le premier ?
+		data = raw_answer['hits']['hits'][0]['_source']['Datas']
+				#[hit['_source']['Datas'] for hit in raw_answer['hits']['hits']] #FIXME doit on réellement renvoyer tous les hit, ou uniquement le premier ?
 
 	except Exception as error:
 		success = False #FIXME on ne catch pas les erreurs de connections comme "ConnectionError('N/A', "(<urllib3.connection.HTTPConnection object at 0x7fb870d39a00>, 'Connection to 192.168.0.13 timed out. (connect timeout=10)')", ConnectTimeoutError(<urllib3.connection.HTTPConnection object at 0x7fb870d39a00>, 'Connection to 192.168.0.13 timed out. (connect timeout=10)'))"
