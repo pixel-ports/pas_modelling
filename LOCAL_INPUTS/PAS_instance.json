@@ -40,7 +40,7 @@
 					"name": "end",
 					"type": "datetime (Unix Time)",
 					"description": "end of calculation period",
-					"value": 1515359700000
+					"value": null
 				}
 			]
 		},
