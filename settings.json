@@ -27,20 +27,20 @@
 		"local_inputs_loader": {
 			"Handlings": {
 				"name": "Handlings",
-				"file_path": "./LOCAL_INPUTS/Handlings.json"
+				"file_path": "./LOCAL_INPUTS/pas_vesselcalls_list.json"
 			},
 			"Port": [
 				{
 					"name": "RULES",
-					"file_path": "./LOCAL_INPUTS/RULES.json"
+					"file_path": "./LOCAL_INPUTS/pas_rules.json"
 				},
 				{
 					"name": "Supplychains",
-					"file_path": "./LOCAL_INPUTS/SUPPLY-CHAINS.json"
+					"file_path": "./LOCAL_INPUTS/pas_supplychains_collection.json"
 				},
 				{
 					"name": "Resources",
-					"file_path": "./LOCAL_INPUTS/RESOURCES.json"
+					"file_path": "./LOCAL_INPUTS/pas_resources_collection.json"
 				}
 			]
 		},
