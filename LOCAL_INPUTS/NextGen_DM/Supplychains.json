@@ -1,0 +1,539 @@
+[
+	{
+		"ID": "loading_AUTRES",
+		"label": "Some label",
+		"comment": "Some comment",
+		"owner": "some owner",
+		"terminal": "some terminal",
+		"operations_list": [
+			{
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag_list": ["Initialization"],
+				"scheduling": {
+					"start": {
+						"nature": "delay",
+						"value": 0
+					},
+					"duration": {
+						"nature": "delay",
+						"value": 20
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine1"
+					],
+					"nature": "parallel"
+				}
+			},
+			{
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
+				"scheduling": {
+					"start": {
+						"nature": "asap",
+						"value": [
+							"operation_1"
+						]
+					},
+					"duration": {
+						"nature": "cargo_%",
+						"value": 100
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine2", "Machine3"
+					],
+					"nature": "parallel"
+				}
+			}
+		]
+	},
+	{
+		"ID": "loading_CEREAL",
+		"label": "Some label",
+		"comment": "Some comment",
+		"Operations": [
+			{
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
+				"scheduling": {
+					"start": {
+						"nature": "delay",
+						"value": 0
+					},
+					"duration": {
+						"nature": "delay",
+						"value": 20
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine1"
+					],
+					"nature": "parallel"
+				}
+			},
+			{
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
+				"scheduling": {
+					"start": {
+						"nature": "after_any",
+						"value": [
+							"operation_1"
+						]
+					},
+					"duration": {
+						"nature": "cargo_%",
+						"value": 100
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine2", "Machine3"
+					],
+					"nature": "parallel"
+				}
+			}
+		]
+	},
+	{
+		"ID": "loading_LIQ.V",
+		"label": "Some label",
+		"comment": "Some comment",
+		"Operations": [
+			{
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
+				"scheduling": {
+					"start": {
+						"nature": "delay",
+						"value": 0
+					},
+					"duration": {
+						"nature": "delay",
+						"value": 20
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine1"
+					],
+					"nature": "parallel"
+				}
+			},
+			{
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
+				"scheduling": {
+					"start": {
+						"nature": "after_any",
+						"value": [
+							"operation_1"
+						]
+					},
+					"duration": {
+						"nature": "cargo_%",
+						"value": 100
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine2", "Machine3"
+					],
+					"nature": "parallel"
+				}
+			}
+		]
+	},
+	{
+		"ID": "loading_P.C.",
+		"label": "Some label",
+		"comment": "Some comment",
+		"Operations": [
+			{
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
+				"scheduling": {
+					"start": {
+						"nature": "delay",
+						"value": 0
+					},
+					"duration": {
+						"nature": "delay",
+						"value": 20
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine1"
+					],
+					"nature": "parallel"
+				}
+			},
+			{
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
+				"scheduling": {
+					"start": {
+						"nature": "after_any",
+						"value": [
+							"operation_1"
+						]
+					},
+					"duration": {
+						"nature": "cargo_%",
+						"value": 100
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine2", "Machine3"
+					],
+					"nature": "parallel"
+				}
+			}
+		]
+	},
+	{
+		"ID": "loading_SOL.V",
+		"directions_nature": "loading",
+		"label": "Some label",
+		"comment": "Some comment",
+		"Operations": [
+			{
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
+				"scheduling": {
+					"start": {
+						"nature": "delay",
+						"value": 0
+					},
+					"duration": {
+						"nature": "delay",
+						"value": 20
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine1"
+					],
+					"nature": "parallel"
+				}
+			},
+			{
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
+				"scheduling": {
+					"start": {
+						"nature": "after_any",
+						"value": [
+							"operation_1"
+						]
+					},
+					"duration": {
+						"nature": "cargo_%",
+						"value": 100
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine2", "Machine3"
+					],
+					"nature": "parallel"
+				}
+			}
+		]
+	},
+	{
+		"ID": "unloading_AUTRES",
+		
+		"label": "Some label",
+		"comment": "Some comment",
+		"Operations": [
+			{
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
+				"scheduling": {
+					"start": {
+						"nature": "delay",
+						"value": 0
+					},
+					"duration": {
+						"nature": "delay",
+						"value": 20
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine1"
+					],
+					"nature": "parallel"
+				}
+			},
+			{
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
+				"scheduling": {
+					"start": {
+						"nature": "after_any",
+						"value": [
+							"operation_1"
+						]
+					},
+					"duration": {
+						"nature": "cargo_%",
+						"value": 100
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine2", "Machine3"
+					],
+					"nature": "parallel"
+				}
+			}
+		]
+	},
+	{
+		"ID": "unloading_GAZ.L",
+		"label": "Some label",
+		"comment": "Some comment",
+		"Operations": [
+			{
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
+				"scheduling": {
+					"start": {
+						"nature": "delay",
+						"value": 0
+					},
+					"duration": {
+						"nature": "delay",
+						"value": 20
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine1"
+					],
+					"nature": "parallel"
+				}
+			},
+			{
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
+				"scheduling": {
+					"start": {
+						"nature": "after_any",
+						"value": [
+							"operation_1"
+						]
+					},
+					"duration": {
+						"nature": "cargo_%",
+						"value": 100
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine2", "Machine3"
+					],
+					"nature": "parallel"
+				}
+			}
+		]
+	},
+	{
+		"ID": "unloading_LIQ.V",
+		"label": "Some label",
+		"comment": "Some comment",
+		
+		"Operations": [
+			{
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
+				"scheduling": {
+					"start": {
+						"nature": "delay",
+						"value": 0
+					},
+					"duration": {
+						"nature": "delay",
+						"value": 20
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine1"
+					],
+					"nature": "parallel"
+				}
+			},
+			{
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
+				"scheduling": {
+					"start": {
+						"nature": "after_any",
+						"value": [
+							"operation_1"
+						]
+					},
+					"duration": {
+						"nature": "cargo_%",
+						"value": 100
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine2", "Machine3"
+					],
+					"nature": "parallel"
+				}
+			}
+		]
+	},
+	{
+		"ID": "unloading_P.C.",
+		"label": "Some label",
+		"comment": "Some comment",
+		"Operations": [
+			{
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
+				"scheduling": {
+					"start": {
+						"nature": "delay",
+						"value": 0
+					},
+					"duration": {
+						"nature": "delay",
+						"value": 20
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine1"
+					],
+					"nature": "parallel"
+				}
+			},
+			{
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
+				"scheduling": {
+					"start": {
+						"nature": "after_any",
+						"value": [
+							"operation_1"
+						]
+					},
+					"duration": {
+						"nature": "cargo_%",
+						"value": 100
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine2", "Machine3"
+					],
+					"nature": "parallel"
+				}
+			}
+		]
+	},
+	{
+		"ID": "unloading_SOL.V",
+		
+		"label": "Some label",
+		"comment": "Some comment",
+		
+		"Operations": [
+			{
+				"ID": "operation_1",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Initialization",
+				"scheduling": {
+					"start": {
+						"nature": "delay",
+						"value": 0
+					},
+					"duration": {
+						"nature": "delay",
+						"value": 20
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine1"
+					],
+					"nature": "parallel"
+				}
+			},
+			{
+				"ID": "operation_2",
+				"label": "operation name",
+				"comment": "operation comment",
+				"tag": "Processing",
+				"scheduling": {
+					"start": {
+						"nature": "after_any",
+						"value": [
+							"operation_1"
+						]
+					},
+					"duration": {
+						"nature": "cargo_%",
+						"value": 100
+					}
+				},
+				"ressources_uses": {
+					"ressources_IDs": [
+						"Machine2", "Machine3"
+					],
+					"nature": "parallel"
+				}
+			}
+		]
+	}
+]

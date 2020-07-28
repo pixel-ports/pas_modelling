@@ -1,0 +1,40 @@
+"start": { //quasi old
+    "nature": ["asap", "start_first", "start_last", "after_first", "after_last"], //dans le code on peut convertir ces items en éléments du précédent
+    "value":
+},
+
+"start": { //refonte totale
+    "nature": "inherited",
+    "conditions_list":[
+        {
+            "operator": "and",
+            "boundary":"start",                 //with
+            "range":"first",                    //of
+            "operationID_list":["op_1", "op_4"] //from  ici on peut glissé "cargoe's availability
+        }
+                                                //and/or
+    ]
+    
+},
+
+"start": {                                      //intermédiaire
+    "nature": "inherited",
+    "range": "first / last",                    //(reviends à mettre que des Or ou que des AND 
+    "dependencies_list": [
+        {
+            "operation_ID": "op_X",             //"cargo availability"
+            "boundary":"start"                   //end
+        }
+    ]
+}
+
+"start": {                                      //intermédiaire
+    "nature": "delay",
+    "range": "first / last",                    //(reviends à mettre que des Or ou que des AND 
+    "dependencies_list": [
+        {
+            "operation_ID": "op_X",             //"cargo availability"
+            "boundary":"start"                   //end
+        }
+    ]
+}

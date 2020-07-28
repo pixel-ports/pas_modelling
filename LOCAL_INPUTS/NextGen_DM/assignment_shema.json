@@ -1,0 +1,206 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "New assignment",
+    "required": [
+        "ID",
+        "handling_profils",
+        "sc_IDs"
+    ],
+    "properties": {
+        "ID": {
+            "type": "string",
+            "title": "Identifier",
+            "description" : "A name (that have to be unique)",
+            "examples": [
+                "assign_1",
+                "all cereal on docks 419 or 420 except corn"
+            ]
+        },
+        "class": {
+            "type": "string",
+            "title": "Class",
+            "description": "(Fixed value)",
+            "default": "assignment",
+            "enum": [
+                "assignment"
+            ]
+        },
+        
+        "description": {
+            "type": "string",
+            "title": "Description",
+            "description" : "A brief description",
+            "default": null,
+            "examples": [
+                "some description"
+            ]
+        },
+        "tags": {
+            "type": "array",
+            "title": "Associated tags",
+            "description" : "List tags used to gather with other entities (regardless of there class)",
+            "default": null,
+            "items": {
+                "type": "string",
+                "title": "Tag",
+                "description" : "A keyword or short labelling that is also assigned to other entities",
+                "examples": [
+                    [
+                        "wip",
+                        "switch to green"
+                    ]
+                ]
+            }
+        },
+        "comments": {
+            "type": "array",
+            "title": "Comments",
+            "description" : "List the comments about this entitie (usefull to trace modifications)",
+            "default": null,
+            "items": [
+                {
+                    "type": "string",
+                    "title": "Comment",
+                    "examples": [
+                        "2020 05 14 (J.Smith) - A comment"
+                    ]
+                }
+            ]
+        },
+        "suitable_handling_profils": {
+            "type": "array",
+            "title": "Suitable handlings profils",
+            "description" : "List handling profils that get the supplychains assignment (more than one profil act as 'OR')",
+            "default": [],
+            "items": {
+                "type": "object",
+                "title": "Handling profil",
+                "description" : "Required handling's caracteristics",
+                "required": [],
+                "properties": {
+                    "content_agent": {
+                        "type": "array",
+                        "title": "Cargo's agents",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "title": "Agent",
+                            "default": null
+                        }
+                    },
+                    "content_amount_max": {
+                        "type": "number",
+                        "title": "Maximun amout",
+                        "default": null
+                    },
+                    "content_amount_min": {
+                        "type": "number",
+                        "title": "Minimun amout",
+                        "default": null
+                    },
+                    "content_dangerous": {
+                        "type": "boolean",
+                        "title": "Dangerous amout",
+                        "default": null
+                    },
+                    "content_segment": {
+                        "type": "array",
+                        "title": "<<",
+                        "default": null,
+                        "examples": [
+                            [
+                                "solid bulk",
+                                "cereal"
+                            ]
+                        ],
+                        "items": {
+                            "type": "string",
+                            "default": null
+                        }
+                    },
+                    "content_type": {
+                        "type": "array",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    },
+                    "handling_direction": {
+                        "type": "array",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "unloading",
+                                "loading",
+                                "other"
+                            ]
+                        }
+                    },
+                    "handling_dock": {
+                        "type": "array",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    },
+                    "handling_operator": {
+                        "type": "array",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    },
+                    "handling_terminal": {
+                        "type": "array",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    },
+                    "handling_type": {
+                        "type": "array",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    },
+                    "ship_capacity": {
+                        "type": "number",
+                        "default": 0
+                    },
+                    "ship_id": {
+                        "type": "array",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    },
+                    "ship_type": {
+                        "type": "array",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "default": ""
+                        }
+                    }
+                }
+            }
+        },
+        "sc_IDs": {
+            "type": "array",
+            "default": [],
+            "items": {
+                "type": "string",
+                "default": null
+            }
+        }
+    }
+}
