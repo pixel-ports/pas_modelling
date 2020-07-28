@@ -51,17 +51,23 @@ def main(pipeline_name, OT_input) :
 
 	# APPLICATION DES MODULES DE LA PIPELINE
 	for module_i in modules_sequence :
-		try : 
-			exec(f"import {module_i}")
-		except Exception as error:
-			LOGS.append(f"Failled to import: {module_i}.Error: {error}")
-			export_local_output_file(LOGS, SETTINGS)
-		else:
-			try:	
-				HANDLINGS, PORT, LOGS, SETTINGS = eval(f"{module_i}.main(HANDLINGS, PORT, LOGS, SETTINGS, module_i)")
-			except Exception as error:
-				LOGS.append(f"Failled to run: {module_i}.Error: {error}")
-				export_local_output_file(LOGS, SETTINGS)
+		
+		#UNPROTECTED RUN
+		exec(f"import {module_i}")
+		HANDLINGS, PORT, LOGS, SETTINGS = eval(f"{module_i}.main(HANDLINGS, PORT, LOGS, SETTINGS, module_i)")
+		
+		#PROTECTED RUN	
+		# try : 
+		# 	exec(f"import {module_i}")
+		# except Exception as error:
+		# 	LOGS.append(f"Failled to import: {module_i}.Error: {error}")
+		# 	export_local_output_file(LOGS, SETTINGS)
+		# else:
+		# 	try:	
+		# 		HANDLINGS, PORT, LOGS, SETTINGS = eval(f"{module_i}.main(HANDLINGS, PORT, LOGS, SETTINGS, module_i)")
+		# 	except Exception as error:
+		# 		LOGS.append(f"Failled to run: {module_i}.Error: {error}")
+		# 		export_local_output_file(LOGS, SETTINGS)
 	
 	#CLOSSING
 	LOGS.append(f"==== main  ====")
