@@ -1,0 +1,93 @@
+{
+    "label": "test_rules",
+    "type": "rules",
+    "Tags": [
+        "test",
+        "independent IH interaction"
+    ],
+    "Comments": [
+        "Custom rules for IH integration test"
+    ],
+    "Records": [
+        {
+            "cargoes_categories": [
+                {
+                    "ID": "ConTyp_1",
+                    "segment": "Butadine",
+                    "unit": "Tons",
+                    "typical_amount_range": [
+                        1,
+                        1000000
+                    ],
+                    "assignation_preference": [
+                        {
+                            "priority": 1,
+                            "direction": "loading",
+                            "dock_ID": "doc_1",
+                            "supply_chain_ID": "GPMB_SC_COLLECTION"
+                        },
+                        {
+                            "priority": 2,
+                            "direction": "other",
+                            "dock_ID": "doc_1",
+                            "supply_chain_ID": "GPMB_SC_COLLECTION"
+                        }
+                    ]
+                }
+            ],
+            "Workinghours_collection": [
+                {
+                    "ID": "usual_week",
+                    "value": [
+                        {
+                            "Monday": [
+                                "07:30>12:30",
+                                "14:00>19:00"
+                            ]
+                        },
+                        {
+                            "Tuesday": [
+                                "07:30>12:30",
+                                "14:00>19:00"
+                            ]
+                        },
+                        {
+                            "Wednesday": [
+                                "07:30>12:30",
+                                "14:00>19:00"
+                            ]
+                        },
+                        {
+                            "Thursday": [
+                                "07:30>12:30",
+                                "14:00>19:00"
+                            ]
+                        },
+                        {
+                            "Friday": [
+                                "07:30>12:30",
+                                "14:00>19:00"
+                            ]
+                        },
+                        {
+                            "Saturday": [
+                                "07:30>12:30",
+                                "14:00>19:00"
+                            ]
+                        },
+                        {
+                            "Sunday": [
+                                "07:30>12:30",
+                                "14:00>19:00"
+                            ]
+                        }
+                    ]
+                }
+            ],
+            "Prioritization": [
+                "HASARDOUS",
+                "FIFO"
+            ]
+        }
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "arrival_dock": 1514876400000,
+    "dataProvider": "http://FR_BAS/vcall",
+    "departure_dock": 1515063600000,
+    "IMO": "chargement_simple",
+    "journeyid": 20180002,
+    "loading_agent": "SEAINVEST",
+    "loading_berth": "25",
+    "loading_cargo_fiscal_type": "segment_2 (devrait être 1)",
+    "loading_cargo_type": "ConTyp_1",
+    "loading_dangerous": false,
+    "loading_tonnage": 42457,
+    "location": {
+        "lon": 44.863,
+        "lat": -0.5472
+    },
+    "name": "Fifi",
+    "operation": "loading",
+    "pixel_etd": 1515267476902,
+    "source": "FR_BAS/vcall",
+    "unloading_agent": "",
+    "unloading_berth": "",
+    "unloading_cargo_fiscal_type": "",
+    "unloading_cargo_type": "",
+    "unloading_dangerous": false,
+    "unloading_tonnage": 0
+}
