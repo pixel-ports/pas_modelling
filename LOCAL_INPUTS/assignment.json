@@ -1,41 +1,43 @@
-{
-    "ID": "one for all",
-    "info": {
-      "description": "Assign all handlings (no condition) to SC_1 ",
-      "tags": [
-        "test"
+[
+    {
+      "ID": "one for all",
+      "info": {
+        "description": "Assign all handlings (no condition) to SC_1",
+        "tags": [
+          "test"
+        ],
+        "comments": [
+          "Just for test purpose"
+        ]
+      },
+      "sc_IDs": [
+        "SC_1"
       ],
-      "comments": [
-        "Just for test purpose"
-      ]
-    },
-    "sc_IDs": [
-      "SC_1"
-    ],
-    "handling_profils": [
-      {
-        "terminals": null,
-        "categories": null,
-        "types": null,
-        "directions": null,
-        "ship": {
-          "ids": null,
+      "handling_profils": [
+        {
+          "terminals": null,
           "categories": null,
-          "capacity": {
-            "min": null,
-            "max": null
+          "types": null,
+          "directions": null,
+          "ship": {
+            "ids": null,
+            "categories": null,
+            "capacity": {
+              "min": null,
+              "max": null
+            }
+          },
+          "docks": null,
+          "operators": null,
+          "content": {
+            "agents": null,
+            "amount_max": null,
+            "amount_min": null,
+            "dangerous": false,
+            "categories": null,
+            "types": null
           }
-        },
-        "docks": null,
-        "operators": null,
-        "content": {
-          "agents": null,
-          "amount_max": null,
-          "amount_min": null,
-          "dangerous": false,
-          "categories": null,
-          "types": null
         }
-      }
-    ]
-  }
+      ]
+    }
+  ]
