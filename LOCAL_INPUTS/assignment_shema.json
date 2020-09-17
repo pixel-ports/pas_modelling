@@ -1,0 +1,272 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "type": "object",
+    "title": "New assignment",
+    "$comment": "json editor link : https://www.jeremydorn.com/json-editor?schema=N4IgJAzgxgFgpgWwIYgFwhgF0wB1QenwCsIB7AOwFpp5kA6UgJwHN8ATRpAM00oAYA7PhqIUAGhCYAnjjhoQpAEZE4UTCAmM4ARwCuASy1s0AbRD7yXUhpAAJJOTYAbC8wD6WiJkb61+ihA2AMoGmEiKTnBuQQDCbgCSACKBALoSOIyksoyY+nCBqKAWVmig0rLySipqNlp6hnDGqGZJIGkgGVlwOXkFoGykUG7lcoWSMqMgXj7kzDZscFxIuk7q6EgQEPrM5Ahw5OoS+7oIpiAbWzt7B20AvhKtYyPy0642cAAeSAg4kQVmF225DcAEYbEgnE4AARQbpwCFQihQgZQADWEChABYQQBORGMLEAJj4UM+sJwmBhTHIdwkC2gPgp/hpTwmL28bzpi2WqzQ5BWTiOXx+fzOQVIe2R+SgjNyFFpIAAKkhmH1xhV1oxOFJ5tyVmt+ZCJPpMIg1c90K9ZrqlvqXhK4FDUXApAB3JjGIXfX75UxmADq8QACjYIK6TbAoZhSFDmFp9m0Urd7iAYhLrphzWzNdqbTyDQLjaaEP8ytmphzrV6Rb7mucqQgM3ck8mJPZHC5Zh58hy/AFSurJkgtUgdVzbbzmu0TWaBxaFMpVIcQAsJ2tgCm6gYjKZ2p1srla6AoBRTQc3Cr9uvB/Jh7nx/m+YXzMWsxqKzM5g+7egQK2QCeBxXheCCkLo57IB8c7lvyCCKN0eY/oaTgpoBZ6YCBYEQRY0HvrB8GMIhk7Iahp7AWwDjMN0YFvpMiikKQkQOERBaQqRQHnhAcDME2rLvneo4sU+RogJ83qis0ZhkC4bBQooKyojYsJaBCiZFrOfGTFaX4rnqxECv+aHARaZb8SOY66WuwmCi+GmmVplY6auj6/v+MAOM4rhuGwDR9iy9m3uZQmoMh6klrhDmfu8sFnOBTikEgPlViA8WJZyCiYPAhEthI7kdl5KKKZpgX3pZLmhbZ4XFZajnBSAf4pnlnldl0nDRoR1XnEF376SJM5VQFNVRT1az1W5Hmdu4pqMAgFiqZ1AkWc5SHPv1tHssNZU/mNjUTV5Jk3jmgkjdZYXrUN6XLZOO0SBAMD6DgbhQEgOBIFAJo6p1+EISdqB8Cmd0PQkiQRSVx1bb1NlraDF3JVdo0Nbd92PQd86LcFFXQ512l1Q1yYpiEJrhJE0RxEk51daV8O7mdMMfpdekI/jtxAAA=&value=N4IglgdgZg9iBcoAmMDGB9ALgTwA4FMEQBDAZ1LAHMIBbfCTEAGhAEkARIsi69ARmYgk+UqgBOYXJjAwIXAAQAbYmMr553KrXqZ5mABbFdmCZTVj5sC/gBu+MdnmGISRZEryx+ZZnxI9MPIArhCKMMRI7vKktvbEivKo9vjx8rLyKKgA1qTyACx8AJxpFnkATAAM8oIAKsSUpAgA2iC+pIwsSV7xIAC6LADCMDR0DI3wLQDqAIIASgByrPMA4vB6+urCUMRBipgAvBC7CWC5WjBeSEyJ3dIQHlBg3v4A7mAG8vg0Uo428UEiACEfQAviwABLEFxue7oLztCSoaSycZNUCoWS+Bjoeo6Zr9EAYhg6HE0GAhTDoGjEAAeCAqnUxJOIZIpVMg9MZxOxSCh5nJ422ihiXKxlJilFGjAmID6opJOAIzUJFzkLGpYAAXoQWC8NkY5SBnK53OhIl4kTI5DKQmEIu5DcaYZQzWgssrMll0AVCoJPd7Ko6oSbYTACGIjBd8SwnabfGIaJAehMCbHYYrCCmWKR9JJ0KhiLhiKh3thOSAc3mONGK7ncFg8Jmmr0QQSAMpBd7EABGinw6DbA3QHFRFYwXRSinQ23aglE+eS8TN+G2u0YLaAAAA==&theme=bootstrap3&iconlib=fontawesome4&object_layout=normal&show_errors=interaction&required_by_default",
+    "description": "Assigne handlings with suitable caracteristics to one specific supply-chain (or ordered list of supply-chains",
+    "required": [
+        "ID",
+        "handling_profils",
+        "sc_IDs"
+    ],
+    "properties": {
+        "ID": {
+            "type": "string",
+            "title": "Identifier",
+            "description": "A name (that have to be unique)",
+            "examples": [
+                "assign_1",
+                "all cereal on docks 419 or 420 except corn"
+            ]
+        },
+        "info": {
+            "type": "object",
+            "title": "Information",
+            "description": "General information about the assignment",
+            "required": [],
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "title": "Assignement item description",
+                    "description": "A brief description",
+                    "default": null,
+                    "examples": [
+                        "some description"
+                    ]
+                },
+                "tags": {
+                    "type": "array",
+                    "title": "Associated tags",
+                    "description": "List tags used to gather with other entities (regardless of their class)",
+                    "default": null,
+                    "items": {
+                        "type": "string",
+                        "title": "Tag",
+                        "description": "A keyword or short labelling that is also assigned to other entities",
+                        "examples": [
+                            [
+                                "wip",
+                                "switch to green"
+                            ]
+                        ]
+                    }
+                },
+                "comments": {
+                    "type": "array",
+                    "title": "Comments",
+                    "description": "List the comments about this entity (useful to trace modifications)",
+                    "default": null,
+                    "items": {
+                        "type": "string",
+                        "title": "Comment",
+                        "examples": [
+                            "2020 05 14 (J.Smith) - A comment"
+                        ]
+                    }
+                }
+            }
+        },
+        "sc_IDs": {
+            "type": "array",
+            "title": "Assigned supply-chains",
+            "description": "Sequence of supply-chains ID, ordered by suitability",
+            "default": null,
+            "items": {
+                "type": "string",
+                "title": "Supply-chain ID",
+                "default": null
+            }
+        },
+        "handling_profils": {
+            "type": "array",
+            "title": "Targeted handlings profiles",
+            "description": "List handling profiles that get the supply-chains assignment (more than one profile act as 'OR')",
+            "default": null,
+            "items": {
+                "type": "object",
+                "title": "Handling profile",
+                "description": "Required set of characteristics",
+                "required": [],
+                "properties": {
+                    "terminals": {
+                        "type": "array",
+                        "title": "Suitable terminals",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "title": "Terminal's ID",
+                            "default": null
+                        }
+                    },
+                    "categories": {
+                        "type": "array",
+                        "title": "Suitable categories",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "title": "Handling's category",
+                            "default": null,
+                            "examples": [
+                                "Full un/load",
+                                "Commuting"
+                            ]
+                        }
+                    },
+                    "types": {
+                        "type": "array",
+                        "title": "Suitable types",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "title": "Handling's type",
+                            "default": null,
+                            "examples": [
+                                "Cargo",
+                                "Passengers",
+                                "Containers"
+                            ]
+                        }
+                    },
+                    "directions": {
+                        "type": "array",
+                        "title": "Suitable directions",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "title": "Direction",
+                            "enum": [
+                                "unloading",
+                                "loading",
+                                "other"
+                            ]
+                        }
+                    },
+                    "ship": {
+                        "type": "object",
+                        "title": "Suitable ships characteristics",
+                        "default": null,
+                        "properties": {
+                            "ids": {
+                                "type": "array",
+                                "title": "Ship's IDs",
+                                "default": null,
+                                "items": {
+                                    "type": "string",
+                                    "title": "Ship's ID",
+                                    "default": null
+                                }
+                            },
+                            "categories": {
+                                "type": "array",
+                                "title": "Ship's categories",
+                                "default": null,
+                                "items": {
+                                    "type": "string",
+                                    "title": "Ship's category",
+                                    "default": null
+                                }
+                            },
+                            "capacity": {
+                                "type": "object",
+                                "title": "Ship's capacity",
+                                "default": null,
+                                "properties": {
+                                    "min": {
+                                        "type": "number",
+                                        "title": "Capacity above",
+                                        "default": null
+                                    },
+                                    "max": {
+                                        "type": "number",
+                                        "title": "Capacity bellow",
+                                        "default": null
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "docks": {
+                        "type": "array",
+                        "title": "Suitable docks",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "title": "Dock's ID",
+                            "default": null
+                        }
+                    },
+                    "operators": {
+                        "type": "array",
+                        "title": "Suitable operators",
+                        "default": null,
+                        "items": {
+                            "type": "string",
+                            "title": "Operator",
+                            "default": null
+                        }
+                    },
+                    "content": {
+                        "type": "object",
+                        "title": "Suitable contents",
+                        "default": null,
+                        "properties": {
+                            "agents": {
+                                "type": "array",
+                                "title": "Content's agents",
+                                "default": null,
+                                "items": {
+                                    "type": "string",
+                                    "title": "Agent",
+                                    "default": null
+                                }
+                            },
+                            "amount_max": {
+                                "type": "number",
+                                "title": "Amount bellow",
+                                "default": null
+                            },
+                            "amount_min": {
+                                "type": "number",
+                                "title": "Amount above",
+                                "default": null
+                            },
+                            "dangerous": {
+                                "type": "boolean",
+                                "title": "Dangerous content",
+                                "default": null
+                            },
+                            "categories": {
+                                "type": "array",
+                                "title": "Content's categories",
+                                "default": null,
+                                "items": {
+                                    "type": "string",
+                                    "title": "Content's category",
+                                    "default": null,
+                                    "examples": [
+                                        "Solid bulk",
+                                        "Cereal"
+                                    ]
+                                }
+                            },
+                            "types": {
+                                "type": "array",
+                                "title": "Content's types",
+                                "default": null,
+                                "items": {
+                                    "type": "string",
+                                    "title": "Content's type",
+                                    "default": null,
+                                    "examples": [
+                                        "salt",
+                                        "cereal"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
