@@ -1,158 +1,103 @@
 {
-    "idRef": null,
-    "name": null,
-    "description": "Local PAS_instance file for PAS_modeling dev & test. Forced inputs",
-    "mode": "ExecAsync",
-    "input": [
+	"input": [
 		{
 			"name": "settings",
 			"category": "forceInput",
-			"type": "settings",
-			"description": null,
-			"metadata": {},
-			"options": []
+			"type": "settings"
 		},
 		{
 			"name": "vesselCalls_collection",
 			"category": "forceInput",
-			"type": "PAS-vessel-calls-format",
-			"description": null,
-			"metadata": {},
-			"options": []
+			"type": "PAS-vessel-calls-format"
 		},
 		{
 			"name": "assignments_collection",
 			"category": "forceInput",
-			"type": "PP>assignments",
-			"description": null,
-			"metadata": {},
-			"options": []
+			"type": "PP>assignments"
 		},
 		{
 			"name": "supplychains_collection",
 			"category": "forceInput",
-			"type": "PP>supplychains",
-			"description": null,
-			"metadata": {},
-			"options": []
+			"type": "PP>supplychains"
 		},
 		{
 			"name": "resources_collection",
 			"category": "forceInput",
-			"type": "PP>resources",
-			"description": null,
-			"metadata": {},
-			"options": []
+			"type": "PP>resources"
 		},
 		{
 			"name": "timetables_collection",
 			"category": "forceInput",
-			"type": "PP>timetables",
-			"description": null,
-			"metadata": {},
-			"options": []
+			"type": "PP>timetables"
 		},
 		{
 			"name": "priority_tree",
 			"category": "forceInput",
-			"type": "PP>priority",
-			"description": null,
-			"metadata": {},
-			"options": []
+			"type": "PP>priority"
 		}
 	],
-    "forceinput": [
+	"forceinput": [
 		{ 
 			"name": "settings", 
 			"value": { 
-				"_index": null, 
-				"_type": "_doc", 
-				"_id": null, 
-				"_score": 1, 
 				"_source": {
 					"data" : {
-					  }
-				  } 
+					}
+				} 
 			} 
 		},
 		{ 
 			"name": "vesselCalls_collection", 
 			"value": { 
-				"_index": null, 
-				"_type": "_doc", 
-				"_id": null, 
-				"_score": 1, 
 				"_source": {
 					"data" : {
-					  }
-				  }  
+					}
+				}
 			} 
 		},
 		{ 
 			"name": "assignments_collection",
 			"value": { 
-				"_index": null, 
-				"_type": "_doc", 
-				"_id": null, 
-				"_score": 1, 
 				"_source": {
 					"data" : {
-					  }
-				  }  
+					}
+				}
 			} 
 		},
 		{ 
 			"name": "supplychains_collection",
 			"value": { 
-				"_index": null, 
-				"_type": "_doc", 
-				"_id": null, 
-				"_score": 1, 
 				"_source": {
 					"data" : {
-					  }
-				  }  
+					}
+				}
 			} 
 		},
 		{ 
 			"name": "resources_collection",
 			"value": { 
-				"_index": null, 
-				"_type": "_doc", 
-				"_id": null, 
-				"_score": 1, 
 				"_source": {
 					"data" : {
-					  }
-				  }  
+					}
+				}
 			} 
 		}
 	],
-    "output": [
+	"output": [
 		{
 			"name": "PAS",
 			"category": "local_export",
-			"type": "output>PAS",
-			"description": null,
-			"metadata": {},
-			"options": []
+			"type": "output>PAS"
 		},
 		{
 			"name": "internalLog",
 			"category": "local_export",
-			"type": "output>internalLog",
-			"description": null,
-			"metadata": {},
-			"options": []
+			"type": "output>internalLog"
 		},
 		{
 			"name": "usedInputs",
 			"category": "local_export",
-			"type": "output>usedInputs",
-			"description": null,
-			"metadata": {},
-			"options": []
+			"type": "output>usedInputs"
 		}
-    ],
-    "logging": []
+	]
 }
