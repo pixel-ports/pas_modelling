@@ -1,0 +1,558 @@
+{
+	"input": [
+		{
+			"name": "settings",
+			"category": "forceInput",
+			"type": "settings"
+		},
+		{
+			"name": "vesselCalls_collection",
+			"category": "forceInput",
+			"type": "PAS-vessel-calls-format"
+		},
+		{
+			"name": "assignments_collection",
+			"category": "forceInput",
+			"type": "PP>assignments"
+		},
+		{
+			"name": "supplychains_collection",
+			"category": "forceInput",
+			"type": "PP>supplychains"
+		},
+		{
+			"name": "resources_collection",
+			"category": "forceInput",
+			"type": "PP>resources"
+		},
+		{
+			"name": "timetables_collection",
+			"category": "forceInput",
+			"type": "PP>timetables"
+		},
+		{
+			"name": "priority_tree",
+			"category": "forceInput",
+			"type": "PP>priority"
+		}
+	],
+	"forceinput": [
+		{
+			"name": "settings",
+			"value": {
+				"hits": {
+					"hits": [
+						{
+							"_source": {
+								"data": {
+									"IH_requester": {},
+									"handling_converter": {
+										"filters": {
+											"content_amount": true,
+											"content_type": true,
+											"handling_direction": true,
+											"handling_dock": true,
+											"stopover_ETA": true,
+											"ET_consistency": true
+										}
+									},
+									"supplychain_assignation": {
+										"restrictions": {
+											"direction": true,
+											"dock": true,
+											"amount_min": true,
+											"amount_max": true
+										},
+										"default_SC": true,
+										"discart_unassigned": true
+									},
+									"operations_planning": {},
+									"energies_consumptions": {},
+									"pollutant_emissions": {}
+								}
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "vesselCalls_collection",
+			"value": {
+				"hits": {
+					"hits": [
+						{
+							"_source": {
+								"data": {
+									"arrival_dock": 1514790000000,
+									"dataProvider": "http://FR_BAS/vcall",
+									"departure_dock": 1514977200000,
+									"IMO": "déchargement_simple",
+									"journeyid": 20180001,
+									"loading_agent": "",
+									"loading_berth": "",
+									"loading_cargo_fiscal_type": "",
+									"loading_cargo_type": "",
+									"loading_dangerous": false,
+									"loading_tonnage": 0,
+									"location": {
+										"lon": 44.863,
+										"lat": -0.5472
+									},
+									"name": "Riri",
+									"operation": "unloading",
+									"pixel_etd": 1515267476902,
+									"source": "FR_BAS/vcall",
+									"unloading_agent": "SEAINVEST",
+									"unloading_berth": "435",
+									"unloading_cargo_fiscal_type": "segment_1",
+									"unloading_cargo_type": "ConTyp_1",
+									"unloading_dangerous": false,
+									"unloading_tonnage": 10094
+								}
+							}
+						},
+						{
+							"_source": {
+								"data": {
+									"arrival_dock": 1514876400000,
+									"dataProvider": "http://FR_BAS/vcall",
+									"departure_dock": 1515063600000,
+									"IMO": "chargement_simple",
+									"journeyid": 20180002,
+									"loading_agent": "SEAINVEST",
+									"loading_berth": "25",
+									"loading_cargo_fiscal_type": "segment_2 (devrait être 1)",
+									"loading_cargo_type": "ConTyp_1",
+									"loading_dangerous": false,
+									"loading_tonnage": 42457,
+									"location": {
+										"lon": 44.863,
+										"lat": -0.5472
+									},
+									"name": "Fifi",
+									"operation": "loading",
+									"pixel_etd": 1515267476902,
+									"source": "FR_BAS/vcall",
+									"unloading_agent": "",
+									"unloading_berth": "",
+									"unloading_cargo_fiscal_type": "",
+									"unloading_cargo_type": "",
+									"unloading_dangerous": false,
+									"unloading_tonnage": 0
+								}
+							}
+						},
+						{
+							"_source": {
+								"data": {
+									"arrival_dock": 1514962800000,
+									"dataProvider": "http://FR_BAS/vcall",
+									"departure_dock": 1595972548000,
+									"IMO": "chargement_simple",
+									"journeyid": 20180003,
+									"loading_agent": "SEAINVEST",
+									"loading_berth": "56",
+									"loading_cargo_fiscal_type": "segment_1",
+									"loading_cargo_type": "unknow CT from segment_1",
+									"loading_dangerous": false,
+									"loading_tonnage": 45784,
+									"location": {
+										"lon": 44.863,
+										"lat": -0.5472
+									},
+									"name": "Loulou",
+									"operation": "loading",
+									"pixel_etd": 1515267476902,
+									"source": "FR_BAS/vcall",
+									"unloading_agent": "",
+									"unloading_berth": "",
+									"unloading_cargo_fiscal_type": "",
+									"unloading_cargo_type": "",
+									"unloading_dangerous": false,
+									"unloading_tonnage": 0
+								}
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "assignments_collection",
+			"value": {
+				"hits": {
+					"hits": [
+						{
+							"_source": {
+								"data": {
+									"ass_1": {
+										"info": {
+											"label": "one for all",
+											"description": "Assign all handlings (no condition) to SC_1",
+											"tags": [
+												"test"
+											],
+											"comments": [
+												"Just for test purpose"
+											]
+										},
+										"sc_IDs": [
+											"sc_1"
+										],
+										"handling_profils": [
+											{
+												"terminals": null,
+												"categories": null,
+												"types": null,
+												"directions": null,
+												"ship": {
+													"ids": null,
+													"categories": null,
+													"capacity": {
+														"min": null,
+														"max": null
+													}
+												},
+												"docks": null,
+												"operators": null,
+												"content": {
+													"agents": null,
+													"amount_max": null,
+													"amount_min": null,
+													"dangerous": false,
+													"categories": null,
+													"types": null
+												}
+											}
+										]
+									}
+								}
+							}
+						},
+						{
+							"_source": {
+								"data": {
+									"ass_2": {
+										"info": {
+											"label": "some label",
+											"description": "some description",
+											"tags": [
+												"some tag"
+											],
+											"comments": [
+												"some comment"
+											]
+										},
+										"sc_IDs": [
+											"sc_1"
+										],
+										"handling_profils": [
+											{
+												"terminals": null,
+												"categories": null,
+												"types": null,
+												"directions": null,
+												"ship": {
+													"ids": null,
+													"categories": null,
+													"capacity": {
+														"min": null,
+														"max": null
+													}
+												},
+												"docks": null,
+												"operators": null,
+												"content": {
+													"agents": null,
+													"amount_max": null,
+													"amount_min": null,
+													"dangerous": false,
+													"categories": null,
+													"types": null
+												}
+											}
+										]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "supplychains_collection",
+			"value": {
+				"hits": {
+					"hits": [
+						{
+							"_source": {
+								"data": {
+									"sc_1": {
+										"info": {
+											"label": "some label",
+											"description": "some description",
+											"tags": [
+												"some tag"
+											],
+											"comments": [
+												"some comment"
+											]
+										},
+										"owner": "some owner",
+										"terminal": "some terminal",
+										"operations_list": [
+											{
+												"op_1": {
+													"info": {
+														"label": "some label",
+														"description": "some description",
+														"tags": [
+															"some tag"
+														],
+														"comments": [
+															"some comment"
+														]
+													},
+													"scheduling": {
+														"start": {
+															"nature": "delay",
+															"value": 0
+														},
+														"duration": {
+															"nature": "delay",
+															"value": 20
+														}
+													},
+													"ressources_uses": {
+														"ressources_IDs": [
+															"res_1"
+														],
+														"nature": "parallel"
+													}
+												}
+											},
+											{
+												"op_2": {
+													"info": {
+														"label": "some label",
+														"description": "some description",
+														"tags": [
+															"some tag"
+														],
+														"comments": [
+															"some comment"
+														]
+													},
+													"scheduling": {
+														"start": {
+															"nature": "delay",
+															"value": 0
+														},
+														"duration": {
+															"nature": "delay",
+															"value": 20
+														}
+													},
+													"ressources_uses": {
+														"ressources_IDs": [
+															"res_1"
+														],
+														"nature": "parallel"
+													}
+												}
+											}
+										]
+									}
+								}
+							}
+						},
+						{
+							"_source": {
+								"data": {
+									"sc_2": {
+										"info": {
+											"label": "some label",
+											"description": "some description",
+											"tags": [
+												"some tag"
+											],
+											"comments": [
+												"some comment"
+											]
+										},
+										"owner": "some owner",
+										"terminal": "some terminal",
+										"operations_list": [
+											{
+												"op_1": {
+													"info": {
+														"label": "some label",
+														"description": "some description",
+														"tags": [
+															"some tag"
+														],
+														"comments": [
+															"some comment"
+														]
+													},
+													"scheduling": {
+														"start": {
+															"nature": "delay",
+															"value": 0
+														},
+														"duration": {
+															"nature": "delay",
+															"value": 20
+														}
+													},
+													"ressources_uses": {
+														"ressources_IDs": [
+															"res_1"
+														],
+														"nature": "parallel"
+													}
+												}
+											},
+											{
+												"op_2": {
+													"info": {
+														"label": "some label",
+														"description": "some description",
+														"tags": [
+															"some tag"
+														],
+														"comments": [
+															"some comment"
+														]
+													},
+													"scheduling": {
+														"start": {
+															"nature": "delay",
+															"value": 0
+														},
+														"duration": {
+															"nature": "delay",
+															"value": 20
+														}
+													},
+													"ressources_uses": {
+														"ressources_IDs": [
+															"res_1"
+														],
+														"nature": "parallel"
+													}
+												}
+											}
+										]
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "resources_collection",
+			"value": {
+				"hits": {
+					"hits": [
+						{
+							"_source": {
+								"data": {
+									"res_1": {
+										"info": {
+											"label": "some label",
+											"description": "some description",
+											"tags": [
+												"some tag"
+											],
+											"comments": [
+												"some comment"
+											]
+										},
+										"nature": "machine",
+										"category": "stacker",
+										"type": "RZ1000+ series",
+										"owner": "",
+										"terminal": "",
+										"timetable_ID": "tim_1",
+										"throughput": {
+											"default": {
+												"Value": 1000,
+												"Unit": "t/h"
+											},
+											"some_content_type": {
+												"Value": 2000,
+												"Unit": "t/h"
+											}
+										},
+										"consumptions": {
+											"diesel": {
+												"value": 18,
+												"unit": "l/h"
+											}
+										},
+										"emissions": {
+											"pol_1": {
+												"Value": 20,
+												"Unit": "mg/l"
+											},
+											"pol_2": {
+												"Value": 13,
+												"Unit": "mg/l"
+											}
+										}
+									}
+								}
+							}
+						}
+					]
+				}
+			}
+		}
+	],
+	"output": [
+		{
+			"name": "PAS",
+			"category": "local_export",
+			"type": "output>PAS",
+			"options": [
+				{
+					"name": "export_path",
+					"type": "string",
+					"description": "full path for file export",
+					"value": "./OUTPUT/PAS"
+				}
+			]
+		},
+		{
+			"name": "internalLog",
+			"category": "local_export",
+			"type": "output>internalLog",
+			"options": [
+				{
+					"name": "export_path",
+					"type": "string",
+					"description": "full path for file export",
+					"value": "./OUTPUT/internalLog"
+				}
+			]
+		},
+		{
+			"name": "usedInputs",
+			"category": "local_export",
+			"type": "output>usedInputs",
+			"options": [
+				{
+					"name": "export_path",
+					"type": "string",
+					"description": "full path for file export",
+					"value": "./OUTPUT/usedInputs"
+				}
+			]
+		}
+	]
+}
