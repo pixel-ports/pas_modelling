@@ -6,50 +6,59 @@ import sys
 sys.path.insert(0, "./MODULES")
 
 
-def main(pipeline_name, OT_input) :
+def main(PAS_instance) :
 	'''
 	Pour le pipeline passé en argument, appelle successivement les différents modules, leurs passant successivement l'objet "PAS" qui contient l'entièreté des données afférente au scénario.
 	'''
-	# INITIALISATION
+# INITIALISATION
+	LOGS = ["==== PAS modeling started  ===="]  #Array pr fils chronologique
+	# PAS INSTANCE LOADING
+	message = None
+	if PAS_instance == "local_PAS_instance":
+		file_path = "./PAS_instance.json" 
+		source = f"local file {file_path}"
+		try:
+			with open(file_path) as file :
+				PAS_instance = json.load(file)
+				status = "success"
+		except Exception as error:
+			status = "failed"
+			message = error
+	else :
+		source = f"Operational Tools"
+		try:
+			PAS_instance = json.loads(PAS_instance) 
+			status = "success" 
+		except Exception as error:
+			status = "failed"
+			message = error
+	LOGS.append(f"Loading current PAS instance data from {source}: {status} (message: {message})")	
+	# SETTINGS
+	try : 
+		for input_ in PAS_instance['input']:
+			if input_["name"]=="settings":
+				if input_["category"] == "forceInput": #FIXME faire le cas "pas en force input"
+					source = f"forced input in PAS_instance"
+					for input_ in PAS_instance['forceinput']:
+						if input_["name"]=="settings":
+							SETTINGS = input_['value']['hits']['hits'][0]['_source']['data']
+							status = "success"	
+				else: 
+					source = f"Information Hub"
+					status = "failed"	
+					pass #FIXME faire le cas "pas en force input", cad que la valeur de SETTINGS est soit à aller chercher ds l'IH, soit à charger à partir d'un fichier de settings par défaut. Probablement en éclatant le module de call à l'IH en une fonction qui peut être appeller ici (et à chaque fois qu'un en a besoin).	
+	except Exception as error:
+			status = "failed"
+			message = error
+	LOGS.append(f"Loading settings data from {source}: {status} (message: {message})")	
+
+	#OTHER COMPONENTS
+	<<idem
 	HANDLINGS = [] #Liste des vessel calls à traiter
 	PORT = {} #Conteneur pour l'ensemble des paramètres décrivant le port
-	LOGS = [  #Array pr fils chronologique
-		f"==== main  ====",
-		f"Pipeline: {pipeline_name}"
-	]
-	#	OT INPUT
-	if OT_input == "local_PAS_instance": 
-		with open("./LOCAL_INPUTS/PAS_instance.json") as file :
-			OT_input = json.load(file)
-		LOGS.append(f"Loading OT_input from file {file.name}: Success") 
-	else :
-		try:
-			OT_input = json.loads(OT_input) 
-			LOGS.append(f"Converting OT_input to dict: Success") 
-		except Exception as error:
-			LOGS.append(f"Converting OT_input to dict: Failled. Error: {error}") 
-
-	#	SETTINGS
-	try : 
-		with open("./settings.json") as file :
-			settings_file = json.load(file)
-		modules_sequence = settings_file["Pipelines"][pipeline_name]#TODO expliciter l'erreur d'une pipeline non connue dans settings.json
-		SETTINGS = {
-			"pipeline":pipeline_name,
-			"modules_sequence": modules_sequence,
-			"OT_input": OT_input,
-			"modules_settings": {module_name: module_settings #TODO Retirer cette clé intermédiaire ?
-				for (module_name, module_settings) in settings_file["modules_settings"].items() 
-				if module_name in modules_sequence
-			}
-		}
-		LOGS.append(f"Loading Settings: Success")
-	except Exception as error:
-		LOGS.append(f"Loading Settings: Failled. Error: {error}")
-		export_local_output_file(LOGS)
-
 
 	# APPLICATION DES MODULES DE LA PIPELINE
+	modules_sequence = SETTINGS.keys()
 	for module_i in modules_sequence :
 		
 		#UNPROTECTED RUN
@@ -105,13 +114,13 @@ if __name__ == "__main__" :
 	parser = argparse.ArgumentParser(description="Process executable options.")
 
 	parser.add_argument(
-		"-r", "--OT_input",
+		"-r", "--PAS_instance",
 		nargs='?', 
 		default= None,
 		help="Transmited argument from Operational Tools when calling PAS modelling"
 	)
 	
-	parser.add_argument( #TODO en définitive, devrait être un élément contenu dans OT_input, il est gardé de côté (en interne) pr le moment
+	parser.add_argument( #TODO en définitive, devrait être un élément contenu dans PAS_instance, il est gardé de côté (en interne) pr le moment
 		"-p", "--pipeline", 
 		nargs='?',
 		default="energy_consumption_assessment", 
@@ -131,6 +140,5 @@ if __name__ == "__main__" :
 	args = parser.parse_args()
 
 	main(
-		args.pipeline, 
-		args.OT_input
+		args.PAS_instance
 	)
