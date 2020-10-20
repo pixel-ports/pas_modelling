@@ -43,7 +43,7 @@
 	"input": [
 		{
 			"name": "settings",
-			"type": "PAS>settings",
+			"type": "settings",
 			"supportedConnectors": ["ih-api"],
 			"description": "Optional (default is provided). Settings for the PAS_model to produce a PAS. Used for components selection (PAS builder and outcome modules as energy consumption and pollutant emissions) with the corresponding settings",
 			"metadata:": {
@@ -81,7 +81,7 @@
 		}, 
 		{
 			"name": "assignments_collection",
-			"type": "PAS>PP>assignments",
+			"type": "PP>assignments",
 			"supportedConnectors": ["ih-api"],
 			"description": "Required. List of handling profile assignment to a supplychain. Each assignment object assign a handlings with specified characteristics to a specific supply-chain (or to a preferentially ordered list of supply-chains). Used for handling assignation to a supplychain: Handling (1 --> 1) Supplychain",
 			"metadata:": {
@@ -96,7 +96,7 @@
 		},
 		{
 			"name": "supplychains_collection",
-			"type": "PAS>PP>supplychains",
+			"type": "PP>supplychains",
 			"supportedConnectors": ["ih-api"],
 			"description": "Required. List of available supply-chains (sequence of operations) for handling a vessel's content. Used for resources allocation: Supply-chain (1 --> N) Operations",
 			"metadata:": {
@@ -108,9 +108,10 @@
 					"description": "id of the datasource in the IH repo"
 				}
 			]
-		}, {
+		}, 
+		{
 			"name": "resources_collection",
-			"type": "PAS>PP>resources",
+			"type": "PP>resources",
 			"supportedConnectors": ["ih-api"],
 			"description": "Required. List of available resources (machines, areas etc) for supply-chain's operations. Used by PAS_builder for use calculation (scheduling) and by outcome modules (energy consumption, pollutant emission): Resource (1 --> N) Operations",
 			"metadata:": {
@@ -125,7 +126,7 @@
 		}, 
 		{
 			"name": "timetables_collection",
-			"type": "PAS>PP>timetables",
+			"type": "PP>timetables",
 			"supportedConnectors": ["ih-api"],
 			"description": "Optional. List of available timetables (working days & hours) for resources. Used by PAS_builder for use calculation (scheduling): Timetable (1 --> N) Resources",
 			"metadata:": {
@@ -140,7 +141,7 @@
 		},
 		{
 			"name": "priority_tree",
-			"type": "PAS>PP>priority",
+			"type": "PP>priority",
 			"supportedConnectors": ["ih-api"],
 			"description": "Optional. Hierarchical sequence of vessel-call attributes defining the handling's priority. Used to resolve resources allocation priority (in case of competition for access to a resource in the same time)",
 			"metadata:": {
@@ -158,7 +159,7 @@
 		{
 			"name": "PAS",
 			"supportedConnectors": ["ih-api"],
-			"type": "PAS>output>PAS",
+			"type": "output>PAS",
 			"description": "Port's Activities Scenario: for each terminal, and then each ship, and then each stopover, and then each handling, the corresponding activities. For each of those activities, a scheduling and a list of used resources. Depending on outcome modules, information can be added for each of those resources, as a list of energy consumptions, pollutant emission etc.",
 			"metadata:": {
 				"usage": "optional, future use or extra logic for each model, no specific structure"
@@ -170,9 +171,9 @@
 				}
 			]
 		},{
-		"name": "internal_log",
+		"name": "internalLog",
 			"supportedConnectors": ["ih-api"],
-			"type": "PAS>output>internal",
+			"type": "output>internalLog",
 			"description": "PAS model's internal log. Useful to enlighten the provided PAS and spot issues (discarded handlings etc)",
 			"metadata:": {
 				"usage": "optional, future use or extra logic for each model, no specific structure"
@@ -184,9 +185,9 @@
 				}
 			]
 		},{
-		"name": "used_inputs",
+		"name": "usedInputs",
 			"supportedConnectors": ["ih-api"],
-			"type": "PAS>output>used_inputs",
+			"type": "output>usedInputs",
 			"description": "The used inputs to produce the PAS (settings, vessel-calls, port's parameters). Instead of duplicate data, a simple copy of the PAS_instance that was passed to the PAS_model (therefore, the url in the IH of the documents instead of the documents content",
 			"metadata:": {
 				"usage": "optional, future use or extra logic for each model, no specific structure"
