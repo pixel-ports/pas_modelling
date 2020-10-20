@@ -7,6 +7,8 @@
 
 #PERSONNAL SETTINGS
 /.vscode
+*.code-workspace
+
 
 #TEMPORARY FILES
 __pycache__/
