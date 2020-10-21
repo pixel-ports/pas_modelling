@@ -12,30 +12,54 @@ def main(PAS_instance) :
 	'''
 # INITIALISATION
 	LOGS = ["==== PAS modeling started  ===="]  #Array pr fils chronologique
-	# PAS INSTANCE LOADING
-	message = None
+	# PAS_INSTANCE LOADING
+	log_message = None
 	if PAS_instance == "local_PAS_instance":
 		file_path = "./PAS_instance.json" 
-		source = f"local file {file_path}"
+		log_source = f"local file {file_path}"
 		try:
 			with open(file_path) as file :
 				PAS_instance = json.load(file)
-				status = "success"
+				log_status = "success"
 		except Exception as error:
-			status = "failed"
-			message = error
+			log_status = "failed"
+			log_message = error
 	else :
-		source = f"Operational Tools"
+		log_source = f"Operational Tools"
 		try:
 			PAS_instance = json.loads(PAS_instance) 
-			status = "success" 
+			log_status = "success" 
 		except Exception as error:
-			status = "failed"
-			message = error
-	LOGS.append(f"Loading current PAS instance data from {source}: {status} (message: {message})")	
-	# SETTINGS
-	try : 
-		for input_ in PAS_instance['input']:
+			log_status = "failed"
+			log_message = error
+	LOGS.append(f"Loading current PAS instance data from {log_source}: {log_status} (message: {log_message})")	
+	
+	# INPUTS LOADING
+	inputs = {} 
+	for input_ in PAS_instance['input']: #TODO ajouter gestion log
+		log_item = input_["name"]
+		if input_["category"] == "forceInput":
+			log_source = f"forced input in PAS_instance"
+			for forced_input in PAS_instance['forceinput']:
+				if input_["name"] == forced_input["name"]:
+					if "collection" in input_["type"]:
+						input_["data"] = [item["_source"]["data"] for item in forced_input['value']['hits']['hits']]	
+					elif "tree" in input_["type"]:
+						input_["data"] = forced_input['value']['hits']['hits'][0]["_source"]["data"]
+					else:
+						pass #TODO ajouter une levée d'erreur pour cas non reconnu
+					log_status = "success"
+		elif input_["category"] == "ih-api":
+			log_source = f"remote (IH)"	
+			input_["data"] = get_IH_data(input_)
+		inputs.update(input_)
+		LOGS.append(f"Loading input {log_item} data from {log_source}: {log_status} (message: {log_message})")
+		
+	
+
+
+		SETTINGS = {input_["name"]:input_ for input_ in PAS_instance['input'] if input_["type"]=="settings"}
+		:
 			if input_["name"]=="settings":
 				if input_["category"] == "forceInput": #FIXME faire le cas "pas en force input"
 					source = f"forced input in PAS_instance"
@@ -50,8 +74,7 @@ def main(PAS_instance) :
 	except Exception as error:
 			status = "failed"
 			message = error
-	LOGS.append(f"Loading settings data from {source}: {status} (message: {message})")	
-
+	LOGS.append(f"Loading settings data from {source}: {status} (message: {message})")
 	#OTHER COMPONENTS
 	<<idem
 	HANDLINGS = [] #Liste des vessel calls à traiter
@@ -90,6 +113,16 @@ def main(PAS_instance) :
 	
 	sys.exit(0)
 #=========================================================================
+def get_IH_data(input_:dict)-> dict:
+	pass #FIXME 
+'''
+	if "collection" in input_["type"]: #on doit rendre une liste de n items
+		data = [document["_source"]["data"] for document in reponse_ES['value']['hits']['hits']]	
+	elif "tree" in input_["type"]:
+		data = reponse_ES['value']['hits']['hits'][0]["_source"]["data"]		
+	return data	
+'''
+
 def export_local_output_file(LOGS, HANDLINGS= None, PORT= None, SETTINGS= None, abording= True):
 	LOGS.append(f"PAS modelling closing")
 	
