@@ -1,15 +1,69 @@
-#import collections
-
+	
 def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	'''
 	handling --> handling + [SC]
 
 	Add to each handling an array of suitable SupplyChains (deduced from parameters "RULES>content_type_list").
 	Optionnal filtration can be enabled into Setting
+
+	Pour chaque handling:
+		Confronter aux profils dans  assignment (note)
+		Prendre SCs de celui avec note max
+		ajouter au rejeté si None
+
 	'''
 	# COMMENT
 	# Un code avait été fait pr les DM mis à jour. Cette base est modifiée (passe en commentaires) pr être compatible avec les anciens DM utilisés pr la GUI
+# TEST & DEBUG
+	handling_ = HANDLINGS[0]
+	assign_ = list(PORT["assignments"].items())[0]
+	profils= assign_[1]["handling_profils"]
+	profil_ = profils[0]
+
+	# #FLATTEN
+	# import collections
+	# def flatten(d, parent_key='', sep='_'):
+	# 	items = []
+	# 	for k, v in d.items():
+	# 		new_key = parent_key + sep + k if parent_key else k
+	# 		if isinstance(v, collections.MutableMapping):
+	# 			items.extend(flatten(v, new_key, sep=sep).items())
+	# 		else:
+	# 			items.append((new_key, v))
+	# 	return dict(items)
+	# flatten(profil)
+
+def score_handling_profil(handling, profil, ponderations):
+	for name, content in profil.items():
+		{
+			"terminals": null,
+			"categories": null,
+			"types": null,
+			"directions": null,
+			"ship": {
+				"ids": null,
+				"categories": null,
+				"capacity": {
+					"min": null,
+					"max": null
+				}
+			},
+			"docks": null,
+			"operators": null,
+			"content": {
+				"agents": null,
+				"amount_max": null,
+				"amount_min": null,
+				"dangerous": false,
+				"categories": null,
+				"types": null
+			}
+		}
 	
+	
+# 	[(score_handling_profil(handling, profil, ponderation), name) for name, profil in PORT['assignments']]
+
+
 #INITIALIZATION
 	LOGS.append(f"==== {module_name}  ====")
 	Valid_items = []
@@ -46,7 +100,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 			Valided_assignment = []
 			Unvalided_assignment = []
 			for candidat_assignment in Candidat_assignments:
-				success, data = test_assignment_requirements(handling, candidat_assignment.get("restrictions"), SETTINGS["modules_settings"][module_name]["restrictions"])
+				success, data = test_assignment_requirements(handling, candidat_assignment.get("restrictions"), SETTINGS["restrictions"])
 				if success:
 					Valided_assignment.append(candidat_assignment)
 				else:
@@ -65,7 +119,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 
 
 	# ASSIGNIATIONS SC PAR DEFAULT 
-		if SETTINGS["modules_settings"][module_name]["default_SC"]:
+		if SETTINGS["default_SC"]:
 			if len(handling.get("assigned_SC_ID", [])) == 0: 
 				success, data = assign_default_SC(handling, PORT["Contents"])#FIXME non implémenté
 				if success:
@@ -94,7 +148,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 			for handling in HANDLINGS
 			if len(handling["assigned_SC_ID"]) == 0
 		]
-	if SETTINGS["modules_settings"][module_name]["discart_unassigned"]:
+	if SETTINGS["discart_unassigned"]:
 		for handling in Unassigned_handlings:
 			HANDLINGS.remove(handling) #Attention, fiabilité discutable s'il y a des doublons (mais devraient être en double aussi dans la liste mère)	
 	
