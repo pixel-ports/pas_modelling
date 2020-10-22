@@ -1,50 +1,23 @@
 {
-	"input": [
-		{
-			"name": "settings",
-			"category": "forceInput",
-			"type": "settings"
-		},
-		{
-			"name": "vesselCalls_collection",
-			"category": "forceInput",
-			"type": "PAS-vessel-calls-format"
-		},
-		{
-			"name": "assignments_collection",
-			"category": "forceInput",
-			"type": "PP>assignments"
-		},
-		{
-			"name": "supplychains_collection",
-			"category": "forceInput",
-			"type": "PP>supplychains"
-		},
-		{
-			"name": "resources_collection",
-			"category": "forceInput",
-			"type": "PP>resources"
-		},
-		{
-			"name": "timetables_collection",
-			"category": "forceInput",
-			"type": "PP>timetables"
-		},
-		{
-			"name": "priority_tree",
-			"category": "forceInput",
-			"type": "PP>priority"
-		}
-	],
+	"input": [],
 	"forceinput": [
 		{
 			"name": "settings",
+			"type": "set>tree",
 			"value": {
 				"hits": {
 					"hits": [
 						{
 							"_source": {
 								"data": {
+									"pipeline": [
+										
+										"handling_converter",
+										"supplychain_assignation",
+										"operations_planning",
+										"energies_consumptions",
+										"pollutant_emissions"
+									],
 									"IH_requester": {},
 									"handling_converter": {
 										"filters": {
@@ -77,7 +50,8 @@
 			}
 		},
 		{
-			"name": "vesselCalls_collection",
+			"name": "vesselCalls",
+			"type": "vesselCall>collection",
 			"value": {
 				"hits": {
 					"hits": [
@@ -179,7 +153,64 @@
 			}
 		},
 		{
-			"name": "assignments_collection",
+			"name": "contentType",
+			"type": "PP>collection",
+			"value": {
+				"hits": {
+					"hits": [
+						{
+							"_source": {
+								"data": {
+									"content_type_ID": "ct_1",
+									"label": "Some label",
+									"comment": "Some comment",
+									"handling_nature": "cargo",
+									"content_category": "solid_bulk",
+									"unit": "Tons",
+									"possible_SC_assignation_list": [
+										{
+											"supplychain": "sc_1",
+											"restrictions": {
+												"direction": ["loading"],
+												"dock": ["dock_1"],
+												"amount_min": 1000,
+												"amount_max": 50000
+											}
+										}
+									]
+								}
+							}
+						},
+						{
+							"_source": {
+								"data": {
+									"content_type_ID": "ct_2",
+									"label": "Some label",
+									"comment": "Some comment",
+									"handling_nature": "cargo",
+									"content_category": "liquid_bulk",
+									"unit": "m3",
+									"possible_SC_assignation_list": [
+										{
+											"supplychain": "sc_1",
+											"restrictions": {
+												"direction": ["loading"],
+												"dock": ["dock_1"],
+												"amount_min": 1000,
+												"amount_max": 50000
+											}
+										}
+									]
+								}
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "assignments",
+			"type": "PP>collection",
 			"value": {
 				"hits": {
 					"hits": [
@@ -282,7 +313,8 @@
 			}
 		},
 		{
-			"name": "supplychains_collection",
+			"name": "supplychains",
+			"type": "PP>collection",
 			"value": {
 				"hits": {
 					"hits": [
@@ -455,7 +487,8 @@
 			}
 		},
 		{
-			"name": "resources_collection",
+			"name": "resources",
+			"type": "PP>collection",
 			"value": {
 				"hits": {
 					"hits": [
