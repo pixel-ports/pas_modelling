@@ -1,14 +1,11 @@
-#VPN CREDENTIAL FOR IH DATA RETRIVING
-/IH_testing/credential/*
+#CREDENTIAL
 
 #STUFF THAT SHOULD NOT ENCUMBER THE REPOSITORY
-/#SIDESTUFF
-#PAS_output.json
+PAS_output.json
 
 #PERSONNAL SETTINGS
 /.vscode
 *.code-workspace
-
 
 #TEMPORARY FILES
 __pycache__/
