@@ -128,7 +128,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	del PORT['supplychains']
 	del PORT['resources']
 
-	return (HANDLINGS, PORT, LOGS, SETTINGS)
+	return (HANDLINGS, PORT, LOGS )
 
 
 #=========================================================================

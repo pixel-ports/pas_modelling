@@ -18,19 +18,19 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 	#CHARGEMENT DES FICHIERS
 
 	#	HANDLINGS
-	message, loaded_json = get(SETTINGS["modules_settings"][module_name]["Handlings"])
+	message, loaded_json = get(SETTINGS["Handlings"])
 	LOGS.append(f"Handlings loading: {message}")
 	HANDLINGS = loaded_json
 
 	#	PARAMETRES DU PORT
-	for parameter in SETTINGS["modules_settings"][module_name]["Port"] :
+	for parameter in SETTINGS["Port"] :
 		message, loaded_json = get(parameter)
 		LOGS.append(f"Port's parameters loading: {message}")
 		PORT.update({parameter["name"]:loaded_json})
 
 	#CLOTURE
 	#LOGS.append(f"====> {module_name} ENDS <====")
-	return (HANDLINGS, PORT, LOGS, SETTINGS)
+	return (HANDLINGS, PORT, LOGS )
 
 # %% UTILITIES
 def get(target):

@@ -42,7 +42,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name):
 
 
 	#CLOTURE
-	return (HANDLINGS, PORT, LOGS, SETTINGS)
+	return (HANDLINGS, PORT, LOGS )
 
 
 #=========================================================================
