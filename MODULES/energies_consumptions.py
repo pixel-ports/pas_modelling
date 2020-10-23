@@ -60,7 +60,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	if len(Invalide_handlings) > 0:
 		LOGS.append({"List of discarted handling and detailstails" : list(zip(Invalide_handlings, Errors_details))}) #TODO remettre au propres, uniformiser la manière de faire ds les différents modules
 	#LOGS.append(f"====> {module_name} ENDS <====")
-	return HANDLINGS, PORT, LOGS, SETTINGS
+	return HANDLINGS, PORT, LOGS
 
 #=====================================================
 def get_energies_consumptions(activity: dict, RESOURCES:dict)-> tuple:
