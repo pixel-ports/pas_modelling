@@ -74,19 +74,19 @@ def main(PAS_instance) :
 		# 	exec(f"import {module_i}")
 		# except Exception as error:
 		# 	LOGS.append(f"Failled to import: {module_i}.Error: {error}")
-		# 	export_local_output_file(LOGS, SETTINGS)
+		# 	export_local_output_file(logs=LOGS, pas=HANDLINGS, PAS_instance=PAS_instance)
 		# else:
 		# 	try:	
 		# 		HANDLINGS, PORT, LOGS, SETTINGS = eval(f"{module_i}.main(HANDLINGS, PORT, LOGS, SETTINGS, module_i)")
 		# 	except Exception as error:
 		# 		LOGS.append(f"Failled to run: {module_i}.Error: {error}")
-		# 		export_local_output_file(LOGS, SETTINGS)
+		# 		export_local_output_file(logs=LOGS, PAS=HANDLINGS, PAS_instance=PAS_instance)
 	
 #CLOSSING
 	LOGS.append(f"==== main  ====")
 	LOGS.append(f"End of the run.")
 	print(f"PAS_builder ended, {len(HANDLINGS)} were processed end-to-end. See logs for details")
-	export_local_output_file(LOGS, HANDLINGS, PORT, SETTINGS, abording= False) #FIXME debug
+	export_local_output_file(logs=LOGS, pas=HANDLINGS, PAS_instance=PAS_instance, abording= False) #FIXME debug
 	print(f"=============================================================================")	
 	print(f"PAS modeling internal logs: {json.dumps(LOGS, indent=4, default=str)}")
 	sys.exit(0)
@@ -105,17 +105,22 @@ def get_IH_data(input_:dict)-> (bool, dict): #FIXME
 		data = error
 	return success, data
 
-def export_local_output_file(LOGS, HANDLINGS= None, PORT= None, SETTINGS= None, abording= True):
-	LOGS.append(f"PAS modelling closing")
-	export = {
-		"LOGS": LOGS,
-		"ACTIVITIES": HANDLINGS,
-		"PORT'S PARAMETERS": PORT,
-		"SETTINGS": SETTINGS	
+def export_local_output_file(logs, PAS=None, PAS_instance=None, abording=True):
+	if abording:
+		print(f"\n\nCrashed, last log: {logs[-1]} ")
+	print(f"\n\nLocal PAS builder run detected, PAS outputs export to local files before closing")
+	folder = "./OUTPUTS/"
+	exports = {
+		"PAS": PAS,
+		"internalLog": logs,
+		"PAS_instance" : PAS_instance
 	}
-	with open("./PAS_output.json", 'w') as file:
-		json.dump(export, file, indent=4, default=str)
-	print(f"\n\nLocal PAS builder run detected. PAS, logs & settings exported in {file.name} before closing") 
+	for title, content in exports.items():
+		file_path = folder + title + ".json"
+		with open(file_path, 'w') as file:
+			json.dump(content, file, indent=4, default=str)
+		print(f"\n\n{title} exported in {file.name}")
+	print(f"\n\nClosing. Bye")
 	if abording:
 		sys.exit(1)
 
