@@ -551,7 +551,49 @@
 					]
 				}
 			}
+		},
+		{
+			"name": "energies",
+			"type": "PP>collection",
+			"value": {
+				"hits": {
+					"hits": [
+						{
+							"_source": {
+								"data": {
+									"diesel": {
+										"info": {
+											"label": "some label",
+											"description": "some description",
+											"tags": [
+												"some tag"
+											],
+											"comments": [
+												"some comment"
+											]
+										},
+										"nature": "fossil_fuel",
+										"category": "some category",
+										"type": "some type",
+										"emissionFactors": {
+											"pol_1": {
+												"Value": 20,
+												"Unit": "mg/l"
+											},
+											"pol_2": {
+												"Value": 13,
+												"Unit": "mg/l"
+											}
+										}
+									}
+								}
+							}
+						}
+					]
+				}
+			}
 		}
+
 	],
 	"output": [
 		{
