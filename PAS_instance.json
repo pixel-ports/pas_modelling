@@ -11,7 +11,6 @@
 							"_source": {
 								"data": {
 									"pipeline": [
-										
 										"handling_converter",
 										"supplychain_assignation",
 										"operations_planning",
@@ -36,7 +35,7 @@
 											"amount_min": true,
 											"amount_max": true
 										},
-										"default_SC": true,
+										"default_SC": false,
 										"discart_unassigned": true
 									},
 									"operations_planning": {},
@@ -78,9 +77,9 @@
 									"pixel_etd": 1515267476902,
 									"source": "FR_BAS/vcall",
 									"unloading_agent": "SEAINVEST",
-									"unloading_berth": "435",
+									"unloading_berth": "dock_1",
 									"unloading_cargo_fiscal_type": "segment_1",
-									"unloading_cargo_type": "ConTyp_1",
+									"unloading_cargo_type": "ct_2",
 									"unloading_dangerous": false,
 									"unloading_tonnage": 10094
 								}
@@ -95,9 +94,9 @@
 									"IMO": "chargement_simple",
 									"journeyid": 20180002,
 									"loading_agent": "SEAINVEST",
-									"loading_berth": "25",
+									"loading_berth": "dock_1",
 									"loading_cargo_fiscal_type": "segment_2 (devrait être 1)",
-									"loading_cargo_type": "ConTyp_1",
+									"loading_cargo_type": "ct_1",
 									"loading_dangerous": false,
 									"loading_tonnage": 42457,
 									"location": {
@@ -126,9 +125,9 @@
 									"IMO": "chargement_simple",
 									"journeyid": 20180003,
 									"loading_agent": "SEAINVEST",
-									"loading_berth": "56",
+									"loading_berth": "dock_2",
 									"loading_cargo_fiscal_type": "segment_1",
-									"loading_cargo_type": "unknow CT from segment_1",
+									"loading_cargo_type": "ct_1",
 									"loading_dangerous": false,
 									"loading_tonnage": 45784,
 									"location": {
@@ -161,46 +160,57 @@
 						{
 							"_source": {
 								"data": {
-									"content_type_ID": "ct_1",
-									"label": "Some label",
-									"comment": "Some comment",
-									"handling_nature": "cargo",
-									"content_category": "solid_bulk",
-									"unit": "Tons",
-									"possible_SC_assignation_list": [
-										{
-											"supplychain": "sc_1",
-											"restrictions": {
-												"direction": ["loading"],
-												"dock": ["dock_1"],
-												"amount_min": 1000,
-												"amount_max": 50000
+									"ct_1": {
+										"label": "Some label",
+										"comment": "Some comment",
+										"handling_nature": "cargo",
+										"content_category": "solid_bulk",
+										"unit": "Tons",
+										"suitable_assignations": [
+											{
+												"SC_ID": "sc_1",
+												"restrictions": {
+													"direction": [
+														"loading",
+														"unloading"
+													],
+													"dock": [
+														"dock_1"
+													],
+													"amount_min": 1000,
+													"amount_max": 50000
+												}
 											}
-										}
-									]
+										]
+									}
 								}
 							}
 						},
 						{
 							"_source": {
 								"data": {
-									"content_type_ID": "ct_2",
-									"label": "Some label",
-									"comment": "Some comment",
-									"handling_nature": "cargo",
-									"content_category": "liquid_bulk",
-									"unit": "m3",
-									"possible_SC_assignation_list": [
-										{
-											"supplychain": "sc_1",
-											"restrictions": {
-												"direction": ["loading"],
-												"dock": ["dock_1"],
-												"amount_min": 1000,
-												"amount_max": 50000
+									"ct_2": {
+										"label": "Some label",
+										"comment": "Some comment",
+										"handling_nature": "cargo",
+										"content_category": "liquid_bulk",
+										"unit": "m3",
+										"suitable_assignations": [
+											{
+												"SC_ID": "sc_1",
+												"restrictions": {
+													"direction": [
+														"loading"
+													],
+													"dock": [
+														"dock_2"
+													],
+													"amount_min": 1000,
+													"amount_max": 50000
+												}
 											}
-										}
-									]
+										]
+									}
 								}
 							}
 						}
@@ -334,68 +344,64 @@
 										},
 										"owner": "some owner",
 										"terminal": "some terminal",
-										"operations_list": [
-											{
-												"op_1": {
-													"info": {
-														"label": "some label",
-														"description": "some description",
-														"tags": [
-															"some tag"
-														],
-														"comments": [
-															"some comment"
-														]
+										"operations": {
+											"op_1": {
+												"info": {
+													"label": "some label",
+													"description": "some description",
+													"tags": [
+														"some tag"
+													],
+													"comments": [
+														"some comment"
+													]
+												},
+												"scheduling": {
+													"start": {
+														"nature": "delay",
+														"value": 0
 													},
-													"scheduling": {
-														"start": {
-															"nature": "delay",
-															"value": 0
-														},
-														"duration": {
-															"nature": "delay",
-															"value": 20
-														}
-													},
-													"ressources_uses": {
-														"ressources_IDs": [
-															"res_1"
-														],
-														"nature": "parallel"
+													"duration": {
+														"nature": "delay",
+														"value": 20
 													}
+												},
+												"ressources_uses": {
+													"ressources_IDs": [
+														"res_1"
+													],
+													"nature": "parallel"
 												}
 											},
-											{
-												"op_2": {
-													"info": {
-														"label": "some label",
-														"description": "some description",
-														"tags": [
-															"some tag"
-														],
-														"comments": [
-															"some comment"
-														]
+											"op_2": {
+												"info": {
+													"label": "some label",
+													"description": "some description",
+													"tags": [
+														"some tag"
+													],
+													"comments": [
+														"some comment"
+													]
+												},
+												"scheduling": {
+													"start": {
+														"nature": "delay",
+														"value": 0
 													},
-													"scheduling": {
-														"start": {
-															"nature": "delay",
-															"value": 0
-														},
-														"duration": {
-															"nature": "delay",
-															"value": 20
-														}
-													},
-													"ressources_uses": {
-														"ressources_IDs": [
-															"res_1"
-														],
-														"nature": "parallel"
+													"duration": {
+														"nature": "delay",
+														"value": 20
 													}
+												},
+												"ressources_uses": {
+													"ressources_IDs": [
+														"res_1"
+													],
+													"nature": "parallel"
 												}
 											}
-										]
+										}
 									}
 								}
 							}
