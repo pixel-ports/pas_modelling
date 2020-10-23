@@ -31,7 +31,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	Suitable_records = []
 	Filtration_issues = []
 	for record in HANDLINGS:
-		success, data = handling_filter(record, SETTINGS["modules_settings"][module_name]["filters"])
+		success, data = handling_filter(record, SETTINGS["filters"])
 		if success:
 			Suitable_records.append(data)
 		else :
@@ -44,7 +44,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 		
 		
 	#CLOSSING
-	return (HANDLINGS, PORT, LOGS, SETTINGS)
+	return (HANDLINGS, PORT, LOGS )
 
 
 #=========================================================================
@@ -52,32 +52,35 @@ def stopover_converter(stopover: dict, ID_number: int)-> tuple:
 	'''Convert one IH's stopover record (combined forced loading and unloading) into proper handling, with a key selection based on 'operation' value
 	NB: for a real dual stopover (unloading AND loading), only the one corresponding to the 'operation' value will be converted to handling ! #FIXME: à voir avec DAL/IH
 	'''
-	#CONVERSION
 	try:
 		data = {
-			#"handling_" + str(ID_number): {
-				"content_agent":			str(stopover.get(stopover["operation"] + "_agent")),
-				"content_amount":			int(stopover.get(stopover["operation"] + "_tonnage")),
-				"content_dangerous":		bool(stopover.get(stopover["operation"] + "_dangerous")),
-				"content_label":			None,
-				"content_type":				str(stopover.get(stopover["operation"] + "_cargo_type")),
-				"handling_direction":		str(stopover.get("operation")),
-				"handling_dock":			str(stopover.get(stopover["operation"] + "_berth")),
 				"handling_ID": 				"handling_" + str(ID_number),
-				"handling_earliestStart":	timeConvert(stopover.get("arrival_dock")), #Suivant le sens réel de stopover_ETD, peut nécessiter de soustraire journey_duration(handling) 
-				"handling_lattestEnd":		timeConvert(stopover.get("departure_dock")), #Cf stopover_ETA
-				"handling_operator": 		str(stopover.get("operator")),
-				"handling_type": 			str(stopover.get(stopover["operation"] + "_cargo_fiscal_type")),
-				"ship_capacity":			None,
+
+				"terminal": 				str(stopover.get("source")),
+
 				"ship_ID":					str(stopover.get("IMO")),
 				"ship_label": 				str(stopover.get("name")),
 				"ship_type": 				None,
+				"ship_capacity":			None,
+
+				"stopover_ID":				str(stopover.get("journeyid")),
 				"stopover_ETA": 			timeConvert(stopover.get("arrival_dock")), #Dans le cas des données consolidées pr GPMB, c'est en fait le timestamp d'arrivée à quai. Mais peut être le TS vis à vis du port pr d'autres cas.
 				"stopover_ETD": 			timeConvert(stopover.get("departure_dock")), #Cf stopover_ETA
-				"stopover_ID":				str(stopover.get("journeyid")),
 				"stopover_status": 			None, #TODO inférer valeur d'après les champs présent
-				"stopover_terminal": 		str(stopover.get("source"))
-			#}
+
+				"handling_nature": 			"cargo", #TODO étendre aux autres nature (passagers, containers). NB voir à plutôt classer par "de/chargement intégrale", "pendulaire" etc
+				"handling_direction":		str(stopover.get("operation")),
+				"handling_dock":			str(stopover.get(stopover["operation"] + "_berth")),
+				"handling_operator": 		str(stopover.get("operator")),
+				"handling_earliestStart":	timeConvert(stopover.get("arrival_dock")), #Suivant le sens réel de stopover_ETD, peut nécessiter de soustraire journey_duration(handling) 
+				"handling_lattestEnd":		timeConvert(stopover.get("departure_dock")), #Cf stopover_ETA
+
+				"content_category": 		str(stopover.get(stopover["operation"] + "_cargo_fiscal_type")),
+				"content_type":				str(stopover.get(stopover["operation"] + "_cargo_type")),
+				"content_label":			None, #FIXME cette info est pourtant dispo côté VigiSip
+				"content_amount":			int(stopover.get(stopover["operation"] + "_tonnage")),
+				"content_dangerous":		bool(stopover.get(stopover["operation"] + "_dangerous")),
+				"content_agent":			str(stopover.get(stopover["operation"] + "_agent")),
 		}
 		success = True
 	except Exception as error:
@@ -88,13 +91,6 @@ def stopover_converter(stopover: dict, ID_number: int)-> tuple:
 			"handling": stopover,
 			"message": f'{error}'
 		}
-
-		#TODO uniquement pr les handlings de type cargo !
-		if stopover["operation"] not in ["loading", "unloading"]: 
-			data['item'] = "Operation" 
-			data['message'] = f'For ’cargo’ type handling, the operation must be loading or unloading, but: {stopover["operation"]} was provided, leading to: {error}'
-
-
 	return success, data
 
 def timeConvert(epoch_timestamp, output_format = 'datetime_obj'): 
