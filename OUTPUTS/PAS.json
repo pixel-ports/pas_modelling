@@ -1,0 +1,91 @@
+[
+    {
+        "handling_ID": "handling_1",
+        "terminal": "FR_BAS/vcall",
+        "ship_ID": "chargement_simple",
+        "ship_label": "Fifi",
+        "ship_type": null,
+        "ship_capacity": null,
+        "stopover_ID": "20180002",
+        "stopover_ETA": "2018-01-02 07:00:00",
+        "stopover_ETD": "2018-01-04 11:00:00",
+        "stopover_status": null,
+        "handling_nature": "cargo",
+        "handling_direction": "loading",
+        "handling_dock": "dock_1",
+        "handling_operator": "None",
+        "handling_earliestStart": "2018-01-02 07:00:00",
+        "handling_lattestEnd": "2018-01-04 11:00:00",
+        "content_category": "segment_2 (devrait \u00eatre 1)",
+        "content_type": "ct_1",
+        "content_label": null,
+        "content_amount": 42457,
+        "content_dangerous": false,
+        "content_agent": "SEAINVEST",
+        "status": [
+            "OK",
+            null
+        ],
+        "assigned_SC_ID": "sc_1",
+        "Activities": [
+            {
+                "operation_ID": "op_1",
+                "Resources_IDs": [
+                    "res_1"
+                ],
+                "Resources_used": {
+                    "res_1": {
+                        "Energy_consumptions": {
+                            "diesel": {
+                                "amount": 6.0,
+                                "unit": "l/h"
+                            }
+                        },
+                        "Pollutant_emissions": {
+                            "pol_1": {
+                                "amount": 120.0,
+                                "unit": "mg"
+                            },
+                            "pol_2": {
+                                "amount": 78.0,
+                                "unit": "mg"
+                            }
+                        }
+                    }
+                },
+                "start_TS": "2018-01-02 07:00:00",
+                "duration": "0:20:00",
+                "end_TS": "2018-01-02 07:20:00"
+            },
+            {
+                "operation_ID": "op_2",
+                "Resources_IDs": [
+                    "res_1"
+                ],
+                "Resources_used": {
+                    "res_1": {
+                        "Energy_consumptions": {
+                            "diesel": {
+                                "amount": 6.0,
+                                "unit": "l/h"
+                            }
+                        },
+                        "Pollutant_emissions": {
+                            "pol_1": {
+                                "amount": 120.0,
+                                "unit": "mg"
+                            },
+                            "pol_2": {
+                                "amount": 78.0,
+                                "unit": "mg"
+                            }
+                        }
+                    }
+                },
+                "start_TS": "2018-01-02 07:00:00",
+                "duration": "0:20:00",
+                "end_TS": "2018-01-02 07:20:00"
+            }
+        ]
+    }
+]

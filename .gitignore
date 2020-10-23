@@ -1,10 +1,14 @@
+#CREDENTIAL
+
+#STUFF THAT SHOULD NOT ENCUMBER THE REPOSITORY
+./OUTPUTS/
+
+#PERSONNAL SETTINGS
+/.vscode
+*.code-workspace
+
+#TEMPORARY FILES
 __pycache__/
 *.pyc
-.vscode/
 */.ipynb_checkpoints/*
 *.dat
-callgrind.out.*
-massif.out.*
-output.json
-/outputs
-Set de commande pr run PAS modelling

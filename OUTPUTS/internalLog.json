@@ -1,0 +1,27 @@
+[
+    "==== PAS modeling started  ====",
+    "Loading current PAS instance: success (message: None)",
+    "Load input settings data from forced input in PAS_instance: True",
+    "Load input vesselCalls data from forced input in PAS_instance: True",
+    "Load input contentType data from forced input in PAS_instance: True",
+    "Load input assignments data from forced input in PAS_instance: True",
+    "Load input supplychains data from forced input in PAS_instance: True",
+    "Load input resources data from forced input in PAS_instance: True",
+    "Load input energies data from forced input in PAS_instance: True",
+    "==== handling_converter  ====",
+    "Convertion: 3 records converted (3 records where passed,  0 record discarded)",
+    "Filtration: 3 records suitable (3 records where passed, 0 records discarded)",
+    "==== supplychain_assignation  ====",
+    "Handlings with assigned SC: 1 (3 records where passed, 2 records discarded)",
+    {
+        "Details": {}
+    },
+    "==== operations_planning  ====",
+    "Number of handlings for which activities could not be established and been discarted: 0",
+    "==== energies_consumptions  ====",
+    "Number of handlings for which activities's energy consumptions could not be established: 0",
+    "==== pollutant_emissions  ====",
+    "Number of handlings for which activities's pollutant emissions could not be established: 0",
+    "==== main  ====",
+    "End of the run."
+]
