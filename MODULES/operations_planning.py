@@ -28,7 +28,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	#PROCESSING	
 	for handling in HANDLINGS:
 		#OPERATIONS RESOLUTION
-		HAS = create_HAS(handling, PORT["Supplychains"], PORT["Resources"])
+		HAS = create_HAS(handling, PORT["supplychains"], PORT["resources"])
 		for node_ID in HAS["graph"]:
 			if node_ID in HAS["unchecked"]:
 				HAS["stack"] = []
@@ -95,7 +95,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	LOGS.append(f"Number of handlings for which activities could not be established and been discarted: {len(Invalide_handlings)}") 
 	if len(Invalide_handlings) > 0:
 		LOGS.append({"Details": Errors_synthesise})
-	return HANDLINGS, PORT, LOGS, SETTINGS
+	return HANDLINGS, PORT, LOGS
 
 #=====================================================
 def create_HAS(handling:dict, SUPPLYCHAINS: dict, RESOURCES: dict)-> dict:
@@ -108,32 +108,35 @@ def create_HAS(handling:dict, SUPPLYCHAINS: dict, RESOURCES: dict)-> dict:
 	#TODO a minima, reprendre le formalisme précédent (encapsuler dans un try, sortir le tuple (success/status, data/error))
 
 	#RETRIVE DATA
-	Operations = SUPPLYCHAINS[handling['assigned_SC_ID']]['operations_list']
-	Resources = {ID: RESOURCES[ID] 
-		for ID in [resource_ID for operation in Operations for resource_ID in operation['ressources_uses']['ressources_IDs']]
-	}
+	Operations = SUPPLYCHAINS[handling['assigned_SC_ID']]['operations']
+	Resources = RESOURCES
+	# variante légacy{ID: RESOURCES[ID] 
+	# 	for ID in [resource_ID for operation in Operations for resource_ID in operation['ressources_uses']['ressources_IDs']]
+	# }
 	
 	#BUILD GRAPH
 	SC_graph = {} 
-	for operation in Operations:
+	for ope_ID, ope_content in Operations.items():
 		#START NODE DEPENDENCIES
-		schedule_nature = operation['scheduling']['start']['nature']
-		schedule_value = operation['scheduling']['start']['value']
-		SC_graph[(operation["ID"], "start")] = [] #Valeur par défaut
+		schedule_nature = ope_content['scheduling']['start']['nature']
+		schedule_value = ope_content['scheduling']['start']['value']
+		SC_graph[(ope_ID, "start")] = [] #Valeur par défaut
 		if schedule_nature in ["with_any", "with_all"]:
-			SC_graph[(operation["ID"], "start")] = list(set([(parent, "start") for parent in schedule_value]))
+			SC_graph[(ope_ID, "start")] = list(set([(parent, "start") for parent in schedule_value]))
 		if schedule_nature in ["after_any", "after_all"]:
-			SC_graph[(operation["ID"], "start")] = list(set([(parent, "end") for parent in schedule_value]))
+			SC_graph[(ope_ID, "start")] = list(set([(parent, "end") for parent in schedule_value]))
 			
 		#END NODE DEPENDENCIES
-		schedule_nature = operation['scheduling']['duration']['nature']
-		schedule_value = operation['scheduling']['duration']['value']
-		default = [(operation["ID"], "start")] #Valeur par défaut: Toute fin d'opération dépend du début de l'opération (même si le début n'a pas de dépendence, afin de garantir qu'on parcours le graphe entier, condition pour que toutes les opérations soient résolues)
-		SC_graph[(operation["ID"], "end")] = default
-		if schedule_nature in ["before_any", "before_all"]:
-			SC_graph[(operation["ID"], "end")] = list(set(default + [(parent, "start") for parent in schedule_value])) #NB bien inclure le default avant d'appliquer le set()
-		if schedule_nature in ["after_any", "after_all"]:
-			SC_graph[(operation["ID"], "end")] = list(set(default + [(parent, "end") for parent in schedule_value]))
+		schedule_nature = ope_content['scheduling']['duration']['nature']
+		schedule_value = ope_content['scheduling']['duration']['value']
+		default = [(ope_ID, "start")] #Valeur par défaut: Toute fin d'opération dépend du début de l'opération (même si le début n'a pas de dépendence, afin de garantir qu'on parcours le graphe entier, condition pour que toutes les opérations soient résolues)
+		SC_graph[(ope_ID, "end")] = default
+		if schedule_nature not in ["delay", "duration"]:
+			if schedule_nature in ["before_any", "before_all"]:
+				cible = "start"
+			if schedule_nature in ["after_any", "after_all"]:
+				cible = "end"
+			SC_graph[(ope_ID, "end")] = list(set(default + [(parent, cible) for parent in schedule_value])) #NB bien inclure le default avant d'appliquer le set()
 
 	#MERGE ALL INTO A HANDLING ACTIVITIES SCENARIO
 	HAS = { #NB On pourrait remplacer par une classe
@@ -173,8 +176,7 @@ def wander_HAS(node_ID:tuple, HAS: dict)-> None:
 				"operation": node_ID[0],
 				"handling": {HAS['handling_description']["handling_ID"]: HAS['handling_description']},
 				"message": f"Issue for operation {node_ID[0]} (boundarie {node_ID[1]} call for the parent operation {parent_ID}, creating an infinit loop."
-			}
-				
+			}	
 			break
 		if parent_ID in HAS["unchecked"]:# Appel récursif sur les dépendences de l'opération
 			wander_HAS(parent_ID, HAS)
@@ -190,11 +192,12 @@ def wander_HAS(node_ID:tuple, HAS: dict)-> None:
 def resolve_node(node_ID:tuple, HAS: dict)-> None: #Cette fonction n'est qu'une isolation formelle du bloc de code
 	#INITIALIZATION
 	#	RETRIVE OPERATION DESCRIPTION FROM PORT
-	operation = next((operation
-		for operation in HAS['Operations_descriptions']
-		if operation["ID"] == node_ID[0]),
-		None
-	)
+	operation = HAS['Operations_descriptions'].get(node_ID[0]) #TODO mettre un get ?
+	# variante legacy next((operation
+	# 	for operation in HAS['Operations_descriptions']
+	# 	if ope_ID == node_ID[0]),
+	# 	None
+	# )
 
 	#	INSTANTIATE ACTIVITY IN HAS 
 	if node_ID[0] not in HAS['Activities']:
