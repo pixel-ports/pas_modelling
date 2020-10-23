@@ -74,7 +74,7 @@ def main(PAS_instance) :
 		# 	exec(f"import {module_i}")
 		# except Exception as error:
 		# 	LOGS.append(f"Failled to import: {module_i}.Error: {error}")
-		# 	export_local_output_file(logs=LOGS, pas=HANDLINGS, PAS_instance=PAS_instance)
+		# 	export_local_output_file(logs=LOGS, PAS=HANDLINGS, PAS_instance=PAS_instance)
 		# else:
 		# 	try:	
 		# 		HANDLINGS, PORT, LOGS, SETTINGS = eval(f"{module_i}.main(HANDLINGS, PORT, LOGS, SETTINGS, module_i)")
@@ -86,7 +86,7 @@ def main(PAS_instance) :
 	LOGS.append(f"==== main  ====")
 	LOGS.append(f"End of the run.")
 	print(f"PAS_builder ended, {len(HANDLINGS)} were processed end-to-end. See logs for details")
-	export_local_output_file(logs=LOGS, pas=HANDLINGS, PAS_instance=PAS_instance, abording= False) #FIXME debug
+	export_local_output_file(logs=LOGS, PAS=HANDLINGS, PAS_instance=PAS_instance, abording= False) #FIXME debug
 	print(f"=============================================================================")	
 	print(f"PAS modeling internal logs: {json.dumps(LOGS, indent=4, default=str)}")
 	sys.exit(0)
