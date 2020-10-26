@@ -1,9 +1,10 @@
 {
-	"input": [],
+	"input": [
+	],
 	"forceinput": [
 		{
 			"name": "settings",
-			"type": "set>unique_doc",
+			"type": "set>tree",
 			"value": {
 				"hits": {
 					"hits": [
@@ -593,45 +594,70 @@
 				}
 			}
 		}
-
 	],
 	"output": [
 		{
-			"name": "PAS",
-			"category": "local_export",
-			"type": "output>PAS",
+			"name": "atomic_handlings",
+			"category": "IH_export",
+			"type": "output>collection",
 			"options": [
 				{
-					"name": "export_path",
+					"name": "url",
 					"type": "string",
-					"description": "full path for file export",
-					"value": "./OUTPUT/PAS"
+					"description": "URL endpoint",
+					"pattern": "url",
+					"value": "http://elasticsearch:9200"
+				},
+				{
+					"name": "reqParams",
+					"type": "string",
+					"description": "request parameters (if any)",
+					"value": "?split=false"
+				},
+				{
+					"name": "recipientId",
+					"type": "string",
+					"description": "id of the datasource in the IH repo",
+					"value": "/pas_test_output_PAS/"
+				}
+			]
+		},
+		{
+			"name": "PAS_tree",
+			"category": "IH_export",
+			"type": "output>tree",
+			"options": [
+				{
+					"name": "url",
+					"type": "string",
+					"description": "URL endpoint",
+					"pattern": "url",
+					"value": "http://elasticsearch:9200"
+				},
+				{
+					"name": "reqParams",
+					"type": "string",
+					"description": "request parameters (if any)",
+					"value": "?split=false"
+				},
+				{
+					"name": "recipientId",
+					"type": "string",
+					"description": "id of the datasource in the IH repo",
+					"value": "/pas_test_output_PAS/"
 				}
 			]
 		},
 		{
 			"name": "internalLog",
-			"category": "local_export",
-			"type": "output>internalLog",
+			"category": "IH_export",
+			"type": "output>tree",
 			"options": [
 				{
 					"name": "export_path",
 					"type": "string",
 					"description": "full path for file export",
 					"value": "./OUTPUT/internalLog"
-				}
-			]
-		},
-		{
-			"name": "usedInputs",
-			"category": "local_export",
-			"type": "output>usedInputs",
-			"options": [
-				{
-					"name": "export_path",
-					"type": "string",
-					"description": "full path for file export",
-					"value": "./OUTPUT/usedInputs"
 				}
 			]
 		}

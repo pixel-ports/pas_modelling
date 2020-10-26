@@ -59,7 +59,7 @@ def extract_data_from_IH_response(input_:dict)-> dict:
 	if ">collection" in input_["type"]:
 		input_["data"] = {key:value for key, value in hits[0]["_source"]["data"].items()}
 			#[item["_source"]["data"] for item in hits]	
-	elif ">unique_doc" in input_["type"]:
+	elif ">tree" in input_["type"]:
 		input_["data"] = input_["data"] = hits[0]["_source"]["data"]#TODO ajouter un catch si plus que 1 items recus
 	elif ">list" in input_["type"]:
 		input_["data"] = [item["_source"]["data"]for item in hits]

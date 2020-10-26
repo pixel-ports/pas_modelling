@@ -5,6 +5,7 @@ import sys
 
 sys.path.insert(0, "./MODULES")
 import inputs_loader
+import outputs_exporter
 
 
 def main(PAS_instance:dict) :
@@ -13,7 +14,6 @@ def main(PAS_instance:dict) :
 	'''
 	#INITIALIZATION
 	LOGS = ["==== PAS modeling started  ===="]  #Array pr fils chronologique
-		# PAS_instance loading
 	log_message = None
 	try:
 		PAS_instance = json.loads(PAS_instance) 
@@ -22,53 +22,27 @@ def main(PAS_instance:dict) :
 		log_status = "failed"
 		log_message = error
 	LOGS.append(f"Loading current PAS instance: {log_status} (message: {log_message})")	
-		# inputs loading
 	HANDLINGS, PORT, LOGS, SETTINGS = inputs_loader.main(PAS_instance, LOGS)
  
 	# MODULES SEQUENCE APPLICATION TO PAS
-	for module_i in SETTINGS["pipeline"] :
+	for module_i in SETTINGS["pipeline"]:
 		# try : 
 		exec(f"import {module_i}")
-	# except Exception as error:
-	# 	LOGS.append(f"Failled to import: {module_i}.Error: {error}")
-	# 	export_local_output_file(logs=LOGS, PAS=HANDLINGS, PAS_instance=PAS_instance)
-	# else:
-# 	try:	
+		# except Exception as error:
+		# 	LOGS.append(f"Failled to import: {module_i}.Error: {error}")
+		# else:
+		# 	try:	
 		HANDLINGS, PORT, LOGS = eval(f"{module_i}.main(HANDLINGS, PORT, LOGS, SETTINGS[module_i], module_i)")
-# 	except Exception as error:
-# 		LOGS.append(f"Failled to run: {module_i}.Error: {error}")
-# 		export_local_output_file(logs=LOGS, PAS=HANDLINGS, PAS_instance=PAS_instance)
+		# 	except Exception as error:
+		# 		LOGS.append(f"Failled to run: {module_i}.Error: {error}")
 	
 	#CLOSSING
 	LOGS.append(f"==== ENDING  ====")
 	LOGS.append(f"End of the run. PAS modeling properly ended, {len(HANDLINGS)} were processed end-to-end. See logs for details")
-	export_local_output_file(logs=LOGS, PAS=HANDLINGS, PAS_instance=PAS_instance, abording= False) #FIXME debug
+	outputs_exporter.main(LOGS=LOGS, HANDLINGS=HANDLINGS, export_infos=PAS_instance["output"], abording=False, target='IH')#'local files')
 	print(LOGS)
 	sys.exit(0)
 #=========================================================================
-
-
-def export_local_output_file(logs, PAS=None, PAS_instance=None, abording=True):
-	if abording:
-		message = f"Crashed, last log: {logs[-1]}"
-		logs.append(message)
-		print(message)
-	logs.append(f"PAS outputs export to local files before closing")
-	folder = "./OUTPUTS/"
-	exports = {
-		"PAS": PAS,
-		"internalLog": logs,
-		"PAS_instance" : PAS_instance
-	}
-	for title, content in exports.items():
-		file_path = folder + title + ".json"
-		with open(file_path, 'w') as file:
-			json.dump(content, file, indent=4, default=str)
-		print(f"{title} exported in {file.name}")
-	print(f"\nClosing. Bye")
-	if abording:
-		sys.exit(1)
-
 # SHELL
 if __name__ == "__main__" :
 	parser = argparse.ArgumentParser(description="Process executable options.")
