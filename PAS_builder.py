@@ -84,11 +84,9 @@ def main(PAS_instance) :
 	
 #CLOSSING
 	LOGS.append(f"==== main  ====")
-	LOGS.append(f"End of the run.")
-	print(f"PAS_builder ended, {len(HANDLINGS)} were processed end-to-end. See logs for details")
+	LOGS.append(f"End of the run. PAS modeling properly ended, {len(HANDLINGS)} were processed end-to-end. See logs for details")
 	export_local_output_file(logs=LOGS, PAS=HANDLINGS, PAS_instance=PAS_instance, abording= False) #FIXME debug
-	print(f"=============================================================================")	
-	print(f"PAS modeling internal logs: {json.dumps(LOGS, indent=4, default=str)}")
+	print(LOGS)
 	sys.exit(0)
 #=========================================================================
 def get_IH_data(input_:dict)-> (bool, dict): #FIXME
@@ -107,8 +105,8 @@ def get_IH_data(input_:dict)-> (bool, dict): #FIXME
 
 def export_local_output_file(logs, PAS=None, PAS_instance=None, abording=True):
 	if abording:
-		print(f"\n\nCrashed, last log: {logs[-1]} ")
-	print(f"\n\nLocal PAS builder run detected, PAS outputs export to local files before closing")
+		logs.append(f"Crashed, last log: {logs[-1]} ")
+	logs.append(f"PAS outputs export to local files before closing")
 	folder = "./OUTPUTS/"
 	exports = {
 		"PAS": PAS,
@@ -119,8 +117,8 @@ def export_local_output_file(logs, PAS=None, PAS_instance=None, abording=True):
 		file_path = folder + title + ".json"
 		with open(file_path, 'w') as file:
 			json.dump(content, file, indent=4, default=str)
-		print(f"\n\n{title} exported in {file.name}")
-	print(f"\n\nClosing. Bye")
+		print(f"{title} exported in {file.name}")
+	print(f"\nClosing. Bye")
 	if abording:
 		sys.exit(1)
 
