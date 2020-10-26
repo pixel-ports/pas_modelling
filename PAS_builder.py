@@ -39,7 +39,7 @@ def main(PAS_instance:dict) :
 	#CLOSSING
 	LOGS.append(f"==== ENDING  ====")
 	LOGS.append(f"End of the run. PAS modeling properly ended, {len(HANDLINGS)} were processed end-to-end. See logs for details")
-	outputs_exporter.main(LOGS=LOGS, HANDLINGS=HANDLINGS, export_infos=PAS_instance["output"], abording=False, target='IH')#'local files')
+	outputs_exporter.main(LOGS=LOGS, HANDLINGS=HANDLINGS, export_infos=PAS_instance["output"], abording=False, target='local files') #'IH')#
 	print(LOGS)
 	sys.exit(0)
 #=========================================================================
