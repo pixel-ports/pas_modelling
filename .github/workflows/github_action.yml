@@ -7,7 +7,7 @@ on:
       - develop
 
 jobs:
-  execution test:
+  execution_test:
     runs-on: ubuntu-latest
 
     steps:
