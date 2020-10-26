@@ -3,7 +3,7 @@
 	"forceinput": [
 		{
 			"name": "settings",
-			"type": "set>tree",
+			"type": "set>unique_doc",
 			"value": {
 				"hits": {
 					"hits": [
@@ -50,7 +50,7 @@
 		},
 		{
 			"name": "vesselCalls",
-			"type": "vesselCall>collection",
+			"type": "vesselCall>list",
 			"value": {
 				"hits": {
 					"hits": [
