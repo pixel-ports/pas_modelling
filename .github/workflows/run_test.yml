@@ -1,10 +1,10 @@
-name: develop test
+name: local PAS_instance execution test
 
 on: 
   push:
     branches:
+      - master
       - develop
-      - feature/MaJ_tests 
 
 jobs:
   run_test:
@@ -25,6 +25,4 @@ jobs:
 
     - name: Run PAS_builder on local PAS_instance
       run: |
-        python3.8 PAS_builder.py \
-          --pipeline=local_PAS_instance \
-          --OT_input=local_PAS_instance
+        python3.8 PAS_builder.py
