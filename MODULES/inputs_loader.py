@@ -4,67 +4,39 @@ from elasticsearch import Elasticsearch
 
 def main(PAS_instance, LOGS):
 	LOGS = ["==== Load inputs ===="]
-	raw_inputs = {}
-	proper_inputs = {}
-	#COLLECT RAW INPUT FROM IH
-	for pas_instance_input in PAS_instance.get('input', []):
-		raw_inputs.update({pas_instance_input["name"]:send_IH_request(pas_instance_input)})
-	#COLLECT RAW INPUT FROM FORCEINPUT
-	for pas_instance_input in PAS_instance.get('forceinput', []): #On le place en second car forceinput est prioritaire (doit écraser en cas de doublon)
-		raw_inputs.update({pas_instance_input["name"]:pas_instance_input})
-	#CONVERT RAW INPUTS TO INPUT 
-	proper_inputs = {input_name: extract_data_from_IH_response(input_content) for input_name, input_content in raw_inputs.items()}
-	#INPUTS ASSIGNMENTS
-	SETTINGS = proper_inputs.pop("settings").get("data")
-	HANDLINGS = proper_inputs.pop("vesselCalls").get("data")
+	#COLLECT INPUTS
+	inputs = {}
+	for ih_input in PAS_instance.get('input', []):
+		inputs.update({ih_input["name"]:get_IH_input(ih_input)})
+	for forced_input in PAS_instance.get('forceinput', []): #On le place en second car forceinput est prioritaire (doit écraser en cas de doublon)
+		inputs.update({forced_input["name"]:forced_input["value"]})
+	#DISPATCH INPUTS
+	SETTINGS = inputs.pop("settings").get("value")
+	HANDLINGS = inputs.pop("vesselCalls").get("value")
 	PORT = {}
-	for para_name, para_content in proper_inputs.items():
-		if para_content['type'][0:3]=="PP>":
-			PORT.update({para_name:{key:val for key,val in para_content["data"].items()}})
-
-	
-	return HANDLINGS, PORT, LOGS, SETTINGS
+	for para_name, para_content in inputs.items():
+		PORT.update({para_name:{key:val for key,val in para_content["value"].items()}})
+	#ENDING
+	return HANDLINGS, PORT, LOGS
 #========================================================================= 
-def send_IH_request(pas_instance_input:dict)-> dict: #FIXME
+def get_IH_input(ih_input:dict)-> dict:
 	#INITIALIZATION: REQUEST'S PARAMETERS
-	es = Elasticsearch(	next(option['value'] for option in pas_instance_input['options'] if option['name'] == "url")) #devrait avoir un len de 1
-	index = 			next(option['value'] for option in pas_instance_input['options'] if option['name'] == "sourceId")
-	#aditional_parameters = next(option.get['value'] for option in input_component['options'] if option['name'] == "reqParams") #Options prÃ©sente dans CERTAINS PAS_instance.json, mais pas tous
-	start_TS = 			next((option['value'] for option in pas_instance_input['options'] if option['name'] == "start"), None) 
-	end_TS = 			next((option['value'] for option in pas_instance_input['options'] if option['name'] == "end"), None)
-	# Argument supplémentaire pour les vesselCalls
-	if start_TS == None or end_TS == None:
-		subbody = {
-			'match_all': {}
-		}
-	else:
-		subbody = {
-			'range': {
-				'timestamp' : {
-					'gte' : start_TS,
-					'lte' : end_TS
-				}
-			}
-		}
-	#SENT REQUEST
-	answer_hits = es.search(
-		index=index, 
-		body= {'query': subbody}
-	)
-	
-	return answer_hits
-
-def extract_data_from_IH_response(input_:dict)-> dict:
-	hits = input_['value']['hits']['hits']
-	if ">collection" in input_["type"]:
-		input_["data"] = {key:value for key, value in hits[0]["_source"]["data"].items()}
-			#[item["_source"]["data"] for item in hits]	
-	elif ">tree" in input_["type"]:
-		input_["data"] = input_["data"] = hits[0]["_source"]["data"]#TODO ajouter un catch si plus que 1 items recus
-	elif ">list" in input_["type"]:
-		input_["data"] = [item["_source"]["data"]for item in hits]
-	del input_["value"] #NB on peut aussi passer par .pop en lors de l'assignation à hit
-	# else:
-	# 	pass #TODO ajouter une levée d'erreur pour cas non reconnu
-
-	return input_
+	es_arg = {option["name"]:option["value"] for option in ih_input["options"]}
+	start_TS = es_arg.get("start", None)
+	end_TS = es_arg.get("end", None)
+	query = {'query': {'match_all': {}}}
+	if None not in [start_TS, end_TS]:
+		query = {'query': {'range': {'data.scheduled_arrival_dock': {'gte' : start_TS,'lte' : end_TS}}}}
+	#SENT REQUEST #FIXME ajouter gestion des timeout
+	answer_hits = Elasticsearch(es_arg["url"]).search(
+		index= es_arg["index"], 
+		body= query
+	)#["hits"]["hits"]
+	#EXTRACT DATA
+	if ih_input["format"] == "collection":
+		ih_input["value"] = {key:value for document in answer_hits for key, value in document["_source"]["data"].items()}
+	elif ih_input["format"] == "tree":
+		ih_input["value"] = answer_hits[0]["_source"]["data"]#TODO ajouter un catch si plus que 1 items recus
+	elif ih_input["format"] == "list":
+		ih_input["value"] = [item["_source"]["data"]for item in answer_hits]
+	return ih_input["value"]
