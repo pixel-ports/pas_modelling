@@ -13,7 +13,7 @@ def main(PAS_instance:dict) :
 	Pour le pipeline passé en argument, appelle successivement les différents modules, leurs passant successivement l'objet "PAS" qui contient l'entièreté des données afférente au scénario.
 	'''
 	#INITIALIZATION
-	LOGS = ["==== PAS modeling started  ===="]  #Array pr fils chronologique
+	LOGS = ["==== PAS modeling started  ===="]  #Array pr fils chronologique FIXME repartir sur le dict, avec text par module, mais aussi un champs "discarted handlings" etc
 	log_message = None
 	try:
 		PAS_instance = json.loads(PAS_instance) 
@@ -40,14 +40,17 @@ def main(PAS_instance:dict) :
 	LOGS.append(f"==== ENDING  ====")
 	LOGS.append(f"End of the run. PAS modeling properly ended, {len(HANDLINGS)} were processed end-to-end. See logs for details")
 	outputs_exporter.main(LOGS=LOGS, HANDLINGS=HANDLINGS, export_infos=PAS_instance["output"], abording=False, target='local files') #'IH')#
-	print(LOGS)
+	for item in LOGS:
+		print(item)
 	sys.exit(0)
 #=========================================================================
 # SHELL
 if __name__ == "__main__" :
 	parser = argparse.ArgumentParser(description="Process executable options.")
 	#Lecture du fichier local comme valeur par défaut
-	with open("./PAS_instance.json" ) as file :
+	#path = "/home/erwan/Dropbox (CATIE)/PIXEL/PAS_stuff/PAS_instance full forceinput.json" 
+	path ="./DOCKERISE/PAS_instance.json"
+	with open(path) as file :
 		local_PAS_instance = json.dumps(json.load(file))
 	parser.add_argument(
 		"-r", "--PAS_instance",

@@ -1,0 +1,526 @@
+{
+	"input": [
+		{
+			"name": "settings",
+			"type": "setting",
+			"format": "tree",
+			"options": [
+				{
+					"name": "url",
+					"type": "string",
+					"description": "URL endpoint",
+					"pattern": "url",
+					"value": "http://127.0.0.1:9200/"
+				},
+				{
+					"name": "reqParams",
+					"type": "string",
+					"description": "request parameters (if any)",
+					"value": "?split=false"
+				},
+				{
+					"name": "index",
+					"type": "string",
+					"description": "id of the datasource in the IH repo",
+					"value": "pas_test_input_settings"
+				}
+			]
+		},
+		{
+			"name": "vesselCalls",
+			"type": "vesselCall",
+			"format": "list",
+			"category": "ih-api",
+			"options": [
+				{
+					"name": "url",
+					"type": "string",
+					"description": "URL endpoint",
+					"pattern": "url",
+					"value": "http://127.0.0.1:9200/"
+				},
+				{
+					"name": "reqParams",
+					"type": "string",
+					"description": "request parameters (if any)",
+					"value": "?split=false"
+				},
+				{
+					"name": "index",
+					"type": "string",
+					"description": "id of the datasource in the IH repo",
+					"value": "pas_test_input_vesselcalls"
+				},
+				{
+					"name": "query",
+					"type": "string",
+					"description": "ES query parameter (range, match_all...",
+					"value": "{'range': {'data.scheduled_arrival_dock' : {'gte' : 1500000000000,'lte' : 1700000000000}}}"
+				},
+				{
+					"name": "start",
+					"type": "datetime (Unix time)",
+					"description": "start of calculation period",
+					"value": 1540000000
+				},
+				{
+					"name": "end",
+					"type": "datetime (Unix Time)",
+					"description": "end of calculation period",
+					"value": 158000000
+				}
+			]
+		}
+	],
+	"forceinput": [
+		{
+			"name": "contentType",
+			"type": "PP",
+			"format": "collection",
+			"value": {
+				"ct_1": {
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_nature": "cargo",
+					"content_category": "solid_bulk",
+					"unit": "Tons",
+					"suitable_assignations": [
+						{
+							"SC_ID": "sc_1",
+							"restrictions": {
+								"direction": [
+									"loading",
+									"unloading"
+								],
+								"dock": [
+									"dock_1"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				},
+				"ct_2": {
+					"label": "Some label",
+					"comment": "Some comment",
+					"handling_nature": "cargo",
+					"content_category": "liquid_bulk",
+					"unit": "m3",
+					"suitable_assignations": [
+						{
+							"SC_ID": "sc_1",
+							"restrictions": {
+								"direction": [
+									"loading"
+								],
+								"dock": [
+									"dock_2"
+								],
+								"amount_min": 1000,
+								"amount_max": 50000
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "assignments",
+			"type": "PP",
+			"format": "collection",
+			"value": {
+				"ass_1": {
+					"info": {
+						"label": "one for all",
+						"description": "Assign all handlings (no condition) to SC_1",
+						"tags": [
+							"test"
+						],
+						"comments": [
+							"Just for test purpose"
+						]
+					},
+					"sc_IDs": [
+						"sc_1"
+					],
+					"handling_profils": [
+						{
+							"terminals": null,
+							"categories": null,
+							"types": null,
+							"directions": null,
+							"ship": {
+								"ids": null,
+								"categories": null,
+								"capacity": {
+									"min": null,
+									"max": null
+								}
+							},
+							"docks": null,
+							"operators": null,
+							"content": {
+								"agents": null,
+								"amount_max": null,
+								"amount_min": null,
+								"dangerous": false,
+								"categories": null,
+								"types": null
+							}
+						}
+					]
+				},
+				"ass_2": {
+					"info": {
+						"label": "some label",
+						"description": "some description",
+						"tags": [
+							"some tag"
+						],
+						"comments": [
+							"some comment"
+						]
+					},
+					"sc_IDs": [
+						"sc_1"
+					],
+					"handling_profils": [
+						{
+							"terminals": null,
+							"categories": null,
+							"types": null,
+							"directions": null,
+							"ship": {
+								"ids": null,
+								"categories": null,
+								"capacity": {
+									"min": null,
+									"max": null
+								}
+							},
+							"docks": null,
+							"operators": null,
+							"content": {
+								"agents": null,
+								"amount_max": null,
+								"amount_min": null,
+								"dangerous": false,
+								"categories": null,
+								"types": null
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "supplychains",
+			"type": "PP",
+			"format": "collection",
+			"value": {
+				"sc_1": {
+					"info": {
+						"label": "some label",
+						"description": "some description",
+						"tags": [
+							"some tag"
+						],
+						"comments": [
+							"some comment"
+						]
+					},
+					"owner": "some owner",
+					"terminal": "some terminal",
+					"operations": {
+						"op_1": {
+							"info": {
+								"label": "some label",
+								"description": "some description",
+								"tags": [
+									"some tag"
+								],
+								"comments": [
+									"some comment"
+								]
+							},
+							"scheduling": {
+								"start": {
+									"nature": "delay",
+									"value": 0
+								},
+								"duration": {
+									"nature": "delay",
+									"value": 20
+								}
+							},
+							"ressources_uses": {
+								"ressources_IDs": [
+									"res_1"
+								],
+								"nature": "parallel"
+							}
+						},
+						"op_2": {
+							"info": {
+								"label": "some label",
+								"description": "some description",
+								"tags": [
+									"some tag"
+								],
+								"comments": [
+									"some comment"
+								]
+							},
+							"scheduling": {
+								"start": {
+									"nature": "delay",
+									"value": 0
+								},
+								"duration": {
+									"nature": "delay",
+									"value": 20
+								}
+							},
+							"ressources_uses": {
+								"ressources_IDs": [
+									"res_1"
+								],
+								"nature": "parallel"
+							}
+						}
+					}
+				},
+				"sc_2": {
+					"info": {
+						"label": "some label",
+						"description": "some description",
+						"tags": [
+							"some tag"
+						],
+						"comments": [
+							"some comment"
+						]
+					},
+					"owner": "some owner",
+					"terminal": "some terminal",
+					"operations": [
+						{
+							"op_1": {
+								"info": {
+									"label": "some label",
+									"description": "some description",
+									"tags": [
+										"some tag"
+									],
+									"comments": [
+										"some comment"
+									]
+								},
+								"scheduling": {
+									"start": {
+										"nature": "delay",
+										"value": 0
+									},
+									"duration": {
+										"nature": "delay",
+										"value": 20
+									}
+								},
+								"ressources_uses": {
+									"ressources_IDs": [
+										"res_1"
+									],
+									"nature": "parallel"
+								}
+							}
+						},
+						{
+							"op_2": {
+								"info": {
+									"label": "some label",
+									"description": "some description",
+									"tags": [
+										"some tag"
+									],
+									"comments": [
+										"some comment"
+									]
+								},
+								"scheduling": {
+									"start": {
+										"nature": "delay",
+										"value": 0
+									},
+									"duration": {
+										"nature": "delay",
+										"value": 20
+									}
+								},
+								"ressources_uses": {
+									"ressources_IDs": [
+										"res_1"
+									],
+									"nature": "parallel"
+								}
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"name": "resources",
+			"type": "PP",
+			"format": "collection",
+			"value": {
+				"res_1": {
+					"info": {
+						"label": "some label",
+						"description": "some description",
+						"tags": [
+							"some tag"
+						],
+						"comments": [
+							"some comment"
+						]
+					},
+					"nature": "machine",
+					"category": "stacker",
+					"type": "RZ1000+ series",
+					"owner": "",
+					"terminal": "",
+					"timetable_ID": "tim_1",
+					"throughput": {
+						"default": {
+							"Value": 1000,
+							"Unit": "t/h"
+						},
+						"some_content_type": {
+							"Value": 2000,
+							"Unit": "t/h"
+						}
+					},
+					"consumptions": {
+						"diesel": {
+							"value": 18,
+							"unit": "l/h"
+						}
+					},
+					"emissions": {
+						"pol_1": {
+							"Value": 20,
+							"Unit": "mg/l"
+						},
+						"pol_2": {
+							"Value": 13,
+							"Unit": "mg/l"
+						}
+					}
+				}
+			}
+		},
+		{
+			"name": "energies",
+			"type": "PP",
+			"format": "collection",
+			"value": {
+				"diesel": {
+					"info": {
+						"label": "some label",
+						"description": "some description",
+						"tags": [
+							"some tag"
+						],
+						"comments": [
+							"some comment"
+						]
+					},
+					"nature": "fossil_fuel",
+					"category": "some category",
+					"type": "some type",
+					"emissionFactors": {
+						"pol_1": {
+							"Value": 20,
+							"Unit": "mg/l"
+						},
+						"pol_2": {
+							"Value": 13,
+							"Unit": "mg/l"
+						}
+					}
+				}
+			}
+		}
+	],
+	"output": [
+		{
+			"name": "atomic_handlings",
+			"category": "IH_export",
+			"type": "output",
+			"format": "collection",
+			"options": [
+				{
+					"name": "url",
+					"type": "string",
+					"description": "URL endpoint",
+					"pattern": "url",
+					"value": "http://elasticsearch:9200"
+				},
+				{
+					"name": "reqParams",
+					"type": "string",
+					"description": "request parameters (if any)",
+					"value": "?split=false"
+				},
+				{
+					"name": "recipientId",
+					"type": "string",
+					"description": "id of the datasource in the IH repo",
+					"value": "/pas_test_output_PAS/"
+				}
+			]
+		},
+		{
+			"name": "PAS_tree",
+			"category": "IH_export",
+			"type": "output",
+			"format": "tree",
+			"options": [
+				{
+					"name": "url",
+					"type": "string",
+					"description": "URL endpoint",
+					"pattern": "url",
+					"value": "http://elasticsearch:9200"
+				},
+				{
+					"name": "reqParams",
+					"type": "string",
+					"description": "request parameters (if any)",
+					"value": "?split=false"
+				},
+				{
+					"name": "recipientId",
+					"type": "string",
+					"description": "id of the datasource in the IH repo",
+					"value": "/pas_test_output_PAS/"
+				}
+			]
+		},
+		{
+			"name": "internalLog",
+			"category": "IH_export",
+			"type": "output",
+			"format": "tree",
+			"options": [
+				{
+					"name": "export_path",
+					"type": "string",
+					"description": "full path for file export",
+					"value": "./OUTPUT/internalLog"
+				}
+			]
+		}
+	]
+}
