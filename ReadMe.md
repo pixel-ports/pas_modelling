@@ -36,5 +36,5 @@ The model can be use by itself (considering it receive a proper PAS_instance) bu
 
 ```bash
 docker build -t pas_model .
-docker run --env-file .env -v pas_model python3 main.py --PAS_instance {PAS instance content}
+docker run pas_model python3 main.py  # --PAS_instance {PAS instance content}
 ```
