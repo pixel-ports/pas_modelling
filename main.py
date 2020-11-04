@@ -22,7 +22,7 @@ def main(PAS_instance:dict) :
 		log_status = "failed"
 		log_message = error
 	LOGS.append(f"Loading current PAS instance: {log_status} (message: {log_message})")	
-	HANDLINGS, PORT, LOGS, SETTINGS = inputs_loader.main(PAS_instance, LOGS)
+	SETTINGS, HANDLINGS, PORT, LOGS = inputs_loader.main(PAS_instance, LOGS)
  
 	# MODULES SEQUENCE APPLICATION TO PAS
 	for module_i in SETTINGS["pipeline"]:
@@ -38,8 +38,9 @@ def main(PAS_instance:dict) :
 	
 	#CLOSSING
 	LOGS.append(f"==== ENDING  ====")
-	LOGS.append(f"End of the run. PAS modeling properly ended, {len(HANDLINGS)} were processed end-to-end. See logs for details")
-	outputs_exporter.main(LOGS=LOGS, HANDLINGS=HANDLINGS, export_infos=PAS_instance["output"], abording=False, target='local files') #'IH')#
+	LOGS.append(f"End of the run. PAS properly generated, {len(HANDLINGS)} were processed end-to-end. See logs for details")
+	LOGS.append(f"Exporting outputs to Information Hub")
+	LOGS.append(outputs_exporter.main(export_infos=PAS_instance["output"], LOGS=LOGS, HANDLINGS=HANDLINGS))
 	for item in LOGS:
 		print(item)
 	sys.exit(0)
@@ -48,7 +49,6 @@ def main(PAS_instance:dict) :
 if __name__ == "__main__" :
 	parser = argparse.ArgumentParser(description="Process executable options.")
 	#Lecture du fichier local comme valeur par défaut
-	#path = "/home/erwan/Dropbox (CATIE)/PIXEL/PAS_stuff/PAS_instance full forceinput.json" 
 	path ="./DOCKERISE/PAS_instance.json"
 	with open(path) as file :
 		local_PAS_instance = json.dumps(json.load(file))
