@@ -9,15 +9,16 @@ def main(PAS_instance, LOGS):
 	for ih_input in PAS_instance.get('input', []):
 		inputs.update({ih_input["name"]:get_IH_input(ih_input)})
 	for forced_input in PAS_instance.get('forceinput', []): #On le place en second car forceinput est prioritaire (doit écraser en cas de doublon)
-		inputs.update({forced_input["name"]:forced_input["value"]})
+		inputs.update({forced_input["name"]:forced_input})
 	#DISPATCH INPUTS
 	SETTINGS = inputs.pop("settings").get("value")
 	HANDLINGS = inputs.pop("vesselCalls").get("value")
-	PORT = {}
+	PORT = {} #TODO ne pas s'appuyer sur prendre tous après les pop, mais bien filtrer sur PP
 	for para_name, para_content in inputs.items():
-		PORT.update({para_name:{key:val for key,val in para_content["value"].items()}})
+		if para_content["type"] == "PortParameter":
+			PORT.update({para_name:{key:val for key,val in para_content["value"].items()}})
 	#ENDING
-	return HANDLINGS, PORT, LOGS
+	return SETTINGS, HANDLINGS, PORT, LOGS 
 #========================================================================= 
 def get_IH_input(ih_input:dict)-> dict:
 	#INITIALIZATION: REQUEST'S PARAMETERS
