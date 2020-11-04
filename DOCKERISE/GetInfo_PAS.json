@@ -1,19 +1,19 @@
 {
 	"id": "unknown",
 	"name": "PAS_model",
-	"version": "RC1.0",
+	"version": "RC4.0",
 	"description": "Port Activities Scenario model from CATIE.",
 	"supportSubscription": false,
 	"supportExecSync": false,
 	"supportExecAsync": true,
 	"type": "model",
-	"category": ["PAS builder", "energy consumptions", "pollutant emissions"],
+	"category": "PAS model",
 	"system": {
 		"connectors": [{
 				"type": "ih-api",
 				"description": "this connector provides info of the necessary parameters to be able to request the IH via HTTP",
 				"options": [{
-						"name": "url",
+						"name": "ES_api_url",
 						"type": "string",
 						"description": "",
 						"required": true
@@ -30,25 +30,19 @@
 					}
 				]
 			}
-		],
-		"transform": {
-			"supportedTransformation": [{
-					"name": "transformer1",
-					"convertFrom": "vessel-calls-format",
-					"convertTo": "PAS-vessel-calls-format"
-				}
-			]
-		}
+		]
 	},
 	"input": [
 		{
 			"name": "settings",
 			"type": "settings",
+			"format": "test",
 			"supportedConnectors": ["ih-api"],
-			"description": "Optional (default is provided). Settings for the PAS_model to produce a PAS. Used for components selection (PAS builder and outcome modules as energy consumption and pollutant emissions) with the corresponding settings",
+			"description": "Settings for the PAS_model to produce a PAS. Used for components selection (PAS builder and outcome modules as energy consumption and pollutant emissions) with the corresponding settings",
 			"metadata:": {
 				"usage": "optional, future use or extra logic for each model, no specific structure"
 			},
+			"required":true,
 			"options": [{
 					"name": "sourceId",
 					"type": "string",
@@ -57,8 +51,9 @@
 			]
 		},
 		{
-			"name": "vesselCalls_collection",
+			"name": "vesselCalls",
 			"type": "PAS-vessel-calls-format",
+			"format": "index",
 			"supportedConnectors": ["ih-api"],
 			"description": "Required. List of vessels stopover in terminal that will require to be handled. Each one is converter to one or more handlings (e.g. if unloading then loading): Vessel-calls (1 --> N) Handlings",
 			"metadata:": {
