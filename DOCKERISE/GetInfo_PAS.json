@@ -2,27 +2,32 @@
 	"id": "unknown",
 	"name": "PAS_model",
 	"version": "RC4.0",
-	"description": "Port Activities Scenario model from CATIE.",
+	"description": "Port Activities Scenario model.",
 	"supportSubscription": false,
 	"supportExecSync": false,
 	"supportExecAsync": true,
 	"type": "model",
 	"category": "PAS model",
 	"system": {
-		"connectors": [{
+		"connectors": [
+			{
 				"type": "ih-api",
 				"description": "this connector provides info of the necessary parameters to be able to request the IH via HTTP",
-				"options": [{
+				"options": [
+					{
 						"name": "ES_api_url",
 						"type": "string",
 						"description": "",
+						"pattern": "url",
 						"required": true
-					}, {
+					},
+					{
 						"name": "reqParams",
 						"type": "string",
 						"description": "request parameters (if any)",
 						"required": false
-					}, {
+					},
+					{
 						"name": "headers",
 						"type": "headersObject",
 						"description": "necessary headers (if any)",
@@ -36,15 +41,23 @@
 		{
 			"name": "settings",
 			"type": "settings",
-			"format": "test",
-			"supportedConnectors": ["ih-api"],
+			"format": "unique_document",
+			"supportedConnectors": [
+				"ih-api"
+			],
 			"description": "Settings for the PAS_model to produce a PAS. Used for components selection (PAS builder and outcome modules as energy consumption and pollutant emissions) with the corresponding settings",
 			"metadata:": {
 				"usage": "optional, future use or extra logic for each model, no specific structure"
 			},
-			"required":true,
-			"options": [{
-					"name": "sourceId",
+			"required": true,
+			"options": [
+				{
+					"name": "index_id",
+					"type": "string",
+					"description": "id of the datasource in the IH repo"
+				},
+				{
+					"name": "document_id",
 					"type": "string",
 					"description": "id of the datasource in the IH repo"
 				}
@@ -52,82 +65,128 @@
 		},
 		{
 			"name": "vesselCalls",
-			"type": "PAS-vessel-calls-format",
-			"format": "index",
-			"supportedConnectors": ["ih-api"],
+			"type": "vesselCalls",
+			"format": "array_of_documents",
+			"required": true,
+			"supportedConnectors": [
+				"ih-api"
+			],
 			"description": "Required. List of vessels stopover in terminal that will require to be handled. Each one is converter to one or more handlings (e.g. if unloading then loading): Vessel-calls (1 --> N) Handlings",
 			"metadata:": {
 				"usage": "optional, future use or extra logic for each model, no specific structure"
 			},
-			"options": [{
-					"name": "sourceId",
+			"options": [
+				{
+					"name": "index_id",
 					"type": "string",
 					"description": "id of the datasource in the IH repo"
-				}, {
+				},
+				{
 					"name": "start",
 					"type": "datetime (Unix time)",
 					"description": "start of calculation period"
-				}, {
+				},
+				{
 					"name": "end",
 					"type": "datetime (Unix Time)",
 					"description": "end of calculation period"
 				}
 			]
-		}, 
+		},
 		{
-			"name": "assignments_collection",
-			"type": "PP>assignments",
-			"supportedConnectors": ["ih-api"],
-			"description": "Required. List of handling profile assignment to a supplychain. Each assignment object assign a handlings with specified characteristics to a specific supply-chain (or to a preferentially ordered list of supply-chains). Used for handling assignation to a supplychain: Handling (1 --> 1) Supplychain",
+			"name": "contentTypes",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
+			"required": true,
+			"supportedConnectors": [
+				"ih-api"
+			],
+			"description": "Used for handling assignation to a supplychain: Handling (1 --> 1) Supplychain",
 			"metadata:": {
 				"usage": "optional, future use or extra logic for each model, no specific structure"
 			},
-			"options": [{
-					"name": "sourceId",
+			"options": [
+				{
+					"name": "index_id",
 					"type": "string",
 					"description": "id of the datasource in the IH repo"
 				}
 			]
 		},
 		{
-			"name": "supplychains_collection",
-			"type": "PP>supplychains",
-			"supportedConnectors": ["ih-api"],
+			"name": "supplychains",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
+			"required": true,
+			"supportedConnectors": [
+				"ih-api"
+			],
 			"description": "Required. List of available supply-chains (sequence of operations) for handling a vessel's content. Used for resources allocation: Supply-chain (1 --> N) Operations",
 			"metadata:": {
 				"usage": "optional, future use or extra logic for each model, no specific structure"
 			},
-			"options": [{
-					"name": "sourceId",
+			"options": [
+				{
+					"name": "index_id",
 					"type": "string",
 					"description": "id of the datasource in the IH repo"
 				}
 			]
-		}, 
+		},
 		{
-			"name": "resources_collection",
-			"type": "PP>resources",
-			"supportedConnectors": ["ih-api"],
+			"name": "resources",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
+			"required": true,
+			"supportedConnectors": [
+				"ih-api"
+			],
 			"description": "Required. List of available resources (machines, areas etc) for supply-chain's operations. Used by PAS_builder for use calculation (scheduling) and by outcome modules (energy consumption, pollutant emission): Resource (1 --> N) Operations",
 			"metadata:": {
 				"usage": "optional, future use or extra logic for each model, no specific structure"
 			},
-			"options": [{
-					"name": "sourceId",
+			"options": [
+				{
+					"name": "index_id",
 					"type": "string",
 					"description": "id of the datasource in the IH repo"
 				}
 			]
-		}, 
+		},
 		{
-			"name": "timetables_collection",
-			"type": "PP>timetables",
-			"supportedConnectors": ["ih-api"],
+			"name": "energies",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
+			"required": true,
+			"supportedConnectors": [
+				"ih-api"
+			],
+			"description": "#TODO",
+			"metadata:": {
+				"usage": "optional, future use or extra logic for each model, no specific structure"
+			},
+			"options": [
+				{
+					"name": "index_id",
+					"type": "string",
+					"description": "id of the datasource in the IH repo"
+				}
+			]
+		},
+		{
+			"name": "timetables",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
+			"required": false,
+			"supportedConnectors": [
+				"ih-api"
+			],
 			"description": "Optional. List of available timetables (working days & hours) for resources. Used by PAS_builder for use calculation (scheduling): Timetable (1 --> N) Resources",
 			"metadata:": {
 				"usage": "optional, future use or extra logic for each model, no specific structure"
 			},
-			"options": [{
+			"options": [
+				{
 					"name": "sourceId",
 					"type": "string",
 					"description": "id of the datasource in the IH repo"
@@ -136,13 +195,18 @@
 		},
 		{
 			"name": "priority_tree",
-			"type": "PP>priority",
-			"supportedConnectors": ["ih-api"],
+			"type": "PortParameter",
+			"format": "unique_document",
+			"required": false,
+			"supportedConnectors": [
+				"ih-api"
+			],
 			"description": "Optional. Hierarchical sequence of vessel-call attributes defining the handling's priority. Used to resolve resources allocation priority (in case of competition for access to a resource in the same time)",
 			"metadata:": {
 				"usage": "optional, future use or extra logic for each model, no specific structure"
 			},
-			"options": [{
+			"options": [
+				{
 					"name": "sourceId",
 					"type": "string",
 					"description": "id of the datasource in the IH repo"
@@ -152,61 +216,38 @@
 	],
 	"output": [
 		{
-			"name": "PAS",
-			"supportedConnectors": ["ih-api"],
-			"type": "output>PAS",
-			"description": "Port's Activities Scenario: for each terminal, and then each ship, and then each stopover, and then each handling, the corresponding activities. For each of those activities, a scheduling and a list of used resources. Depending on outcome modules, information can be added for each of those resources, as a list of energy consumptions, pollutant emission etc.",
-			"metadata:": {
-				"usage": "optional, future use or extra logic for each model, no specific structure"
-			},
-			"options": [{
-					"name": "sourceId",
+			"name": "handlings",
+			"type": "result",
+			"format": "unique_document",
+			"required":true,
+			"options": [
+				{
+					"name": "index_id",
 					"type": "string",
-					"description": "id to store the result in the IH repo"
+					"description": "id of the datasource in the IH repo"
+				},
+				{
+					"name": "document_id",
+					"type": "string",
+					"description": "id of the datasource in the IH repo"
 				}
 			]
-		},{
-		"name": "internalLog",
-			"supportedConnectors": ["ih-api"],
-			"type": "output>internalLog",
-			"description": "PAS model's internal log. Useful to enlighten the provided PAS and spot issues (discarded handlings etc)",
-			"metadata:": {
-				"usage": "optional, future use or extra logic for each model, no specific structure"
-			},
-			"options": [{
-					"name": "sourceId",
+		},
+		{
+			"name": "logs",
+			"type": "context",
+			"format": "unique_document",
+			"required":true,
+			"options": [
+				{
+					"name": "index_id",
 					"type": "string",
-					"description": "id to store the result in the IH repo"
-				}
-			]
-		},{
-		"name": "usedInputs",
-			"supportedConnectors": ["ih-api"],
-			"type": "output>usedInputs",
-			"description": "The used inputs to produce the PAS (settings, vessel-calls, port's parameters). Instead of duplicate data, a simple copy of the PAS_instance that was passed to the PAS_model (therefore, the url in the IH of the documents instead of the documents content",
-			"metadata:": {
-				"usage": "optional, future use or extra logic for each model, no specific structure"
-			},
-			"options": [{
-					"name": "sourceId",
+					"description": "id of the datasource in the IH repo"
+				},
+				{
+					"name": "document_id",
 					"type": "string",
-					"description": "id to store the result in the IH repo"
-				}
-			]
-		}
-	],
-	"logging": [{
-			"name": "PAS-builder_Platform-logging",
-			"supportedConnectors": ["ih-api"],
-			"type": "default-logging-format (FIWARE datamodel or not, TBD)",
-			"description": "activity logging for the energy-consumption model. id_execution is given by the OT at invocation time",
-			"metadata:": {
-				"usage": "optional, future use or extra logic for each model, no specific structure"
-			},
-			"options": [{
-					"name": "sourceId",
-					"type": "string",
-					"description": "id to store the log activity in the IH repo"
+					"description": "id of the datasource in the IH repo"
 				}
 			]
 		}

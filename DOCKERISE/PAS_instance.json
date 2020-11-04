@@ -1,80 +1,135 @@
 {
 	"input": [
+	],
+	"forceinput": [
 		{
 			"name": "settings",
-			"type": "setting",
-			"format": "raw_document",
-			"options": [
-				{
-					"name": "ES_api_url",
-					"type": "string",
-					"description": "URL endpoint",
-					"pattern": "url",
-					"value": "http://127.0.0.1:9200/"
+			"type": "settings",
+			"format": "unique_document",
+			"value": {
+				"pipeline": [
+					"handling_converter",
+					"supplychain_assignation",
+					"operations_planning",
+					"energies_consumptions",
+					"pollutant_emissions"
+				],
+				"IH_requester": {},
+				"handling_converter": {
+					"filters": {
+						"content_amount": true,
+						"content_type": true,
+						"handling_direction": true,
+						"handling_dock": true,
+						"stopover_ETA": true,
+						"ET_consistency": true
+					}
 				},
-				{
-					"name": "reqParams",
-					"type": "string",
-					"description": "request parameters (if any)",
-					"value": "?split=false"
+				"supplychain_assignation": {
+					"restrictions": {
+						"direction": true,
+						"dock": true,
+						"amount_min": true,
+						"amount_max": true
+					},
+					"default_SC": false,
+					"discart_unassigned": true
 				},
-				{
-					"name": "index_id",
-					"type": "string",
-					"description": "id of the datasource in the IH repo",
-					"value": "pas_test_input_vesselcalls"
-				},
-				{
-					"name": "document_id",
-					"type": "string",
-					"description": "id of the datasource in the IH repo",
-					"value": "pas_test_input_settings"
-				}
-			]
+				"operations_planning": {},
+				"energies_consumptions": {},
+				"pollutant_emissions": {}
+			}
 		},
 		{
 			"name": "vesselCalls",
 			"type": "vesselCall",
 			"format": "array_of_documents",
-			"category": "ih-api",
-			"options": [
+			"value": [
 				{
-					"name": "ES_api_url",
-					"type": "string",
-					"description": "URL endpoint",
-					"pattern": "url",
-					"value": "http://127.0.0.1:9200/"
+					"arrival_dock": 1514790000000,
+					"dataProvider": "http://FR_BAS/vcall",
+					"departure_dock": 1514977200000,
+					"IMO": "déchargement_simple",
+					"journeyid": 20180001,
+					"loading_agent": "",
+					"loading_berth": "",
+					"loading_cargo_fiscal_type": "",
+					"loading_cargo_type": "",
+					"loading_dangerous": false,
+					"loading_tonnage": 0,
+					"location": {
+						"lon": 44.863,
+						"lat": -0.5472
+					},
+					"name": "Riri",
+					"operation": "unloading",
+					"pixel_etd": 1515267476902,
+					"source": "FR_BAS/vcall",
+					"unloading_agent": "SEAINVEST",
+					"unloading_berth": "dock_1",
+					"unloading_cargo_fiscal_type": "segment_1",
+					"unloading_cargo_type": "ct_2",
+					"unloading_dangerous": false,
+					"unloading_tonnage": 10094
 				},
 				{
-					"name": "reqParams",
-					"type": "string",
-					"description": "request parameters (if any)",
-					"value": "?split=false"
+					"arrival_dock": 1514876400000,
+					"dataProvider": "http://FR_BAS/vcall",
+					"departure_dock": 1515063600000,
+					"IMO": "chargement_simple",
+					"journeyid": 20180002,
+					"loading_agent": "SEAINVEST",
+					"loading_berth": "dock_1",
+					"loading_cargo_fiscal_type": "segment_2 (devrait être 1)",
+					"loading_cargo_type": "ct_1",
+					"loading_dangerous": false,
+					"loading_tonnage": 42457,
+					"location": {
+						"lon": 44.863,
+						"lat": -0.5472
+					},
+					"name": "Fifi",
+					"operation": "loading",
+					"pixel_etd": 1515267476902,
+					"source": "FR_BAS/vcall",
+					"unloading_agent": "",
+					"unloading_berth": "",
+					"unloading_cargo_fiscal_type": "",
+					"unloading_cargo_type": "",
+					"unloading_dangerous": false,
+					"unloading_tonnage": 0
 				},
 				{
-					"name": "index_id",
-					"type": "string",
-					"description": "id of the datasource in the IH repo",
-					"value": "pas_test_input_vesselcalls"
-				},
-				{
-					"name": "start",
-					"type": "datetime (Unix time)",
-					"description": "start of calculation period",
-					"value": 1540000000
-				},
-				{
-					"name": "end",
-					"type": "datetime (Unix Time)",
-					"description": "end of calculation period",
-					"value": 158000000
+					"arrival_dock": 1514962800000,
+					"dataProvider": "http://FR_BAS/vcall",
+					"departure_dock": 1595972548000,
+					"IMO": "chargement_simple",
+					"journeyid": 20180003,
+					"loading_agent": "SEAINVEST",
+					"loading_berth": "dock_2",
+					"loading_cargo_fiscal_type": "segment_1",
+					"loading_cargo_type": "ct_1",
+					"loading_dangerous": false,
+					"loading_tonnage": 45784,
+					"location": {
+						"lon": 44.863,
+						"lat": -0.5472
+					},
+					"name": "Loulou",
+					"operation": "loading",
+					"pixel_etd": 1515267476902,
+					"source": "FR_BAS/vcall",
+					"unloading_agent": "",
+					"unloading_berth": "",
+					"unloading_cargo_fiscal_type": "",
+					"unloading_cargo_type": "",
+					"unloading_dangerous": false,
+					"unloading_tonnage": 0
 				}
 			]
-		}
-	],
-	"forceinput": [
+		},
 		{
-			"name": "contentType",
+			"name": "contentTypes",
 			"type": "PortParameter",
 			"format": "dict_of_documents",
 			"value": {
@@ -455,70 +510,42 @@
 	],
 	"output": [
 		{
-			"name": "atomic_handlings",
-			"category": "IH_export",
-			"type": "output",
-			"format": "collection",
+			"name": "handlings",
+			"type": "result",
+			"format": "unique_document",
+			"required":true,
 			"options": [
 				{
-					"name": "ES_api_url",
-					"type": "string",
-					"description": "URL endpoint",
-					"pattern": "url",
-					"value": "http://elasticsearch:9200"
-				},
-				{
-					"name": "reqParams",
-					"type": "string",
-					"description": "request parameters (if any)",
-					"value": "?split=false"
-				},
-				{
-					"name": "recipientId",
+					"name": "index_id",
 					"type": "string",
 					"description": "id of the datasource in the IH repo",
-					"value": "/pas_test_output_PAS/"
+					"value": "pas_test_output"
+				},
+				{
+					"name": "document_id",
+					"type": "string",
+					"description": "id of the datasource in the IH repo",
+					"value":"handlings"
 				}
 			]
 		},
 		{
-			"name": "PAS_tree",
-			"category": "IH_export",
-			"type": "output",
-			"format": "tree",
+			"name": "logs",
+			"type": "context",
+			"format": "unique_document",
+			"required":true,
 			"options": [
 				{
-					"name": "ES_api_url",
-					"type": "string",
-					"description": "URL endpoint",
-					"pattern": "url",
-					"value": "http://elasticsearch:9200"
-				},
-				{
-					"name": "reqParams",
-					"type": "string",
-					"description": "request parameters (if any)",
-					"value": "?split=false"
-				},
-				{
-					"name": "recipientId",
+					"name": "index_id",
 					"type": "string",
 					"description": "id of the datasource in the IH repo",
-					"value": "/pas_test_output_PAS/"
-				}
-			]
-		},
-		{
-			"name": "internalLog",
-			"category": "IH_export",
-			"type": "output",
-			"format": "tree",
-			"options": [
+					"value": "pas_test_output"
+				},
 				{
-					"name": "export_path",
+					"name": "document_id",
 					"type": "string",
-					"description": "full path for file export",
-					"value": "./OUTPUT/internalLog"
+					"description": "id of the datasource in the IH repo",
+					"value":"logs"
 				}
 			]
 		}
