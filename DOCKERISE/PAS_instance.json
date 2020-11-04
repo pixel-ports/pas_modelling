@@ -3,10 +3,10 @@
 		{
 			"name": "settings",
 			"type": "setting",
-			"format": "tree",
+			"format": "raw_document",
 			"options": [
 				{
-					"name": "url",
+					"name": "ES_api_url",
 					"type": "string",
 					"description": "URL endpoint",
 					"pattern": "url",
@@ -19,7 +19,13 @@
 					"value": "?split=false"
 				},
 				{
-					"name": "index",
+					"name": "index_id",
+					"type": "string",
+					"description": "id of the datasource in the IH repo",
+					"value": "pas_test_input_vesselcalls"
+				},
+				{
+					"name": "document_id",
 					"type": "string",
 					"description": "id of the datasource in the IH repo",
 					"value": "pas_test_input_settings"
@@ -29,11 +35,11 @@
 		{
 			"name": "vesselCalls",
 			"type": "vesselCall",
-			"format": "list",
+			"format": "array_of_documents",
 			"category": "ih-api",
 			"options": [
 				{
-					"name": "url",
+					"name": "ES_api_url",
 					"type": "string",
 					"description": "URL endpoint",
 					"pattern": "url",
@@ -46,16 +52,10 @@
 					"value": "?split=false"
 				},
 				{
-					"name": "index",
+					"name": "index_id",
 					"type": "string",
 					"description": "id of the datasource in the IH repo",
 					"value": "pas_test_input_vesselcalls"
-				},
-				{
-					"name": "query",
-					"type": "string",
-					"description": "ES query parameter (range, match_all...",
-					"value": "{'range': {'data.scheduled_arrival_dock' : {'gte' : 1500000000000,'lte' : 1700000000000}}}"
 				},
 				{
 					"name": "start",
@@ -75,8 +75,8 @@
 	"forceinput": [
 		{
 			"name": "contentType",
-			"type": "PP",
-			"format": "collection",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
 			"value": {
 				"ct_1": {
 					"label": "Some label",
@@ -127,8 +127,8 @@
 		},
 		{
 			"name": "assignments",
-			"type": "PP",
-			"format": "collection",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
 			"value": {
 				"ass_1": {
 					"info": {
@@ -216,8 +216,8 @@
 		},
 		{
 			"name": "supplychains",
-			"type": "PP",
-			"format": "collection",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
 			"value": {
 				"sc_1": {
 					"info": {
@@ -371,8 +371,8 @@
 		},
 		{
 			"name": "resources",
-			"type": "PP",
-			"format": "collection",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
 			"value": {
 				"res_1": {
 					"info": {
@@ -422,8 +422,8 @@
 		},
 		{
 			"name": "energies",
-			"type": "PP",
-			"format": "collection",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
 			"value": {
 				"diesel": {
 					"info": {
@@ -461,7 +461,7 @@
 			"format": "collection",
 			"options": [
 				{
-					"name": "url",
+					"name": "ES_api_url",
 					"type": "string",
 					"description": "URL endpoint",
 					"pattern": "url",
@@ -488,7 +488,7 @@
 			"format": "tree",
 			"options": [
 				{
-					"name": "url",
+					"name": "ES_api_url",
 					"type": "string",
 					"description": "URL endpoint",
 					"pattern": "url",
