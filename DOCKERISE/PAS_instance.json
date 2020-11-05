@@ -1,6 +1,5 @@
 {
-	"input": [
-	],
+	"input": [],
 	"forceinput": [
 		{
 			"name": "settings",
@@ -513,7 +512,7 @@
 			"name": "handlings",
 			"type": "result",
 			"format": "unique_document",
-			"required":true,
+			"required": true,
 			"options": [
 				{
 					"name": "index_id",
@@ -525,7 +524,7 @@
 					"name": "document_id",
 					"type": "string",
 					"description": "id of the datasource in the IH repo",
-					"value":"handlings"
+					"value": "handlings"
 				}
 			]
 		},
@@ -533,7 +532,7 @@
 			"name": "logs",
 			"type": "context",
 			"format": "unique_document",
-			"required":true,
+			"required": true,
 			"options": [
 				{
 					"name": "index_id",
@@ -545,7 +544,7 @@
 					"name": "document_id",
 					"type": "string",
 					"description": "id of the datasource in the IH repo",
-					"value":"logs"
+					"value": "logs"
 				}
 			]
 		}

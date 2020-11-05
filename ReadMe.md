@@ -35,6 +35,6 @@ Those information can be aggregated (e.g. sum, mean etc) or normalized (e.g. qua
 The model can be use by itself (considering it receive a proper PAS_instance) but is mean to be deployed in PIXEL platform. This mean thought a Docker image. To build the image:
 
 ```bash
-docker build -t pas_model .
+docker build -t pas_model -f ./DOCKERISE/Dockerfile .
 docker run pas_model python3 main.py  # --PAS_instance {PAS instance content}
 ```

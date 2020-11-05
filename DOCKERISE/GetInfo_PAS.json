@@ -8,35 +8,6 @@
 	"supportExecAsync": true,
 	"type": "model",
 	"category": "PAS model",
-	"system": {
-		"connectors": [
-			{
-				"type": "ih-api",
-				"description": "this connector provides info of the necessary parameters to be able to request the IH via HTTP",
-				"options": [
-					{
-						"name": "ES_api_url",
-						"type": "string",
-						"description": "",
-						"pattern": "url",
-						"required": true
-					},
-					{
-						"name": "reqParams",
-						"type": "string",
-						"description": "request parameters (if any)",
-						"required": false
-					},
-					{
-						"name": "headers",
-						"type": "headersObject",
-						"description": "necessary headers (if any)",
-						"required": false
-					}
-				]
-			}
-		]
-	},
 	"input": [
 		{
 			"name": "settings",
@@ -219,7 +190,7 @@
 			"name": "handlings",
 			"type": "result",
 			"format": "unique_document",
-			"required":true,
+			"required": true,
 			"options": [
 				{
 					"name": "index_id",
@@ -237,7 +208,7 @@
 			"name": "logs",
 			"type": "context",
 			"format": "unique_document",
-			"required":true,
+			"required": true,
 			"options": [
 				{
 					"name": "index_id",
