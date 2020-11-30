@@ -1,13 +1,41 @@
 {
 	"id": "unknown",
 	"name": "PAS_model",
-	"version": "RC4.0",
+	"version": "RC4.1",
 	"description": "Port Activities Scenario model.",
 	"supportSubscription": false,
 	"supportExecSync": false,
 	"supportExecAsync": true,
 	"type": "model",
 	"category": "PAS model",
+	"system": {
+		"connectors": [
+			{
+				"type": "ih-api",
+				"description": "this connector provides info of the necessary parameters to be able to request the IH via HTTP",
+				"options": [
+					{
+						"name": "url",
+						"type": "string",
+						"description": "",
+						"required": false
+					},
+					{
+						"name": "reqParams",
+						"type": "string",
+						"description": "request parameters (if any)",
+						"required": false
+					},
+					{
+						"name": "headers",
+						"type": "headersObject",
+						"description": "necessary headers (if any)",
+						"required": false
+					}
+				]
+			}
+		]
+	},
 	"input": [
 		{
 			"name": "settings",
@@ -92,7 +120,7 @@
 			"supportedConnectors": [
 				"ih-api"
 			],
-			"description": "Required. List of available supply-chains (sequence of operations) for handling a vessel's content. Used for resources allocation: Supply-chain (1 --> N) Operations",
+			"description": "Required. List of available supply-chains (sequence of operations) for handling a vessel s content. Used for resources allocation: Supply-chain (1 --> N) Operations",
 			"metadata:": {
 				"usage": "optional, future use or extra logic for each model, no specific structure"
 			},
@@ -112,7 +140,7 @@
 			"supportedConnectors": [
 				"ih-api"
 			],
-			"description": "Required. List of available resources (machines, areas etc) for supply-chain's operations. Used by PAS_builder for use calculation (scheduling) and by outcome modules (energy consumption, pollutant emission): Resource (1 --> N) Operations",
+			"description": "Required. List of available resources (machines, areas etc) for supply-chain s operations. Used by PAS_builder for use calculation (scheduling) and by outcome modules (energy consumption, pollutant emission): Resource (1 --> N) Operations",
 			"metadata:": {
 				"usage": "optional, future use or extra logic for each model, no specific structure"
 			},
@@ -172,7 +200,7 @@
 			"supportedConnectors": [
 				"ih-api"
 			],
-			"description": "Optional. Hierarchical sequence of vessel-call attributes defining the handling's priority. Used to resolve resources allocation priority (in case of competition for access to a resource in the same time)",
+			"description": "Optional. Hierarchical sequence of vessel-call attributes defining the handling s priority. Used to resolve resources allocation priority (in case of competition for access to a resource in the same time)",
 			"metadata:": {
 				"usage": "optional, future use or extra logic for each model, no specific structure"
 			},
@@ -183,6 +211,72 @@
 					"description": "id of the datasource in the IH repo"
 				}
 			]
+		}
+	],
+	"forceinput": [
+		{
+			"name": "settings",
+			"type": "settings",
+			"format": "unique_document",
+			"description": "Settings for the PAS_model to produce a PAS. Used for components selection (PAS builder and outcome modules as energy consumption and pollutant emissions) with the corresponding settings",
+			"required": true,
+			"value": {}
+		},
+		{
+			"name": "vesselCalls",
+			"type": "vesselCalls",
+			"format": "array_of_documents",
+			"required": true,
+			"description": "Required. List of vessels stopover in terminal that will require to be handled. Each one is converter to one or more handlings (e.g. if unloading then loading): Vessel-calls (1 --> N) Handlings",
+			"value": {}
+		},
+		{
+			"name": "contentTypes",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
+			"required": true,
+			"description": "Used for handling assignation to a supplychain: Handling (1 --> 1) Supplychain",
+			"value": {}
+		},
+		{
+			"name": "supplychains",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
+			"required": true,
+			"description": "Required. List of available supply-chains (sequence of operations) for handling a vessel s content. Used for resources allocation: Supply-chain (1 --> N) Operations",
+			"value": {}
+		},
+		{
+			"name": "resources",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
+			"required": true,
+			"description": "Required. List of available resources (machines, areas etc) for supply-chain s operations. Used by PAS_builder for use calculation (scheduling) and by outcome modules (energy consumption, pollutant emission): Resource (1 --> N) Operations",
+			"value": {}
+		},
+		{
+			"name": "energies",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
+			"required": true,
+			"description": "#TODO",
+			"value": {}
+		},
+		{
+			"name": "timetables",
+			"type": "PortParameter",
+			"format": "dict_of_documents",
+			"required": false,
+			"description": "Optional. List of available timetables (working days & hours) for resources. Used by PAS_builder for use calculation (scheduling): Timetable (1 --> N) Resources",
+			"value": {}
+		},
+		{
+			"name": "priority_tree",
+			"type": "PortParameter",
+			"format": "unique_document",
+			"required": false,
+			"description": "Optional. Hierarchical sequence of vessel-call attributes defining the handling s priority. Used to resolve resources allocation priority (in case of competition for access to a resource in the same time)",
+			"value": {}
 		}
 	],
 	"output": [
