@@ -29,15 +29,18 @@ def get_IH_input(ih_input:dict)-> dict:
 	if None not in [start_TS, end_TS]:
 		query = {'query': {'range': {'data.scheduled_arrival_dock': {'gte' : start_TS,'lte' : end_TS}}}}
 	#SENT REQUEST #FIXME ajouter gestion des timeout
+	if es_arg["url"] == '':
+		es_arg["url"] = None
+
 	answer_hits = Elasticsearch(es_arg["url"]).search(
-		index= es_arg["index"], 
+		index= es_arg["index_id"], 
 		body= query
-	)#["hits"]["hits"]
+	)["hits"]["hits"]
 	#EXTRACT DATA
-	if ih_input["format"] == "collection":
+	if ih_input["name"] in ["contentTypes", "supplychains", "resources","energies", "timetables"]:
 		ih_input["value"] = {key:value for document in answer_hits for key, value in document["_source"]["data"].items()}
-	elif ih_input["format"] == "tree":
+	elif ih_input["name"] in ["settings", "priority_tree"]:
 		ih_input["value"] = answer_hits[0]["_source"]["data"]#TODO ajouter un catch si plus que 1 items recus
-	elif ih_input["format"] == "list":
+	elif ih_input["name"] == "vesselCalls":
 		ih_input["value"] = [item["_source"]["data"]for item in answer_hits]
 	return ih_input["value"]
