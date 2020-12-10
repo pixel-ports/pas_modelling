@@ -1,69 +1,32 @@
 {
-    "id": "unknown",
-    "name": "PAS_model",
-    "version": "RC4.1",
-    "description": "Port Activities Scenario model.",
     "supportSubscription": false,
     "supportExecSync": false,
     "supportExecAsync": true,
-    "type": "model",
-    "category": "PAS model",
     "system": {
         "connectors": [
             {
                 "type": "ih-api",
-                "description": "this connector provides info of the necessary parameters to be able to request the IH via HTTP",
+                "description": "This connector provides info of the necessary parameters to be able to request the IH via HTTP",
                 "options": [
-                    {
-                        "name": "url",
-                        "type": "string",
-                        "description": "ElasticSearch url",
-                        "required": false,
-                        "value": null
-                    },
-                    {
-                        "name": "reqParams",
-                        "type": "string",
-                        "description": "request parameters (if any)",
-                        "required": false,
-                        "value": null
-                    },
-                    {
-                        "name": "headers",
-                        "type": "headersObject",
-                        "description": "necessary headers (if any)",
-                        "required": false,
-                        "value": null
-                    },
                     {
                         "name": "index_id",
                         "type": "string",
-                        "description": "Targeted index ID in ElasticSearch",
+                        "description": "Use this index ID in ElasticSearch (instead of default)",
                         "value": null
-                    },
-                    {
-                        "name": "document_id",
-                        "type": "string",
-                        "description": "Targeted document ID in ElasticSearch",
-                        "value": null
-                    },
-                    {
-                        "name": "only_doc_id",
-                        "type": "array",
-                        "description": "use only those doc ID",
-                        "value": []
-                    },
-                    {
-                        "name": "exclude_doc_id",
-                        "type": "array",
-                        "description": "do not use those doc ID",
-                        "value": []
                     }
                 ]
             }
         ]
     },
+    
     "input": [
+        {"meta": {
+            "getInfo_version": "RC4.1.1",
+            "Elastic serveur url": null,
+            "use_default_indexes": true,
+            "default_input_index_prefix": "pas_test_input_",
+            "default_output_index_prefix": "pas_test_output_"
+        }},
         {
             "name": "settings",
             "type": "settings",
@@ -74,17 +37,24 @@
             "metadata:": {
                 "format": "unique_document"
             },
-            "required": true,
-            "options": []
+            "required": false,
+            "options": [
+                {
+                    "name": "doc_id",
+                    "type": "string",
+                    "description": "Use this document ID in ElasticSearch",
+                    "value": null
+                }
+            ]
         },
         {
             "name": "vesselCalls",
             "type": "vesselCalls",
-            "required": true,
+            "required": false,
             "supportedConnectors": [
                 "ih-api"
             ],
-            "description": "Required. List of vessels stopover in terminal that will require to be handled. Each one is converter to one or more handlings (e.g. if unloading then loading): Vessel-calls (1 --> N) Handlings",
+            "description": "List of vessels stopover in terminal that will require to be handled. Each one is converter to one or more handlings (e.g. if unloading then loading): Vessel-calls (1 --> N) Handlings",
             "metadata:": {
                 "format": "array_of_documents"
             },
@@ -92,21 +62,33 @@
                 {
                     "name": "after",
                     "type": "datetime (Unix time)",
-                    "description": "use only vesse-calls with a scheduled arrival on dock after this date",
+                    "description": "Use only vesse-calls with a scheduled arrival on dock after this date",
                     "value": null
                 },
                 {
                     "name": "before",
                     "type": "datetime (Unix Time)",
-                    "description": "use only vesse-calls with a scheduled arrival on dock before this date",
+                    "description": "Use only vesse-calls with a scheduled arrival on dock before this date",
                     "value": null
+                },
+                {
+                    "name": "restricted_doc_ids",
+                    "type": "list",
+                    "description": "Use only those doc ID",
+                    "value": []
+                },
+                {
+                    "name": "excluded_doc_ids",
+                    "type": "list",
+                    "description": "Do not use data from those doc ID",
+                    "value": []
                 }
             ]
         },
         {
             "name": "contentTypes",
             "type": "PortParameter",
-            "required": true,
+            "required": false,
             "supportedConnectors": [
                 "ih-api"
             ],
@@ -114,38 +96,77 @@
             "metadata:": {
                 "format": "dict_of_documents"
             },
-            "options": []
+            "options": [
+                {
+                    "name": "restricted_doc_ids",
+                    "type": "list",
+                    "description": "Use only those doc ID",
+                    "value": []
+                },
+                {
+                    "name": "excluded_doc_ids",
+                    "type": "list",
+                    "description": "Do not use data from those doc ID",
+                    "value": []
+                }
+            ]
         },
         {
             "name": "supplychains",
             "type": "PortParameter",
-            "required": true,
+            "required": false,
             "supportedConnectors": [
                 "ih-api"
             ],
-            "description": "Required. List of available supply-chains (sequence of operations) for handling a vessel s content. Used for resources allocation: Supply-chain (1 --> N) Operations",
+            "description": "List of available supply-chains (sequence of operations) for handling a vessel s content. Used for resources allocation: Supply-chain (1 --> N) Operations",
             "metadata:": {
                 "format": "dict_of_documents"
             },
-            "options": []
+            "options": [
+                {
+                    "name": "restricted_doc_ids",
+                    "type": "list",
+                    "description": "Use only those doc ID",
+                    "value": []
+                },
+                {
+                    "name": "excluded_doc_ids",
+                    "type": "list",
+                    "description": "Do not use data from those doc ID",
+                    "value": []
+                }
+            ]
         },
         {
             "name": "resources",
             "type": "PortParameter",
-            "required": true,
+            "required": false,
             "supportedConnectors": [
                 "ih-api"
             ],
-            "description": "Required. List of available resources (machines, areas etc) for supply-chain s operations. Used by PAS_builder for use calculation (scheduling) and by outcome modules (energy consumption, pollutant emission): Resource (1 --> N) Operations",
+            "description": "List of available resources (machines, areas etc) for supply-chain s operations. Used by PAS_builder for use calculation (scheduling) and by outcome modules (energy consumption, pollutant emission): Resource (1 --> N) Operations",
             "metadata:": {
                 "format": "dict_of_documents"
             },
-            "options": []
+            "options": [
+                {
+                    "name": "restricted_doc_ids",
+                    "type": "list",
+                    "description": "Use only those doc ID",
+                    "value": []
+                },
+                {
+                    "name": "excluded_doc_ids",
+                    "type": "list",
+                    "description": "Do not use data from those doc ID",
+                    "value": []
+                }
+            ]
         },
         {
             "name": "energies",
             "type": "PortParameter",
-            "required": true,
+            "required": false,
             "supportedConnectors": [
                 "ih-api"
             ],
@@ -153,7 +174,20 @@
             "metadata:": {
                 "format": "dict_of_documents"
             },
-            "options": []
+            "options": [
+                {
+                    "name": "restricted_doc_ids",
+                    "type": "list",
+                    "description": "Use only those doc ID",
+                    "value": []
+                },
+                {
+                    "name": "excluded_doc_ids",
+                    "type": "list",
+                    "description": "Do not use data from those doc ID",
+                    "value": []
+                }
+            ]
         },
         {
             "name": "timetables",
@@ -166,7 +200,20 @@
             "metadata:": {
                 "format": "dict_of_documents"
             },
-            "options": []
+            "options": [
+                {
+                    "name": "restricted_doc_ids",
+                    "type": "list",
+                    "description": "Use only those doc ID",
+                    "value": []
+                },
+                {
+                    "name": "excluded_doc_ids",
+                    "type": "list",
+                    "description": "Do not use data from those doc ID",
+                    "value": []
+                }
+            ]
         },
         {
             "name": "priority_tree",
@@ -175,11 +222,18 @@
             "supportedConnectors": [
                 "ih-api"
             ],
-            "description": "Optional. Hierarchical sequence of vessel-call attributes defining the handling s priority. Used to resolve resources allocation priority (in case of competition for access to a resource in the same time)",
+            "description": "Hierarchical sequence of vessel-call attributes defining the handling s priority. Used to resolve resources allocation priority (in case of competition for access to a resource in the same time)",
             "metadata:": {
                 "format": "unique_document"
             },
-            "options": []
+            "options": [
+                {
+                    "name": "doc_id",
+                    "type": "string",
+                    "description": "Use this document ID in ElasticSearch",
+                    "value": null
+                }
+            ]
         }
     ],
     "forceinput": [
@@ -196,7 +250,7 @@
             "type": "vesselCalls",
             "format": "array_of_documents",
             "required": false,
-            "description": "Required. List of vessels stopover in terminal that will require to be handled. Each one is converter to one or more handlings (e.g. if unloading then loading): Vessel-calls (1 --> N) Handlings",
+            "description": "List of vessels stopover in terminal that will require to be handled. Each one is converter to one or more handlings (e.g. if unloading then loading): Vessel-calls (1 --> N) Handlings",
             "value": {}
         },
         {
@@ -212,7 +266,7 @@
             "type": "PortParameter",
             "format": "dict_of_documents",
             "required": false,
-            "description": "Required. List of available supply-chains (sequence of operations) for handling a vessel s content. Used for resources allocation: Supply-chain (1 --> N) Operations",
+            "description": "List of available supply-chains (sequence of operations) for handling a vessel s content. Used for resources allocation: Supply-chain (1 --> N) Operations",
             "value": {}
         },
         {
@@ -220,7 +274,7 @@
             "type": "PortParameter",
             "format": "dict_of_documents",
             "required": false,
-            "description": "Required. List of available resources (machines, areas etc) for supply-chain s operations. Used by PAS_builder for use calculation (scheduling) and by outcome modules (energy consumption, pollutant emission): Resource (1 --> N) Operations",
+            "description": "List of available resources (machines, areas etc) for supply-chain s operations. Used by PAS_builder for use calculation (scheduling) and by outcome modules (energy consumption, pollutant emission): Resource (1 --> N) Operations",
             "value": {}
         },
         {
@@ -236,7 +290,7 @@
             "type": "PortParameter",
             "format": "dict_of_documents",
             "required": false,
-            "description": "Optional. List of available timetables (working days & hours) for resources. Used by PAS_builder for use calculation (scheduling): Timetable (1 --> N) Resources",
+            "description": "List of available timetables (working days & hours) for resources. Used by PAS_builder for use calculation (scheduling): Timetable (1 --> N) Resources",
             "value": {}
         },
         {
@@ -244,7 +298,7 @@
             "type": "PortParameter",
             "format": "unique_document",
             "required": false,
-            "description": "Optional. Hierarchical sequence of vessel-call attributes defining the handling s priority. Used to resolve resources allocation priority (in case of competition for access to a resource in the same time)",
+            "description": "Hierarchical sequence of vessel-call attributes defining the handling s priority. Used to resolve resources allocation priority (in case of competition for access to a resource in the same time)",
             "value": {}
         }
     ],
@@ -254,21 +308,17 @@
             "type": "output",
             "format": "unique_document",
             "required": false,
-            "options": []
-        },
-        {
-            "name": "handlings",
-            "type": "output",
-            "format": "unique_document",
-            "required": false,
-            "options": []
-        },
-        {
-            "name": "logs",
-            "type": "output",
-            "format": "unique_document",
-            "required": false,
-            "options": []
+            "supportedConnectors": [
+                "ih-api"
+            ],
+            "options": [
+                {
+                    "name": "doc_id",
+                    "type": "string",
+                    "description": "Use this document ID in ElasticSearch",
+                    "value": null
+                }
+            ]
         }
     ]
 }
