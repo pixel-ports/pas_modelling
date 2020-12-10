@@ -509,8 +509,8 @@
 	],
 	"output": [
 		{
-			"name": "handlings",
-			"type": "result",
+			"name": "full_output",
+			"type": "output",
 			"format": "unique_document",
 			"required": true,
 			"options": [
@@ -524,27 +524,7 @@
 					"name": "document_id",
 					"type": "string",
 					"description": "id of the datasource in the IH repo",
-					"value": "handlings"
-				}
-			]
-		},
-		{
-			"name": "logs",
-			"type": "context",
-			"format": "unique_document",
-			"required": true,
-			"options": [
-				{
-					"name": "index_id",
-					"type": "string",
-					"description": "id of the datasource in the IH repo",
-					"value": "pas_test_output"
-				},
-				{
-					"name": "document_id",
-					"type": "string",
-					"description": "id of the datasource in the IH repo",
-					"value": "logs"
+					"value": "PAS_output"
 				}
 			]
 		}
