@@ -42,7 +42,7 @@ def get_energies_consumptions(activity: dict, res:dict)-> tuple:
 		for energy, consumption in res["consumptions"].items():
 			data.update({energy:{
 				"amount": consumption["value"] * (activity['duration'].total_seconds() / (60*60)),
-				"unit": consumption["unit"]
+				"unit": consumption["unit"][:-2]
 			}})
 		success = True
 	except Exception as error:
