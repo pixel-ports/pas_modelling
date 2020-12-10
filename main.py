@@ -49,7 +49,7 @@ def main(PAS_instance:dict, local_export:bool, display_logs:bool) :
 			'logs': LOGS,
 			"handlings": HANDLINGS
 		}
-		with open("./OUTPUTS/PAS_global_output.json", 'w') as file:
+		with open("./OUTPUTS/PAS_output.json", 'w') as file:
 			json.dump(export, file, indent=4, default=str)
 
 		# if abording:
