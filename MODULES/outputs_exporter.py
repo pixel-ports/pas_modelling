@@ -13,7 +13,7 @@ def main(export_infos=None, LOGS=None, HANDLINGS=None, ):
 		"logs":LOGS
 	}
 	for export in export_infos: 
-		success, data = put_IH(outputs[export["name"]], export)
+		success, data = put_IH(outputs, export)
 		LOGS.append(data)
 	return LOGS
 #================================================================
