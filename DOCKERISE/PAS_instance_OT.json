@@ -1,0 +1,238 @@
+{
+  "id": "5fd75b9315f76f000678891c",
+  "idRef": "5fd35b8015f76f000678891a",
+  "name": "test",
+  "description": "4.1.3 avec indexes",
+  "mode": "ExecAsync",
+  "user": null,
+  "input": [
+
+    {
+      "name": "PAS_settings",
+      "category": "ih-api",
+      "type": "settings",
+      "description": "Settings for the PAS_model to produce a PAS. Used for components selection (PAS builder and outcome modules as energy consumption and pollutant emissions) with the corresponding settings",
+      "metadata": {
+        "usage": "optional, future use or extra logic for each model, no specific structure"
+      },
+      "options": [
+        {
+          "name": "index_id",
+          "type": "string",
+          "description": "Use this index ID in ElasticSearch (instead of default)",
+          "value": "pas_test_inputs_settings"
+        },
+        {
+          "name": "doc_id",
+          "type": "string",
+          "description": "Use this document ID in ElasticSearch (instead of default)",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "name": "vesselCalls",
+      "category": "ih-api",
+      "type": "vesselCalls",
+      "description": "List of vessels stopover in terminal that will require to be handled. Each one is converter to one or more handlings (e.g. if unloading then loading): Vessel-calls (1 --> N) Handlings",
+      "metadata": {
+        "usage": "optional, future use or extra logic for each model, no specific structure"
+      },
+      "options": [
+        {
+          "name": "after",
+          "type": "datetime (Unix time)",
+          "description": "Use only vesse-calls with a scheduled arrival on dock after this date",
+          "value": 0
+        },
+        {
+          "name": "before",
+          "type": "datetime (Unix Time)",
+          "description": "Use only vesse-calls with a scheduled arrival on dock before this date",
+          "value": 0
+        },
+        {
+          "name": "index_id",
+          "type": "string",
+          "description": "Use this index ID in ElasticSearch (instead of default)",
+          "value": "pas_test_inputs_vesselcalls"
+        },
+        {
+          "name": "doc_id",
+          "type": "string",
+          "description": "Use this document ID in ElasticSearch (instead of default)",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "name": "contentTypes",
+      "category": "ih-api",
+      "type": "PortParameter",
+      "description": "Used for handling assignation to a supplychain: Handling (1 --> 1) Supplychain",
+      "metadata": {
+        "usage": "optional, future use or extra logic for each model, no specific structure"
+      },
+      "options": [
+        {
+          "name": "index_id",
+          "type": "string",
+          "description": "Use this index ID in ElasticSearch (instead of default)",
+          "value": "pas_test_inputs_contenttypes"
+        },
+        {
+          "name": "doc_id",
+          "type": "string",
+          "description": "Use this document ID in ElasticSearch (instead of default)",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "name": "supplychains",
+      "category": "ih-api",
+      "type": "PortParameter",
+      "description": "List of available supply-chains (sequence of operations) for handling a vessel s content. Used for resources allocation: Supply-chain (1 --> N) Operations",
+      "metadata": {
+        "usage": "optional, future use or extra logic for each model, no specific structure"
+      },
+      "options": [
+        {
+          "name": "index_id",
+          "type": "string",
+          "description": "Use this index ID in ElasticSearch (instead of default)",
+          "value": "pas_test_inputs_supplychains"
+        },
+        {
+          "name": "doc_id",
+          "type": "string",
+          "description": "Use this document ID in ElasticSearch (instead of default)",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "name": "resources",
+      "category": "ih-api",
+      "type": "PortParameter",
+      "description": "List of available resources (machines, areas etc) for supply-chain s operations. Used by PAS_builder for use calculation (scheduling) and by outcome modules (energy consumption, pollutant emission): Resource (1 --> N) Operations",
+      "metadata": {
+        "usage": "optional, future use or extra logic for each model, no specific structure"
+      },
+      "options": [
+        {
+          "name": "index_id",
+          "type": "string",
+          "description": "Use this index ID in ElasticSearch (instead of default)",
+          "value": "pas_test_inputs_resources"
+        },
+        {
+          "name": "doc_id",
+          "type": "string",
+          "description": "Use this document ID in ElasticSearch (instead of default)",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "name": "energies",
+      "category": "ih-api",
+      "type": "PortParameter",
+      "description": "#TODO",
+      "metadata": {
+        "usage": "optional, future use or extra logic for each model, no specific structure"
+      },
+      "options": [
+        {
+          "name": "index_id",
+          "type": "string",
+          "description": "Use this index ID in ElasticSearch (instead of default)",
+          "value": "pas_test_inputs_energies"
+        },
+        {
+          "name": "doc_id",
+          "type": "string",
+          "description": "Use this document ID in ElasticSearch (instead of default)",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "name": "timetables",
+      "category": "ih-api",
+      "type": "PortParameter",
+      "description": "List of available timetables (working days & hours) for resources. Used by PAS_builder for use calculation (scheduling): Timetable (1 --> N) Resources",
+      "metadata": {
+        "usage": "optional, future use or extra logic for each model, no specific structure"
+      },
+      "options": [
+        {
+          "name": "index_id",
+          "type": "string",
+          "description": "Use this index ID in ElasticSearch (instead of default)",
+          "value": ""
+        },
+        {
+          "name": "doc_id",
+          "type": "string",
+          "description": "Use this document ID in ElasticSearch (instead of default)",
+          "value": ""
+        }
+      ]
+    },
+    {
+      "name": "priority_tree",
+      "category": "ih-api",
+      "type": "PortParameter",
+      "description": "Hierarchical sequence of vessel-call attributes defining the handling s priority. Used to resolve resources allocation priority (in case of competition for access to a resource in the same time)",
+      "metadata": {
+        "usage": "optional, future use or extra logic for each model, no specific structure"
+      },
+      "options": [
+        {
+          "name": "index_id",
+          "type": "string",
+          "description": "Use this index ID in ElasticSearch (instead of default)",
+          "value": ""
+        },
+        {
+          "name": "doc_id",
+          "type": "string",
+          "description": "Use this document ID in ElasticSearch (instead of default)",
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "forceinput": [],
+  "output": [
+    {
+      "name": "full_output",
+      "category": "ih-api",
+      "type": "output",
+      "description": null,
+      "metadata": {
+        "usage": "optional, future use or extra logic for each model, no specific structure"
+      },
+      "options": [
+        {
+          "name": "index_id",
+          "type": "string",
+          "description": "Use this index ID in ElasticSearch (instead of default)",
+          "value": "pas_test_output"
+        },
+        {
+          "name": "doc_id",
+          "type": "string",
+          "description": "Use this document ID in ElasticSearch (instead of default)",
+          "value": ""
+        }
+      ]
+    }
+  ],
+  "logging": [],
+  "creation": 1607949203191,
+  "start": 0,
+  "otStatus": "created",
+  "dockerId": ""
+}

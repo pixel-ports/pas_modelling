@@ -1,4 +1,9 @@
 {
+    "name": "PAS_model",
+    "version": "4.1.3",
+    "description": "Port Activities Scenario model.",
+    "type": "model",
+    "category": "energy",
     "supportSubscription": false,
     "supportExecSync": false,
     "supportExecAsync": true,
@@ -13,22 +18,45 @@
                         "type": "string",
                         "description": "Use this index ID in ElasticSearch (instead of default)",
                         "value": null
+                    },
+                    {
+                        "name": "doc_id",
+                        "type": "string",
+                        "description": "Use this document ID in ElasticSearch (instead of default)",
+                        "value": null
                     }
                 ]
             }
         ]
     },
-    
     "input": [
-        {"meta": {
-            "getInfo_version": "RC4.1.1",
-            "Elastic serveur url": null,
-            "use_default_indexes": true,
-            "default_input_index_prefix": "pas_test_input_",
-            "default_output_index_prefix": "pas_test_output_"
-        }},
         {
-            "name": "settings",
+            "name": "IH_settings",
+            "type": "settings",
+            "supportedConnectors": [],
+            "description": "Settings for data retrieving in Information Hub",
+            "required": false,
+            "options": [
+                {
+                    "name": "elastic_serveur_url",
+                    "type": "string",
+                    "value": null
+                },
+                {
+                    "name": "default_input_index_prefix",
+                    "type": "string",
+                    "value": "pas_test_input_"
+                },
+                {
+                    "name": "default_output_index_prefix",
+                    "type": "string",
+                    "description": "Use this index ID in ElasticSearch (instead of default)",
+                    "value": "pas_test_output_"
+                }
+            ]
+        },
+        {
+            "name": "PAS_settings",
             "type": "settings",
             "supportedConnectors": [
                 "ih-api"
@@ -38,14 +66,7 @@
                 "format": "unique_document"
             },
             "required": false,
-            "options": [
-                {
-                    "name": "doc_id",
-                    "type": "string",
-                    "description": "Use this document ID in ElasticSearch",
-                    "value": null
-                }
-            ]
+            "options": []
         },
         {
             "name": "vesselCalls",
@@ -70,18 +91,6 @@
                     "type": "datetime (Unix Time)",
                     "description": "Use only vesse-calls with a scheduled arrival on dock before this date",
                     "value": null
-                },
-                {
-                    "name": "restricted_doc_ids",
-                    "type": "list",
-                    "description": "Use only those doc ID",
-                    "value": []
-                },
-                {
-                    "name": "excluded_doc_ids",
-                    "type": "list",
-                    "description": "Do not use data from those doc ID",
-                    "value": []
                 }
             ]
         },
@@ -96,20 +105,7 @@
             "metadata:": {
                 "format": "dict_of_documents"
             },
-            "options": [
-                {
-                    "name": "restricted_doc_ids",
-                    "type": "list",
-                    "description": "Use only those doc ID",
-                    "value": []
-                },
-                {
-                    "name": "excluded_doc_ids",
-                    "type": "list",
-                    "description": "Do not use data from those doc ID",
-                    "value": []
-                }
-            ]
+            "options": []
         },
         {
             "name": "supplychains",
@@ -122,20 +118,7 @@
             "metadata:": {
                 "format": "dict_of_documents"
             },
-            "options": [
-                {
-                    "name": "restricted_doc_ids",
-                    "type": "list",
-                    "description": "Use only those doc ID",
-                    "value": []
-                },
-                {
-                    "name": "excluded_doc_ids",
-                    "type": "list",
-                    "description": "Do not use data from those doc ID",
-                    "value": []
-                }
-            ]
+            "options": []
         },
         {
             "name": "resources",
@@ -148,20 +131,7 @@
             "metadata:": {
                 "format": "dict_of_documents"
             },
-            "options": [
-                {
-                    "name": "restricted_doc_ids",
-                    "type": "list",
-                    "description": "Use only those doc ID",
-                    "value": []
-                },
-                {
-                    "name": "excluded_doc_ids",
-                    "type": "list",
-                    "description": "Do not use data from those doc ID",
-                    "value": []
-                }
-            ]
+            "options": []
         },
         {
             "name": "energies",
@@ -174,20 +144,7 @@
             "metadata:": {
                 "format": "dict_of_documents"
             },
-            "options": [
-                {
-                    "name": "restricted_doc_ids",
-                    "type": "list",
-                    "description": "Use only those doc ID",
-                    "value": []
-                },
-                {
-                    "name": "excluded_doc_ids",
-                    "type": "list",
-                    "description": "Do not use data from those doc ID",
-                    "value": []
-                }
-            ]
+            "options": []
         },
         {
             "name": "timetables",
@@ -200,20 +157,7 @@
             "metadata:": {
                 "format": "dict_of_documents"
             },
-            "options": [
-                {
-                    "name": "restricted_doc_ids",
-                    "type": "list",
-                    "description": "Use only those doc ID",
-                    "value": []
-                },
-                {
-                    "name": "excluded_doc_ids",
-                    "type": "list",
-                    "description": "Do not use data from those doc ID",
-                    "value": []
-                }
-            ]
+            "options": []
         },
         {
             "name": "priority_tree",
@@ -226,19 +170,12 @@
             "metadata:": {
                 "format": "unique_document"
             },
-            "options": [
-                {
-                    "name": "doc_id",
-                    "type": "string",
-                    "description": "Use this document ID in ElasticSearch",
-                    "value": null
-                }
-            ]
+            "options": []
         }
     ],
     "forceinput": [
         {
-            "name": "settings",
+            "name": "PAS_settings",
             "type": "settings",
             "format": "unique_document",
             "description": "Settings for the PAS_model to produce a PAS. Used for components selection (PAS builder and outcome modules as energy consumption and pollutant emissions) with the corresponding settings",
@@ -311,14 +248,10 @@
             "supportedConnectors": [
                 "ih-api"
             ],
-            "options": [
-                {
-                    "name": "doc_id",
-                    "type": "string",
-                    "description": "Use this document ID in ElasticSearch",
-                    "value": null
-                }
-            ]
+            "metadata:": {
+                "format": "unique_document"
+            },
+            "options": []
         }
     ]
 }
