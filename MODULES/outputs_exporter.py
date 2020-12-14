@@ -1,42 +1,48 @@
 import json
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
+import datetime
 
 
-def main(export_infos=None, LOGS=None, HANDLINGS=None, ):
+def main(export_settings=None, LOGS=None, HANDLINGS=None):
 	'''
 	'''
 	LOGS.append(f"==== Outputs exporter ====")
-	outputs = {
+	output = {
 		"handlings":HANDLINGS,
 		#"PAS_tree":convert_to_tree(HANDLINGS),#FIXME
 		"logs":LOGS
 	}
-	for export in export_infos: 
-		success, data = put_IH(outputs, export)
+	for export in export_settings:
+		success, data = put_IH(output, export)
 		LOGS.append(data)
 	return LOGS
 #================================================================
 def put_IH(output_value, export): #TODO ajouter retour requet TODO vérifier format TS
 	success = None
 	data = None
+	export.update({option["name"]:option["value"] for option in export["options"]})
+	document = {
+        "info":{
+            "ID": export.get("doc_id", "Unknown"),
+            'nature': "output",
+            'group': export.get("name", "Unknown"),
+            'type': "Logs + handlings",
+            'format': "unique_document",
+            "DM_version": "DMv4.1.3",
+            "creation_TS": datetime.datetime.now().timestamp()
+        },
+        "data":output_value
+    }
 	try:
-		request = {option["name"]:option["value"] for option in export["options"]}
-		output = {
-			"name":export["name"],
-			"type":export["type"],
-			"value":output_value
-		}
-		# if output is not dict:
-			# output = {export["name"]:[output]}
 		Elasticsearch().index(
-            index= request["index_id"], 
-            id= request["document_id"], 
-            body= json.dumps(output, default=str),
+            index= export.get("index_id", None), 
+            id= export.get("doc_id", None), 
+            body= json.dumps(document, default=str),
 			#headers={'Content-Type': 'application/json'}
         )
 		success = True
-		data = f'{export["name"]} exported in index {request["index_id"]}, document {request["document_id"]}'
+		data = f'{export.get("name", "Unamed")} exported in index {export.get("index_id", "Unknow index")}, with document id {export.get("doc_id", "Unknow doc_id")}'
 	except Exception as error:
 		success = False
 		data = error

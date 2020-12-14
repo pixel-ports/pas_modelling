@@ -40,7 +40,7 @@ def main(PAS_instance:dict, local_export:bool, display_logs:bool) :
 	LOGS.append(f"==== ENDING  ====")
 	LOGS.append(f"End of the run. PAS properly generated, {len(HANDLINGS)} were processed end-to-end. See logs for details") #FIXME faux, on peut ne pas récupérer les info (ex: timeout ES)
 	LOGS.append(f"Exporting outputs to Information Hub")
-	LOGS = outputs_exporter.main(export_infos=PAS_instance["output"], LOGS=LOGS, HANDLINGS=HANDLINGS)
+	LOGS = outputs_exporter.main(export_settings=PAS_instance["output"], LOGS=LOGS, HANDLINGS=HANDLINGS)
 	if display_logs:
 		for item in LOGS:
 			print(item)
@@ -60,7 +60,7 @@ def main(PAS_instance:dict, local_export:bool, display_logs:bool) :
 if __name__ == "__main__" :
 	parser = argparse.ArgumentParser(description="Process executable options.")
 	#Lecture du fichier local comme valeur par défaut
-	path ="./DOCKERISE/PAS_instance.json"
+	path ="./DOCKERISE/PAS_instance_OT.json"
 	with open(path) as file :
 		local_PAS_instance = json.dumps(json.load(file))
 	parser.add_argument(
