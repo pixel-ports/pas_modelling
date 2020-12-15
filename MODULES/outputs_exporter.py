@@ -22,9 +22,15 @@ def put_IH(output_value, export): #TODO ajouter retour requet TODO vérifier for
 	success = None
 	data = None
 	export.update({option["name"]:option["value"] for option in export["options"]})
+	index_id = export.get("index_id", '')
+	if index_id =='':
+		index_id = "pas_default_output"
+	doc_id = export.get("doc_id", '')
+	if doc_id =='':
+		doc_id = "unamed"
 	document = {
         "info":{
-            "ID": export.get("doc_id", "Unknown"),
+            "ID": doc_id,
             'nature': "output",
             'group': export.get("name", "Unknown"),
             'type': "Logs + handlings",
@@ -36,13 +42,13 @@ def put_IH(output_value, export): #TODO ajouter retour requet TODO vérifier for
     }
 	try:
 		Elasticsearch().index(
-            index= export.get("index_id", None), 
-            id= export.get("doc_id", None), 
+            index= index_id, 
+            id= doc_id, 
             body= json.dumps(document, default=str),
 			#headers={'Content-Type': 'application/json'}
         )
 		success = True
-		data = f'{export.get("name", "Unamed")} exported in index {export.get("index_id", "Unknow index")}, with document id {export.get("doc_id", "Unknow doc_id")}'
+		data = f'Output exported in index: {index_id}, as document: {doc_id}'
 	except Exception as error:
 		success = False
 		data = error

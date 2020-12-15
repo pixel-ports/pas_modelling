@@ -15,7 +15,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 	for handling in HANDLINGS :
 	#ASSIGNATION SC PAR CONTENT TYPE
 	#	RETRIVE ASSIGNMENT
-		Candidat_assignments = PORT["contentTypes"].get(handling["content_type"],{}).get('suitable_assignations')
+		Candidat_assignments = PORT["contenttypes"].get(handling["content_type"],{}).get('suitable_assignations')
 		if Candidat_assignments is None: # len(Candidat_assignments) == 0
 			handling['status'] = ('HS', {
 				"type": "Unknown content type",
@@ -25,7 +25,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 		elif len(Candidat_assignments) == 0: #TODO oui c'est différents, mais un peu redondant quand même
 			handling['status'] = ('HS',	{
 				"type": "No assignment candidat",
-				"item": PORT["contentTypes"].get(handling["content_type"],{}).get('suitable_assignations'),
+				"item": PORT["contenttypes"].get(handling["content_type"],{}).get('suitable_assignations'),
 				"message": f''
 			})
 	#	TEST ASSIGNMENTS
@@ -52,7 +52,7 @@ def main(HANDLINGS, PORT, LOGS, SETTINGS, module_name) :
 		if SETTINGS["default_SC"]: #FIXME crash si l'option est activée
 			LOGS.append("User settings bypassed, option desactivated")
 			# if len(handling.get("assigned_SC_ID", [])) == 0: 
-			# 	success, data = assign_default_SC(handling, PORT["contentTypes"])#FIXME non implémenté
+			# 	success, data = assign_default_SC(handling, PORT["contenttypes"])#FIXME non implémenté
 			# 	if success:
 			# 		handling["assigned_SC_ID"] = data
 			# 		handling['status'] = ('OK',	{

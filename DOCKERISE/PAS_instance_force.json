@@ -2,7 +2,7 @@
 	"input": [],
 	"forceinput": [
 		{
-			"name": "settings",
+			"name": "pas_settings",
 			"type": "settings",
 			"format": "unique_document",
 			"value": {
@@ -40,8 +40,8 @@
 			}
 		},
 		{
-			"name": "vesselCalls",
-			"type": "vesselCall",
+			"name": "vesselcalls",
+			"type": "vesselcall",
 			"format": "array_of_documents",
 			"value": [
 				{
@@ -128,7 +128,7 @@
 			]
 		},
 		{
-			"name": "contentTypes",
+			"name": "contenttypes",
 			"type": "PortParameter",
 			"format": "dict_of_documents",
 			"value": {
