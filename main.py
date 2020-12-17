@@ -20,14 +20,19 @@ def main(PAS_instance:dict, local_export:bool, display_logs:bool) :
 			path ="./DOCKERISE/PAS_instance_OT.json"
 			with open(path) as file :
 				PAS_instance = json.load(file)
+			log_message = f"from local file {path}"
 		else:
-			PAS_instance = json.loads(PAS_instance) 
-		log_status = "success" 
+			PAS_instance = json.loads(PAS_instance)
+		if isinstance(PAS_instance, dict):
+			log_status = "success"
+			log_message = f"from given argument"
+		else:
+			log_status = "failed"
+			log_message = f"given PAS instance is not a dictionary"
 	except Exception as error:
 		log_status = "failed"
 		log_message = error
-	LOGS.append(f"Loading current PAS instance: {log_status} (message: {log_message})")
-	LOGS.append({"PAS instance content": PAS_instance})
+	LOGS.append(f"Loading current PAS instance: {log_status} ({log_message})")
 	SETTINGS, HANDLINGS, PORT, LOGS = inputs_loader.main(PAS_instance, LOGS)
  
 	# MODULES SEQUENCE APPLICATION TO PAS
@@ -45,21 +50,10 @@ def main(PAS_instance:dict, local_export:bool, display_logs:bool) :
 	#CLOSSING
 	LOGS.append(f"==== ENDING  ====")
 	LOGS.append(f"End of the run. PAS properly generated, {len(HANDLINGS)} were processed end-to-end. See logs for details") #FIXME faux, on peut ne pas récupérer les info (ex: timeout ES)
-	LOGS.append(f"Exporting outputs to Information Hub")
-	LOGS = outputs_exporter.main(export_settings=PAS_instance["output"], LOGS=LOGS, HANDLINGS=HANDLINGS)
+	LOGS = outputs_exporter.main(PAS_instance=PAS_instance, LOGS=LOGS, HANDLINGS=HANDLINGS, local_export=local_export)
 	if display_logs:
 		for item in LOGS:
 			print(item)
-	if local_export:
-		export = {
-			'logs': LOGS,
-			"handlings": HANDLINGS
-		}
-		with open("./OUTPUTS/PAS_output.json", 'w') as file:
-			json.dump(export, file, indent=4, default=str)
-
-		# if abording:
-		# 	sys.exit(1)
 	sys.exit(0)
 #=========================================================================
 # SHELL

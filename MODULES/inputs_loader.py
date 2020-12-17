@@ -19,10 +19,11 @@ def main(PAS_instance, LOGS):
 	for forced_input in PAS_instance.get('forceinput', []): #On le place en second car forceinput est prioritaire (doit écraser en cas de doublon)
 		inputs.update({forced_input["name"]:forced_input})
 	#DISPATCH INPUTS
-	SETTINGS = inputs.pop("pas_settings")#FIXME remplacer par un get (et donc filtrer pour PORT)
+	SETTINGS = inputs.get("pas_settings", '')#FIXME remplacer par un get (et donc filtrer pour PORT)
 	SETTINGS.update(default_IH_settings)
-	HANDLINGS = inputs.pop("vesselcalls")
-	PORT = inputs
+	HANDLINGS = inputs.get("vesselcalls", '')
+	port_parameters = ["contenttypes", "supplychains", "resources", "energies", "timetables", "priority"]
+	PORT = {item:inputs.get(item) for item in port_parameters}
 	#ENDING
 	return SETTINGS, HANDLINGS, PORT, LOGS 
 #========================================================================= 
