@@ -1,16 +1,13 @@
 import json
-from elasticsearch import Elasticsearch, RequestError
+from elasticsearch import Elasticsearch
 
 
 def main(PAS_instance, LOGS):
-	LOGS = ["==== Load inputs ===="]
+	LOGS.append("==== Load inputs ====")
 	#COLLECT INPUTS
 
 	default_IH_settings = {option["name"]:option["value"] for item in PAS_instance['input'] for option in item["options"] if item["name"]=="ih_settings"}
-	
-	for item in PAS_instance['input']:
-		if item["name"]=="ih_settings":
-			default_IH_settings = {option["name"]:option["value"] for option in item["options"]}
+
 	inputs = {}
 	for ih_target in PAS_instance.get('input', []):
 		if ih_target["name"] != "ih_settings":
@@ -22,7 +19,7 @@ def main(PAS_instance, LOGS):
 	for forced_input in PAS_instance.get('forceinput', []): #On le place en second car forceinput est prioritaire (doit écraser en cas de doublon)
 		inputs.update({forced_input["name"]:forced_input})
 	#DISPATCH INPUTS
-	SETTINGS = inputs.pop("pas_settings")
+	SETTINGS = inputs.pop("pas_settings")#FIXME remplacer par un get (et donc filtrer pour PORT)
 	SETTINGS.update(default_IH_settings)
 	HANDLINGS = inputs.pop("vesselcalls")
 	PORT = inputs

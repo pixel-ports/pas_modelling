@@ -16,12 +16,18 @@ def main(PAS_instance:dict, local_export:bool, display_logs:bool) :
 	LOGS = ["==== PAS modeling started  ===="]  #Array pr fils chronologique FIXME repartir sur le dict, avec text par module, mais aussi un champs "discarted handlings" etc
 	log_message = None
 	try:
-		PAS_instance = json.loads(PAS_instance) 
+		if PAS_instance == "local":
+			path ="./DOCKERISE/PAS_instance_OT.json"
+			with open(path) as file :
+				PAS_instance = json.load(file)
+		else:
+			PAS_instance = json.loads(PAS_instance) 
 		log_status = "success" 
 	except Exception as error:
 		log_status = "failed"
 		log_message = error
-	LOGS.append(f"Loading current PAS instance: {log_status} (message: {log_message})")	
+	LOGS.append(f"Loading current PAS instance: {log_status} (message: {log_message})")
+	LOGS.append({"PAS instance content": PAS_instance})
 	SETTINGS, HANDLINGS, PORT, LOGS = inputs_loader.main(PAS_instance, LOGS)
  
 	# MODULES SEQUENCE APPLICATION TO PAS
@@ -60,23 +66,25 @@ def main(PAS_instance:dict, local_export:bool, display_logs:bool) :
 if __name__ == "__main__" :
 	parser = argparse.ArgumentParser(description="Process executable options.")
 	#Lecture du fichier local comme valeur par défaut
-	path ="./DOCKERISE/PAS_instance_OT.json"
-	with open(path) as file :
-		local_PAS_instance = json.dumps(json.load(file))
+	
 	parser.add_argument(
-		"--PAS_instance",
+		"PAS_instance",
+		type=str,
 		nargs='?', 
-		default= local_PAS_instance,
+		default= "local",
 		help="Transmited argument from Operational Tools when calling PAS modelling"
 	)
+	
 	parser.add_argument(
 		"--local_export",
+		type = bool,
 		nargs='?', 
 		default= False,
 		help="Export outputs as json files in ./OUTPUTS"
 	)
 	parser.add_argument(
 		"--display_logs",
+		type = bool,
 		nargs='?', 
 		default= False,
 		help="Display PAS model logs in consol"
