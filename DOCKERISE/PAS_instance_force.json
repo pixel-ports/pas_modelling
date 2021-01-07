@@ -445,6 +445,9 @@
 					"owner": "",
 					"terminal": "",
 					"timetable_ID": "tim_1",
+					"operators":{
+						
+					},
 					"throughput": {
 						"default": {
 							"Value": 1000,

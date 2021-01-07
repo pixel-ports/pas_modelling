@@ -22,10 +22,10 @@ def main(PAS_instance:dict, local_export:bool, display_logs:bool) :
 				PAS_instance = json.load(file)
 			log_message = f"from local file {path}"
 		else:
-			PAS_instance = json.loads(PAS_instance)
+			PAS_instance = json.loads(PAS_instance) #TODO
+			log_message = f"from given argument"
 		if isinstance(PAS_instance, dict):
 			log_status = "success"
-			log_message = f"from given argument"
 		else:
 			log_status = "failed"
 			log_message = f"given PAS instance is not a dictionary"
