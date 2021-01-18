@@ -1,0 +1,339 @@
+
+{
+    "content_types": [
+        {
+            "identifier": {
+                "ID": "ct1",
+                "labels": "sferzf",
+                "comments": [
+                    {
+                        "type": "ezfrerfr"
+                    },
+                    {
+                        "type": "ezrfrerfr"
+                    }
+                ],
+                "tags": [
+                    {
+                        "type": "ergerg"
+                    }
+                ]
+            },
+            "category": "Solid bulk",
+            "full_or_partial": true,
+            "unit": "tons",
+            "suitable_supplychains": [
+                {
+                    "SC_ID": "sc1"
+                }
+            ]
+        },
+        {
+            "identifier": {
+                "ID": "ct2",
+                "labels": "rvererf",
+                "comments": [
+                    {
+                        "type": "erferfrerf"
+                    },
+                    {
+                        "type": "eferferf"
+                    }
+                ],
+                "tags": [
+                    {
+                        "type": "eferferf"
+                    },
+                    {
+                        "type": "zezerrr"
+                    }
+                ]
+            },
+            "category": "Other",
+            "other_category": "zerzerzefe",
+            "full_or_partial": true,
+            "unit": "m3",
+            "suitable_supplychains": [
+                {
+                    "SC_ID": "sc2",
+                    "restrictions": {
+                        "direction": "loading",
+                        "dock": [
+                            "jkdoj45",
+                            "zmkùdze,"
+                        ],
+                        "amount_min": 24,
+                        "amount_max": 75
+                    }
+                },
+                {
+                    "SC_ID": "sc1",
+                    "restrictions": {
+                        "direction": "unloading"
+                    }
+                }
+            ]
+        }
+    ],
+    "supplychains": [
+        {
+            "identifier": {
+                "ID": "sc1"
+            },
+            "operations": [
+                {
+                    "identifier": {
+                        "ID": "op1"
+                    },
+                    "scheduling": {
+                        "start": {
+                            "nature": "ASAP"
+                        },
+                        "duration": {
+                            "nature": "Amount processed",
+                            "delay": 0,
+                            "absolute_or_relative": "Relative",
+                            "amount": 100
+                        }
+                    },
+                    "ressources_uses": {
+                        "area_ID": "ar1",
+                        "operators": 7,
+                        "machines_IDs": [
+                            "ma1"
+                        ],
+                        "nature": "Parallel"
+                    }
+                }
+            ]
+        },
+        {
+            "identifier": {
+                "ID": "sc2",
+                "labels": "zfzf",
+                "comments": [
+                    {
+                        "type": "zefzef"
+                    },
+                    {
+                        "type": "zefzef"
+                    }
+                ],
+                "tags": [
+                    {
+                        "type": "zfezefze"
+                    }
+                ]
+            },
+            "owner": "zqszdeed",
+            "operations": [
+                {
+                    "identifier": {
+                        "ID": "op1"
+                    },
+                    "scheduling": {
+                        "start": {
+                            "nature": "ASAP"
+                        },
+                        "duration": {
+                            "nature": "Time elapsed",
+                            "delay": 20
+                        }
+                    },
+                    "ressources_uses": {
+                        "area_ID": "ar1",
+                        "operators": 0,
+                        "machines_IDs": [
+                            "ma2"
+                        ],
+                        "nature": "Parallel"
+                    }
+                },
+                {
+                    "identifier": {
+                        "ID": "op2"
+                    },
+                    "scheduling": {
+                        "start": {
+                            "nature": "Dependence on other operations",
+                            "start_or_end": "Start",
+                            "any_or_all": "All",
+                            "op_IDs": [
+                                "op1"
+                            ]
+                        },
+                        "duration": {
+                            "nature": "Dependencies on other operations",
+                            "delay": 0,
+                            "start_or_end": "End",
+                            "any_or_all": "All",
+                            "op_IDs": [
+                                "op1"
+                            ]
+                        }
+                    },
+                    "ressources_uses": {
+                        "area_ID": "ar2",
+                        "operators": 8,
+                        "machines_IDs": [
+                            "ma2"
+                        ],
+                        "nature": "Serie"
+                    }
+                }
+            ]
+        }
+    ],
+    "machines": [
+        {
+            "identifier": {
+                "ID": "ma1",
+                "labels": "Little stacker"
+            },
+            "nb_unit": 6,
+            "timetable_ID": "Standard week",
+            "cost": {
+                "income": 0,
+                "expense": 0
+            },
+            "throughputs": {
+                "default_throughput": {
+                    "value": 100,
+                    "unit": "ton/h"
+                }
+            },
+            "consumptions": [
+                {
+                    "energy_ID": "en1",
+                    "value": 30
+                }
+            ],
+            "emissions": [
+                null
+            ]
+        },
+        {
+            "identifier": {
+                "ID": "ma2",
+                "labels": "refefrer",
+                "comments": [
+                    {
+                        "type": "eferferfr"
+                    },
+                    {
+                        "type": "yujuik"
+                    }
+                ],
+                "tags": [
+                    {
+                        "type": "uikuik"
+                    }
+                ]
+            },
+            "nb_unit": 45,
+            "timetable_ID": "Another time table ID",
+            "cost": {
+                "unit": "$/h",
+                "income": 754,
+                "expense": 229
+            },
+            "throughputs": {
+                "default_throughput": {
+                    "value": 89
+                },
+                "specific_throughputs": [
+                    {
+                        "content_types_IDs": [
+                            "ct1"
+                        ]
+                    },
+                    {
+                        "content_types_IDs": [
+                            "ct2"
+                        ],
+                        "throughput": {
+                            "value": 868
+                        }
+                    }
+                ]
+            },
+            "consumptions": [
+                {
+                    "energy_ID": "en1",
+                    "value": 75
+                }
+            ],
+            "emissions": [
+                {
+                    "pollutant_ID": "po2",
+                    "value": 886
+                },
+                {
+                    "pollutant_ID": "po1",
+                    "value": 7
+                }
+            ]
+        }
+    ],
+    "areas": [
+        {
+            "identifier": {
+                "ID": "ar1",
+                "labels": "Dock XFS"
+            },
+            "timetable_ID": "Standard week",
+            "surface": 20,
+            "indoor_or_outdorr": "Indoor",
+            "capacity": 42
+        }
+    ],
+    "energies": [
+        {
+            "identifier": {
+                "ID": "en1",
+                "labels": "Diesel"
+            },
+            "emission_factors": [
+                {
+                    "polluant_ID": "po1",
+                    "value": 12
+                }
+            ]
+        }
+    ],
+    "pollutants": [
+        {
+            "identifier": {
+                "ID": "po1",
+                "labels": "BTEX"
+            },
+            "unit": "µg/L",
+            "alert_threshold": 47
+        },
+        {
+            "identifier": {
+                "ID": "po2",
+                "labels": "regrg",
+                "comments": [
+                    {
+                        "type": "ferfref"
+                    },
+                    {
+                        "type": "aa"
+                    }
+                ],
+                "tags": [
+                    {
+                        "type": "pmpm"
+                    }
+                ]
+            },
+            "unit": "ng/L",
+            "alert_threshold": 86
+        }
+    ],
+    "timetables": [
+        null
+    ],
+    "priority": {}
+}
