@@ -1,0 +1,61 @@
+{
+    "input": [
+        {
+            "name": "pas_settings",
+            "type": "setting",
+            "options": []
+        },
+        {
+            "name": "vessel_calls",
+            "type": "vessel_call",
+            "options": [{
+                "name": "index_id",
+                "type": "string",
+                "description": "id of the datasource in the IH repo",
+                "value": "arh-lts-vesselcall"
+            }]
+        },
+        
+        {
+            "name": "port_parameters",
+            "type": "port_parameter",
+            "options": [{
+                "name": "index_id",
+                "type": "string",
+                "description": "id of the datasource in the IH repo",
+                "value": "pas_test_default_port_parameter"
+            },
+            {
+                "name": "document_id",
+                "type": "string",
+                "description": "id of the datasource in the IH repo",
+                "value": "port_parameters"
+            }]
+        }
+    ],
+    "forceinput": [
+        
+    ],
+    "output": [
+        {
+            "name": "full_output",
+            "type": "output",
+            "format": "unique_document",
+            "required": true,
+            "options": [
+                {
+                    "name": "index_id",
+                    "type": "string",
+                    "description": "id of the datasource in the IH repo",
+                    "value": "pas_test_output"
+                },
+                {
+                    "name": "document_id",
+                    "type": "string",
+                    "description": "id of the datasource in the IH repo",
+                    "value": "PAS_output"
+                }
+            ]
+        }
+    ]
+}
