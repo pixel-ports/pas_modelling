@@ -1,0 +1,33 @@
+{
+    "pipeline": [
+        "handling_converter",
+        "supplychain_assignation",
+        "operations_planning",
+        "energies_consumptions",
+        "pollutant_emissions"
+    ],
+    "IH_requester": {},
+    "handling_converter": {
+        "filters": {
+            "content_amount": true,
+            "content_type": true,
+            "handling_direction": true,
+            "handling_dock": true,
+            "stopover_ETA": true,
+            "ET_consistency": true
+        }
+    },
+    "supplychain_assignation": {
+        "restrictions": {
+            "direction": true,
+            "dock": true,
+            "amount_min": true,
+            "amount_max": true
+        },
+        "default_SC": false,
+        "discart_unassigned": true
+    },
+    "operations_planning": {},
+    "energies_consumptions": {},
+    "pollutant_emissions": {}
+}

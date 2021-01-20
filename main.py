@@ -17,7 +17,7 @@ def main(PAS_instance:dict, local_export:bool, display_logs:bool) :
 	log_message = None
 	try:
 		if PAS_instance == "local":
-			path ="./DOCKERISE/PAS_instance_OT.json"
+			path ="./DOCKERISE/PAS_instance_unified_PP_IH.json"
 			with open(path) as file :
 				PAS_instance = json.load(file)
 			log_message = f"from local file {path}"
